@@ -10,12 +10,12 @@ const Home: NextPage = () => {
   const randomWord = api.word.getRandomUnlearnedWord.useQuery();
   const markAsLearned = api.word.markAsLearned.useMutation();
   const addWordMutation = api.word.addWord.useMutation();
-  const getWordQuery = api.word.getWord.useQuery(
-    { word: getWordWord },
-    {
-      enabled: false,
-    }
-  );
+  // const getWordQuery = api.word.getWord.useQuery(
+  //   { word: getWordWord },
+  //   {
+  //     enabled: false,
+  //   }
+  // );
 
   function handleClick() {
     if (randomWord.data?.english) {
