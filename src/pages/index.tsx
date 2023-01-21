@@ -1,19 +1,25 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 
 import { api } from "../utils/api";
 import { useState } from "react";
 
 const Home: NextPage = () => {
   const [hasChosen, setHasChosen] = useState(false);
-  const { data, refetch } = api.word.getRandomUnlearnedWord.useQuery();
+  const [getWordWord, setGetWordWord] = useState("");
+  const randomWord = api.word.getRandomUnlearnedWord.useQuery();
   const markAsLearned = api.word.markAsLearned.useMutation();
-  // const getWord = api.word.getWord.useQuery({ word: "" });
+  const addWordMutation = api.word.addWord.useMutation();
+  const getWordQuery = api.word.getWord.useQuery(
+    { word: getWordWord },
+    {
+      enabled: false,
+    }
+  );
 
   function handleClick() {
-    if (data?.english) {
-      markAsLearned.mutate({ word: data?.english });
+    if (randomWord.data?.english) {
+      markAsLearned.mutate({ word: randomWord.data?.english });
       setHasChosen(true);
       setTimeout(() => {
         setHasChosen(false);
@@ -21,6 +27,30 @@ const Home: NextPage = () => {
     } else {
       alert("no word, try refreshing.");
     }
+  }
+
+  function addWord() {
+    const english = prompt("English");
+    const german = prompt("German");
+    const notes = prompt("Notes");
+    const c1business = prompt("C1 Business?");
+    const pw = prompt("Password");
+    addWordMutation.mutate({
+      english: english ?? "",
+      german: german ?? "",
+      notes: notes ?? "",
+      c1business: c1business ?? "",
+      password: pw ?? "",
+    });
+  }
+
+  async function getWord() {
+    setGetWordWord(prompt("Word") ?? "");
+    const res = await getWordQuery.refetch();
+
+    console.log(res.data);
+    if (res.data == null) return alert("no word found");
+    alert(JSON.stringify(res.data));
   }
 
   return (
@@ -38,14 +68,16 @@ const Home: NextPage = () => {
           <h1 className="text-2xl tracking-tight">Your word of the day</h1>
           {!hasChosen ? (
             <div className="my-8 flex-col items-center space-y-2 text-center">
-              {data?.english == null ? (
+              {randomWord.data?.english == null ? (
                 <p className="text-3xl text-red-700">no word available</p>
               ) : (
                 <>
-                  <p className="text-3xl font-bold">{data.english}</p>
-                  <p className="text-xl">{data.german}</p>
-                  <p className="text-xl">{data.notes}</p>
-                  {data.c1business && (
+                  <p className="text-3xl font-bold">
+                    {randomWord.data.english}
+                  </p>
+                  <p className="text-xl">{randomWord.data.german}</p>
+                  <p className="text-xl">{randomWord.data.notes}</p>
+                  {randomWord.data.c1business && (
                     <div className="text-md text-sky-900">#Business</div>
                   )}
                 </>
@@ -70,7 +102,7 @@ const Home: NextPage = () => {
             </div>
           )}
           <div className="flex space-x-4">
-            {data?.english != null && (
+            {randomWord.data?.english != null && (
               <button
                 className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
                 onClick={handleClick}
@@ -81,11 +113,29 @@ const Home: NextPage = () => {
             <button
               className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
               onClick={async () => {
-                await refetch();
+                await randomWord.refetch();
               }}
             >
               Generate
             </button>
+          </div>
+          <div className="flex space-x-4">
+            <button
+              className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
+              onClick={() => {
+                addWord();
+              }}
+            >
+              Add Word
+            </button>
+            {/* <button
+              className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
+              onClick={async () => {
+                await getWord();
+              }}
+            >
+              Get Word
+            </button> */}
           </div>
         </div>
       </main>

@@ -67,4 +67,36 @@ export const wordRouter = createTRPCRouter({
         },
       });
     }),
+  addWord: publicProcedure
+    .input(
+      z.object({
+        english: z.string(),
+        german: z.string(),
+        notes: z.string(),
+        c1business: z.string(),
+        password: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (input.password !== process.env.PASSWORD) {
+        throw new Error("Wrong password");
+      }
+      if (input.english === "" || input.german === "") {
+        throw new Error("Empty fields");
+      }
+      if (input.english.length > 100 || input.german.length > 100) {
+        throw new Error("Too long");
+      }
+      const business = input.c1business === "true";
+
+      return ctx.prisma.word.create({
+        data: {
+          english: input.english,
+          german: input.german,
+          notes: input.notes,
+          c1business: business,
+          learned: false,
+        },
+      });
+    }),
 });
