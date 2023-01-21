@@ -44,14 +44,14 @@ const Home: NextPage = () => {
     });
   }
 
-  async function getWord() {
-    setGetWordWord(prompt("Word") ?? "");
-    const res = await getWordQuery.refetch();
+  // async function getWord() {
+  //   setGetWordWord(prompt("Word") ?? "");
+  //   const res = await getWordQuery.refetch();
 
-    console.log(res.data);
-    if (res.data == null) return alert("no word found");
-    alert(JSON.stringify(res.data));
-  }
+  //   console.log(res.data);
+  //   if (res.data == null) return alert("no word found");
+  //   alert(JSON.stringify(res.data));
+  // }
 
   return (
     <>
