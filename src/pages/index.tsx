@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Home: NextPage = () => {
   const [hasChosen, setHasChosen] = useState(false);
-  const [getWordWord, _] = useState("");
+  const [getWordWord, setGetWordWord] = useState("");
   const randomWord = api.word.getRandomUnlearnedWord.useQuery();
   const markAsLearned = api.word.markAsLearned.useMutation();
   const addWordMutation = api.word.addWord.useMutation();
@@ -18,8 +18,9 @@ const Home: NextPage = () => {
   // );
 
   function handleClick() {
+    const pw = prompt("Password");
     if (randomWord.data?.english) {
-      markAsLearned.mutate({ word: randomWord.data?.english });
+      markAsLearned.mutate({ word: randomWord.data?.english, password: pw });
       setHasChosen(true);
       setTimeout(() => {
         setHasChosen(false);
