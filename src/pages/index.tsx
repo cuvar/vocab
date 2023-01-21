@@ -20,7 +20,14 @@ const Home: NextPage = () => {
   function handleClick() {
     const pw = prompt("Password");
     if (randomWord.data?.english) {
-      markAsLearned.mutate({ word: randomWord.data?.english, password: pw });
+      markAsLearned.mutate({
+        word: randomWord.data?.english,
+        password: pw ?? "",
+      });
+      if (markAsLearned.error) {
+        alert(markAsLearned.error.message);
+        return;
+      }
       setHasChosen(true);
       setTimeout(() => {
         setHasChosen(false);
@@ -43,6 +50,10 @@ const Home: NextPage = () => {
       c1business: c1business ?? "",
       password: pw ?? "",
     });
+    if (addWordMutation.error) {
+      alert("wrong data");
+      return;
+    }
   }
 
   // async function getWord() {
