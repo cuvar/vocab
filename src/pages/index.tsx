@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Home: NextPage = () => {
   const [hasChosen, setHasChosen] = useState(false);
-  const [getWordWord, setGetWordWord] = useState("");
+  const [getWordWord, _] = useState("");
   const randomWord = api.word.getRandomUnlearnedWord.useQuery();
   const markAsLearned = api.word.markAsLearned.useMutation();
   const addWordMutation = api.word.addWord.useMutation();
