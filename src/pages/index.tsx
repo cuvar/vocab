@@ -2,12 +2,16 @@ import { type NextPage } from "next";
 import Head from "next/head";
 
 import { api } from "../utils/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home: NextPage = () => {
   const [hasChosen, setHasChosen] = useState(false);
-  const [getWordWord, setGetWordWord] = useState("");
-  const randomWord = api.word.getRandomUnlearnedWord.useQuery();
+  // const [getWordWord, setGetWordWord] = useState("");
+  const randomWord = api.word.getRandomUnlearnedWord.useQuery(
+    // @ts-ignore
+    {},
+    { refetchOnWindowFocus: false }
+  );
   const markAsLearned = api.word.markAsLearned.useMutation();
   const addWordMutation = api.word.addWord.useMutation();
   // const getWordQuery = api.word.getWord.useQuery(
@@ -16,6 +20,8 @@ const Home: NextPage = () => {
   //     enabled: false,
   //   }
   // );
+
+  // const initDB = api.word.initDB.useMutation();
 
   function handleClick() {
     const pw = prompt("Password");
@@ -147,6 +153,14 @@ const Home: NextPage = () => {
               }}
             >
               Get Word
+            </button> */}
+            {/* <button
+              className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
+              onClick={() => {
+                initDB.mutate();
+              }}
+            >
+              Init db
             </button> */}
           </div>
         </div>

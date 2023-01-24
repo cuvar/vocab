@@ -1,20 +1,22 @@
 import { z } from "zod";
-import * as vocabData from "../../../../vocab.json";
+// import * as vocabData from "../../../../vocab.json";
+// import * as vocabDataBusiness from "../../../../vocab-business.json";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const wordRouter = createTRPCRouter({
-  initDB: publicProcedure.mutation(({ ctx }) => {
-    const data = vocabData.map((word) => {
-      return {
-        ...word,
-        english: word.english.toLowerCase(),
-      };
-    });
-    return ctx.prisma.word.createMany({
-      data: data,
-    });
-  }),
+  // initDB: publicProcedure.mutation(({ ctx }) => {
+  //   const data = vocabDataBusiness.map((word) => {
+  //     return {
+  //       ...word,
+  //       english: word.english.toLowerCase(),
+  //     };
+  //   });
+  //   return ctx.prisma.word.createMany({
+  //     data: data,
+  //     skipDuplicates: true,
+  //   });
+  // }),
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.word.findMany();
   }),
