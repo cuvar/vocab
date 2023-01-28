@@ -48,11 +48,8 @@ export const wordRouter = createTRPCRouter({
     return randomWord;
   }),
   markAsLearned: publicProcedure
-    .input(z.object({ word: z.string(), password: z.string() }))
+    .input(z.object({ word: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      if (input.password !== process.env.PASSWORD) {
-        throw new Error("Wrong password");
-      }
       const word = await ctx.prisma.word.findUnique({
         where: {
           english: input.word,
@@ -79,13 +76,9 @@ export const wordRouter = createTRPCRouter({
         german: z.string(),
         notes: z.string(),
         c1business: z.string(),
-        password: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (input.password !== process.env.PASSWORD) {
-        throw new Error("Wrong password");
-      }
       if (input.english === "" || input.german === "") {
         throw new Error("Empty fields");
       }
