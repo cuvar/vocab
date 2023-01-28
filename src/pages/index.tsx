@@ -2,12 +2,19 @@ import { type NextPage } from "next";
 import Head from "next/head";
 
 import { api } from "../utils/api";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import LogoutScreen from "../comp/LogoutScreen";
 
 const Home: NextPage = () => {
   const [hasChosen, setHasChosen] = useState(false);
+  const [wordToSearch, setWordToSearch] = useState("");
+
+  const iwordenRef = useRef(null);
+  const iworddeRef = useRef(null);
+  const inotesRef = useRef(null);
+  const ibusinessRef = useRef(null);
+
   const randomWord = api.word.getRandomUnlearnedWord.useQuery(
     // @ts-ignore
     {},
@@ -17,11 +24,32 @@ const Home: NextPage = () => {
   const addWordMutation = api.word.addWord.useMutation();
 
   // const initDB = api.word.initDB.useMutation();
+  const searchWord = api.word.searchWord.useQuery(
+    {
+      word: wordToSearch,
+    },
+    {
+      enabled: false,
+    }
+  );
 
-  const iwordenRef = useRef(null);
-  const iworddeRef = useRef(null);
-  const inotesRef = useRef(null);
-  const ibusinessRef = useRef(null);
+  useEffect(() => {
+    if (wordToSearch == "") {
+      return;
+    }
+
+    searchWord.refetch().then((res) => {
+      console.log(res.data);
+      if (res.data?.length == 0) {
+        return;
+      }
+
+      alert(res.data);
+      // @ts-ignore
+      iwordenRef.current.value = "";
+      setWordToSearch("");
+    });
+  }, [wordToSearch]);
 
   const { data } = useSession();
   if (!data?.user) {
@@ -57,7 +85,6 @@ const Home: NextPage = () => {
     const c1business = ibusinessRef.current?.checked + "" ?? "";
 
     if (english == "" || german == "") {
-      alert("no word");
       return;
     }
 
@@ -82,6 +109,18 @@ const Home: NextPage = () => {
     ibusinessRef.current.checked = false;
   }
 
+  function searchForWord() {
+    // @ts-ignore
+    const english = iwordenRef.current?.value ?? "";
+
+    if (english == "") {
+      return;
+    }
+
+    setWordToSearch(english);
+  }
+
+  function getWord() {}
   return (
     <>
       <Head>
@@ -202,7 +241,23 @@ const Home: NextPage = () => {
               >
                 Add Word
               </button>
+              <button
+                className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
+                onClick={() => {
+                  searchForWord();
+                }}
+              >
+                Search
+              </button>
             </div>
+            <button
+              className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
+              onClick={() => {
+                getWord();
+              }}
+            >
+              Get Word
+            </button>
             {/* <button
               className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
               onClick={() => {

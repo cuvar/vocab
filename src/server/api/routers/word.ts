@@ -1,6 +1,7 @@
 import { z } from "zod";
 // import * as vocabData from "../../../../vocab.json";
 // import * as vocabDataBusiness from "../../../../vocab-business.json";
+import Fuse from "fuse.js";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
@@ -20,14 +21,37 @@ export const wordRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.word.findMany();
   }),
-  getWord: publicProcedure
+  searchWord: publicProcedure
     .input(z.object({ word: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.word.findUnique({
-        where: {
-          english: input.word,
+    .query(async ({ ctx, input }) => {
+      const res = await ctx.prisma.word.findMany({
+        select: {
+          english: true,
         },
       });
+
+      const words = res.map((word) => word.english);
+
+      const fuse = new Fuse(words, {
+        includeScore: true,
+        shouldSort: true,
+      });
+
+      const result = fuse.search(input.word);
+      const resultWords = result.map((word) => word.item);
+
+      switch (resultWords.length) {
+        case 0:
+          return [];
+        case 1:
+          return [resultWords[0]];
+        case 2:
+          return [resultWords[0], resultWords[1]];
+        case 3:
+          return [resultWords[0], resultWords[1], resultWords[2]];
+        default:
+          return [resultWords[0], resultWords[1], resultWords[2]];
+      }
     }),
   getAmountOfUnlearnedWords: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.word.count({
