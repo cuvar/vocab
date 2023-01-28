@@ -6,21 +6,18 @@ import Fuse from "fuse.js";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const wordRouter = createTRPCRouter({
-  // initDB: publicProcedure.mutation(({ ctx }) => {
-  //   const data = vocabDataBusiness.map((word) => {
-  //     return {
-  //       ...word,
-  //       english: word.english.toLowerCase(),
-  //     };
-  //   });
-  //   return ctx.prisma.word.createMany({
-  //     data: data,
-  //     skipDuplicates: true,
-  //   });
-  // }),
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.word.findMany();
   }),
+  getWord: publicProcedure
+    .input(z.object({ word: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.word.findUnique({
+        where: {
+          english: input.word,
+        },
+      });
+    }),
   searchWord: publicProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ ctx, input }) => {

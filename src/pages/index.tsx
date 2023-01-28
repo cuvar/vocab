@@ -6,9 +6,21 @@ import { useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import LogoutScreen from "../comp/LogoutScreen";
 
+interface VocabularyWord {
+  english: string;
+  german: string;
+  notes: string;
+  learned: boolean;
+  c1business: boolean;
+}
 const Home: NextPage = () => {
   const [hasChosen, setHasChosen] = useState(false);
   const [wordToSearch, setWordToSearch] = useState("");
+  const [wordToGet, setWordToGet] = useState("");
+
+  const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
+    null
+  );
 
   const iwordenRef = useRef(null);
   const iworddeRef = useRef(null);
@@ -32,6 +44,28 @@ const Home: NextPage = () => {
       enabled: false,
     }
   );
+  const getWordQuery = api.word.getWord.useQuery(
+    {
+      word: wordToGet,
+    },
+    {
+      enabled: false,
+    }
+  );
+
+  useEffect(() => {
+    if (!randomWord.data) {
+      return;
+    }
+
+    setWordToDisplay({
+      english: randomWord.data.english,
+      german: randomWord.data.german,
+      notes: randomWord.data.notes,
+      learned: randomWord.data.learned,
+      c1business: randomWord.data.c1business,
+    });
+  }, [randomWord.data]);
 
   useEffect(() => {
     if (wordToSearch == "") {
@@ -50,6 +84,30 @@ const Home: NextPage = () => {
       setWordToSearch("");
     });
   }, [wordToSearch]);
+
+  useEffect(() => {
+    if (wordToGet == "") {
+      return;
+    }
+
+    getWordQuery.refetch().then((res) => {
+      if (!res.data) {
+        alert("no word found");
+        return;
+      }
+      setWordToDisplay({
+        english: res.data.english,
+        german: res.data.german,
+        notes: res.data.notes,
+        learned: res.data.learned,
+        c1business: res.data.c1business,
+      });
+
+      // @ts-ignore
+      iwordenRef.current.value = "";
+      setWordToGet("");
+    });
+  }, [wordToGet]);
 
   const { data } = useSession();
   if (!data?.user) {
@@ -120,7 +178,16 @@ const Home: NextPage = () => {
     setWordToSearch(english);
   }
 
-  function getWord() {}
+  function getWord() {
+    // @ts-ignore
+    const english = iwordenRef.current?.value ?? "";
+
+    if (english == "") {
+      return;
+    }
+
+    setWordToGet(english);
+  }
   return (
     <>
       <Head>
@@ -144,16 +211,14 @@ const Home: NextPage = () => {
           <h1 className="text-2xl tracking-tight">Your word of the day</h1>
           {!hasChosen ? (
             <div className="my-8 flex-col items-center space-y-2 text-center">
-              {randomWord.data?.english == null ? (
+              {wordToDisplay == null ? (
                 <p className="text-3xl text-red-700">no word available</p>
               ) : (
                 <>
-                  <p className="text-3xl font-bold">
-                    {randomWord.data.english}
-                  </p>
-                  <p className="text-xl">{randomWord.data.german}</p>
-                  <p className="text-xl">{randomWord.data.notes}</p>
-                  {randomWord.data.c1business && (
+                  <p className="text-3xl font-bold">{wordToDisplay.english}</p>
+                  <p className="text-xl">{wordToDisplay.german}</p>
+                  <p className="text-xl">{wordToDisplay.notes}</p>
+                  {wordToDisplay.c1business && (
                     <div className="text-md text-sky-900">#Business</div>
                   )}
                 </>
