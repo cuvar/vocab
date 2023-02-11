@@ -11,7 +11,6 @@ interface VocabularyWord {
 
 export default function Generator() {
   const [hasChosen, setHasChosen] = useState(false);
-  const [wordToSearch, setWordToSearch] = useState("");
   const [wordToGet, setWordToGet] = useState("");
 
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
@@ -32,14 +31,6 @@ export default function Generator() {
   const addWordMutation = api.word.addWord.useMutation();
 
   // const initDB = api.word.initDB.useMutation();
-  const searchWord = api.word.searchWord.useQuery(
-    {
-      word: wordToSearch,
-    },
-    {
-      enabled: false,
-    }
-  );
   const getWordQuery = api.word.getWord.useQuery(
     {
       word: wordToGet,
@@ -62,24 +53,6 @@ export default function Generator() {
       c1business: randomWord.data.c1business,
     });
   }, [randomWord.data]);
-
-  useEffect(() => {
-    if (wordToSearch == "") {
-      return;
-    }
-
-    searchWord.refetch().then((res) => {
-      console.log(res.data);
-      if (res.data?.length == 0) {
-        return;
-      }
-
-      alert(res.data);
-      // @ts-ignore
-      iwordenRef.current.value = "";
-      setWordToSearch("");
-    });
-  }, [wordToSearch]);
 
   useEffect(() => {
     if (wordToGet == "") {
@@ -156,17 +129,6 @@ export default function Generator() {
     inotesRef.current.value = "";
     // @ts-ignore
     ibusinessRef.current.checked = false;
-  }
-
-  function searchForWord() {
-    // @ts-ignore
-    const english = iwordenRef.current?.value ?? "";
-
-    if (english == "") {
-      return;
-    }
-
-    setWordToSearch(english);
   }
 
   function getWord() {
@@ -282,20 +244,12 @@ export default function Generator() {
           <button
             className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
             onClick={() => {
-              searchForWord();
+              getWord();
             }}
           >
-            Search
+            Get Word
           </button>
         </div>
-        <button
-          className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
-          onClick={() => {
-            getWord();
-          }}
-        >
-          Get Word
-        </button>
         {/* <button
         className="rounded-lg border-2 border-[#135770] px-4 py-2 text-xl hover:shadow-lg active:bg-[#135770] active:text-white"
         onClick={() => {

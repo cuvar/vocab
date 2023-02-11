@@ -1,45 +1,20 @@
 import Fuse from "fuse.js";
-import { useEffect, useRef, useState } from "react";
-import { api } from "../utils/api";
+import { useRef, useState } from "react";
 import ListElement from "./ListElement";
 
-interface Word {
-  english: string;
-  german: string;
-  c1business: boolean;
-  notes: string;
+interface IProps {
+  words: VocabularyWord[];
 }
 
-export default function List() {
+export default function List(props: IProps) {
+  const sorted = props.words.sort((a, b) => a.english.localeCompare(b.english));
+
   const [currentShown, setCurrentShown] = useState("");
   const [showReset, setShowRest] = useState(false);
-  const [wordsToDisplay, setWordsToDisplay] = useState<Word[]>([]);
-  const [allWords, setAllWords] = useState<Word[]>([]);
+  const [wordsToDisplay, setWordsToDisplay] = useState(sorted);
   const iwordenRef = useRef(null);
-  const learnedWordsQuery = api.word.getLearned.useQuery(
-    // @ts-ignore
-    {},
-    { enabled: false }
-  );
 
-  useEffect(() => {
-    if (allWords.length != 0) return;
-    learnedWordsQuery.refetch().then((res) => {
-      if (!res.data) return;
-      const sorted = res.data.sort((a, b) =>
-        a.english.localeCompare(b.english)
-      );
-      setAllWords(sorted);
-      setWordsToDisplay(sorted);
-    });
-  }, [allWords]);
-
-  // useEffect(() => {
-  //   if (wordsToDisplay.length != 0) return;
-  //   setWordsToDisplay(allWords);
-  // }, [wordsToDisplay]);
-
-  if (!learnedWordsQuery.data) {
+  if (props.words.length === 0) {
     return <div>no data</div>;
   }
 
@@ -56,13 +31,13 @@ export default function List() {
     // @ts-ignore
     const input = iwordenRef.current?.value ?? "";
     if (input == "") {
-      setWordsToDisplay(allWords);
+      setWordsToDisplay(props.words);
       setShowRest(false);
       return;
     }
 
     setShowRest(true);
-    const wordsToSearchThrough = allWords.map((word) => word.english);
+    const wordsToSearchThrough = props.words.map((word) => word.english);
 
     const fuse = new Fuse(wordsToSearchThrough, {
       includeScore: true,
@@ -70,26 +45,27 @@ export default function List() {
     });
 
     const res = fuse.search(input).map((w) => w.item);
-    const resultWordObjects: (Word | null)[] = res.map((r) => {
-      const res = allWords.find((el) => el.english == r);
+    const resultWordObjects: (VocabularyWord | null)[] = res.map((r) => {
+      const res = props.words.find((el) => el.english == r);
       if (res == undefined) return null;
       return res;
     });
 
-    setWordsToDisplay(resultWordObjects.filter((r) => r !== null) as Word[]);
+    setWordsToDisplay(
+      resultWordObjects.filter((r) => r !== null) as VocabularyWord[]
+    );
   }
 
   function resetSearch() {
-    console.log(iwordenRef.current);
     if (!iwordenRef.current) return;
     // @ts-ignore
     iwordenRef.current.value = "";
-    setWordsToDisplay(allWords);
+    setWordsToDisplay(props.words);
+    setShowRest(false);
   }
 
   return (
-    <div className="container flex w-full flex-col items-center justify-center gap-12 px-4">
-      <h1 className="text-2xl tracking-tight">Your learned words</h1>
+    <>
       <div className="flex">
         <div className="flex items-center rounded-lg bg-white">
           <input
@@ -150,6 +126,6 @@ export default function List() {
           );
         })}
       </div>
-    </div>
+    </>
   );
 }

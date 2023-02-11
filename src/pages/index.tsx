@@ -2,11 +2,12 @@ import { type NextPage } from "next";
 import Head from "next/head";
 
 import { api } from "../utils/api";
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import LogoutScreen from "../comp/LogoutScreen";
 import Generator from "../comp/Generator";
-import List from "../comp/List";
+import Learned from "../comp/Learned";
+import AllWords from "../comp/AllWords";
 
 interface VocabularyWord {
   english: string;
@@ -16,112 +17,27 @@ interface VocabularyWord {
   c1business: boolean;
 }
 
-type Tab = "generator" | "list";
-type TabDisplay = "Generator" | "List";
+type Tab = "generator" | "list" | "all";
+type TabDisplay = "Generator" | "List" | "All words";
 
 const TABS: Record<Tab, TabDisplay> = {
   list: "List",
   generator: "Generator",
+  all: "All words",
 } as const;
 
 const Home: NextPage = () => {
-  const [wordToSearch, setWordToSearch] = useState("");
-  const [wordToGet, setWordToGet] = useState("");
   const [tab, setTab] = useState<Tab>("list");
-
-  const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
-    null
-  );
-
-  const iwordenRef = useRef(null);
-
-  const randomWord = api.word.getRandomUnlearnedWord.useQuery(
-    // @ts-ignore
-    {},
-    { refetchOnWindowFocus: false }
-  );
-
   // const initDB = api.word.initDB.useMutation();
-  const searchWord = api.word.searchWord.useQuery(
-    {
-      word: wordToSearch,
-    },
-    {
-      enabled: false,
-    }
-  );
-  const getWordQuery = api.word.getWord.useQuery(
-    {
-      word: wordToGet,
-    },
-    {
-      enabled: false,
-    }
-  );
 
-  useEffect(() => {
-    if (!randomWord.data) {
-      return;
-    }
-
-    setWordToDisplay({
-      english: randomWord.data.english,
-      german: randomWord.data.german,
-      notes: randomWord.data.notes,
-      learned: randomWord.data.learned,
-      c1business: randomWord.data.c1business,
-    });
-  }, [randomWord.data]);
-
-  useEffect(() => {
-    if (wordToSearch == "") {
-      return;
-    }
-
-    searchWord.refetch().then((res) => {
-      console.log(res.data);
-      if (res.data?.length == 0) {
-        return;
-      }
-
-      alert(res.data);
-      // @ts-ignore
-      iwordenRef.current.value = "";
-      setWordToSearch("");
-    });
-  }, [wordToSearch]);
-
-  useEffect(() => {
-    if (wordToGet == "") {
-      return;
-    }
-
-    getWordQuery.refetch().then((res) => {
-      if (!res.data) {
-        alert("no word found");
-        return;
-      }
-      setWordToDisplay({
-        english: res.data.english,
-        german: res.data.german,
-        notes: res.data.notes,
-        learned: res.data.learned,
-        c1business: res.data.c1business,
-      });
-
-      // @ts-ignore
-      iwordenRef.current.value = "";
-      setWordToGet("");
-    });
-  }, [wordToGet]);
+  const { data } = useSession();
+  if (!data?.user) {
+    return <LogoutScreen />;
+  }
 
   function switchTab(clicked: Tab) {
     setTab(clicked);
     console.log();
-  }
-  const { data } = useSession();
-  if (!data?.user) {
-    return <LogoutScreen />;
   }
 
   return (
@@ -160,7 +76,8 @@ const Home: NextPage = () => {
           </div>
           <div className="my-16 flex w-full justify-center">
             {tab == "generator" && <Generator />}
-            {tab == "list" && <List />}
+            {tab == "list" && <Learned />}
+            {tab == "all" && <AllWords />}
           </div>
         </div>
       </main>
