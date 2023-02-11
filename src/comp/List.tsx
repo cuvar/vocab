@@ -117,7 +117,7 @@ export default function List() {
           </button>
         </div>
         {showReset && (
-          <button onClick={resetSearch}>
+          <button onClick={resetSearch} className="ml-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
