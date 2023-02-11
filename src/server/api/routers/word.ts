@@ -18,6 +18,13 @@ export const wordRouter = createTRPCRouter({
         },
       });
     }),
+  getLearned: publicProcedure.query(({ ctx, input }) => {
+    return ctx.prisma.word.findMany({
+      where: {
+        learned: true,
+      },
+    });
+  }),
   searchWord: publicProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ ctx, input }) => {
