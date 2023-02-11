@@ -20,14 +20,14 @@ type Tab = "generator" | "list";
 type TabDisplay = "Generator" | "List";
 
 const TABS: Record<Tab, TabDisplay> = {
-  generator: "Generator",
   list: "List",
+  generator: "Generator",
 } as const;
 
 const Home: NextPage = () => {
   const [wordToSearch, setWordToSearch] = useState("");
   const [wordToGet, setWordToGet] = useState("");
-  const [tab, setTab] = useState<Tab>("generator");
+  const [tab, setTab] = useState<Tab>("list");
 
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
