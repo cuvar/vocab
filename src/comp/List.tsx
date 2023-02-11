@@ -4,6 +4,7 @@ import ListElement from "./ListElement";
 
 interface IProps {
   words: VocabularyWord[];
+  markHandler?: (word: string, mark: boolean) => void;
 }
 
 export default function List(props: IProps) {
@@ -116,12 +117,10 @@ export default function List(props: IProps) {
           return (
             <ListElement
               key={e.english}
-              english={e.english}
-              german={e.german}
-              business={e.c1business}
-              notes={e.notes}
+              word={e}
               showTranslation={e.english == currentShown}
               clickHandler={toggleCurrentShown}
+              markHandler={props.markHandler}
             />
           );
         })}

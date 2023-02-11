@@ -82,6 +82,7 @@ export default function Generator() {
     if (randomWord.data?.english) {
       markAsLearned.mutate({
         word: randomWord.data?.english,
+        learned: true,
       });
       if (markAsLearned.error) {
         alert(markAsLearned.error.message);

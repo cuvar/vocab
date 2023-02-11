@@ -76,7 +76,7 @@ export const wordRouter = createTRPCRouter({
     return randomWord;
   }),
   markAsLearned: publicProcedure
-    .input(z.object({ word: z.string() }))
+    .input(z.object({ word: z.string(), learned: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
       const word = await ctx.prisma.word.findUnique({
         where: {
@@ -93,7 +93,7 @@ export const wordRouter = createTRPCRouter({
           english: word.english,
         },
         data: {
-          learned: true,
+          learned: input.learned,
         },
       });
     }),

@@ -18,10 +18,10 @@ interface VocabularyWord {
 }
 
 type Tab = "generator" | "list" | "all";
-type TabDisplay = "Generator" | "List" | "All words";
+type TabDisplay = "Generator" | "Learned" | "All words";
 
 const TABS: Record<Tab, TabDisplay> = {
-  list: "List",
+  list: "Learned",
   generator: "Generator",
   all: "All words",
 } as const;
