@@ -9,14 +9,6 @@ import Generator from "../comp/Generator";
 import Learned from "../comp/Learned";
 import AllWords from "../comp/AllWords";
 
-interface VocabularyWord {
-  english: string;
-  german: string;
-  notes: string;
-  learned: boolean;
-  c1business: boolean;
-}
-
 type Tab = "generator" | "list" | "all";
 type TabDisplay = "Generator" | "Learned" | "All words";
 

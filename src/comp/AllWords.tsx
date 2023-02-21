@@ -1,8 +1,28 @@
+import Switch from "@mui/material/Switch";
+import { useState } from "react";
 import { api } from "../utils/api";
 import List from "./List";
 
 export default function AllWords() {
-  const allQuery = api.word.getAll.useQuery();
+  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
+  const [switchChecked, setSwitchChecked] = useState(false);
+  const allQuery = api.word.getAll.useQuery(
+    // @ts-ignore
+    {},
+    {
+      onSuccess: (data) => {
+        const transformed: ListElement[] = data.map((e: VocabularyWord) => {
+          return {
+            key: e.english,
+            word: e.english,
+            translation: e.german,
+            ...e,
+          };
+        });
+        setWordsToDisplay(transformed);
+      },
+    }
+  );
   const markAsLearnedQuery = api.word.markAsLearned.useMutation();
 
   if (allQuery.isLoading) {
@@ -21,13 +41,57 @@ export default function AllWords() {
     allQuery.refetch();
   }
 
+  function handleSwitchChange() {
+    const newChecked = !switchChecked;
+    setSwitchChecked(newChecked);
+    if (newChecked) {
+      // show german
+      const transformed: ListElement[] = wordsToDisplay.map((e) => {
+        return {
+          word: e.translation,
+          translation: e.word,
+          key: e.english,
+          notes: e.notes,
+          learned: e.learned,
+          c1business: e.c1business,
+          english: e.english,
+          german: e.german,
+        };
+      });
+      setWordsToDisplay(transformed);
+    } else {
+      // show english
+      const transformed: ListElement[] = wordsToDisplay.map((e) => {
+        return {
+          word: e.translation,
+          translation: e.word,
+          key: e.english,
+          notes: e.notes,
+          learned: e.learned,
+          c1business: e.c1business,
+          english: e.english,
+          german: e.german,
+        };
+      });
+      setWordsToDisplay(transformed);
+    }
+  }
+
   return (
     <div className="container flex w-full flex-col items-center justify-center gap-12 px-4">
       <h1 className="text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>
+      <div className="flex items-center">
+        <p>German</p>
+        <Switch
+          color="secondary"
+          onChange={handleSwitchChange}
+          checked={switchChecked}
+        />
+      </div>
       <List
-        words={allQuery.data}
+        words={wordsToDisplay}
         markHandler={(w: string, m: boolean) => markAsLearned(w, m)}
       ></List>
     </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface IProps {
-  word: VocabularyWord;
+  word: ListElement;
   showTranslation: boolean;
   clickHandler: (eng: string) => void;
   markHandler?: (word: string, mark: boolean) => void;
@@ -57,7 +57,7 @@ export default function List(props: IProps) {
     setMarkIcon(markIcon === checked ? unchecked : checked);
 
     if (typeof props.markHandler !== "undefined") {
-      props.markHandler(props.word.english, marked);
+      props.markHandler(props.word.key, marked);
     }
   }
   return (
@@ -65,13 +65,13 @@ export default function List(props: IProps) {
       className={`flex w-full items-center justify-between rounded-lg text-center ${custom}`}
     >
       <button
-        onClick={() => props.clickHandler(props.word.english)}
+        onClick={() => props.clickHandler(props.word.word)}
         className="h-full w-full rounded-lg py-4 px-4 text-left"
       >
-        {!props.showTranslation && <p>🏴󠁧󠁢󠁥󠁮󠁧󠁿 {props.word.english}</p>}
+        {!props.showTranslation && <p>🏴󠁧󠁢󠁥󠁮󠁧󠁿 {props.word.word}</p>}
         {props.showTranslation && (
           <div className="flex flex-col text-left">
-            <p>🇩🇪 {props.word.german}</p>
+            <p>🇩🇪 {props.word.translation}</p>
             {props.word.notes.length > 0 && <p>{props.word.notes}</p>}
           </div>
         )}

@@ -5,3 +5,9 @@ declare interface VocabularyWord {
   notes: string;
   learned: boolean;
 }
+
+declare type ListElement = VocabularyWord & {
+  key: string;
+  word: string;
+  translation: string;
+};

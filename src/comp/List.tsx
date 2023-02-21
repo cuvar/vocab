@@ -1,21 +1,25 @@
 import Fuse from "fuse.js";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ListElement from "./ListElement";
 
 interface IProps {
-  words: VocabularyWord[];
+  words: ListElement[];
   markHandler?: (word: string, mark: boolean) => void;
 }
 
 export default function List(props: IProps) {
-  const sorted = props.words.sort((a, b) => a.english.localeCompare(b.english));
+  const sorted = props.words.sort((a, b) => a.word.localeCompare(b.word));
 
   const [currentShown, setCurrentShown] = useState("");
   const [showReset, setShowRest] = useState(false);
   const [wordsToDisplay, setWordsToDisplay] = useState(sorted);
   const iwordenRef = useRef(null);
 
-  if (props.words.length === 0) {
+  useEffect(() => {
+    setWordsToDisplay(sorted);
+  }, [sorted]);
+
+  if (sorted.length === 0) {
     return <div>no data</div>;
   }
 
@@ -32,13 +36,13 @@ export default function List(props: IProps) {
     // @ts-ignore
     const input = iwordenRef.current?.value ?? "";
     if (input == "") {
-      setWordsToDisplay(props.words);
+      setWordsToDisplay(sorted);
       setShowRest(false);
       return;
     }
 
     setShowRest(true);
-    const wordsToSearchThrough = props.words.map((word) => word.english);
+    const wordsToSearchThrough = sorted.map((word) => word.word);
 
     const fuse = new Fuse(wordsToSearchThrough, {
       includeScore: true,
@@ -46,14 +50,14 @@ export default function List(props: IProps) {
     });
 
     const res = fuse.search(input).map((w) => w.item);
-    const resultWordObjects: (VocabularyWord | null)[] = res.map((r) => {
-      const res = props.words.find((el) => el.english == r);
+    const resultWordObjects: (ListElement | null)[] = res.map((r) => {
+      const res = sorted.find((el) => el.word == r);
       if (res == undefined) return null;
       return res;
     });
 
     setWordsToDisplay(
-      resultWordObjects.filter((r) => r !== null) as VocabularyWord[]
+      resultWordObjects.filter((r) => r !== null) as ListElement[]
     );
   }
 
@@ -61,7 +65,7 @@ export default function List(props: IProps) {
     if (!iwordenRef.current) return;
     // @ts-ignore
     iwordenRef.current.value = "";
-    setWordsToDisplay(props.words);
+    setWordsToDisplay(sorted);
     setShowRest(false);
   }
 
@@ -116,9 +120,9 @@ export default function List(props: IProps) {
         {wordsToDisplay.map((e) => {
           return (
             <ListElement
-              key={e.english}
+              key={e.key}
               word={e}
-              showTranslation={e.english == currentShown}
+              showTranslation={e.word == currentShown}
               clickHandler={toggleCurrentShown}
               markHandler={props.markHandler}
             />
