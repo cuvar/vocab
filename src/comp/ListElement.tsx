@@ -37,8 +37,7 @@ export default function List(props: IProps) {
   }
 
   function handleClick() {
-    // props.clickHandler(props.word.word);
-    // console.log(props.showTranslation);
+    props.clickHandler(props.word.word);
   }
   const actions = [
     <Action action={(e) => handleActionClick(e)} key={1}>
