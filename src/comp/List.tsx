@@ -2,6 +2,7 @@ import Fuse from "fuse.js";
 import { useEffect, useRef, useState } from "react";
 import ListElement from "./ListElement";
 import { resetIcon, searchIcon } from "../utils/icons";
+import { Switch } from "@mui/material";
 
 interface IProps {
   words: ListElement[];
@@ -14,6 +15,7 @@ export default function List(props: IProps) {
   const [currentShown, setCurrentShown] = useState("");
   const [showReset, setShowReset] = useState(false);
   const [wordsToDisplay, setWordsToDisplay] = useState(sorted);
+  const [switchChecked, setSwitchChecked] = useState(false);
   const iwordenRef = useRef(null);
 
   useEffect(() => {
@@ -70,27 +72,72 @@ export default function List(props: IProps) {
     setShowReset(false);
   }
 
+  function handleSwitchChange() {
+    const newChecked = !switchChecked;
+    setSwitchChecked(newChecked);
+    if (newChecked) {
+      // show german
+      const transformed: ListElement[] = wordsToDisplay.map((e) => {
+        return {
+          word: e.translation,
+          translation: e.word,
+          key: e.english,
+          notes: e.notes,
+          learned: e.learned,
+          c1business: e.c1business,
+          english: e.english,
+          german: e.german,
+        };
+      });
+      setWordsToDisplay(transformed);
+    } else {
+      // show english
+      const transformed: ListElement[] = wordsToDisplay.map((e) => {
+        return {
+          word: e.translation,
+          translation: e.word,
+          key: e.english,
+          notes: e.notes,
+          learned: e.learned,
+          c1business: e.c1business,
+          english: e.english,
+          german: e.german,
+        };
+      });
+      setWordsToDisplay(transformed);
+    }
+  }
+
   return (
     <>
-      <div className="flex">
-        <div className="flex items-center space-x-4 rounded-lg">
-          <input
-            type="text"
-            placeholder="Your word"
-            className="input-bordered input-secondary input w-full max-w-xs"
-            ref={iwordenRef}
-            onChange={searchForWord}
-            name="searchword"
-          />
-          <button className="mr-2" onClick={searchForWord}>
-            {searchIcon}
-          </button>
+      <div className="flex w-full">
+        <div className="mx-4 flex w-full flex-wrap items-center justify-between">
+          <label className="label mr-4 flex cursor-pointer space-x-2">
+            <input
+              type="checkbox"
+              checked={switchChecked}
+              className="checkbox"
+              onChange={handleSwitchChange}
+            />
+            <span className="label-text">Show native</span>
+          </label>
+          <div className="flex rounded-lg border border-secondary bg-neutral-focus">
+            <input
+              type="text"
+              placeholder="Search word"
+              className="my-3 rounded-lg border-none bg-transparent pl-4 pr-2 outline-none"
+              ref={iwordenRef}
+              onChange={searchForWord}
+              name="searchword"
+            />
+            <button
+              onClick={resetSearch}
+              className={`pr-2 ${showReset ? "visible" : "invisible"}`}
+            >
+              {resetIcon}
+            </button>
+          </div>
         </div>
-        {showReset && (
-          <button onClick={resetSearch} className="ml-2">
-            {resetIcon}
-          </button>
-        )}
       </div>
       <div className="flex w-full flex-col items-center space-y-2">
         {wordsToDisplay.map((e) => {
