@@ -48,6 +48,7 @@ export default function List(props: IProps) {
       </div>
     </Action>,
   ];
+
   return (
     <div className={`w-full rounded-lg ${custom} text-black`}>
       <SwiperAction actions={actions}>
