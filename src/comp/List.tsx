@@ -86,6 +86,8 @@ export default function List(props: IProps) {
           c1business: e.c1business,
           english: e.english,
           german: e.german,
+          iconNative: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+          iconTranslation: "🇩🇪",
         };
       });
       setWordsToDisplay(transformed);
@@ -101,6 +103,8 @@ export default function List(props: IProps) {
           c1business: e.c1business,
           english: e.english,
           german: e.german,
+          iconNative: "🇩🇪",
+          iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
         };
       });
       setWordsToDisplay(transformed);

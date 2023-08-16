@@ -4,6 +4,8 @@ declare interface VocabularyWord {
   c1business: boolean;
   notes: string;
   learned: boolean;
+  iconTranslation: string;
+  iconNative: string;
 }
 
 declare type ListElement = VocabularyWord & {

@@ -6,24 +6,45 @@ import Fuse from "fuse.js";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const wordRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.word.findMany();
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    const data = await ctx.prisma.word.findMany();
+    const transformed = data.map((e) => {
+      return {
+        ...e,
+        iconNative: "🇩🇪",
+        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      };
+    });
+    return transformed;
   }),
   getWord: publicProcedure
     .input(z.object({ word: z.string() }))
-    .query(({ ctx, input }) => {
-      return ctx.prisma.word.findUnique({
+    .query(async ({ ctx, input }) => {
+      const data = await ctx.prisma.word.findUnique({
         where: {
           english: input.word,
         },
       });
+      return {
+        ...data,
+        iconNative: "🇩🇪",
+        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      };
     }),
-  getLearned: publicProcedure.query(({ ctx, input }) => {
-    return ctx.prisma.word.findMany({
+  getLearned: publicProcedure.query(async ({ ctx, input }) => {
+    const data = await ctx.prisma.word.findMany({
       where: {
         learned: true,
       },
     });
+    const transformed = data.map((e) => {
+      return {
+        ...e,
+        iconNative: "🇩🇪",
+        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      };
+    });
+    return transformed;
   }),
   searchWord: publicProcedure
     .input(z.object({ word: z.string() }))
@@ -71,8 +92,17 @@ export const wordRouter = createTRPCRouter({
       },
     });
 
+    const transformed = unlearned.map((e) => {
+      return {
+        ...e,
+        iconNative: "🇩🇪",
+        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      };
+    });
+
     // get random word from unlearned words
-    const randomWord = unlearned[Math.floor(Math.random() * unlearned.length)];
+    const randomWord =
+      transformed[Math.floor(Math.random() * unlearned.length)];
     return randomWord;
   }),
   markAsLearned: publicProcedure

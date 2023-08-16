@@ -32,17 +32,21 @@ export default function List(props: IProps) {
     }
   }
 
-  function handleClick(e: InteractionEvent) {
+  function handleActionClick(e: InteractionEvent) {
     console.log(e.target);
   }
 
+  function handleClick() {
+    // props.clickHandler(props.word.word);
+    // console.log(props.showTranslation);
+  }
   const actions = [
-    <Action action={(e) => handleClick(e)} key={1}>
+    <Action action={(e) => handleActionClick(e)} key={1}>
       <div className="flex h-full flex-col justify-center bg-red-300">
         action
       </div>
     </Action>,
-    <Action action={(e) => handleClick(e)} key={2}>
+    <Action action={(e) => handleActionClick(e)} key={2}>
       <div className="flex h-full flex-col justify-center bg-green-300">
         action2
       </div>
@@ -54,13 +58,19 @@ export default function List(props: IProps) {
       <SwiperAction actions={actions}>
         <div className={`flex h-full w-full items-center`}>
           <button
-            // onClick={() => props.clickHandler(props.word.word)}
+            onClick={handleClick}
             className="w-full rounded-lg py-4 px-4 text-left"
           >
-            {!props.showTranslation && <p>🏴󠁧󠁢󠁥󠁮󠁧󠁿 {props.word.word}</p>}
+            {!props.showTranslation && (
+              <p>
+                {props.word.iconTranslation} {props.word.word}
+              </p>
+            )}
             {props.showTranslation && (
               <div className="flex flex-col text-left">
-                <p>🇩🇪 {props.word.translation}</p>
+                <p>
+                  {props.word.iconNative} {props.word.translation}
+                </p>
                 {props.word.notes.length > 0 && <p>{props.word.notes}</p>}
               </div>
             )}
