@@ -50,7 +50,7 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-start bg-gradient-to-b from-[#1f7ea1] to-[#6ff7e8]">
+      <main className="flex min-h-screen flex-col items-center justify-start">
         <div className="mb-4 flex w-screen justify-end">
           <button
             className="mr-4 p-4 hover:underline active:text-blue-500"
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
                 <button
                   key={e}
                   onClick={(ev) => switchTab(ev, e)}
-                  className={`tab`}
+                  className={`tab ${e == "list" && "tab-active"}`}
                 >
                   {TABS[e]}
                 </button>

@@ -21,6 +21,7 @@ export default function Learned() {
         });
         setWordsToDisplay(transformed);
       },
+      refetchOnWindowFocus: false,
     }
   );
 

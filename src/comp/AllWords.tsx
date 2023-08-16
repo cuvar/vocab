@@ -21,6 +21,7 @@ export default function AllWords() {
         });
         setWordsToDisplay(transformed);
       },
+      refetchOnWindowFocus: false,
     }
   );
   const markAsLearnedQuery = api.word.markAsLearned.useMutation();

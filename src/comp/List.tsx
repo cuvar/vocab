@@ -11,7 +11,7 @@ export default function List(props: IProps) {
   const sorted = props.words.sort((a, b) => a.word.localeCompare(b.word));
 
   const [currentShown, setCurrentShown] = useState("");
-  const [showReset, setShowRest] = useState(false);
+  const [showReset, setShowReset] = useState(false);
   const [wordsToDisplay, setWordsToDisplay] = useState(sorted);
   const iwordenRef = useRef(null);
 
@@ -37,11 +37,11 @@ export default function List(props: IProps) {
     const input = iwordenRef.current?.value ?? "";
     if (input == "") {
       setWordsToDisplay(sorted);
-      setShowRest(false);
+      setShowReset(false);
       return;
     }
 
-    setShowRest(true);
+    setShowReset(true);
     const wordsToSearchThrough = sorted.map((word) => word.word);
 
     const fuse = new Fuse(wordsToSearchThrough, {
@@ -66,19 +66,20 @@ export default function List(props: IProps) {
     // @ts-ignore
     iwordenRef.current.value = "";
     setWordsToDisplay(sorted);
-    setShowRest(false);
+    setShowReset(false);
   }
 
   return (
     <>
       <div className="flex">
-        <div className="flex items-center rounded-lg bg-white">
+        <div className="flex items-center space-x-4 rounded-lg">
           <input
+            type="text"
+            placeholder="Your word"
+            className="input-bordered input-secondary input w-full max-w-xs"
             ref={iwordenRef}
             onChange={searchForWord}
-            type="text"
             name="searchword"
-            className="rounded-md py-2 px-2"
           />
           <button className="mr-2" onClick={searchForWord}>
             <svg

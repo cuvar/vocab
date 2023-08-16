@@ -79,7 +79,7 @@ export default function List(props: IProps) {
     </Action>,
   ];
   return (
-    <div className={`w-full rounded-lg ${custom}`}>
+    <div className={`w-full rounded-lg ${custom} text-black`}>
       <SwiperAction actions={actions}>
         <div className={`flex h-full w-full items-center`}>
           <button
