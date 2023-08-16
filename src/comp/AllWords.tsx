@@ -1,4 +1,3 @@
-import Switch from "@mui/material/Switch";
 import { useState } from "react";
 import { api } from "../utils/api";
 import List from "./List";
@@ -83,14 +82,6 @@ export default function AllWords() {
       <h1 className="text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>
-      <div className="flex items-center">
-        <p>German</p>
-        <Switch
-          color="secondary"
-          onChange={handleSwitchChange}
-          checked={switchChecked}
-        />
-      </div>
       <List
         words={wordsToDisplay}
         markHandler={(w: string, m: boolean) => markAsLearned(w, m)}

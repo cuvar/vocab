@@ -1,6 +1,5 @@
 import { api } from "../utils/api";
 import List from "./List";
-import Switch from "@mui/material/Switch";
 import { useState } from "react";
 
 export default function Learned() {

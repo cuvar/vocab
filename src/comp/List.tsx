@@ -1,8 +1,7 @@
 import Fuse from "fuse.js";
 import { useEffect, useRef, useState } from "react";
 import ListElement from "./ListElement";
-import { resetIcon, searchIcon } from "../utils/icons";
-import { Switch } from "@mui/material";
+import { resetIcon } from "../utils/icons";
 
 interface IProps {
   words: ListElement[];
