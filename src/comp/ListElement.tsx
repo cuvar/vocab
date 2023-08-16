@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { SwiperAction, Action, InteractionEvent } from "swiper-action";
 
 interface IProps {
   word: ListElement;
@@ -60,30 +61,49 @@ export default function List(props: IProps) {
       props.markHandler(props.word.key, marked);
     }
   }
-  return (
-    <div
-      className={`flex w-full items-center justify-between rounded-lg text-center ${custom}`}
-    >
-      <button
-        onClick={() => props.clickHandler(props.word.word)}
-        className="h-full w-full rounded-lg py-4 px-4 text-left"
-      >
-        {!props.showTranslation && <p>🏴󠁧󠁢󠁥󠁮󠁧󠁿 {props.word.word}</p>}
-        {props.showTranslation && (
-          <div className="flex flex-col text-left">
-            <p>🇩🇪 {props.word.translation}</p>
-            {props.word.notes.length > 0 && <p>{props.word.notes}</p>}
-          </div>
-        )}
-      </button>
-      <div className="mx-4 flex h-full items-center space-x-4">
-        {props.word.c1business && <p>💼</p>}
-        {showMarkSigns && (
-          <button className={`${markColor}`} onClick={toggleMark}>
-            {markIcon}
-          </button>
-        )}
+
+  function handleClick(e: InteractionEvent) {
+    console.log(e.target);
+  }
+
+  const actions = [
+    <Action action={(e) => handleClick(e)} key={1}>
+      <div className="flex h-full flex-col justify-center bg-red-300">
+        action
       </div>
+    </Action>,
+    <Action action={(e) => handleClick(e)} key={2}>
+      <div className="flex h-full flex-col justify-center bg-green-300">
+        action2
+      </div>
+    </Action>,
+  ];
+  return (
+    <div className={`w-full rounded-lg ${custom}`}>
+      <SwiperAction actions={actions}>
+        <div className={`flex h-full w-full items-center`}>
+          <button
+            // onClick={() => props.clickHandler(props.word.word)}
+            className="w-full rounded-lg py-4 px-4 text-left"
+          >
+            {!props.showTranslation && <p>🏴󠁧󠁢󠁥󠁮󠁧󠁿 {props.word.word}</p>}
+            {props.showTranslation && (
+              <div className="flex flex-col text-left">
+                <p>🇩🇪 {props.word.translation}</p>
+                {props.word.notes.length > 0 && <p>{props.word.notes}</p>}
+              </div>
+            )}
+          </button>
+          <div className="mx-4 flex items-center space-x-4">
+            {props.word.c1business && <p>💼</p>}
+            {showMarkSigns && (
+              <button className={`${markColor}`} onClick={toggleMark}>
+                {markIcon}
+              </button>
+            )}
+          </div>
+        </div>
+      </SwiperAction>
     </div>
   );
 }
