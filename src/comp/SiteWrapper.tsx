@@ -12,7 +12,7 @@ export default function SiteWrapper(props: Props) {
       <Head>
         <title>Vocab</title>
         <meta name="description" content="Vocabulary learning tool" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/dyme.png" />
       </Head>
       <div className="navbar bg-base-100">
         <div className="flex-1">
