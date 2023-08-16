@@ -46,7 +46,6 @@ const Home: NextPage = () => {
       <div className="flex w-full flex-col items-center ">
         <div className="tabs tabs-boxed" ref={tabContainerRef}>
           {(Object.keys(TABS) as Tab[]).map((e) => {
-            const custom = tab === e ? "font-bold" : "";
             return (
               <button
                 key={e}
