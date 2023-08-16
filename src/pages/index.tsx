@@ -8,6 +8,7 @@ import LogoutScreen from "../comp/LogoutScreen";
 import Generator from "../comp/Generator";
 import Learned from "../comp/Learned";
 import AllWords from "../comp/AllWords";
+import SiteWrapper from "../comp/SiteWrapper";
 
 type Tab = "generator" | "list" | "all";
 type TabDisplay = "Generator" | "Learned" | "All words";
@@ -41,49 +42,31 @@ const Home: NextPage = () => {
   }
 
   return (
-    <>
-      <Head>
-        <title>Vocab</title>
-        <meta
-          name="description"
-          content="A tool for choosing a word to learn every day"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className="flex min-h-screen flex-col items-center justify-start">
-        <div className="mb-4 flex w-screen justify-end">
-          <button
-            className="mr-4 p-4 hover:underline active:text-blue-500"
-            onClick={() => signOut()}
-          >
-            Sign out
-          </button>
+    <SiteWrapper>
+      <div className="flex w-full flex-col items-center ">
+        <div className="tabs tabs-boxed" ref={tabContainerRef}>
+          {(Object.keys(TABS) as Tab[]).map((e) => {
+            const custom = tab === e ? "font-bold" : "";
+            return (
+              <button
+                key={e}
+                onClick={(ev) => switchTab(ev, e)}
+                className={`tab ${e == "list" && "tab-active"}`}
+              >
+                {TABS[e]}
+              </button>
+            );
+          })}
         </div>
-        <div className="flex w-full flex-col items-center ">
-          <div className="tabs tabs-boxed" ref={tabContainerRef}>
-            {(Object.keys(TABS) as Tab[]).map((e) => {
-              const custom = tab === e ? "font-bold" : "";
-              return (
-                <button
-                  key={e}
-                  onClick={(ev) => switchTab(ev, e)}
-                  className={`tab ${e == "list" && "tab-active"}`}
-                >
-                  {TABS[e]}
-                </button>
-              );
-            })}
-          </div>
 
-          <div className="flex space-x-8"></div>
-          <div className="my-16 flex w-full justify-center">
-            {tab == "generator" && <Generator />}
-            {tab == "list" && <Learned />}
-            {tab == "all" && <AllWords />}
-          </div>
+        <div className="flex space-x-8"></div>
+        <div className="my-16 flex w-full justify-center">
+          {tab == "generator" && <Generator />}
+          {tab == "list" && <Learned />}
+          {tab == "all" && <AllWords />}
         </div>
-      </main>
-    </>
+      </div>
+    </SiteWrapper>
   );
 };
 
