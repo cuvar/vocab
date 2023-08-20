@@ -52,16 +52,21 @@ export default function List(props: IProps) {
             className="w-full rounded-lg py-4 px-4 text-left"
           >
             {!props.showTranslation && (
-              <p>
-                {props.word.iconTranslation} {props.word.word}
+              <p className="flex items-center space-x-2">
+                <span>{props.word.iconTranslation}</span>
+                <span>{props.word.word}</span>
               </p>
             )}
             {props.showTranslation && (
               <div className="flex flex-col text-left">
-                <p>
-                  {props.word.iconNative} {props.word.translation}
+                <p className="flex items-center space-x-2">
+                  <span>{props.word.iconNative}</span>
+                  <span>
+                    {props.word.translation}
+                    <br />
+                    {props.word.notes.length > 0 && <p>{props.word.notes}</p>}
+                  </span>
                 </p>
-                {props.word.notes.length > 0 && <p>{props.word.notes}</p>}
               </div>
             )}
           </button>
