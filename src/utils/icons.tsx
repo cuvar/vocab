@@ -22,7 +22,7 @@ export const checkedIcon = (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="h-6 w-6"
+    className="h-8 w-8"
   >
     <path
       strokeLinecap="round"
@@ -134,7 +134,7 @@ export const infoIcon = (
   </svg>
 );
 
-export const crossIcon = (
+export const crossRoundIcon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -147,6 +147,40 @@ export const crossIcon = (
       strokeLinecap="round"
       strokeLinejoin="round"
       d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+);
+
+export const crossIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="h-6 w-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6 18L18 6M6 6l12 12"
+    />
+  </svg>
+);
+
+export const switchIcon = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    strokeWidth={1.5}
+    stroke="currentColor"
+    className="h-6 w-6"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"
     />
   </svg>
 );

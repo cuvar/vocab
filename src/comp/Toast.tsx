@@ -1,4 +1,4 @@
-import { checkedIcon, crossIcon, infoIcon } from "../utils/icons";
+import { checkedIcon, crossRoundIcon } from "../utils/icons";
 
 interface Props {
   msg: string;
@@ -6,7 +6,7 @@ interface Props {
   visible?: boolean;
 }
 export default function Toast(props: Props) {
-  const icon = props.mode == "success" ? checkedIcon : crossIcon;
+  const icon = props.mode == "success" ? checkedIcon : crossRoundIcon;
   const visibleClass = props.visible ? "visible" : "invisible";
   return (
     <div
