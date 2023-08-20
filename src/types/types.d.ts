@@ -15,3 +15,11 @@ declare type ListElement = VocabularyWord & {
 };
 
 type ToastType = "success" | "error";
+
+interface VocabularyWord {
+  english: string;
+  german: string;
+  notes: string;
+  learned: boolean;
+  c1business: boolean;
+}
