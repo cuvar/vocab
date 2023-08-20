@@ -4,6 +4,8 @@ declare interface VocabularyWord {
   c1business: boolean;
   notes: string;
   learned: boolean;
+  iconTranslation: string;
+  iconNative: string;
 }
 
 declare type ListElement = VocabularyWord & {
@@ -11,3 +13,13 @@ declare type ListElement = VocabularyWord & {
   word: string;
   translation: string;
 };
+
+type ToastType = "success" | "error";
+
+interface VocabularyWord {
+  english: string;
+  german: string;
+  notes: string;
+  learned: boolean;
+  c1business: boolean;
+}

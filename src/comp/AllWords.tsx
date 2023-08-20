@@ -1,29 +1,64 @@
-import Switch from "@mui/material/Switch";
 import { useState } from "react";
 import { api } from "../utils/api";
 import List from "./List";
+import { ActionData, InteractionEvent } from "swiper-action";
+import { switchIcon, trashIcon } from "../utils/icons";
+import { useAtom } from "jotai";
+import { toastTextAtom, toastTypeAtom } from "../server/store";
 
 export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
-  const [switchChecked, setSwitchChecked] = useState(false);
-  const allQuery = api.word.getAll.useQuery(
-    // @ts-ignore
-    {},
-    {
-      onSuccess: (data) => {
-        const transformed: ListElement[] = data.map((e: VocabularyWord) => {
-          return {
-            key: e.english,
-            word: e.english,
-            translation: e.german,
-            ...e,
-          };
-        });
-        setWordsToDisplay(transformed);
-      },
-    }
-  );
-  const markAsLearnedQuery = api.word.markAsLearned.useMutation();
+  const [toastText, setToastText] = useAtom(toastTextAtom);
+  const [toastType, setToastType] = useAtom(toastTypeAtom);
+
+  const allQuery = api.word.getAll.useQuery(undefined, {
+    onSuccess: (data) => {
+      const transformed: ListElement[] = data.map((e: VocabularyWord) => {
+        return {
+          key: e.english,
+          word: e.english,
+          translation: e.german,
+          ...e,
+        };
+      });
+      setWordsToDisplay(transformed);
+    },
+    refetchOnWindowFocus: false,
+  });
+  const markAsLearnedQuery = api.word.markAsLearned.useMutation({
+    onSuccess: (data) => {
+      setToastType("success");
+      setToastText(`"${data.english}" (un)marked successfully`);
+      allQuery.refetch();
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+    onError: (err) => {
+      setToastType("error");
+      setToastText(`${err.message}`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
+  const deleteWordMutation = api.word.deleteWord.useMutation({
+    onSuccess: (data) => {
+      setToastType("success");
+      setToastText(`"${data.english}" was deleted successfully`);
+      allQuery.refetch();
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+    onError: (err) => {
+      setToastType("error");
+      setToastText(`${err.message}`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
 
   if (allQuery.isLoading) {
     return <div>loading</div>;
@@ -33,67 +68,42 @@ export default function AllWords() {
     return <div>no data</div>;
   }
 
-  function markAsLearned(word: string, mark: boolean) {
+  function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     markAsLearnedQuery.mutate({
-      word: word,
-      learned: mark,
+      word: arg.english,
+      learned: !arg.learned,
     });
-    allQuery.refetch();
   }
 
-  function handleSwitchChange() {
-    const newChecked = !switchChecked;
-    setSwitchChecked(newChecked);
-    if (newChecked) {
-      // show german
-      const transformed: ListElement[] = wordsToDisplay.map((e) => {
-        return {
-          word: e.translation,
-          translation: e.word,
-          key: e.english,
-          notes: e.notes,
-          learned: e.learned,
-          c1business: e.c1business,
-          english: e.english,
-          german: e.german,
-        };
-      });
-      setWordsToDisplay(transformed);
-    } else {
-      // show english
-      const transformed: ListElement[] = wordsToDisplay.map((e) => {
-        return {
-          word: e.translation,
-          translation: e.word,
-          key: e.english,
-          notes: e.notes,
-          learned: e.learned,
-          c1business: e.c1business,
-          english: e.english,
-          german: e.german,
-        };
-      });
-      setWordsToDisplay(transformed);
-    }
+  function deleteWord(ev: InteractionEvent, arg: VocabularyWord) {
+    deleteWordMutation.mutate({ word: arg.english });
   }
+
+  const actions: ActionData[] = [
+    {
+      action: changeMarkAsLearned,
+      children: (
+        <div className="flex h-full items-center justify-center bg-accent text-white">
+          {switchIcon}
+        </div>
+      ),
+    },
+    {
+      action: deleteWord,
+      children: (
+        <div className="flex h-full items-center justify-center bg-error text-white">
+          {trashIcon}
+        </div>
+      ),
+    },
+  ];
 
   return (
-    <div className="container flex w-full flex-col items-center justify-center gap-12 px-4">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4">
       <h1 className="text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>
-      <div className="flex items-center">
-        <p>German</p>
-        <Switch
-          color="secondary"
-          onChange={handleSwitchChange}
-          checked={switchChecked}
-        />
-      </div>
-      <List
-        words={wordsToDisplay}
-        markHandler={(w: string, m: boolean) => markAsLearned(w, m)}
-      ></List>
+      <List words={wordsToDisplay} actions={actions} markLearned={true} />
     </div>
   );
 }

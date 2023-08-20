@@ -1,85 +1,80 @@
+import { ActionData, InteractionEvent } from "swiper-action";
 import { api } from "../utils/api";
 import List from "./List";
-import Switch from "@mui/material/Switch";
 import { useState } from "react";
+import { crossIcon } from "../utils/icons";
+import { useAtom } from "jotai";
+import { toastTextAtom, toastTypeAtom } from "../server/store";
 
 export default function Learned() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
-  const [switchChecked, setSwitchChecked] = useState(false);
-  const { data, isLoading } = api.word.getLearned.useQuery(
-    // @ts-ignore
-    {},
-    {
-      onSuccess: (data) => {
-        const transformed: ListElement[] = data.map((e: VocabularyWord) => {
-          return {
-            key: e.english,
-            word: e.english,
-            translation: e.german,
-            ...e,
-          };
-        });
-        setWordsToDisplay(transformed);
-      },
-    }
-  );
+  const [toastText, setToastText] = useAtom(toastTextAtom);
+  const [toastType, setToastType] = useAtom(toastTypeAtom);
 
-  if (isLoading) {
+  const markAsLearnedMutation = api.word.markAsLearned.useMutation({
+    onSuccess: (data) => {
+      setToastType("success");
+      setToastText(`"${data.english}" removed from learned words`);
+      getLearnedQuery.refetch();
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+    onError: (err) => {
+      setToastType("error");
+      setToastText(`${err.message}`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
+  const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
+    onSuccess: (data) => {
+      const transformed: ListElement[] = data.map((e: VocabularyWord) => {
+        return {
+          key: e.english,
+          word: e.english,
+          translation: e.german,
+          ...e,
+        };
+      });
+      setWordsToDisplay(transformed);
+    },
+    refetchOnWindowFocus: false,
+  });
+
+  if (getLearnedQuery.isLoading) {
     return <div>loading</div>;
   }
 
-  if (!wordsToDisplay) {
+  if (!wordsToDisplay || !getLearnedQuery.data) {
     return <div>no data</div>;
   }
 
-  function handleSwitchChange() {
-    const newChecked = !switchChecked;
-    setSwitchChecked(newChecked);
-    if (newChecked) {
-      // show german
-      const transformed: ListElement[] = wordsToDisplay.map((e) => {
-        return {
-          word: e.translation,
-          translation: e.word,
-          key: e.english,
-          notes: e.notes,
-          learned: e.learned,
-          c1business: e.c1business,
-          english: e.english,
-          german: e.german,
-        };
-      });
-      setWordsToDisplay(transformed);
-    } else {
-      // show english
-      const transformed: ListElement[] = wordsToDisplay.map((e) => {
-        return {
-          word: e.translation,
-          translation: e.word,
-          key: e.english,
-          notes: e.notes,
-          learned: e.learned,
-          c1business: e.c1business,
-          english: e.english,
-          german: e.german,
-        };
-      });
-      setWordsToDisplay(transformed);
-    }
+  function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
+    markAsLearnedMutation.mutate({
+      word: arg.english,
+      learned: false,
+    });
   }
 
+  const actions: ActionData[] = [
+    {
+      action: handleRemoveFromLearned,
+      children: (
+        <div className="flex h-full items-center justify-center bg-error text-white">
+          {crossIcon}
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <div className="container flex w-full flex-col items-center justify-center gap-12 px-4">
-      <h1 className="text-2xl tracking-tight">Learned words: {data.length}</h1>
-      <div className="flex items-center">
-        <p>German</p>
-        <Switch
-          color="secondary"
-          onChange={handleSwitchChange}
-          checked={switchChecked}
-        />
-      </div>
-      <List words={wordsToDisplay}></List>
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4">
+      <h1 className="text-2xl tracking-tight">
+        Learned words: {getLearnedQuery.data.length}
+      </h1>
+      <List words={wordsToDisplay} actions={actions}></List>
     </div>
   );
 }
