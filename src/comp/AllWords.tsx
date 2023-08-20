@@ -3,9 +3,12 @@ import { api } from "../utils/api";
 import List from "./List";
 import { ActionData, InteractionEvent } from "swiper-action";
 import { checkmarkIcon } from "../utils/icons";
+import Toast from "./Toast";
 
 export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
+  const [toastText, setToastText] = useState("");
+  const [toastMode, setToastMode] = useState<ToastType>("success");
   const allQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
@@ -21,8 +24,20 @@ export default function AllWords() {
     refetchOnWindowFocus: false,
   });
   const markAsLearnedQuery = api.word.markAsLearned.useMutation({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setToastMode("success");
+      setToastText(`"${data.english}" added to learned words`);
       allQuery.refetch();
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+    onError: (err) => {
+      setToastMode("error");
+      setToastText(`${err.message}`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
     },
   });
 
@@ -58,6 +73,7 @@ export default function AllWords() {
         All words: {allQuery.data.length}
       </h1>
       <List words={wordsToDisplay} actions={actions}></List>
+      <Toast msg={toastText} mode={toastMode} visible={toastText.length > 0} />
     </div>
   );
 }

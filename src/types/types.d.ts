@@ -13,3 +13,5 @@ declare type ListElement = VocabularyWord & {
   word: string;
   translation: string;
 };
+
+type ToastType = "success" | "error";

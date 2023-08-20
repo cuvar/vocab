@@ -3,13 +3,27 @@ import { api } from "../utils/api";
 import List from "./List";
 import { useState } from "react";
 import { trashIcon } from "../utils/icons";
-import { Word } from "@prisma/client";
+import Toast from "./Toast";
 
 export default function Learned() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
+  const [toastText, setToastText] = useState("");
+  const [toastMode, setToastMode] = useState<ToastType>("success");
   const markAsLearnedMutation = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
+      setToastMode("success");
+      setToastText(`"${data.english}" removed from learned words`);
       getLearnedQuery.refetch();
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+    onError: (err) => {
+      setToastMode("error");
+      setToastText(`${err.message}`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
     },
   });
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
@@ -36,9 +50,6 @@ export default function Learned() {
   }
 
   function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
-    console.log("remove");
-    console.log(e);
-    console.log(arg.english);
     markAsLearnedMutation.mutate({
       word: arg.english,
       learned: false,
@@ -62,6 +73,7 @@ export default function Learned() {
         Learned words: {getLearnedQuery.data.length}
       </h1>
       <List words={wordsToDisplay} actions={actions}></List>
+      <Toast msg={toastText} mode={toastMode} visible={toastText.length > 0} />
     </div>
   );
 }
