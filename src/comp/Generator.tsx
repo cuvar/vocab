@@ -65,11 +65,17 @@ export default function Generator() {
         alert("no word found");
         return;
       }
+      // todo: fix later
       setWordToDisplay({
+        // @ts-ignore
         english: res.data.english,
+        // @ts-ignore
         german: res.data.german,
+        // @ts-ignore
         notes: res.data.notes,
+        // @ts-ignore
         learned: res.data.learned,
+        // @ts-ignore
         c1business: res.data.c1business,
       });
 
