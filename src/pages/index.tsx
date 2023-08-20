@@ -9,6 +9,8 @@ import Generator from "../comp/Generator";
 import Learned from "../comp/Learned";
 import AllWords from "../comp/AllWords";
 import SiteWrapper from "../comp/SiteWrapper";
+import { signOutIcon } from "../utils/icons";
+import Navbar from "../comp/Navbar";
 
 type Tab = "generator" | "list" | "all";
 type TabDisplay = "Generator" | "Learned" | "All words";
@@ -43,23 +45,25 @@ const Home: NextPage = () => {
 
   return (
     <SiteWrapper>
-      <div className="flex w-full flex-col items-center ">
-        <div className="tabs tabs-boxed" ref={tabContainerRef}>
-          {(Object.keys(TABS) as Tab[]).map((e) => {
-            return (
-              <button
-                key={e}
-                onClick={(ev) => switchTab(ev, e)}
-                className={`tab ${e == "list" && "tab-active"}`}
-              >
-                {TABS[e]}
-              </button>
-            );
-          })}
+      <div className="flex w-full flex-col items-center">
+        <div className="sticky top-0 flex w-full flex-col items-center justify-center space-y-4 bg-base-100 pb-10">
+          <Navbar />
+          <div className="tabs tabs-boxed" ref={tabContainerRef}>
+            {(Object.keys(TABS) as Tab[]).map((e) => {
+              return (
+                <button
+                  key={e}
+                  onClick={(ev) => switchTab(ev, e)}
+                  className={`tab ${e == "list" && "tab-active"}`}
+                >
+                  {TABS[e]}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="flex space-x-8"></div>
-        <div className="my-16 flex w-full justify-center">
+        <div className="flex w-full justify-center">
           {tab == "generator" && <Generator />}
           {tab == "list" && <Learned />}
           {tab == "all" && <AllWords />}
