@@ -2,7 +2,7 @@ import { useState } from "react";
 import { api } from "../utils/api";
 import List from "./List";
 import { ActionData, InteractionEvent } from "swiper-action";
-import { checkmarkIcon, trashIcon } from "../utils/icons";
+import { switchIcon, trashIcon } from "../utils/icons";
 import Toast from "./Toast";
 
 export default function AllWords() {
@@ -26,7 +26,7 @@ export default function AllWords() {
   const markAsLearnedQuery = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
       setToastMode("success");
-      setToastText(`"${data.english}" added to learned words`);
+      setToastText(`"${data.english}" (un)marked successfully`);
       allQuery.refetch();
       setTimeout(() => {
         setToastText("");
@@ -66,10 +66,10 @@ export default function AllWords() {
     return <div>no data</div>;
   }
 
-  function markAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
+  function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     markAsLearnedQuery.mutate({
       word: arg.english,
-      learned: true,
+      learned: !arg.learned,
     });
   }
 
@@ -79,17 +79,17 @@ export default function AllWords() {
 
   const actions: ActionData[] = [
     {
-      action: markAsLearned,
+      action: changeMarkAsLearned,
       children: (
-        <div className="flex h-full items-center justify-center bg-green-700 text-white">
-          {checkmarkIcon}
+        <div className="flex h-full items-center justify-center bg-accent text-white">
+          {switchIcon}
         </div>
       ),
     },
     {
       action: deleteWord,
       children: (
-        <div className="flex h-full items-center justify-center bg-red-700 text-white">
+        <div className="flex h-full items-center justify-center bg-error text-white">
           {trashIcon}
         </div>
       ),
@@ -101,7 +101,7 @@ export default function AllWords() {
       <h1 className="text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>
-      <List words={wordsToDisplay} actions={actions}></List>
+      <List words={wordsToDisplay} actions={actions} markLearned={true} />
       <Toast msg={toastText} mode={toastMode} visible={toastText.length > 0} />
     </div>
   );
