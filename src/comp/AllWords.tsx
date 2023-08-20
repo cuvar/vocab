@@ -2,7 +2,7 @@ import { useState } from "react";
 import { api } from "../utils/api";
 import List from "./List";
 import { ActionData, InteractionEvent } from "swiper-action";
-import { checkmarkIcon } from "../utils/icons";
+import { checkmarkIcon, trashIcon } from "../utils/icons";
 import Toast from "./Toast";
 
 export default function AllWords() {
@@ -40,6 +40,23 @@ export default function AllWords() {
       }, 1500);
     },
   });
+  const deleteWordMutation = api.word.deleteWord.useMutation({
+    onSuccess: (data) => {
+      setToastMode("success");
+      setToastText(`"${data.english}" was deleted successfully`);
+      allQuery.refetch();
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+    onError: (err) => {
+      setToastMode("error");
+      setToastText(`${err.message}`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
 
   if (allQuery.isLoading) {
     return <div>loading</div>;
@@ -56,12 +73,24 @@ export default function AllWords() {
     });
   }
 
+  function deleteWord(ev: InteractionEvent, arg: VocabularyWord) {
+    deleteWordMutation.mutate({ word: arg.english });
+  }
+
   const actions: ActionData[] = [
     {
       action: markAsLearned,
       children: (
         <div className="flex h-full items-center justify-center bg-green-700 text-white">
           {checkmarkIcon}
+        </div>
+      ),
+    },
+    {
+      action: deleteWord,
+      children: (
+        <div className="flex h-full items-center justify-center bg-red-700 text-white">
+          {trashIcon}
         </div>
       ),
     },

@@ -155,4 +155,18 @@ export const wordRouter = createTRPCRouter({
         },
       });
     }),
+
+  deleteWord: publicProcedure
+    .input(
+      z.object({
+        word: z.string().min(1),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.word.delete({
+        where: {
+          english: input.word,
+        },
+      });
+    }),
 });
