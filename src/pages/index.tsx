@@ -1,15 +1,11 @@
 import { type NextPage } from "next";
-import Head from "next/head";
-
-import { api } from "../utils/api";
 import { useRef, useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import LogoutScreen from "../comp/LogoutScreen";
 import Generator from "../comp/Generator";
 import Learned from "../comp/Learned";
 import AllWords from "../comp/AllWords";
 import SiteWrapper from "../comp/SiteWrapper";
-import { signOutIcon } from "../utils/icons";
 import Navbar from "../comp/Navbar";
 
 type Tab = "generator" | "list" | "all";
@@ -46,7 +42,7 @@ const Home: NextPage = () => {
   return (
     <SiteWrapper>
       <div className="flex h-full w-full flex-col items-center">
-        <div className="sticky top-0 flex w-full flex-col items-center justify-center space-y-4 bg-base-100 pb-10">
+        <div className="sticky top-0 flex w-full flex-col items-center justify-center space-y-8 bg-base-100 pb-10">
           <Navbar />
           <div className="tabs tabs-boxed" ref={tabContainerRef}>
             {(Object.keys(TABS) as Tab[]).map((e) => {

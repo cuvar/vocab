@@ -1,17 +1,20 @@
-import { signOut } from "next-auth/react";
 import Head from "next/head";
-import { signOutIcon } from "../utils/icons";
 import Toast from "./Toast";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
+import {
+  editorVisibleAtom,
+  toastTextAtom,
+  toastTypeAtom,
+} from "../server/store";
 import { useAtom } from "jotai";
+import Editor from "./Editor";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export default function SiteWrapper(props: Props) {
-  const [toastText, setToastText] = useAtom(toastTextAtom);
-  const [toastType, setToastType] = useAtom(toastTypeAtom);
+  const [toastText, _] = useAtom(toastTextAtom);
+  const [toastType, __] = useAtom(toastTypeAtom);
 
   return (
     <>
@@ -28,6 +31,7 @@ export default function SiteWrapper(props: Props) {
           mode={toastType}
           visible={toastText.length > 0}
         />
+        <Editor />
       </main>
     </>
   );
