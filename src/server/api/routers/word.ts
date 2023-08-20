@@ -25,6 +25,9 @@ export const wordRouter = createTRPCRouter({
           english: input.word,
         },
       });
+      if (data == null) {
+        throw new Error("Word not found");
+      }
       return {
         ...data,
         iconNative: "🇩🇪",
