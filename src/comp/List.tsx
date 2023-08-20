@@ -2,10 +2,12 @@ import Fuse from "fuse.js";
 import { useEffect, useRef, useState } from "react";
 import ListElement from "./ListElement";
 import { resetIcon } from "../utils/icons";
+import { ActionData } from "swiper-action";
 
 interface IProps {
   words: ListElement[];
   markHandler?: (word: string, mark: boolean) => void;
+  actions?: ActionData[];
 }
 
 export default function List(props: IProps) {
@@ -151,6 +153,7 @@ export default function List(props: IProps) {
               showTranslation={e.word == currentShown}
               clickHandler={toggleCurrentShown}
               markHandler={props.markHandler}
+              actions={props.actions}
             />
           );
         })}

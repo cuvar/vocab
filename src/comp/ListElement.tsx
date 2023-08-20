@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SwiperAction, Action, InteractionEvent } from "swiper-action";
+import { SwiperAction, InteractionEvent, ActionData } from "swiper-action";
 import { uncheckedIcon, checkedIcon } from "../utils/icons";
 
 interface IProps {
@@ -7,6 +7,7 @@ interface IProps {
   showTranslation: boolean;
   clickHandler: (eng: string) => void;
   markHandler?: (word: string, mark: boolean) => void;
+  actions?: ActionData[];
 }
 
 const checkedColor = "text-green-600";
@@ -32,29 +33,19 @@ export default function List(props: IProps) {
     }
   }
 
-  function handleActionClick(e: InteractionEvent) {
-    console.log(e.target);
-  }
-
   function handleClick() {
     props.clickHandler(props.word.word);
   }
-  const actions = [
-    <Action action={(e) => handleActionClick(e)} key={1}>
-      <div className="flex h-full flex-col justify-center bg-red-300">
-        action
-      </div>
-    </Action>,
-    <Action action={(e) => handleActionClick(e)} key={2}>
-      <div className="flex h-full flex-col justify-center bg-green-300">
-        action2
-      </div>
-    </Action>,
-  ];
 
+  const newActions = props.actions?.map((e) => {
+    return {
+      ...e,
+      args: props.word,
+    };
+  });
   return (
     <div className={`w-full rounded-lg ${custom} text-black`}>
-      <SwiperAction actions={actions}>
+      <SwiperAction actions={newActions ?? []}>
         <div className={`flex h-full w-full items-center`}>
           <button
             onClick={handleClick}
