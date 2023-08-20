@@ -2,7 +2,12 @@ import { ActionData, InteractionEvent } from "swiper-action";
 import { api } from "../utils/api";
 import List from "./List";
 import { useState } from "react";
-import { trashIcon } from "../utils/icons";
+import {
+  checkedIcon,
+  checkmarkIcon,
+  crossIcon,
+  trashIcon,
+} from "../utils/icons";
 import Toast from "./Toast";
 
 export default function Learned() {
@@ -60,8 +65,8 @@ export default function Learned() {
     {
       action: handleRemoveFromLearned,
       children: (
-        <div className="flex h-full items-center justify-center bg-red-700 text-white">
-          {trashIcon}
+        <div className="flex h-full items-center justify-center bg-error text-white">
+          {crossIcon}
         </div>
       ),
     },
