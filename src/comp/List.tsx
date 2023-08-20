@@ -8,6 +8,7 @@ interface IProps {
   words: ListElement[];
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
+  markLearned?: boolean;
 }
 
 export default function List(props: IProps) {
@@ -154,6 +155,7 @@ export default function List(props: IProps) {
               clickHandler={toggleCurrentShown}
               markHandler={props.markHandler}
               actions={props.actions}
+              markLearned={props.markLearned}
             />
           );
         })}

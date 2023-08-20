@@ -8,6 +8,7 @@ interface IProps {
   clickHandler: (eng: string) => void;
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
+  markLearned?: boolean;
 }
 
 const checkedColor = "text-green-600";
@@ -17,7 +18,13 @@ export default function List(props: IProps) {
   const [markIcon, setMarkIcon] = useState<React.ReactNode>(
     props.word.learned ? checkedIcon : uncheckedIcon
   );
-  const custom = !props.showTranslation ? "bg-white" : "bg-teal-200";
+  const showTranslationClass = !props.showTranslation
+    ? "bg-white"
+    : "bg-violet-200";
+  const learnedClass =
+    props.word.learned && props.markLearned
+      ? "border border-4 border-secondary"
+      : "";
   const showMarkSigns = typeof props.markHandler !== "undefined";
   const [markColor, setMarkColor] = useState<string>(
     props.word.learned ? checkedColor : uncheckedColor
@@ -44,7 +51,9 @@ export default function List(props: IProps) {
     };
   });
   return (
-    <div className={`w-full rounded-lg ${custom} text-black`}>
+    <div
+      className={`w-full rounded-lg ${showTranslationClass} ${learnedClass} text-black`}
+    >
       <SwiperAction actions={newActions ?? []}>
         <div className={`flex h-full w-full items-center`}>
           <button
