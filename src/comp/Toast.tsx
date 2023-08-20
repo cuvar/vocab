@@ -10,7 +10,7 @@ export default function Toast(props: Props) {
   const visibleClass = props.visible ? "visible" : "invisible";
   return (
     <div
-      className={`alert alert-${props.mode} sticky bottom-5 flex w-full ${visibleClass}`}
+      className={`alert alert-${props.mode} sticky bottom-5 flex w-5/6 ${visibleClass}`}
     >
       <span>{icon}</span>
       <span>{props.msg}</span>

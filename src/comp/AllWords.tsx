@@ -3,12 +3,14 @@ import { api } from "../utils/api";
 import List from "./List";
 import { ActionData, InteractionEvent } from "swiper-action";
 import { switchIcon, trashIcon } from "../utils/icons";
-import Toast from "./Toast";
+import { useAtom } from "jotai";
+import { toastTextAtom, toastTypeAtom } from "../server/store";
 
 export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
-  const [toastText, setToastText] = useState("");
-  const [toastMode, setToastMode] = useState<ToastType>("success");
+  const [toastText, setToastText] = useAtom(toastTextAtom);
+  const [toastType, setToastType] = useAtom(toastTypeAtom);
+
   const allQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
@@ -25,7 +27,7 @@ export default function AllWords() {
   });
   const markAsLearnedQuery = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
-      setToastMode("success");
+      setToastType("success");
       setToastText(`"${data.english}" (un)marked successfully`);
       allQuery.refetch();
       setTimeout(() => {
@@ -33,7 +35,7 @@ export default function AllWords() {
       }, 1500);
     },
     onError: (err) => {
-      setToastMode("error");
+      setToastType("error");
       setToastText(`${err.message}`);
       setTimeout(() => {
         setToastText("");
@@ -42,7 +44,7 @@ export default function AllWords() {
   });
   const deleteWordMutation = api.word.deleteWord.useMutation({
     onSuccess: (data) => {
-      setToastMode("success");
+      setToastType("success");
       setToastText(`"${data.english}" was deleted successfully`);
       allQuery.refetch();
       setTimeout(() => {
@@ -50,7 +52,7 @@ export default function AllWords() {
       }, 1500);
     },
     onError: (err) => {
-      setToastMode("error");
+      setToastType("error");
       setToastText(`${err.message}`);
       setTimeout(() => {
         setToastText("");
@@ -97,12 +99,11 @@ export default function AllWords() {
   ];
 
   return (
-    <div className="container flex w-full flex-col items-center justify-center gap-12 px-4">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4">
       <h1 className="text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>
       <List words={wordsToDisplay} actions={actions} markLearned={true} />
-      <Toast msg={toastText} mode={toastMode} visible={toastText.length > 0} />
     </div>
   );
 }

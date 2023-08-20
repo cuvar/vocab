@@ -45,7 +45,7 @@ const Home: NextPage = () => {
 
   return (
     <SiteWrapper>
-      <div className="flex w-full flex-col items-center">
+      <div className="flex h-full w-full flex-col items-center">
         <div className="sticky top-0 flex w-full flex-col items-center justify-center space-y-4 bg-base-100 pb-10">
           <Navbar />
           <div className="tabs tabs-boxed" ref={tabContainerRef}>
@@ -63,7 +63,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <div className="flex w-full justify-center">
+        <div className="flex h-full w-full justify-center">
           {tab == "generator" && <Generator />}
           {tab == "list" && <Learned />}
           {tab == "all" && <AllWords />}

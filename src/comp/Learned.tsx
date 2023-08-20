@@ -2,21 +2,18 @@ import { ActionData, InteractionEvent } from "swiper-action";
 import { api } from "../utils/api";
 import List from "./List";
 import { useState } from "react";
-import {
-  checkedIcon,
-  checkmarkIcon,
-  crossIcon,
-  trashIcon,
-} from "../utils/icons";
-import Toast from "./Toast";
+import { crossIcon } from "../utils/icons";
+import { useAtom } from "jotai";
+import { toastTextAtom, toastTypeAtom } from "../server/store";
 
 export default function Learned() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
-  const [toastText, setToastText] = useState("");
-  const [toastMode, setToastMode] = useState<ToastType>("success");
+  const [toastText, setToastText] = useAtom(toastTextAtom);
+  const [toastType, setToastType] = useAtom(toastTypeAtom);
+
   const markAsLearnedMutation = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
-      setToastMode("success");
+      setToastType("success");
       setToastText(`"${data.english}" removed from learned words`);
       getLearnedQuery.refetch();
       setTimeout(() => {
@@ -24,7 +21,7 @@ export default function Learned() {
       }, 1500);
     },
     onError: (err) => {
-      setToastMode("error");
+      setToastType("error");
       setToastText(`${err.message}`);
       setTimeout(() => {
         setToastText("");
@@ -73,12 +70,11 @@ export default function Learned() {
   ];
 
   return (
-    <div className="container flex w-full flex-col items-center justify-center gap-12 px-4">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4">
       <h1 className="text-2xl tracking-tight">
         Learned words: {getLearnedQuery.data.length}
       </h1>
       <List words={wordsToDisplay} actions={actions}></List>
-      <Toast msg={toastText} mode={toastMode} visible={toastText.length > 0} />
     </div>
   );
 }
