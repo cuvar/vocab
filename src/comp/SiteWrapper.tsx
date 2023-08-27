@@ -1,12 +1,8 @@
 import Head from "next/head";
 import Toast from "./Toast";
-import {
-  editorVisibleAtom,
-  toastTextAtom,
-  toastTypeAtom,
-} from "../server/store";
+import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { useAtom } from "jotai";
-import Editor from "./Editor";
+import AddWordEditor from "./AddWordEditor";
 
 interface Props {
   children: React.ReactNode;
@@ -31,7 +27,7 @@ export default function SiteWrapper(props: Props) {
           mode={toastType}
           visible={toastText.length > 0}
         />
-        <Editor />
+        <AddWordEditor />
       </main>
     </>
   );
