@@ -2,6 +2,7 @@ import { signOut } from "next-auth/react";
 import { plusIcon, signOutIcon } from "../utils/icons";
 import { addModalIdAtom } from "../server/store";
 import { useAtom } from "jotai";
+import Menu from "./Menu";
 
 export default function Navbar() {
   const [addModal, _] = useAtom(addModalIdAtom);
@@ -21,12 +22,7 @@ export default function Navbar() {
         <button className="btn-ghost btn" onClick={handleAdd}>
           {plusIcon}
         </button>
-        <button
-          className="btn-ghost btn mr-4 active:text-blue-500"
-          onClick={() => signOut()}
-        >
-          {signOutIcon}
-        </button>
+        <Menu />
       </div>
     </div>
   );
