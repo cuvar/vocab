@@ -23,13 +23,6 @@ export default function Menu() {
             className="btn-ghost flex items-center space-x-2 rounded-md px-2 py-2 text-left active:text-blue-500"
             onClick={() => triggerImport()}
           >
-            <span>{penIcon}</span>
-            <span>Edit word (todo)</span>
-          </button>
-          <button
-            className="btn-ghost flex items-center space-x-2 rounded-md px-2 py-2 text-left active:text-blue-500"
-            onClick={() => triggerImport()}
-          >
             <span>{importIcon}</span>
             <span>Import (todo)</span>
           </button>
