@@ -1,10 +1,7 @@
 import { signOut } from "next-auth/react";
-import { ellipsisIcon, importIcon, penIcon, signOutIcon } from "../utils/icons";
-import { useState } from "react";
+import { ellipsisIcon, importIcon, signOutIcon } from "../utils/icons";
 
 export default function Menu() {
-  const [showMenu, setShowMenu] = useState(false);
-
   function triggerImport() {
     // todo: implement
   }
