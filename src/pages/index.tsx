@@ -6,6 +6,8 @@ import Generator from "../comp/Generator";
 import Learned from "../comp/Learned";
 import AllWords from "../comp/AllWords";
 import SiteWrapper from "../comp/SiteWrapper";
+import Link from "next/link";
+import { hatIcon, listIcon, sparklesIcon } from "../utils/icons";
 
 type Tab = "generator" | "list" | "all";
 type TabDisplay = "Generator" | "Learned" | "All words";
@@ -40,29 +42,35 @@ const Home: NextPage = () => {
 
   return (
     <SiteWrapper>
-      <div className="flex h-full w-full flex-col items-center">
-        <div className="sticky top-0 flex w-full flex-col items-center justify-center space-y-8 bg-base-100 pb-10">
-          <div className="tabs tabs-boxed" ref={tabContainerRef}>
-            {(Object.keys(TABS) as Tab[]).map((e) => {
-              return (
-                <button
-                  key={e}
-                  onClick={(ev) => switchTab(ev, e)}
-                  className={`tab ${e == "list" && "tab-active"}`}
-                >
-                  {TABS[e]}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="flex h-full w-full justify-center">
-          {tab == "generator" && <Generator />}
-          {tab == "list" && <Learned />}
-          {tab == "all" && <AllWords />}
-        </div>
-      </div>
+      <ul className="flex flex-col space-y-6">
+        <li className="flex">
+          <Link
+            href="/learn"
+            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg"
+          >
+            <span>{hatIcon}</span>
+            <span>Learn Mode</span>
+          </Link>
+        </li>
+        <li className="flex">
+          <Link
+            href="/words"
+            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg "
+          >
+            <span>{listIcon}</span>
+            <span>All words</span>
+          </Link>
+        </li>
+        <li className="flex">
+          <Link
+            href="/generate"
+            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg "
+          >
+            <span>{sparklesIcon}</span>
+            <span>Generate</span>
+          </Link>
+        </li>
+      </ul>
     </SiteWrapper>
   );
 };

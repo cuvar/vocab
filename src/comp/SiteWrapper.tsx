@@ -5,6 +5,8 @@ import { useAtom } from "jotai";
 import AddWordEditor from "./AddWordEditor";
 import Navbar from "./Navbar";
 import Drawer from "./Drawer";
+import { useSession } from "next-auth/react";
+import LogoutScreen from "./LogoutScreen";
 
 interface Props {
   children: React.ReactNode;
@@ -13,6 +15,11 @@ interface Props {
 export default function SiteWrapper(props: Props) {
   const [toastText, _] = useAtom(toastTextAtom);
   const [toastType, __] = useAtom(toastTypeAtom);
+
+  const { data } = useSession();
+  if (!data?.user) {
+    return <LogoutScreen />;
+  }
 
   return (
     <>
@@ -23,16 +30,21 @@ export default function SiteWrapper(props: Props) {
       </Head>
 
       <Drawer>
-        <main className="flex min-h-screen flex-col items-center justify-start">
-          <Navbar />
-          {props.children}
-          <Toast
-            msg={toastText}
-            mode={toastType}
-            visible={toastText.length > 0}
-          />
-          <AddWordEditor />
-        </main>
+        <Navbar />
+
+        <div className="flex w-full flex-col items-center justify-start">
+          <main className="flex min-h-screen w-full flex-col items-center justify-center sm:w-5/6 md:w-3/4 lg:w-5/6 xl:w-3/4">
+            <div className="flex h-full w-full justify-center">
+              {props.children}
+            </div>
+          </main>
+        </div>
+        <Toast
+          msg={toastText}
+          mode={toastType}
+          visible={toastText.length > 0}
+        />
+        <AddWordEditor />
       </Drawer>
     </>
   );
