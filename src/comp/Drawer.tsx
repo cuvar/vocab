@@ -11,7 +11,7 @@ export default function Drawer(props: Props) {
       <div className="drawer-content w-full">{props.children}</div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="menu min-h-full w-80 space-y-2 bg-base-200 p-4 text-base-content">
+        <ul className="menu min-h-full w-80 space-y-2 bg-base-100 p-4 text-base-content">
           <li>
             <Link href="/learn">{hatIcon} Learn</Link>
           </li>
