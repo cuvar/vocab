@@ -6,7 +6,6 @@ import Generator from "../comp/Generator";
 import Learned from "../comp/Learned";
 import AllWords from "../comp/AllWords";
 import SiteWrapper from "../comp/SiteWrapper";
-import Navbar from "../comp/Navbar";
 
 type Tab = "generator" | "list" | "all";
 type TabDisplay = "Generator" | "Learned" | "All words";
@@ -43,7 +42,6 @@ const Home: NextPage = () => {
     <SiteWrapper>
       <div className="flex h-full w-full flex-col items-center">
         <div className="sticky top-0 flex w-full flex-col items-center justify-center space-y-8 bg-base-100 pb-10">
-          <Navbar />
           <div className="tabs tabs-boxed" ref={tabContainerRef}>
             {(Object.keys(TABS) as Tab[]).map((e) => {
               return (
