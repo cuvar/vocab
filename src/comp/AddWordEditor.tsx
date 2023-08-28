@@ -9,6 +9,7 @@ export default function Editor() {
   const [germanInput, setGermanInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
   const [businessInput, setBusinessInput] = useState(false);
+  const [showExistingWords, setShowExistingWords] = useState(false);
 
   const [_, setToastText] = useAtom(toastTextAtom);
   const [__, setToastType] = useAtom(toastTypeAtom);
@@ -100,7 +101,11 @@ export default function Editor() {
             </label>
           </div>
           <div className="collapse bg-base-200">
-            <input type="checkbox" checked={true} />
+            <input
+              type="checkbox"
+              checked={showExistingWords}
+              onChange={() => setShowExistingWords(!showExistingWords)}
+            />
             <div className="collapse-title text-xl font-medium">
               Existing words
             </div>
