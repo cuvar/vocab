@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { hatIcon, listIcon, sparklesIcon } from "../utils/icons";
+
 interface Props {
   children: React.ReactNode;
 }
@@ -8,15 +11,15 @@ export default function Drawer(props: Props) {
       <div className="drawer-content w-full">{props.children}</div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="menu min-h-full w-80 bg-base-200 p-4 text-base-content">
+        <ul className="menu min-h-full w-80 space-y-2 bg-base-200 p-4 text-base-content">
           <li>
-            <a>All words</a>
+            <Link href="/learn">{hatIcon} Learn</Link>
           </li>
           <li>
-            <a>Learn mode</a>
+            <Link href="/words">{listIcon} All words</Link>
           </li>
           <li>
-            <a>Generator</a>
+            <Link href="/generate">{sparklesIcon} Generator</Link>
           </li>
         </ul>
       </div>
