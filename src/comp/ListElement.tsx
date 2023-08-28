@@ -15,6 +15,7 @@ const checkedColor = "text-green-600";
 const uncheckedColor = "text-black-600";
 
 export default function List(props: IProps) {
+  const [isSwiping, setIsSwiping] = useState<boolean>(false);
   const [markIcon, setMarkIcon] = useState<React.ReactNode>(
     props.word.learned ? checkedIcon : uncheckedIcon
   );
@@ -40,8 +41,26 @@ export default function List(props: IProps) {
     }
   }
 
-  function handleClick() {
+  function handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    if (isSwiping) return;
+
     props.clickHandler(props.word.word);
+  }
+
+  function handleSwipeStart(e: InteractionEvent) {
+    setIsSwiping(true);
+  }
+
+  function handleSwipeEnd(e: InteractionEvent) {
+    setIsSwiping(false);
+  }
+
+  function handleResetStart(e: Event) {
+    setIsSwiping(true);
+  }
+
+  function handleResetEnd(e: Event) {
+    setIsSwiping(false);
   }
 
   const newActions = props.actions?.map((e) => {
@@ -54,10 +73,16 @@ export default function List(props: IProps) {
     <div
       className={`w-full rounded-lg ${showTranslationClass} ${learnedClass} text-black`}
     >
-      <SwiperAction actions={newActions ?? []}>
+      <SwiperAction
+        actions={newActions ?? []}
+        onSwipeStart={handleSwipeStart}
+        onSwipeEnd={handleSwipeEnd}
+        onResetStart={handleResetStart}
+        onResetEnd={handleResetEnd}
+      >
         <div className={`flex h-full w-full items-center`}>
           <button
-            onClick={handleClick}
+            onClick={(e) => handleClick(e)}
             className="w-full rounded-lg py-4 px-4 text-left"
           >
             {!props.showTranslation && (
