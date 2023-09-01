@@ -14,7 +14,7 @@ export default function Learned() {
   const markAsLearnedMutation = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
       setToastType("success");
-      setToastText(`"${data.english}" removed from learned words`);
+      setToastText(`"${data.translation}" removed from learned words`);
       getLearnedQuery.refetch();
       setTimeout(() => {
         setToastText("");
@@ -32,9 +32,9 @@ export default function Learned() {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
         return {
-          key: e.english,
-          word: e.english,
-          translation: e.german,
+          key: e.translation,
+          word: e.translation,
+          otherWord: e.native,
           ...e,
         };
       });
@@ -53,7 +53,7 @@ export default function Learned() {
 
   function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
     markAsLearnedMutation.mutate({
-      word: arg.english,
+      word: arg.translation,
       learned: false,
     });
   }

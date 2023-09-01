@@ -1,12 +1,21 @@
 import { z } from "zod";
-// import * as vocabData from "../../../../vocab.json";
-// import * as vocabDataBusiness from "../../../../vocab-business.json";
+// import * as allWords from "../../../../allwords.json";
 import Fuse from "fuse.js";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
 
 export const wordRouter = createTRPCRouter({
+  // initDB: publicProcedure.mutation(async ({ ctx }) => {
+  //   const chunkSize = 100;
+  //   const chunks = allWords.length / chunkSize;
+  //   for (let i = 0; i < chunks; i++) {
+  //     const chunk = allWords.slice(i * chunkSize, (i + 1) * chunkSize);
+  //     await ctx.prisma.word.createMany({
+  //       data: [...chunk],
+  //     });
+  //   }
+  // }),
   getAll: publicProcedure.query(async ({ ctx }) => {
     const data = await ctx.prisma.word.findMany();
     const transformed = data.map((e) => {
@@ -26,7 +35,7 @@ export const wordRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const data = await ctx.prisma.word.findUnique({
         where: {
-          english: input.word,
+          translation: input.word,
         },
       });
       if (data == null) {
@@ -58,11 +67,11 @@ export const wordRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const res = await ctx.prisma.word.findMany({
         select: {
-          english: true,
+          translation: true,
         },
       });
 
-      const words = res.map((word) => word.english);
+      const words = res.map((word) => word.translation);
 
       const fuse = new Fuse(words, {
         includeScore: true,
@@ -106,7 +115,7 @@ export const wordRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const word = await ctx.prisma.word.findUnique({
         where: {
-          english: input.word,
+          translation: input.word,
         },
       });
 
@@ -116,7 +125,7 @@ export const wordRouter = createTRPCRouter({
 
       return ctx.prisma.word.update({
         where: {
-          english: word.english,
+          translation: word.translation,
         },
         data: {
           learned: input.learned,
@@ -126,20 +135,20 @@ export const wordRouter = createTRPCRouter({
   addWord: publicProcedure
     .input(
       z.object({
-        english: z.string(),
-        german: z.string(),
+        translation: z.string(),
+        native: z.string(),
         notes: z.string(),
         business: z.boolean(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (input.english === "" || input.german === "") {
+      if (input.translation === "" || input.native === "") {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "Word cannot be empty",
         });
       }
-      if (input.english.length > 100 || input.german.length > 100) {
+      if (input.translation.length > 100 || input.native.length > 100) {
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "Word too long",
@@ -148,8 +157,8 @@ export const wordRouter = createTRPCRouter({
 
       return ctx.prisma.word.create({
         data: {
-          english: input.english,
-          german: input.german,
+          translation: input.translation,
+          native: input.native,
           notes: input.notes,
           c1business: input.business,
           learned: false,
@@ -166,7 +175,7 @@ export const wordRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.word.delete({
         where: {
-          english: input.word,
+          translation: input.word,
         },
       });
     }),

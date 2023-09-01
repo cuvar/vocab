@@ -81,14 +81,15 @@ export default function List(props: IProps) {
       // show german
       const transformed: ListElement[] = wordsToDisplay.map((e) => {
         return {
-          word: e.translation,
-          translation: e.word,
-          key: e.english,
+          id: e.id,
+          word: e.otherWord,
+          otherWord: e.word,
+          key: e.translation,
           notes: e.notes,
           learned: e.learned,
           c1business: e.c1business,
-          english: e.english,
-          german: e.german,
+          translation: e.translation,
+          native: e.native,
           iconNative: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
           iconTranslation: "🇩🇪",
         };
@@ -98,14 +99,15 @@ export default function List(props: IProps) {
       // show english
       const transformed: ListElement[] = wordsToDisplay.map((e) => {
         return {
-          word: e.translation,
-          translation: e.word,
-          key: e.english,
+          id: e.id,
+          word: e.otherWord,
+          otherWord: e.word,
+          key: e.translation,
           notes: e.notes,
           learned: e.learned,
           c1business: e.c1business,
-          english: e.english,
-          german: e.german,
+          translation: e.translation,
+          native: e.native,
           iconNative: "🇩🇪",
           iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
         };

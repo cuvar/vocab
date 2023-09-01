@@ -1,3728 +1,4384 @@
 [
   {
-    "english": "abide",
-    "german": "ausharren",
+    "translation": "abundant",
+    "native": "reichlich",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "abundant",
-    "german": "reichlich",
+    "translation": "acquaintances",
+    "native": "Bekannte",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "accuse",
-    "german": "beschuldigen",
+    "translation": "adjudicated",
+    "native": "entschieden",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "acquaintances",
-    "german": "Bekannte",
+    "translation": "admission",
+    "native": "Zulassung",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "adjudicated",
-    "german": "entschieden",
+    "translation": "daunting",
+    "native": "einschüchternd",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "admission",
-    "german": "Zulassung",
+    "translation": "devoted",
+    "native": "gewidmet",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "daunting",
-    "german": "einschüchternd",
+    "translation": "accommodation",
+    "native": "Unterkunft",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "devoted",
-    "german": "gewidmet",
+    "translation": "adverse",
+    "native": "nachteilig, ungünstig",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "overhead",
-    "german": "Aufwand",
+    "translation": "advert",
+    "native": "Anzeige, Werbung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "accommodation",
-    "german": "Unterkunft",
+    "translation": "agitated",
+    "native": "aufgeregt",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "adverse",
-    "german": "nachteilig, ungünstig",
+    "translation": "aisle",
+    "native": "Gang",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "advert",
-    "german": "Anzeige, Werbung",
+    "translation": "alienated",
+    "native": "entfremdet",
     "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "alleged",
+    "native": "angeblich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "alleviated",
+    "native": "gelindert",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "amicably",
+    "native": "freundschaftlich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "amortality",
+    "native": "Unsterblichkeit",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "apparently",
+    "native": "anscheinend",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "appraising",
+    "native": "bewertend",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "aptly",
+    "native": "treffend",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "assessment",
+    "native": "Bewertung",
+    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "agitated",
-    "german": "aufgeregt",
+    "translation": "astutely",
+    "native": "scharfsinnig",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "aisle",
-    "german": "Gang",
+    "translation": "attenuating",
+    "native": "abmildernd",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "alienated",
-    "german": "entfremdet",
+    "translation": "bait and switch",
+    "native": "Ködern und Wechseln",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "alleged",
-    "german": "angeblich",
+    "translation": "bargain",
+    "native": "(ver)handeln",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "alleviated",
-    "german": "gelindert",
+    "translation": "begets",
+    "native": "erzeugt",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "amicably",
-    "german": "freundschaftlich",
+    "translation": "bemoaned",
+    "native": "beklagt",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "amortality",
-    "german": "Unsterblichkeit",
+    "translation": "bestow",
+    "native": "verleihen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "apparently",
-    "german": "anscheinend",
+    "translation": "beverage",
+    "native": "Getränk",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "appraising",
-    "german": "bewertend",
+    "translation": "beverages",
+    "native": "Getränke",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "aptly",
-    "german": "treffend",
+    "translation": "bliss",
+    "native": "Glückseligkeit",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "assessment",
-    "german": "Bewertung",
+    "translation": "chirped",
+    "native": "geschwätzt",
     "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "commission",
+    "native": "Provision",
+    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "astutely",
-    "german": "scharfsinnig",
+    "translation": "commodity",
+    "native": "Ware",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "attenuating",
-    "german": "abmildernd",
+    "translation": "commute",
+    "native": "pendeln",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "awry",
-    "german": "schief",
+    "translation": "compelling",
+    "native": "überzeugend",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "bait and switch",
-    "german": "Ködern und Wechseln",
+    "translation": "comprehensive",
+    "native": "umfassend",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "bargain",
-    "german": "(ver)handeln",
+    "translation": "confided",
+    "native": "anvertraut",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "begets",
-    "german": "erzeugt",
+    "translation": "conned",
+    "native": "betrogen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "bemoaned",
-    "german": "beklagt",
+    "translation": "contempt",
+    "native": "Verachtung",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "bestow",
-    "german": "verleihen",
+    "translation": "contractor",
+    "native": "Auftragnehmer",
     "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "beverage",
-    "german": "Getränk",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "beverages",
-    "german": "Getränke",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "bliss",
-    "german": "Glückseligkeit",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "chirped",
-    "german": "geschwätzt",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "commission",
-    "german": "Provision",
-    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "commodity",
-    "german": "Ware",
+    "translation": "conviction",
+    "native": "Überzeugung",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "commute",
-    "german": "pendeln",
+    "translation": "covet",
+    "native": "begehren",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "compelling",
-    "german": "überzeugend",
+    "translation": "cumbersome",
+    "native": "umständlich",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "comprehensive",
-    "german": "umfassend",
+    "translation": "cunning",
+    "native": "raffiniert, schlau, hinterlistig",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "confided",
-    "german": "anvertraut",
+    "translation": "deception",
+    "native": "Täuschung",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "conned",
-    "german": "betrogen",
+    "translation": "deceptive",
+    "native": "täuschend",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "contempt",
-    "german": "Verachtung",
+    "translation": "demise",
+    "native": "Untergang",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "contractor",
-    "german": "Auftragnehmer",
+    "translation": "depletion",
+    "native": "Verbrauch",
     "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "designate smbd",
+    "native": "jmd benennen, bestimmen",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "detrailed",
+    "native": "abgekürzt",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "detrimental",
+    "native": "schädlich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "devastated",
+    "native": "verwüstet",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "diminution",
+    "native": "Verringerung",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "dismissed",
+    "native": "entlassen",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "dispensed",
+    "native": "ausgegeben",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "doggedness",
+    "native": "Hartnäckigkeit",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "eludicate",
+    "native": "aufklären",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "embers",
+    "native": "Glut",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "emmeshed",
+    "native": "verstrickt",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "evites",
+    "native": "Einladungen",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "excell",
+    "native": "übertreffen",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "expenditure",
+    "native": "Ausgabe",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "exuberance",
+    "native": "Überschwang",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "feasible",
+    "native": "machbar",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "fraud",
+    "native": "Betrug",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "grief",
+    "native": "Trauer",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "grieve",
+    "native": "trauern",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "growled",
+    "native": "geknurrt",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "holistic",
+    "native": "ganzheitlich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "immersive",
+    "native": "immersiv",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "impenetrable",
+    "native": "undurchdringlich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "impertinent",
+    "native": "impertinent",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "imploringly",
+    "native": "flehentlich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "incessantly",
+    "native": "unaufhörlich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "incestuous",
+    "native": "inzestuös",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "incorporate",
+    "native": "einbeziehen",
+    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "conviction",
-    "german": "Überzeugung",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "covet",
-    "german": "begehren",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "cumbersome",
-    "german": "umständlich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "cunning",
-    "german": "raffiniert, schlau, hinterlistig",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "deception",
-    "german": "Täuschung",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "deceptive",
-    "german": "täuschend",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "demise",
-    "german": "Untergang",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "depletion",
-    "german": "Verbrauch",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "designate smbd",
-    "german": "jmd benennen, bestimmen",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "detrailed",
-    "german": "abgekürzt",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "detrimental",
-    "german": "schädlich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "devastated",
-    "german": "verwüstet",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "diminution",
-    "german": "Verringerung",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "dismissed",
-    "german": "entlassen",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "dispensed",
-    "german": "ausgegeben",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "doggedness",
-    "german": "Hartnäckigkeit",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "eludicate",
-    "german": "aufklären",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "embers",
-    "german": "Glut",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "emmeshed",
-    "german": "verstrickt",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "evites",
-    "german": "Einladungen",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "excell",
-    "german": "übertreffen",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "excess",
-    "german": "Überschuss",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "expenditure",
-    "german": "Ausgabe",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "exuberance",
-    "german": "Überschwang",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "feasible",
-    "german": "machbar",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "fraud",
-    "german": "Betrug",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "futile",
-    "german": "vergeblich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "grief",
-    "german": "Trauer",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "grieve",
-    "german": "trauern",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "growled",
-    "german": "geknurrt",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "holistic",
-    "german": "ganzheitlich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "immersive",
-    "german": "immersiv",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "impenetrable",
-    "german": "undurchdringlich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "impertinent",
-    "german": "impertinent",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "imploringly",
-    "german": "flehentlich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "incessantly",
-    "german": "unaufhörlich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "incestuous",
-    "german": "inzestuös",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "incorporate",
-    "german": "einbeziehen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "incurred",
-    "german": "entstanden, angefallen",
+    "translation": "incurred",
+    "native": "entstanden, angefallen",
     "notes": "z.B. Kosten",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "infatuated",
-    "german": "verliebt",
+    "translation": "infatuated",
+    "native": "verliebt",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "innately",
-    "german": "angeboren",
+    "translation": "insurmountable",
+    "native": "unüberwindlich",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "insular",
-    "german": "abgeschieden",
+    "translation": "invariably",
+    "native": "immer",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "insurmountable",
-    "german": "unüberwindlich",
+    "translation": "jovial",
+    "native": "fröhlich",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "invariably",
-    "german": "immer",
+    "translation": "keen",
+    "native": "begierig, scharfsinnig",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "jovial",
-    "german": "fröhlich",
+    "translation": "minute",
+    "native": "protokoll",
     "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "keen",
-    "german": "begierig, scharfsinnig",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "minute",
-    "german": "protokoll",
-    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "modest",
-    "german": "bescheiden",
+    "translation": "modest",
+    "native": "bescheiden",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "mortgages",
-    "german": "Hypotheken",
+    "translation": "mortgages",
+    "native": "Hypotheken",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "neatly",
-    "german": "ordentlich",
+    "translation": "neatly",
+    "native": "ordentlich",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "notorious",
-    "german": "berüchtigt",
+    "translation": "notorious",
+    "native": "berüchtigt",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "opined",
-    "german": "meinte",
+    "translation": "opined",
+    "native": "meinte",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "orphans",
-    "german": "Waisen",
+    "translation": "orphans",
+    "native": "Waisen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "outward",
-    "german": "äußerlich",
+    "translation": "outward",
+    "native": "äußerlich",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "overdraft",
-    "german": "Kontoüberziehung",
+    "translation": "paramount",
+    "native": "überragend",
     "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "patronized",
+    "native": "gefördert",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "pegged",
+    "native": "angeheftet",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "perpetual",
+    "native": "ewige",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "poignant",
+    "native": "bewegend",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "precipitation",
+    "native": "Niederschlag",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "predates",
+    "native": "datiert zurück",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "preposterous",
+    "native": "lächerlich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "progeny",
+    "native": "Nachkommen",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "propelled",
+    "native": "angetrieben",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "purportedly",
+    "native": "angeblich",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "quotation",
+    "native": "Angebot",
+    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "paramount",
-    "german": "überragend",
+    "translation": "reappraising",
+    "native": "neu bewertend",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "patronized",
-    "german": "gefördert",
+    "translation": "reckoning",
+    "native": "Abrechnung",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "pegged",
-    "german": "angeheftet",
+    "translation": "relentless",
+    "native": "unerbittlich",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "perks",
-    "german": "Vergünstigungen",
+    "translation": "remorsefully",
+    "native": "reumütig",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "perpetual",
-    "german": "ewige",
+    "translation": "reprimand",
+    "native": "Rüge",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "poignant",
-    "german": "bewegend",
+    "translation": "savvy",
+    "native": "Geschick",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "precipitation",
-    "german": "Niederschlag",
+    "translation": "scarcity",
+    "native": "Knappheit",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "predates",
-    "german": "datiert zurück",
+    "translation": "scoured",
+    "native": "abgeschabt",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "preposterous",
-    "german": "lächerlich",
+    "translation": "seam",
+    "native": "Naht",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "progeny",
-    "german": "Nachkommen",
+    "translation": "spatially",
+    "native": "räumlich",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "propelled",
-    "german": "angetrieben",
+    "translation": "squander",
+    "native": "verschwenden",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "purportedly",
-    "german": "angeblich",
+    "translation": "suffice",
+    "native": "genügen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "pursuits",
-    "german": "Verfolgungen",
+    "translation": "scheming",
+    "native": "intrigant",
     "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "quotation",
-    "german": "Angebot",
-    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "reappraising",
-    "german": "neu bewertend",
+    "translation": "tamping",
+    "native": "Andrücken",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "reckoning",
-    "german": "Abrechnung",
+    "translation": "termination",
+    "native": "Kündigung",
     "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "redeem",
-    "german": "erlösen",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "relentless",
-    "german": "unerbittlich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "remedy",
-    "german": "Heilmittel",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "remorsefully",
-    "german": "reumütig",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "reprimand",
-    "german": "Rüge",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "revelation",
-    "german": "Offenbarung",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "savvy",
-    "german": "Geschick",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "scarcity",
-    "german": "Knappheit",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "scoured",
-    "german": "abgeschabt",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "seam",
-    "german": "Naht",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "spatially",
-    "german": "räumlich",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "squander",
-    "german": "verschwenden",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "suffice",
-    "german": "genügen",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "scheming",
-    "german": "intrigant",
-    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "tamping",
-    "german": "Andrücken",
+    "translation": "terrific",
+    "native": "großartig",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "termination",
-    "german": "Kündigung",
+    "translation": "thrust",
+    "native": "Stoß",
     "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "terrific",
-    "german": "großartig",
-    "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "thereafter",
-    "german": "danach",
+    "translation": "to argute",
+    "native": "zu streiten",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "thrust",
-    "german": "Stoß",
+    "translation": "to be entitled",
+    "native": "sich berechtigt fühlen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to argute",
-    "german": "zu streiten",
+    "translation": "to crave",
+    "native": "verlangen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to be entitled",
-    "german": "sich berechtigt fühlen",
+    "translation": "to devise",
+    "native": "entwickeln, erfinden",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to cope",
-    "german": "zurechtkommen",
+    "translation": "to forge sth",
+    "native": "etwas schmieden, fälschen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to crave",
-    "german": "verlangen",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "to devise",
-    "german": "entwickeln, erfinden",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "to forge sth",
-    "german": "etwas schmieden, fälschen",
-    "notes": "",
-    "c1business": false
-  },
-  {
-    "english": "to incur",
-    "german": "übernehmen",
+    "translation": "to incur",
+    "native": "übernehmen",
     "notes": "z.B. Kosten",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to lure",
-    "german": "locken",
+    "translation": "to lure",
+    "native": "locken",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to mint",
-    "german": "prägen",
+    "translation": "to mint",
+    "native": "prägen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to presume",
-    "german": "voraussetzen",
+    "translation": "to presume",
+    "native": "voraussetzen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "demoted",
-    "german": "degradiert",
+    "translation": "accuse",
+    "native": "beschuldigen",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "to prune",
-    "german": "beschneiden",
+    "translation": "futile",
+    "native": "vergeblich",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "to reconcile",
-    "german": "versöhnen",
+    "translation": "overdraft",
+    "native": "Kontoüberziehung",
     "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "pursuits",
+    "native": "Verfolgungen",
+    "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "to rehearse",
-    "german": "proben",
+    "translation": "overhead",
+    "native": "Aufwand",
     "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "insular",
+    "native": "abgeschieden",
+    "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "to reminisce",
-    "german": "sich erinnern",
+    "translation": "thereafter",
+    "native": "danach",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "to reside",
-    "german": "wohnen",
+    "translation": "revelation",
+    "native": "Offenbarung",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "to squit",
-    "german": "quietschen",
+    "translation": "innately",
+    "native": "angeboren",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "to surrender sth to smb",
-    "german": "jemanden etwas überlassen",
+    "translation": "to cope",
+    "native": "zurechtkommen",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "to thrive",
-    "german": "gedeihen",
+    "translation": "to prune",
+    "native": "beschneiden",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "touted",
-    "german": "angepriesen",
+    "translation": "redeem",
+    "native": "einlösen",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "treading",
-    "german": "Treten",
+    "translation": "excess",
+    "native": "Überschuss",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "turnover",
-    "german": "umsatz",
+    "translation": "perks",
+    "native": "Vergünstigungen",
     "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "uncharted",
-    "german": "unbekannt",
-    "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "undertaker",
-    "german": "Bestatter",
+    "translation": "awry",
+    "native": "schief",
     "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "underwrite",
-    "german": "versichern, garantieren",
+    "translation": "remedy",
+    "native": "Heilmittel",
     "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "undulating",
-    "german": "wellenförmig",
-    "notes": "",
+    "learned": true,
     "c1business": false
   },
   {
-    "english": "unencumbered",
-    "german": "ungehindert",
+    "translation": "to reconcile",
+    "native": "versöhnen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "unprecedented",
-    "german": "unerhört",
+    "translation": "to rehearse",
+    "native": "proben",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "vagrant",
-    "german": "Landstreicher",
+    "translation": "to reminisce",
+    "native": "sich erinnern",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "valedictorians",
-    "german": "Absolventen",
+    "translation": "to reside",
+    "native": "wohnen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "vendor",
-    "german": "Verkäufer, Lieferant",
+    "translation": "to squit",
+    "native": "quietschen",
     "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "verdicts",
-    "german": "Urteile",
-    "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "verged",
-    "german": "verging",
+    "translation": "to surrender sth to smb",
+    "native": "jemanden etwas überlassen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "vicious",
-    "german": "Bösartig",
+    "translation": "to thrive",
+    "native": "gedeihen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "yearn",
-    "german": "sehnen",
+    "translation": "touted",
+    "native": "angepriesen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "superstitious",
-    "german": "abergläubisch",
+    "translation": "treading",
+    "native": "Treten",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to meet deadlines",
-    "german": "Termine einhalten",
+    "translation": "turnover",
+    "native": "umsatz",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "delighted",
-    "german": "erfreut",
+    "translation": "undertaker",
+    "native": "Bestatter",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to give an overview of sth.",
-    "german": "einen Überblick über etw. geben",
+    "translation": "underwrite",
+    "native": "versichern, garantieren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "retail (n)",
-    "german": "Handel",
+    "translation": "undulating",
+    "native": "wellenförmig",
     "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to share common goals",
-    "german": "gemeinsame Ziele haben",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "genuinely (adj.)",
-    "german": "wirklich; aufrichtig",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to be committed to do sth.",
-    "german": "überzeugt sein von etw.; sich für etw. engagieren",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "deputy director (n)",
-    "german": "stellvertretender Direktor",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "tangible (adj)",
-    "german": "fassbar, greifbar, spürbar",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "achievement (n)",
-    "german": "Leistung; Errungenschaft",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "power base (n)",
-    "german": "Machtgrundlage",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "shop-floor (n)",
-    "german": "Werkstatt; Produktionsbereich",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "flair (n)",
-    "german": "Fingerspitzengefühl, Gespür",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "business acumen (n)",
-    "german": "Geschäftssinn",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "acumen (n)",
-    "german": "Scharfsinn; Weitblick",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to keep abreast of sth.",
-    "german": "auf dem Laufenden bleiben; Schritt halten mit",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "abreast (adj.)",
-    "german": "auf gleicher Höhe",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "induction programme (n)",
-    "german": "Einarbeitungsprogramm",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "induction (n)",
-    "german": "Einarbeitung, Einführung; Induktion (tech.)",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "dull (adj.)",
-    "german": "langweilig, fade",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "head teacher (n)",
-    "german": "Rektor",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "reference (n)",
-    "german": "Zeugnis; Empfehlungsschreiben; Verweis, Bezug",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "unreliable (adj)",
-    "german": "unzuverlässig",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "subordinate (n)",
-    "german": "Untergebener",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "positive bias (n)",
-    "german": "positive Voreingenommenheit",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to get rid of so. / sth,",
-    "german": "jdn. / etw. loswerden",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "glowing (adj.)",
-    "german": "glühend, begeistert",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "prospective (adj)",
-    "german": "potentiell; voraussichtlich",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "referee (n)",
-    "german": "Aussteller eines Empfehlungsschreibens; Gutachter; Schiedsrichter",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "fitness for sth. (n)",
-    "german": "Eignung für etw.",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to back so. / sth.",
-    "german": "jdn. / etw. unterstützen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "penultimate (adj.)",
-    "german": "vorletzte,r",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to have heard sth. on / through the grapevine",
-    "german": "etw. vom Hörensagen wissen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "immediate senior (n)",
-    "german": "direkter Vorgesetzter",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "praise (n)",
-    "german": "Lob; Loblied",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "imbalance (n)",
-    "german": "Ungleichgewicht",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "set limits (n)",
-    "german": "festgesetzte Grenzen / Grenzwerte",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "concession (n)",
-    "german": "Zugeständnis",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to comply with sth. (v)",
-    "german": "etw. entsprechen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "rapport (n)",
-    "german": "Übereinstimmung, Beziehung",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "perseverance (n)",
-    "german": "Beharrlichkeit",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to intrude on sth.",
-    "german": "in etw. eindringen, etw. stören",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to scheme (v)",
-    "german": "to devise a system for sth.; (sorgfältig) planen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "scheming (adj)",
-    "german": "intrigant, raffiniert",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to design a project",
-    "german": "ein Projekt planen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to conspire (v)",
-    "german": "sich verschwören",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "economic development (coll.)",
-    "german": "Wirtschaftsentwicklung",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "progression (n)",
-    "german": "movement or change from one member of a continuous series to the next; (Weiter-)Entwicklung",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "increase (n)",
-    "german": "Anstieg, Zunahme, Zuwachs",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to run a project (coll.)",
-    "german": "ein Projekt leiten",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to take so./sth. seriously (coll.)",
-    "german": "jdn./etw. ernst nehmen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "gravely (adj)",
-    "german": "in a grave or sober manner; ernst(haft), schwerwiegend",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "grave (adj.)",
-    "german": "requiring serious thought, momentuous (folgenschwer); ernst, schlimm, schwerwiegend",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "severley (adv.)",
-    "german": "harshly; streng, ernst",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "bare (adj)",
-    "german": "nackt, kaum, bloß",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "small (adj)",
-    "german": "not large, young, insignificant; klein, unbedeutend",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "least (adv.)",
-    "german": "am wenigsten",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "minimal disturbance (coll.)",
-    "german": "geringstmögliche Störung; geringfügige Störung",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to turn so./sth. down (v)",
-    "german": "to reject so./sth.; jdn./etw. abweisen, zurückweisen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to slow so./sth. down (v)",
-    "german": "to reduce speed; jdn./etw. verlangsamen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to hold so./sth. down (v)",
-    "german": "to keep so./sth. in place; jdn./etw. festhalten",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to be tied up with (v)",
-    "german": "to be connected with sth.; mit etw. zusammenhängen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to be combined with sth. (v)",
-    "german": "to be attached to sth.; mit etw. verbunden, verknüpft, angebunden sein",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to be added to sth. (v)",
-    "german": "zu etwas dazukommen, hinzugefügt werden",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to relate sth. with sth. (v)",
-    "german": "etw. mit etw. in Verbindung / Zusammenhang bringen; verwandt sein",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to lead to sth.(v)",
-    "german": "to result in sth.; zu etw. führen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to cause sth. (v)",
-    "german": "to be the reason for sth.; verursachen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to mean sth. (v)",
-    "german": "to imply; meinen, bedeuten",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to manage to do sth. (v)",
-    "german": "to manage to do sth.; schaffen, etw. zu tun",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to succeed in sth. (v)",
-    "german": "to be successful with sth.; mit etw. Erfolg haben",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to achieve sth. (v)",
-    "german": "to reach sth. (a goal);  etw. (ein Ziel) erreichen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to fulfil / to fulfill sth. (v)",
-    "german": "to satisfy or carry out sth.; etw. erfüllen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "biased (adj)",
-    "german": "voreingenommen, parteiisch",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "rise (n)",
-    "german": "Aufstieg, Steigen, Erhöhung",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "succinct",
-    "german": "kurz und bündig, prägnant",
-    "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to be committed to sth. (v)",
-    "german": "to be dedicated to sth.; engagiert sein",
+    "translation": "unencumbered",
+    "native": "ungehindert",
     "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "unprecedented",
+    "native": "unerhört",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "vagrant",
+    "native": "Landstreicher",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "valedictorians",
+    "native": "Absolventen",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "vendor",
+    "native": "Verkäufer, Lieferant",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "verdicts",
+    "native": "Urteile",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "verged",
+    "native": "verging",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "vicious",
+    "native": "Bösartig",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "yearn",
+    "native": "sehnen",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "superstitious",
+    "native": "abergläubisch",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "to meet deadlines",
+    "native": "Termine einhalten",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "delighted",
+    "native": "erfreut",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "to give an overview of sth.",
+    "native": "einen Überblick über etw. geben",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "retail (n)",
+    "native": "Handel",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to share common goals",
+    "native": "gemeinsame Ziele haben",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "genuinely (adj.)",
+    "native": "wirklich; aufrichtig",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to be committed to do sth.",
+    "native": "überzeugt sein von etw.; sich für etw. engagieren",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "deputy director (n)",
+    "native": "stellvertretender Direktor",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "tangible (adj)",
+    "native": "fassbar, greifbar, spürbar",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "achievement (n)",
+    "native": "Leistung; Errungenschaft",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "power base (n)",
+    "native": "Machtgrundlage",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "shop-floor (n)",
+    "native": "Werkstatt; Produktionsbereich",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "flair (n)",
+    "native": "Fingerspitzengefühl, Gespür",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "business acumen (n)",
+    "native": "Geschäftssinn",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "acumen (n)",
+    "native": "Scharfsinn; Weitblick",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to keep abreast of sth.",
+    "native": "auf dem Laufenden bleiben; Schritt halten mit",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "induction programme (n)",
+    "native": "Einarbeitungsprogramm",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "induction (n)",
+    "native": "Einarbeitung, Einführung; Induktion (tech.)",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "dull (adj.)",
+    "native": "langweilig, fade",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "head teacher (n)",
+    "native": "Rektor",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "reference (n)",
+    "native": "Zeugnis; Empfehlungsschreiben; Verweis, Bezug",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "unreliable (adj)",
+    "native": "unzuverlässig",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "subordinate (n)",
+    "native": "Untergebener",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to get rid of so. / sth,",
+    "native": "jdn. / etw. loswerden",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "glowing (adj.)",
+    "native": "glühend, begeistert",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "prospective (adj)",
+    "native": "potentiell; voraussichtlich",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "fitness for sth. (n)",
+    "native": "Eignung für etw.",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "penultimate (adj.)",
+    "native": "vorletzte,r",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "immediate senior (n)",
+    "native": "direkter Vorgesetzter",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "praise (n)",
+    "native": "Lob; Loblied",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "imbalance (n)",
+    "native": "Ungleichgewicht",
+    "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to promise sth. to so. (v)",
-    "german": "jdn. etw. versprechen",
+    "translation": "set limits (n)",
+    "native": "festgesetzte Grenzen / Grenzwerte",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to persuade so. of sth. (v)",
-    "german": "jdn. von etw. überzeugen",
+    "translation": "concession (n)",
+    "native": "Zugeständnis",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to convict so. (v)",
-    "german": "jdn. verurteilen",
+    "translation": "rapport (n)",
+    "native": "Übereinstimmung, Beziehung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to argue with so. (v)",
-    "german": "sich mit jdm. streiten",
+    "translation": "perseverance (n)",
+    "native": "Beharrlichkeit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be convinced of so./sth. (v)",
-    "german": "von jdm./etw. überzeugt sein",
+    "translation": "to scheme (v)",
+    "native": "to devise a system for sth.; (sorgfältig) planen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to urge so. to do sth. (v)",
-    "german": "jdn. drängen / eindringlich bitten, etw. zu tun",
+    "translation": "to design a project",
+    "native": "ein Projekt planen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be impressed by so./sth. (v)",
-    "german": "von jdm./etw, beeindruckt sein",
+    "translation": "to conspire (v)",
+    "native": "sich verschwören",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "utilities (n, pl.)",
-    "german": "Versorgungswirtschaft",
+    "translation": "economic development (coll.)",
+    "native": "Wirtschaftsentwicklung",
     "notes": "",
+    "learned": false,
     "c1business": true
+  },
+  {
+    "translation": "progression (n)",
+    "native": "movement or change from one member of a continuous series to the next; (Weiter-)Entwicklung",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "increase (n)",
+    "native": "Anstieg, Zunahme, Zuwachs",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to run a project (coll.)",
+    "native": "ein Projekt leiten",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to take so./sth. seriously (coll.)",
+    "native": "jdn./etw. ernst nehmen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "severley (adv.)",
+    "native": "harshly; streng, ernst",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "bare (adj)",
+    "native": "nackt, kaum, bloß",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "small (adj)",
+    "native": "not large, young, insignificant; klein, unbedeutend",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "minimal disturbance (coll.)",
+    "native": "geringstmögliche Störung; geringfügige Störung",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to turn so./sth. down (v)",
+    "native": "to reject so./sth.; jdn./etw. abweisen, zurückweisen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to slow so./sth. down (v)",
+    "native": "to reduce speed; jdn./etw. verlangsamen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to hold so./sth. down (v)",
+    "native": "to keep so./sth. in place; jdn./etw. festhalten",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to be tied up with (v)",
+    "native": "to be connected with sth.; mit etw. zusammenhängen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to be combined with sth. (v)",
+    "native": "to be attached to sth.; mit etw. verbunden, verknüpft, angebunden sein",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to be added to sth. (v)",
+    "native": "zu etwas dazukommen, hinzugefügt werden",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to relate sth. with sth. (v)",
+    "native": "etw. mit etw. in Verbindung / Zusammenhang bringen; verwandt sein",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to lead to sth.(v)",
+    "native": "to result in sth.; zu etw. führen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to cause sth. (v)",
+    "native": "to be the reason for sth.; verursachen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to mean sth. (v)",
+    "native": "to imply; meinen, bedeuten",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to manage to do sth. (v)",
+    "native": "to manage to do sth.; schaffen, etw. zu tun",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to achieve sth. (v)",
+    "native": "to reach sth. (a goal);  etw. (ein Ziel) erreichen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "biased (adj)",
+    "native": "voreingenommen, parteiisch",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "rise (n)",
+    "native": "Aufstieg, Steigen, Erhöhung",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "succinct",
+    "native": "kurz und bündig, prägnant",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "to be committed to sth. (v)",
+    "native": "to be dedicated to sth.; engagiert sein",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to promise sth. to so. (v)",
+    "native": "jdn. etw. versprechen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to persuade so. of sth. (v)",
+    "native": "jdn. von etw. überzeugen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to convict so. (v)",
+    "native": "jdn. verurteilen",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to argue with so. (v)",
+    "native": "sich mit jdm. streiten",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "positive bias (n)",
+    "native": "positive Voreingenommenheit",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "to back so. / sth.",
+    "native": "jdn. / etw. unterstützen",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "abreast (adj.)",
+    "native": "auf gleicher Höhe",
+    "notes": "",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "referee (n)",
+    "native": "Aussteller eines Empfehlungsschreibens; Gutachter; Schiedsrichter",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "to intrude on sth.",
+    "native": "in etw. eindringen, etw. stören",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "to have heard sth. on / through the grapevine",
+    "native": "etw. vom Hörensagen wissen",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "to comply with sth. (v)",
+    "native": "etw. entsprechen",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "least (adv.)",
+    "native": "am wenigsten",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "to succeed in sth. (v)",
+    "native": "to be successful with sth.; mit etw. Erfolg haben",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "uncharted",
+    "native": "unbekannt",
+    "notes": "",
+    "learned": true,
+    "c1business": false
   },
   {
-    "english": "branch office (n)",
-    "german": "Filiale, Zweigstelle",
+    "translation": "scheming (adj)",
+    "native": "intrigant, raffiniert",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "premises (n, pl)",
-    "german": "Gebäude, (bebautes) Gelände, Geschäftsgebäude, Grundstück",
+    "translation": "gravely (adj)",
+    "native": "in a grave or sober manner; ernst(haft), schwerwiegend",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to be on / to have the inside track (coll.)",
-    "german": "im Vorteil sein",
+    "translation": "to urge so. to do sth. (v)",
+    "native": "jdn. drängen / eindringlich bitten, etw. zu tun",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "overleaf (adv.)",
-    "german": "auf der Rückseite",
+    "translation": "to be impressed by so./sth. (v)",
+    "native": "von jdm./etw, beeindruckt sein",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "complimentary (adj.)",
-    "german": "gratis; kostenlos; ergänzend; zusätzlich; schmeichelhaft",
+    "translation": "utilities (n, pl.)",
+    "native": "Versorgungswirtschaft",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "projection (n)",
-    "german": "forecast; Prognose",
+    "translation": "branch office (n)",
+    "native": "Filiale, Zweigstelle",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "niche (n)",
-    "german": "recess; Nische",
+    "translation": "premises (n, pl)",
+    "native": "Gebäude, (bebautes) Gelände, Geschäftsgebäude, Grundstück",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "drawback (n)",
-    "german": "disadvantage; Nachteil",
+    "translation": "to be on / to have the inside track (coll.)",
+    "native": "im Vorteil sein",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be a drawback to sth.",
-    "german": "ein Nachteil von etw. sein",
+    "translation": "overleaf (adv.)",
+    "native": "auf der Rückseite",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to raise money (coll.)",
-    "german": "Geld aufbringen",
+    "translation": "complimentary (adj.)",
+    "native": "gratis; kostenlos; ergänzend; zusätzlich; schmeichelhaft",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to beat the rush (n)",
-    "german": "die Hauptverkehrszeit umgehen/vermeiden",
+    "translation": "niche (n)",
+    "native": "recess; Nische",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "hands-on (adj)",
-    "german": "aktiv; praktisch",
+    "translation": "drawback (n)",
+    "native": "disadvantage; Nachteil",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "approach (n)",
-    "german": "Herangehensweise; Ansatz; Methode",
+    "translation": "to be a drawback to sth.",
+    "native": "ein Nachteil von etw. sein",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "hostile take-over (coll.)",
-    "german": "feindliche Übernahme",
+    "translation": "to raise money (coll.)",
+    "native": "Geld aufbringen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to contend with sth. (v)",
-    "german": "sich mit etw. herumschlagen",
+    "translation": "to beat the rush (n)",
+    "native": "die Hauptverkehrszeit umgehen/vermeiden",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "wholesale (adj.)",
-    "german": "Großhandels-",
+    "translation": "hands-on (adj)",
+    "native": "aktiv; praktisch",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "high street (n)",
-    "german": "Hauptstraße",
+    "translation": "hostile take-over (coll.)",
+    "native": "feindliche Übernahme",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "target customer (n)",
-    "german": "Zielkunde",
+    "translation": "to contend with sth. (v)",
+    "native": "sich mit etw. herumschlagen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "competitor (n)",
-    "german": "Konkurrent",
+    "translation": "wholesale (adj.)",
+    "native": "Großhandels-",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "usp (abbr. for unique selling proposition)",
-    "german": "Alleinstellungsmerkmal",
+    "translation": "high street (n)",
+    "native": "Hauptstraße",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to determine sth.",
-    "german": "etw. bestimmen; entscheiden; festlegen",
+    "translation": "target customer (n)",
+    "native": "Zielkunde",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to anticipate sth.",
-    "german": "etw. vorwegnehmen",
+    "translation": "to determine sth.",
+    "native": "etw. bestimmen; entscheiden; festlegen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "life cycle / life-cycle of a product",
-    "german": "Lebenszyklus eines Produktes",
+    "translation": "to anticipate sth.",
+    "native": "etw. vorwegnehmen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to inject new capital into a company",
-    "german": "neues Kapital in eine Firma hineinbringen",
+    "translation": "life cycle / life-cycle of a product",
+    "native": "Lebenszyklus eines Produktes",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "r&d",
-    "german": "Research and Development; F&E, Forschung und Entwicklung",
+    "translation": "to inject new capital into a company",
+    "native": "neues Kapital in eine Firma hineinbringen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be deduced from sth. (v)",
-    "german": "etw. ableiten aus etw. anderem",
+    "translation": "r&d",
+    "native": "Research and Development; F&E, Forschung und Entwicklung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "performance (n)",
-    "german": "Leistung",
+    "translation": "to be deduced from sth. (v)",
+    "native": "etw. ableiten aus etw. anderem",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "further training (n)",
-    "german": "Weiterbildung",
+    "translation": "performance (n)",
+    "native": "Leistung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "popularity with so.",
-    "german": "Beliebtheit bei jdm.",
+    "translation": "further training (n)",
+    "native": "Weiterbildung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "competence, competency (n)",
-    "german": "Kompetenz",
+    "translation": "popularity with so.",
+    "native": "Beliebtheit bei jdm.",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "evaluation sheet (n)",
-    "german": "Bewertungsbogen",
+    "translation": "competence, competency (n)",
+    "native": "Kompetenz",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "feedback form (n)",
-    "german": "Rückmeldebogen",
+    "translation": "evaluation sheet (n)",
+    "native": "Bewertungsbogen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "schedule (n)",
-    "german": "Zeitplan",
+    "translation": "feedback form (n)",
+    "native": "Rückmeldebogen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to suit so's needs",
-    "german": "zu jdns. Bedürfnissen passen",
+    "translation": "to suit so's needs",
+    "native": "zu jdns. Bedürfnissen passen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to turn out (v)",
-    "german": "to produce, to manufacture; produzieren, herstellen; hervorbringen",
+    "translation": "to outstrip sth. (v)",
+    "native": "to surpass sth.; etw. übertreffen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to outstrip sth. (v)",
-    "german": "to surpass sth.; etw. übertreffen",
+    "translation": "moulded (adj)",
+    "native": "adjusted, formed; modelliert, eingepasst",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "moulded (adj)",
-    "german": "adjusted, formed; modelliert, eingepasst",
+    "translation": "ground-breaking (adj)",
+    "native": "pioneering; bahnbrechend",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "cohesive (v)",
-    "german": "connected with sth.; zusammenhängend",
+    "translation": "to impart sth. (v)",
+    "native": "to transmit sth.; etw. weitergeben, etw. mitteilen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "stationery (n)",
-    "german": "office supplies; Schreibwaren",
+    "translation": "track record (n)",
+    "native": "success record; Erfolgsbilanz",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "ground-breaking (adj)",
-    "german": "pioneering; bahnbrechend",
+    "translation": "enviable (adj)",
+    "native": "sth. to be envied; beneidenswert",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "agenda (n)",
-    "german": "plan for a meeting; plan of action; Tagesordnung; Programm",
+    "translation": "blue-chip (adj)",
+    "native": "premium, with high turnover; erstklassig, umsatzstark",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to impart sth. (v)",
-    "german": "to transmit sth.; etw. weitergeben, etw. mitteilen",
+    "translation": "to be poised to do sth. (v)",
+    "native": "to be ready to do sth.; bereit sein, etw. zu tun",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "track record (n)",
-    "german": "success record; Erfolgsbilanz",
+    "translation": "to treble (v)",
+    "native": "to triple; verdreifachen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "enviable (adj)",
-    "german": "sth. to be envied; beneidenswert",
+    "translation": "to enable so. to do sth. (v)",
+    "native": "to give so. the ability to do sth.; jdm. etw. ermöglichen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "blue-chip customer base",
-    "german": "Kunde höchster Bonität",
+    "translation": "to be bound to happen (v)",
+    "native": "to be inevitable to happen; zwangsläufig geschehen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "blue-chip (adj)",
-    "german": "premium, with high turnover; erstklassig, umsatzstark",
+    "translation": "to be inherent in sth. (v)",
+    "native": "to be characteristic for sth., to be a necessary part of sth.; einer Sache eigen sein, inhärent sein",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "solution delivery (n)",
-    "german": "approach to solution; Lösungsfindung",
+    "translation": "to address flaws (v)",
+    "native": "to fix deficiencies; Mängel beheben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be poised to do sth. (v)",
-    "german": "to be ready to do sth.; bereit sein, etw. zu tun",
+    "translation": "at someone's disposal",
+    "native": "to be available for someone; zu jdns. Verfügung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to treble (v)",
-    "german": "to triple; verdreifachen",
+    "translation": "die hard; diehard (n)",
+    "native": "stick-in-the-mud; Unverbesserliche, Ewiggestrige",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to enable so. to do sth. (v)",
-    "german": "to give so. the ability to do sth.; jdm. etw. ermöglichen",
+    "translation": "overheads (n, pl be) overhead (n, ae)",
+    "native": "current expenses; laufende Geschäftskosten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be bound to happen (v)",
-    "german": "to be inevitable to happen; zwangsläufig geschehen",
+    "translation": "to have an edge (v)",
+    "native": "to have an advantage; einen Vorteil / Vorsprung haben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be inherent in sth. (v)",
-    "german": "to be characteristic for sth., to be a necessary part of sth.; einer Sache eigen sein, inhärent sein",
+    "translation": "economy of scale (n)",
+    "native": "advantage of being bigger; Größenvorteil",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to embrace sth. (v)",
-    "german": "to give sb. a hug; etw. umarmen; to accept an idea; eine Idee übernehmen",
+    "translation": "entrant (n)",
+    "native": "participant (of a contest); Teilnehmer (eines Wettbewerbs); someone who goes into a building; Eintretender",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to address flaws (v)",
-    "german": "to fix deficiencies; Mängel beheben",
+    "translation": "swiftly (adv)",
+    "native": "quickly; schnell",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "at someone's disposal",
-    "german": "to be available for someone; zu jdns. Verfügung",
+    "translation": "mutually (adv)",
+    "native": "reciprocally; gegenseitig",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "die hard; diehard (n)",
-    "german": "stick-in-the-mud; Unverbesserliche, Ewiggestrige",
+    "translation": "appointed (adj)",
+    "native": "selected, designated; ernannt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "overheads (n, pl be) overhead (n, ae)",
-    "german": "current expenses; laufende Geschäftskosten",
+    "translation": "obtainable (adj)",
+    "native": "achievable, obtainable; erhältlich",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to undercut (v)",
-    "german": "to charge less; unterbieten",
+    "translation": "resolution (n)",
+    "native": "firm decision to do sth.; Entschlossenheit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to have an edge (v)",
-    "german": "to have an advantage; einen Vorteil / Vorsprung haben",
+    "translation": "to account for sth. (v)",
+    "native": "to explain sth.; etw. erklären",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "economy of scale (n)",
-    "german": "advantage of being bigger; Größenvorteil",
+    "translation": "to pitch sth. at a certain level",
+    "native": "etw. auf einem bestimmten Niveau ansiedeln",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "entrant (n)",
-    "german": "participant (of a contest); Teilnehmer (eines Wettbewerbs); someone who goes into a building; Eintretender",
+    "translation": "to exhibit sth. (v)",
+    "native": "to show sth., to display or manifest sth.; etw. ausstellen, etw. zeigen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "swiftly (adv)",
-    "german": "quickly; schnell",
+    "translation": "commission (n)",
+    "native": "fee; Provision",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "mutually (adv)",
-    "german": "reciprocally; gegenseitig",
+    "translation": "inducement (n)",
+    "native": "incentive; Anreiz",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "convenient (adj)",
-    "german": "useful, zweckmäßig, praktisch; comfortable, bequem",
+    "translation": "to encounter sb./sth. (v)",
+    "native": "to unexpectedly meet sb./sth.; unerwartet jdn./etw. treffen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "appointed (adj)",
-    "german": "selected, designated; ernannt",
+    "translation": "to settle for sth. (v)",
+    "native": "to contend oneself with sth.; sich mit etw. begnügen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "obtainable (adj)",
-    "german": "achievable, obtainable; erhältlich",
+    "translation": "pickaxe (n)",
+    "native": "a particular type of tool used to split things in pieces; Spitzhacke",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "resolution (n)",
-    "german": "firm decision to do sth.; Entschlossenheit",
+    "translation": "tight-fisted (adj., fam.)",
+    "native": "stingy (fam.): knauserig, geizig",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to account for sth. (v)",
-    "german": "to explain sth.; etw. erklären",
+    "translation": "to pull one's weight (coll.)",
+    "native": "to contribute; seinen Beitrag leisten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to pitch sth. at a certain level",
-    "german": "etw. auf einem bestimmten Niveau ansiedeln",
+    "translation": "a lack of sth. (n)",
+    "native": "ein Mangel an",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to exhibit sth. (v)",
-    "german": "to show sth., to display or manifest sth.; etw. ausstellen, etw. zeigen",
+    "translation": "to look to greener pastures (coll.)",
+    "native": "(wörtl.: nach grüneren Weiden suchen); nach besseren Optionen suchen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "commission (n)",
-    "german": "fee; Provision",
+    "translation": "to have the decency to do sth. (coll.)",
+    "native": "den Anstand haben, etw. zu tun",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "inducement (n)",
-    "german": "incentive; Anreiz",
+    "translation": "as for (prep)",
+    "native": "bezüglich",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to encounter sb./sth. (v)",
-    "german": "to unexpectedly meet sb./sth.; unerwartet jdn./etw. treffen",
+    "translation": "to further sth. (v)",
+    "native": "to develop sth. further; etw. weiterentwickeln",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to settle for sth. (v)",
-    "german": "to contend oneself with sth.; sich mit etw. begnügen",
+    "translation": "head of recruitment (n)",
+    "native": "Leiter/in Personalrekrutierung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "pickaxe (n)",
-    "german": "a particular type of tool used to split things in pieces; Spitzhacke",
+    "translation": "to round up a figure (v)",
+    "native": "to increase a figure; etw. aufrunden",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "tight-fisted (adj., fam.)",
-    "german": "stingy (fam.): knauserig, geizig",
+    "translation": "usp (abbr. for unique selling proposition)",
+    "native": "Alleinstellungsmerkmal",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to pull one's weight (coll.)",
-    "german": "to contribute; seinen Beitrag leisten",
+    "translation": "approach (n)",
+    "native": "Herangehensweise; Ansatz; Methode",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "a lack of sth. (n)",
-    "german": "ein Mangel an",
+    "translation": "schedule (n)",
+    "native": "Zeitplan",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to look to greener pastures (coll.)",
-    "german": "(wörtl.: nach grüneren Weiden suchen); nach besseren Optionen suchen",
+    "translation": "agenda (n)",
+    "native": "plan for a meeting; plan of action; Tagesordnung; Programm",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to have the decency to do sth. (coll.)",
-    "german": "den Anstand haben, etw. zu tun",
+    "translation": "competitor (n)",
+    "native": "Konkurrent",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "as for (prep)",
-    "german": "bezüglich",
+    "translation": "cohesive (v)",
+    "native": "connected with sth.; zusammenhängend",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to further sth. (v)",
-    "german": "to develop sth. further; etw. weiterentwickeln",
+    "translation": "to be convinced of so./sth. (v)",
+    "native": "von jdm./etw. überzeugt sein",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "head of recruitment (n)",
-    "german": "Leiter/in Personalrekrutierung",
+    "translation": "to turn out (v)",
+    "native": "to produce, to manufacture; produzieren, herstellen; hervorbringen",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to round up a figure (v)",
-    "german": "to increase a figure; etw. aufrunden",
+    "translation": "to undercut (v)",
+    "native": "to charge less; unterbieten",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to round up a group of animals (v)",
-    "german": "to gather a group of animals; Tiere zusammentreiben",
+    "translation": "convenient (adj)",
+    "native": "useful, zweckmäßig, praktisch; comfortable, bequem",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "travel expenses (v)",
-    "german": "costs for a journey; Reisekosten",
+    "translation": "solution delivery (n)",
+    "native": "approach to solution; Lösungsfindung",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "psychometric test (n)",
-    "german": "method of psychological measurement used to assess people's knowledge, abilities and personal traits; psychometrischer Test",
+    "translation": "blue-chip customer base",
+    "native": "Kunde höchster Bonität",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "promotion opportunity (n)",
-    "german": "chance to make progress with your career; Aufstiegsmöglichkeit",
+    "translation": "stationery (n)",
+    "native": "office supplies; Schreibwaren",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to go places (coll. fam.)",
-    "german": "to be on the road to success; auf dem Weg nach oben sein; to travel a lot, herumreisen",
+    "translation": "projection (n)",
+    "native": "forecast; Prognose",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "pay slip (n)",
-    "german": "wages slip; Lohnzettel",
+    "translation": "to round up a group of animals (v)",
+    "native": "to gather a group of animals; Tiere zusammentreiben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to reskill so. (v)",
-    "german": "to retrain so. as sth.; jdn. umschulen",
+    "translation": "psychometric test (n)",
+    "native": "method of psychological measurement used to assess people's knowledge, abilities and personal traits; psychometrischer Test",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "annual leave (n)",
-    "german": "holidays per year; Jahresurlaub",
+    "translation": "promotion opportunity (n)",
+    "native": "chance to make progress with your career; Aufstiegsmöglichkeit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "operations director (n)",
-    "german": "Betriebsleiter",
+    "translation": "to go places (coll. fam.)",
+    "native": "to be on the road to success; auf dem Weg nach oben sein; to travel a lot, herumreisen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "hitherto (adv.)",
-    "german": "until now; bis jetzt",
+    "translation": "pay slip (n)",
+    "native": "wages slip; Lohnzettel",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "staff turnover (n)",
-    "german": "many employees leave the company and new ones need be hired; Mitarbeiterfluktuation",
+    "translation": "to reskill so. (v)",
+    "native": "to retrain so. as sth.; jdn. umschulen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to embrace so./sth. (v)",
-    "german": "to hug so., jdn. umarmen; to eagerly accept sth., etw. bereitwillig übernehmen",
+    "translation": "annual leave (n)",
+    "native": "holidays per year; Jahresurlaub",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to sell off sth. (v, econ.)",
-    "german": "to get rid of sth.; abstoßen, liquidieren",
+    "translation": "operations director (n)",
+    "native": "Betriebsleiter",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to sell sth off cheap/at half price (v, econ.)",
-    "german": "to sell sth. at a very low price / for half of the money it usually costs; etw. billig / zum halben Preis verkaufen",
+    "translation": "hitherto (adv.)",
+    "native": "until now; bis jetzt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "revised downwards (adv)",
-    "german": "adjusted downwards; nach unten korrigiert",
+    "translation": "staff turnover (n)",
+    "native": "many employees leave the company and new ones need be hired; Mitarbeiterfluktuation",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to precede sth. (v)",
-    "german": "to predate sth.; etw. vorausgehen",
+    "translation": "to sell sth off cheap/at half price (v, econ.)",
+    "native": "to sell sth. at a very low price / for half of the money it usually costs; etw. billig / zum halben Preis verkaufen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to level off (v)",
-    "german": "to even out [at sth.]; sich einpendeln, sich ausgleichen",
+    "translation": "revised downwards (adv)",
+    "native": "adjusted downwards; nach unten korrigiert",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to pay off (v)",
-    "german": "to be worth one's while, sich bezahlt machen; give money to sb., jdn. ausbezahlen",
+    "translation": "to precede sth. (v)",
+    "native": "to predate sth.; etw. vorausgehen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "ailing (adj)",
-    "german": "ill; kränklich",
+    "translation": "to level off (v)",
+    "native": "to even out [at sth.]; sich einpendeln, sich ausgleichen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to hit a trough (v)",
-    "german": "to bottom out; einen Tiefpunkt erreichen, in ein Konjunkturtief geraten",
+    "translation": "to pay off (v)",
+    "native": "to be worth one's while, sich bezahlt machen; give money to sb., jdn. ausbezahlen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to dispose of sth. (v)",
-    "german": "to get rid of sth., etw. loswerden, etw. veräußern; to have sth., über etw. verfügen",
+    "translation": "ailing (adj)",
+    "native": "ill; kränklich",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "like-for-like satels",
-    "german": "Umsatzentwicklung in identischer Zeitspanne mit identischen Faktoren",
+    "translation": "to hit a trough (v)",
+    "native": "to bottom out; einen Tiefpunkt erreichen, in ein Konjunkturtief geraten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "turmoil (n)",
-    "german": "unrest; Tumult, Revolte, Aufruhr",
+    "translation": "to dispose of sth. (v)",
+    "native": "to get rid of sth., etw. loswerden, etw. veräußern; to have sth., über etw. verfügen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "management buyout (n. econ.)",
-    "german": "to take over a company by purchasing its shares; Führungsübernahme durch das Führungspersonal / Management",
+    "translation": "like-for-like satels",
+    "native": "Umsatzentwicklung in identischer Zeitspanne mit identischen Faktoren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to mount (v)",
-    "german": "to organize, organisieren; to go up, aufsteigen",
+    "translation": "turmoil (n)",
+    "native": "unrest; Tumult, Revolte, Aufruhr",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "feasibility (n)",
-    "german": "viability; Machbarkeit",
+    "translation": "management buyout (n. econ.)",
+    "native": "to take over a company by purchasing its shares; Führungsübernahme durch das Führungspersonal / Management",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "leveraged buyout (n., econ.)",
-    "german": "is the acquisition of another company using a significant amount of borrowed money to meet the cost of acquisition;1 fremdfinanzierte Firmenübernahme",
+    "translation": "to mount (v)",
+    "native": "to organize, organisieren; to go up, aufsteigen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to raise capital (v)",
-    "german": "to put up capital; Kapital aufbringen",
+    "translation": "leveraged buyout (n., econ.)",
+    "native": "is the acquisition of another company using a significant amount of borrowed money to meet the cost of acquisition;1 fremdfinanzierte Firmenübernahme",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to pay over the odds (coll.)",
-    "german": "to have to pay too much; zuviel bezahlen",
+    "translation": "to raise capital (v)",
+    "native": "to put up capital; Kapital aufbringen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "tier (n) pron.: /tɪəʳ (be) tɪr (ae)",
-    "german": "level; Ebene",
+    "translation": "to pay over the odds (coll.)",
+    "native": "to have to pay too much; zuviel bezahlen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to keep a low profile (coll., fam.)",
-    "german": "to restrain oneself; sich zurückhalten, sich bedeckt halten",
+    "translation": "tier (n) pron.: /tɪəʳ (be) tɪr (ae)",
+    "native": "level; Ebene",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "signed and sealed (coll., fam.)",
-    "german": "to get / have sth. all wrapped up: unter Dach und Fach gebracht",
+    "translation": "to keep a low profile (coll., fam.)",
+    "native": "to restrain oneself; sich zurückhalten, sich bedeckt halten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to turn so. down (v)",
-    "german": "to send so. away; jdn. abweisen, wegschicken",
+    "translation": "signed and sealed (coll., fam.)",
+    "native": "to get / have sth. all wrapped up: unter Dach und Fach gebracht",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to get your marching orders (coll., fam.)",
-    "german": "(lit.) den Marschbefehl erhalten; to tell sb. off, jdn. zurechtweisen, jdm. \"heimleuchten\"; here: to tell so. that he or she is made redundant; jdn. entlassen",
+    "translation": "to turn so. down (v)",
+    "native": "to send so. away; jdn. abweisen, wegschicken",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "stake (n)",
-    "german": "share, Anteil, Beteiligungsquote; risk, Einsatz",
+    "translation": "to get your marching orders (coll., fam.)",
+    "native": "(lit.) den Marschbefehl erhalten; to tell sb. off, jdn. zurechtweisen, jdm. \"heimleuchten\"; here: to tell so. that he or she is made redundant; jdn. entlassen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to make a snap decision (coll., fam.)",
-    "german": "to make a rash decision; vorschnell urteilen",
+    "translation": "stake (n)",
+    "native": "share, Anteil, Beteiligungsquote; risk, Einsatz",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "eventually (adv.)",
-    "german": "finally; schließlich, endlich",
+    "translation": "to make a snap decision (coll., fam.)",
+    "native": "to make a rash decision; vorschnell urteilen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "soldering iron (n)",
-    "german": "Lötkolben",
+    "translation": "eventually (adv.)",
+    "native": "finally; schließlich, endlich",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "appraisal (n)",
-    "german": "evaluation; Bewertung, Beurteilung, Mitarbeitergespräch",
+    "translation": "soldering iron (n)",
+    "native": "Lötkolben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "lifeblood (n., fig.)",
-    "german": "crucial factor; Motor, Herzblut",
+    "translation": "appraisal (n)",
+    "native": "evaluation; Bewertung, Beurteilung, Mitarbeitergespräch",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "competitive edge (n)",
-    "german": "competitive advantage; Wettbewerbsvorteil",
+    "translation": "lifeblood (n., fig.)",
+    "native": "crucial factor; Motor, Herzblut",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to turn sth. into sth. (v)",
-    "german": "to make sth. new of sth.; etw. in etw. anderes verwandeln",
+    "translation": "competitive edge (n)",
+    "native": "competitive advantage; Wettbewerbsvorteil",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to encounter (v)",
-    "german": "to meet; treffen",
+    "translation": "to turn sth. into sth. (v)",
+    "native": "to make sth. new of sth.; etw. in etw. anderes verwandeln",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "shot (n)",
-    "german": "filming, photgraph; Aufnahme, (of a weapon) Schuss",
+    "translation": "shot (n)",
+    "native": "filming, photgraph; Aufnahme, (of a weapon) Schuss",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "press release (n)",
-    "german": "news issued to the press; Pressemeldung, Pressemitteilung",
+    "translation": "press release (n)",
+    "native": "news issued to the press; Pressemeldung, Pressemitteilung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to release sth. / so. (v)",
-    "german": "to let sth. / so. go; jdn. loslassen",
+    "translation": "to release sth. / so. (v)",
+    "native": "to let sth. / so. go; jdn. loslassen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to stand off (v)",
-    "german": "to dismiss temporarily, vorübergehend entlassen; to repel, abweisen; to leave, sich entfernen",
+    "translation": "to stand off (v)",
+    "native": "to dismiss temporarily, vorübergehend entlassen; to repel, abweisen; to leave, sich entfernen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to get off (v)",
-    "german": "to exit, aussteigen; to depart, losfahren; to evade punishment, davonkommen",
+    "translation": "to get off (v)",
+    "native": "to exit, aussteigen; to depart, losfahren; to evade punishment, davonkommen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to get off to a promising start (coll.)",
-    "german": "einen erfolgversprechenden Start haben",
+    "translation": "to get off to a promising start (coll.)",
+    "native": "einen erfolgversprechenden Start haben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to go off (v)",
-    "german": "to go away, weggehen; to ring (alarm clock), losgehen; to decrease in quality, schlecht werden, nachlassen",
+    "translation": "to go off (v)",
+    "native": "to go away, weggehen; to ring (alarm clock), losgehen; to decrease in quality, schlecht werden, nachlassen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to move off (v)",
-    "german": "to go away; losgehen, losrennen",
+    "translation": "to move off (v)",
+    "native": "to go away; losgehen, losrennen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to employ (v)",
-    "german": "to hire, beschäftigen, einstellen; to use, verwenden",
+    "translation": "to employ (v)",
+    "native": "to hire, beschäftigen, einstellen; to use, verwenden",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to exploit (v)",
-    "german": "to make use of; ausnutzen",
+    "translation": "to exploit (v)",
+    "native": "to make use of; ausnutzen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to exploit potential (coll.)",
-    "german": "Wachstumspotenzial erschließen",
+    "translation": "to exploit potential (coll.)",
+    "native": "Wachstumspotenzial erschließen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "resource allocation (n)",
-    "german": "assignment of available to various uses; Ressourcenverteilung",
+    "translation": "resource allocation (n)",
+    "native": "assignment of available to various uses; Ressourcenverteilung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "lead time (n)",
-    "german": "time for delivery; Lieferzeit, Vorlaufzeit",
+    "translation": "lead time (n)",
+    "native": "time for delivery; Lieferzeit, Vorlaufzeit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be bulging with sth. (v)",
-    "german": "to be full with sth.; prall mit etw. gefüllt sein, mit etw. vollgestopft sein",
+    "translation": "to be bulging with sth. (v)",
+    "native": "to be full with sth.; prall mit etw. gefüllt sein, mit etw. vollgestopft sein",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "no sooner than (prep.)",
-    "german": "barely after; kaum, dass",
+    "translation": "no sooner than (prep.)",
+    "native": "barely after; kaum, dass",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to slash (v)",
-    "german": "to cut deeply, aufschlitzen; to reduce, kürzen",
+    "translation": "to slash (v)",
+    "native": "to cut deeply, aufschlitzen; to reduce, kürzen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to compete on equal terms (coll.)",
-    "german": "auf Augenhöhe konkurrieren",
+    "translation": "to compete on equal terms (coll.)",
+    "native": "auf Augenhöhe konkurrieren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be engaged in doing sth. (coll.)",
-    "german": "to concern oneself with sth.; sich mit etw. beschäftigen",
+    "translation": "to be engaged in doing sth. (coll.)",
+    "native": "to concern oneself with sth.; sich mit etw. beschäftigen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "be punching above one's weight (coll., fam.)",
-    "german": "keinen Vergleich scheuen müssen",
+    "translation": "be punching above one's weight (coll., fam.)",
+    "native": "keinen Vergleich scheuen müssen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "cog (n, tech.)",
-    "german": "gearwheel; Zahnrad",
+    "translation": "cog (n, tech.)",
+    "native": "gearwheel; Zahnrad",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "a few years down the line (coll. fam.)",
-    "german": "einige Jahre später",
+    "translation": "a few years down the line (coll. fam.)",
+    "native": "einige Jahre später",
     "notes": "a few years later",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "withdrawn (adj.)",
-    "german": "isolated; introvertiert, reserviert",
+    "translation": "withdrawn (adj.)",
+    "native": "isolated; introvertiert, reserviert",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to lack in sth. (v)",
-    "german": "to run short of sth.; an etw. mangeln",
+    "translation": "to lack in sth. (v)",
+    "native": "to run short of sth.; an etw. mangeln",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "ineptitude (n)",
-    "german": "unsuitableness; Ungeeignetheit",
+    "translation": "ineptitude (n)",
+    "native": "unsuitableness; Ungeeignetheit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to take advantage of sth. (coll.)",
-    "german": "to benefit from sth.; einen Vorteil / Nutzen aus etw. ziehen",
+    "translation": "to take advantage of sth. (coll.)",
+    "native": "to benefit from sth.; einen Vorteil / Nutzen aus etw. ziehen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to take sth. up (v)",
-    "german": "to receive / get sth.; etw. erhalten, aufnehmen",
+    "translation": "to take sth. up (v)",
+    "native": "to receive / get sth.; etw. erhalten, aufnehmen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "sophisticated (adj.)",
-    "german": "highly developed; hochentwickelt, ausgeklügelt",
+    "translation": "sophisticated (adj.)",
+    "native": "highly developed; hochentwickelt, ausgeklügelt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to cement sth. (v)",
-    "german": "to bind sth.; etw. festigen, etw. zementieren",
+    "translation": "to cement sth. (v)",
+    "native": "to bind sth.; etw. festigen, etw. zementieren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to slash charges (v)",
-    "german": "to reduce fees considerably; Kosten dramatisch senken",
+    "translation": "to slash charges (v)",
+    "native": "to reduce fees considerably; Kosten dramatisch senken",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "no mean feat (coll., fam.)",
-    "german": "an admirable success; eine schöne Leistung",
+    "translation": "no mean feat (coll., fam.)",
+    "native": "an admirable success; eine schöne Leistung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "vibrancy (n)",
-    "german": "dynamic; Lebhaftigkeit, Dynamik",
+    "translation": "vibrancy (n)",
+    "native": "dynamic; Lebhaftigkeit, Dynamik",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "penetration rate (n, econ.)",
-    "german": "market share; Marktanteil, Marktdurchdringung",
+    "translation": "feasibility (n)",
+    "native": "viability; Machbarkeit",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "not to see the wood for the trees (coll, fam.)",
-    "german": "not to see the essential things because of too many details; den Wald vor lauter Bäumen nicht sehen",
+    "translation": "to encounter (v)",
+    "native": "to meet; treffen",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to trudge forward (v)",
-    "german": "to go ahead without really thinking about what you're doing; voranstapfen",
+    "translation": "to sell off sth. (v, econ.)",
+    "native": "to get rid of sth.; abstoßen, liquidieren",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to alter (v)",
-    "german": "to change; ändern",
+    "translation": "penetration rate (n, econ.)",
+    "native": "market share; Marktanteil, Marktdurchdringung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to rejig sth. (v)",
-    "german": "to change sth. considerably / profoundly; etw. grundlegend ändern, etw. umkrempeln (fam.)",
+    "translation": "not to see the wood for the trees (coll, fam.)",
+    "native": "not to see the essential things because of too many details; den Wald vor lauter Bäumen nicht sehen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "workmanlike (adj.)",
-    "german": "sufficient; annehmbar",
+    "translation": "to trudge forward (v)",
+    "native": "to go ahead without really thinking about what you're doing; voranstapfen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "mismatch (n)",
-    "german": "lack of correspondence; Missverhältnis",
+    "translation": "to alter (v)",
+    "native": "to change; ändern",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "letdown / let-down (n)",
-    "german": "disappointment; Enttäuschung",
+    "translation": "to rejig sth. (v)",
+    "native": "to change sth. considerably / profoundly; etw. grundlegend ändern, etw. umkrempeln (fam.)",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to culminate in sth. (v)",
-    "german": "to peak in sth.; in etw. gipfeln",
+    "translation": "workmanlike (adj.)",
+    "native": "sufficient; annehmbar",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to rack up sth. (v)",
-    "german": "to accumulate sth.; etw. anhäufen",
+    "translation": "letdown / let-down (n)",
+    "native": "disappointment; Enttäuschung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to plow / plough through sth. (v)",
-    "german": "to check sth. accurately; etw. gründlich durchpflügen",
+    "translation": "to culminate in sth. (v)",
+    "native": "to peak in sth.; in etw. gipfeln",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "accounts clerk (n)",
-    "german": "book-keeper; Buchhalter/in",
+    "translation": "to rack up sth. (v)",
+    "native": "to accumulate sth.; etw. anhäufen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "tenuous (adj.)",
-    "german": "thin, flimsy; dünn",
+    "translation": "accounts clerk (n)",
+    "native": "book-keeper; Buchhalter/in",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "digest (n)",
-    "german": "overview; Überblick",
+    "translation": "tenuous (adj.)",
+    "native": "thin, flimsy; dünn",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to trawl the internet",
-    "german": "to search the internet for sth.; das Internet durchsuchen",
+    "translation": "digest (n)",
+    "native": "overview; Überblick",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to trawl (v)",
-    "german": "fischen, durchforsten",
+    "translation": "to trawl the internet",
+    "native": "to search the internet for sth.; das Internet durchsuchen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "blunder (n)",
-    "german": "big mistake; grober Fehler",
+    "translation": "to trawl (v)",
+    "native": "fischen, durchforsten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "gaffe (n)",
-    "german": "faux pas; Ausrutscher",
+    "translation": "gaffe (n)",
+    "native": "faux pas; Ausrutscher",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "long(-)winded (adj.)",
-    "german": "lengthy, verbose; langatmig, weitschweifend",
+    "translation": "long(-)winded (adj.)",
+    "native": "lengthy, verbose; langatmig, weitschweifend",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to raise a few smiles",
-    "german": "ein paar Lacher entlocken / ein Lächeln entlocken",
+    "translation": "to raise a few smiles",
+    "native": "ein paar Lacher entlocken / ein Lächeln entlocken",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "anything less than (coll.)",
-    "german": "at least; mindestens",
+    "translation": "anything less than (coll.)",
+    "native": "at least; mindestens",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "portfolio career (n, econ.)",
-    "german": "the fact of having a series of jobs, each for a short time, rather than one job for a long time; Karriereportfolio",
+    "translation": "portfolio career (n, econ.)",
+    "native": "the fact of having a series of jobs, each for a short time, rather than one job for a long time; Karriereportfolio",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "paltry sum (n)",
-    "german": "a ridiculous sum; lächerliche Summe",
+    "translation": "paltry sum (n)",
+    "native": "a ridiculous sum; lächerliche Summe",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "paltry (adj.) /ˈpɔ:ltri, amespˈpɑ:l-/",
-    "german": "very small; armselig, gering",
+    "translation": "paltry (adj.) /ˈpɔ:ltri, amespˈpɑ:l-/",
+    "native": "very small; armselig, gering",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "offshoring (n)",
-    "german": "the practice of moving employees or certain business activities to foreign countries as a way to lower costs, avoid taxes, etc.; Offshoring, Standortverlegung",
+    "translation": "to facilitate (v)",
+    "native": "to make easier or less difficult; erleichtern, ermöglichen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to facilitate (v)",
-    "german": "to make easier or less difficult; erleichtern, ermöglichen",
+    "translation": "back-office (n)",
+    "native": "any department or office, as a private office or a department of record keeping, that is not usually seen by outsiders; Abwicklungsabteilung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "back-office (n)",
-    "german": "any department or office, as a private office or a department of record keeping, that is not usually seen by outsiders; Abwicklungsabteilung",
+    "translation": "to reap (v)",
+    "native": "to receive; erlangen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to reap (v)",
-    "german": "to receive; erlangen",
+    "translation": "to replicate (v)",
+    "native": "to reproduce; nachbilden, reproduzieren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to replicate (v)",
-    "german": "to reproduce; nachbilden, reproduzieren",
+    "translation": "sliver (n)",
+    "native": "a small piece of something cut or split off a larger piece; Splitter, hier: kleiner Teilbereich",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "prone to",
-    "german": "likely to suffer from something unpleasant; anfällig für (hier: fehleranfällig)",
+    "translation": "to lure (v)",
+    "native": "to tempt a person to do something or to go somewhere, esp. by offering some form of reward; jmdn. locken, anlocken",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "sliver (n)",
-    "german": "a small piece of something cut or split off a larger piece; Splitter, hier: kleiner Teilbereich",
+    "translation": "recruit (n)",
+    "native": "a new member of an organization or firm; neu eingesteller Arbeitnehmer; Neuling",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to lure (v)",
-    "german": "to tempt a person to do something or to go somewhere, esp. by offering some form of reward; jmdn. locken, anlocken",
+    "translation": "prodigious (adj)",
+    "native": "remarkably great; erstaunlich",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "recruit (n)",
-    "german": "a new member of an organization or firm; neu eingesteller Arbeitnehmer; Neuling",
+    "translation": "to owe to (v)",
+    "native": "to exist because of; hier: gründen auf etwas; an etwas liegen; auch: verdanken",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "prodigious (adj)",
-    "german": "remarkably great; erstaunlich",
+    "translation": "stepping stone (n)",
+    "native": "something that helps someone to make progress towards a specified goal Trittstein, Sprungbrett",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to owe to (v)",
-    "german": "to exist because of; hier: gründen auf etwas; an etwas liegen; auch: verdanken",
+    "translation": "to appeal to (v)",
+    "native": "be attractive or interesting; jmdn. ansprechen, jmdm. zusagen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "stepping stone (n)",
-    "german": "something that helps someone to make progress towards a specified goal Trittstein, Sprungbrett",
+    "translation": "lead (n)",
+    "native": "chemistry: Symbol: Pb; Blei",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to appeal to (v)",
-    "german": "be attractive or interesting; jmdn. ansprechen, jmdm. zusagen",
+    "translation": "subsequently",
+    "native": "afterwards; anschließend",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "lead (n)",
-    "german": "chemistry: Symbol: Pb; Blei",
+    "translation": "static (adj)",
+    "native": "without movement; statisch",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "subsequently",
-    "german": "afterwards; anschließend",
+    "translation": "to account for (v)",
+    "native": "make up a specified amount; etw. betragen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "static (adj)",
-    "german": "without movement; statisch",
+    "translation": "lacquer (n)",
+    "native": "protective coating; Lackschicht",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to account for (v)",
-    "german": "make up a specified amount; etw. betragen",
+    "translation": "stationer (n)",
+    "native": "a person/shop selling paper, pens etc.; Schreibwarenhändler",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "lacquer (n)",
-    "german": "protective coating; Lackschicht",
+    "translation": "emphasis (n)",
+    "native": "special importance that is given to something; Schwerpunkt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "stationer (n)",
-    "german": "a person/shop selling paper, pens etc.; Schreibwarenhändler",
+    "translation": "sluggish (adj)",
+    "native": "slow; schwerfällig, stagnierend",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "emphasis (n)",
-    "german": "special importance that is given to something; Schwerpunkt",
+    "translation": "consistently (adj)",
+    "native": "on every occasion; durchweg",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "sluggish (adj)",
-    "german": "slow; schwerfällig, stagnierend",
+    "translation": "landmark (adj)",
+    "native": "important; bedeutend",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "consistently (adj)",
-    "german": "on every occasion; durchweg",
+    "translation": "stockist (n)",
+    "native": "retailer; Fachhändler",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "landmark (adj)",
-    "german": "important; bedeutend",
+    "translation": "to neglect (v)",
+    "native": "disregard; fail to do something; etw. vernachlässigen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "stockist (n)",
-    "german": "retailer; Fachhändler",
+    "translation": "volume sales (n)",
+    "native": "here: top-selling products",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to neglect (v)",
-    "german": "disregard; fail to do something; etw. vernachlässigen",
+    "translation": "indebted (adj)",
+    "native": "owing money; verschuldet",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "volume sales (n)",
-    "german": "here: top-selling products",
+    "translation": "to shelve a plan (v)",
+    "native": "decide not to proceed with a plan; einen Plan aufschieben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "indebted (adj)",
-    "german": "owing money; verschuldet",
+    "translation": "pledge (n)",
+    "native": "something that is given as security; Pfand, auch: Zusicherung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to shelve a plan (v)",
-    "german": "decide not to proceed with a plan; einen Plan aufschieben",
+    "translation": "bid (n)",
+    "native": "an offer; Gebot",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "depreciation (n)",
-    "german": "reduction in the value; Wertverlust",
+    "translation": "to boost (v)",
+    "native": "to increase, to improve; ankurbeln, steigern",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "pledge (n)",
-    "german": "something that is given as security; Pfand, auch: Zusicherung",
+    "translation": "to devote (v)",
+    "native": "give resources to; verwenden",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "bid (n)",
-    "german": "an offer; Gebot",
+    "translation": "to proceed (v)",
+    "native": "to continue; weitermachen, fortfahren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "assets (n, pl.)",
-    "german": "an item of property; Aktiva, Guthaben, Vermögen",
+    "translation": "unanimous (adj)",
+    "native": "two or more people agree to something; einstimmig",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to swell (v)",
-    "german": "become larger; anschwellen, ansteigen, wachsen",
+    "translation": "to perceive (v)",
+    "native": "to become aware of something; etwas wahrnehmen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to boost (v)",
-    "german": "to increase, to improve; ankurbeln, steigern",
+    "translation": "to disparage (v)",
+    "native": "to regard something as being of little worth; abwerten, herabsetzen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to devote (v)",
-    "german": "give resources to; verwenden",
+    "translation": "assumption (n)",
+    "native": "something that is accepted as being true, without proof; die Annahme",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to retain (v)",
-    "german": "to keep possession of; behalten",
+    "translation": "to cut costs (v)",
+    "native": "to pay less; Kosten senken",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to proceed (v)",
-    "german": "to continue; weitermachen, fortfahren",
+    "translation": "to revamp (v)",
+    "native": "to improve the structure of something; umgestalten; neu organisieren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "unanimous (adj)",
-    "german": "two or more people agree to something; einstimmig",
+    "translation": "extent (n)",
+    "native": "the size or scale of something; das Ausmaß",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to perceive (v)",
-    "german": "to become aware of something; etwas wahrnehmen",
+    "translation": "to wed oneself to (v)",
+    "native": "be attached to; sich an etwas binden",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to disparage (v)",
-    "german": "to regard something as being of little worth; abwerten, herabsetzen",
+    "translation": "venue (n)",
+    "native": "the place where an organized event happens; Veranstaltungsort",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "assumption (n)",
-    "german": "something that is accepted as being true, without proof; die Annahme",
+    "translation": "participant (n)",
+    "native": "person who takes part in an event; Teilnehmer/-in",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to cut costs (v)",
-    "german": "to pay less; Kosten senken",
+    "translation": "case study (n)",
+    "native": "result of a research into the development of a particular topic; Fallstudie, Untersuchung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to revamp (v)",
-    "german": "to improve the structure of something; umgestalten; neu organisieren",
+    "translation": "keynote speech (n)",
+    "native": "speech that sets out the central theme of a conference; programmatische Rede (des Hauptredners/der Hauptrednerin)",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "extent (n)",
-    "german": "the size or scale of something; das Ausmaß",
+    "translation": "on the outskirts of",
+    "native": "the outer part of a city; Außenbezirke",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to wed oneself to (v)",
-    "german": "be attached to; sich an etwas binden",
+    "translation": "with hindsight (n)",
+    "native": "understanding of a situation only after it has happened; im Nachhinein",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "redundancy (n)",
-    "german": "termination of a work contract; Entlassung, Kündigung",
+    "translation": "to keep a tight rein (v)",
+    "native": "to exercise strict control over something; ein strenges Regiment führen; streng kontrollieren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "venue (n)",
-    "german": "the place where an organized event happens; Veranstaltungsort",
+    "translation": "redundancy (n)",
+    "native": "termination of a work contract; Entlassung, Kündigung",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "participant (n)",
-    "german": "person who takes part in an event; Teilnehmer/-in",
+    "translation": "to swell (v)",
+    "native": "become larger; anschwellen, ansteigen, wachsen",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "case study (n)",
-    "german": "result of a research into the development of a particular topic; Fallstudie, Untersuchung",
+    "translation": "to retain (v)",
+    "native": "to keep possession of; behalten",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "keynote speech (n)",
-    "german": "speech that sets out the central theme of a conference; programmatische Rede (des Hauptredners/der Hauptrednerin)",
+    "translation": "assets (n, pl.)",
+    "native": "an item of property; Aktiva, Guthaben, Vermögen",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "on the outskirts of",
-    "german": "the outer part of a city; Außenbezirke",
+    "translation": "blunder (n)",
+    "native": "big mistake; grober Fehler",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "with hindsight (n)",
-    "german": "understanding of a situation only after it has happened; im Nachhinein",
+    "translation": "depreciation (n)",
+    "native": "reduction in the value; Wertverlust",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to keep a tight rein (v)",
-    "german": "to exercise strict control over something; ein strenges Regiment führen; streng kontrollieren",
+    "translation": "mismatch (n)",
+    "native": "lack of correspondence; Missverhältnis",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "internal fixtures (n, pl.)",
-    "german": "equipment or furniture which is fixed in position in a building; Installationen",
+    "translation": "internal fixtures (n, pl.)",
+    "native": "equipment or furniture which is fixed in position in a building; Installationen",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to recoup (v)",
-    "german": "to regain the money spent; Verluste ausgleichen, wiedergewinnen",
+    "translation": "to plow / plough through sth. (v)",
+    "native": "to check sth. accurately; etw. gründlich durchpflügen",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "faulty (adj)",
-    "german": "with defects, something that doesn’t work correctly; fehlerhaft",
+    "translation": "to recoup (v)",
+    "native": "to regain the money spent; Verluste ausgleichen, wiedergewinnen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "reputable (adj)",
-    "german": "having a good reputation; angesehen",
+    "translation": "faulty (adj)",
+    "native": "with defects, something that doesn’t work correctly; fehlerhaft",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "perennial (adj)",
-    "german": "permanently; andauernd",
+    "translation": "perennial (adj)",
+    "native": "permanently; andauernd",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "switchboard (n)",
-    "german": "control of telephone calls in an office; Telefonzentrale",
+    "translation": "switchboard (n)",
+    "native": "control of telephone calls in an office; Telefonzentrale",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to benchmark (v)",
-    "german": "evaluate something; bewerten",
+    "translation": "to benchmark (v)",
+    "native": "evaluate something; bewerten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "selling point (n)",
-    "german": "a feature of a product for sale that makes it attractive to customers; Verkaufsargument, besonderes Merkmal; USP: unique selling point:",
+    "translation": "selling point (n)",
+    "native": "a feature of a product for sale that makes it attractive to customers; Verkaufsargument, besonderes Merkmal; USP: unique selling point:",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "shift (n)",
-    "german": "work during different periods, e.g. to work on night shift; Schicht",
+    "translation": "shift (n)",
+    "native": "work during different periods, e.g. to work on night shift; Schicht",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to assess (v)",
-    "german": "to calculate, to estimate; bewerten, einschätzen",
+    "translation": "to assess (v)",
+    "native": "to calculate, to estimate; bewerten, einschätzen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "outlay (n)",
-    "german": "the money spent on something; Ausgaben",
+    "translation": "outlay (n)",
+    "native": "the money spent on something; Ausgaben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to tailor (v)",
-    "german": "to adapt; maßschneidern, zuschneiden auf",
+    "translation": "to tailor (v)",
+    "native": "to adapt; maßschneidern, zuschneiden auf",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to embrace (v)",
-    "german": "to include; etwas miteinbeziehen, sich zu Eigen machen",
+    "translation": "to embrace (v)",
+    "native": "to include; etwas miteinbeziehen, sich zu Eigen machen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "mass customization (n)",
-    "german": "kundenindividuelle Massenproduktion/-fertigung",
+    "translation": "mass customization (n)",
+    "native": "kundenindividuelle Massenproduktion/-fertigung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "insights (n, pl.)",
-    "german": "an understanding of something; Einblicke",
+    "translation": "insights (n, pl.)",
+    "native": "an understanding of something; Einblicke",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to sustain (v)",
-    "german": "to uphold; erhalten, aufrechterhalten",
+    "translation": "to sustain (v)",
+    "native": "to uphold; erhalten, aufrechterhalten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "quantum leap (n)",
-    "german": "a sudden large increase or advance; Quantensprung, großer Fortschritt",
+    "translation": "quantum leap (n)",
+    "native": "a sudden large increase or advance; Quantensprung, großer Fortschritt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "customer equity (n)",
-    "german": "value of the customers; Kundenwert",
+    "translation": "retention (n)",
+    "native": "possession, use of something; Beibehaltung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "acquisition (n)",
-    "german": "the buying/obtaining of something; also: the learning or developing of something; Kauf, Erwerb, Aneignung",
+    "translation": "to frame (v)",
+    "native": "to formulate an issue; formulieren, festlegen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "retention (n)",
-    "german": "possession, use of something; Beibehaltung",
+    "translation": "diminishing returns (n, pl.)",
+    "native": "lower profits from investments; rückläufige Einnahmen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to frame (v)",
-    "german": "to formulate an issue; formulieren, festlegen",
+    "translation": "to undergo (v)",
+    "native": "to experience something; etwas erleben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "diminishing returns (n, pl.)",
-    "german": "lower profits from investments; rückläufige Einnahmen",
+    "translation": "to illuminate (v)",
+    "native": "to explain; erklären",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to undergo (v)",
-    "german": "to experience something; etwas erleben",
+    "translation": "predicament (n)",
+    "native": "a difficult situation; Zwickmühle, Dilemma",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to illuminate (v)",
-    "german": "to explain; erklären",
+    "translation": "supply network (n)",
+    "native": "complex system of supply; Versorgungsnetzwerk",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "predicament (n)",
-    "german": "a difficult situation; Zwickmühle, Dilemma",
+    "translation": "querie (n)",
+    "native": "question; Frage",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "supply network (n)",
-    "german": "complex system of supply; Versorgungsnetzwerk",
+    "translation": "mid-point question (n)",
+    "native": "a question at the middle of a presentation etc.; hier: Frage, die (spontan) während eines Vortrags aus dem Publikum gestellt wird",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "querie (n)",
-    "german": "question; Frage",
+    "translation": "to discourage (v)",
+    "native": "to cause someone to lose enthusiasm or confidence; hier: jemanden von etwas abhalten, auch: abschrecken, entmutigen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "mid-point question (n)",
-    "german": "a question at the middle of a presentation etc.; hier: Frage, die (spontan) während eines Vortrags aus dem Publikum gestellt wird",
+    "translation": "chairperson (n)",
+    "native": "the presiding officer of a meeting, event, etc.; Vorsitzende/-r",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to discourage (v)",
-    "german": "to cause someone to lose enthusiasm or confidence; hier: jemanden von etwas abhalten, auch: abschrecken, entmutigen",
+    "translation": "proceeding (n)",
+    "native": "a series of steps followed in a particular order; das Vorgehen, die Vorgehensweise, auch: Ablauf (conference proceedings: Konferenzablauf)",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "chairperson (n)",
-    "german": "the presiding officer of a meeting, event, etc.; Vorsitzende/-r",
+    "translation": "to take (questions) in turn (v)",
+    "native": "to answer questions one after the other; Fragen der Reihe nach beantworten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "proceeding (n)",
-    "german": "a series of steps followed in a particular order; das Vorgehen, die Vorgehensweise, auch: Ablauf (conference proceedings: Konferenzablauf)",
+    "translation": "over-eager (adj.)",
+    "native": "excessively eager to do something; übereifrig",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to take (questions) in turn (v)",
-    "german": "to answer questions one after the other; Fragen der Reihe nach beantworten",
+    "translation": "hostile (adj.)",
+    "native": "opposed to something; feindlich",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "over-eager (adj.)",
-    "german": "excessively eager to do something; übereifrig",
+    "translation": "to limit the damage (v)",
+    "native": "to restrain something; den Schaden begrenzen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "hostile (adj.)",
-    "german": "opposed to something; feindlich",
+    "translation": "to gain advantage (v)",
+    "native": "to benefit, to profit; etwas nutzen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to limit the damage (v)",
-    "german": "to restrain something; den Schaden begrenzen",
+    "translation": "trap (n)",
+    "native": "a trick to mislead someone; eine Falle: to set a trap; jemandem eine Falle stellen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to gain advantage (v)",
-    "german": "to benefit, to profit; etwas nutzen",
+    "translation": "ambiguity (n)",
+    "native": "something that allows several interpretations; inexact; mangelnde Klarheit, Doppeldeutigkeit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "trap (n)",
-    "german": "a trick to mislead someone; eine Falle: to set a trap; jemandem eine Falle stellen",
+    "translation": "to undermine (v)",
+    "native": "to reduce the effectiveness of something; etwas unterminieren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "ambiguity (n)",
-    "german": "something that allows several interpretations; inexact; mangelnde Klarheit, Doppeldeutigkeit",
+    "translation": "embarrassing (adj)",
+    "native": "shameful, humiliating; peinlich; embarrassing silence: peinliche Stille",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to undermine (v)",
-    "german": "to reduce the effectiveness of something; etwas unterminieren",
+    "translation": "insidious (adj.)",
+    "native": "proceeding in a gradual, subtle way, with negative effects; heimtückisch",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "embarrassing (adj)",
-    "german": "shameful, humiliating; peinlich; embarrassing silence: peinliche Stille",
+    "translation": "prediction (n)",
+    "native": "a forecast; die Vorhersage",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "insidious (adj.)",
-    "german": "proceeding in a gradual, subtle way, with negative effects; heimtückisch",
+    "translation": "to follow a trajectory (v)",
+    "native": "a path or development followed by something; der Weg, die Entwicklung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "prediction (n)",
-    "german": "a forecast; die Vorhersage",
+    "translation": "to be timely",
+    "native": "at the right time; an der Zeit sein, etwas zu tun",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to follow a trajectory (v)",
-    "german": "a path or development followed by something; der Weg, die Entwicklung",
+    "translation": "temperate (adj)",
+    "native": "controlled, balanced; maßvoll, gemäßigt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "erratic (adj)",
-    "german": "unpredictable; unberechenbar",
+    "translation": "to bequeath a legacy (v)",
+    "native": "to pass on something; ein Erbe hinterlassen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be timely",
-    "german": "at the right time; an der Zeit sein, etwas zu tun",
+    "translation": "enduring legacy (n)",
+    "native": "persisting heritage; bleibendes, nachhaltiges Erbe/Vermächtnis",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "temperate (adj)",
-    "german": "controlled, balanced; maßvoll, gemäßigt",
+    "translation": "contention (n)",
+    "native": "assertion; die Behauptung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to bequeath a legacy (v)",
-    "german": "to pass on something; ein Erbe hinterlassen",
+    "translation": "frantic (adj)",
+    "native": "panicky; panisch, übereilt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "enduring legacy (n)",
-    "german": "persisting heritage; bleibendes, nachhaltiges Erbe/Vermächtnis",
+    "translation": "to dissipate (v)",
+    "native": "to disappear; verschwinden",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "contention (n)",
-    "german": "assertion; die Behauptung",
+    "translation": "to discern (v)",
+    "native": "to understand; etwas erkennen i.S.v. erfassen, verstehen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "frantic (adj)",
-    "german": "panicky; panisch, übereilt",
+    "translation": "profound (adj)",
+    "native": "intense; tiefgreifend",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to dissipate (v)",
-    "german": "to disappear; verschwinden",
+    "translation": "with the grain of",
+    "native": "a very small piece of; hier: einen Teilaspekt von etwas aufnehmen und weiterentwickeln",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to discern (v)",
-    "german": "to understand; etwas erkennen i.S.v. erfassen, verstehen",
+    "translation": "to accelerate (v)",
+    "native": "to increase speed; beschleunigen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "subtle (adj)",
-    "german": "delicate; subtil, fein(sinnig), raffiniert",
+    "translation": "to strip out (v)",
+    "native": "to disregard; ignorieren",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "profound (adj)",
-    "german": "intense; tiefgreifend",
+    "translation": "flat ø flatter (adj)",
+    "native": "horizontal; flach",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "with the grain of",
-    "german": "a very small piece of; hier: einen Teilaspekt von etwas aufnehmen und weiterentwickeln",
+    "translation": "highly marketable (adj)",
+    "native": "attractive; able to be sold; hier: gefragt, marktfähig",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to accelerate (v)",
-    "german": "to increase speed; beschleunigen",
+    "translation": "to auction (v)",
+    "native": "to offer for sale at an auction; versteigern",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to strip out (v)",
-    "german": "to disregard; ignorieren",
+    "translation": "squad (n)",
+    "native": "a group of, several; mehrere",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "flat ø flatter (adj)",
-    "german": "horizontal; flach",
+    "translation": "to reward (v)",
+    "native": "to pay; bezahlen, entlohnen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "highly marketable (adj)",
-    "german": "attractive; able to be sold; hier: gefragt, marktfähig",
+    "translation": "to staff (v)",
+    "native": "to provide with staff; (eine Stelle) besetzen, hier: mit Personal versorgen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to auction (v)",
-    "german": "to offer for sale at an auction; versteigern",
+    "translation": "managerial (adj)",
+    "native": "organizational; relating to the management; geschäftsleitend, geschäftsführend",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "squad (n)",
-    "german": "a group of, several; mehrere",
+    "translation": "to be a hostage to fortune (v)",
+    "native": "something that could prove difficult to live up to; ein Risiko eingehen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to reward (v)",
-    "german": "to pay; bezahlen, entlohnen",
+    "translation": "to be still in its infancy (v)",
+    "native": "to be at the very beginnings of something; noch in den Kinderschuhen stecken",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to staff (v)",
-    "german": "to provide with staff; (eine Stelle) besetzen, hier: mit Personal versorgen",
+    "translation": "bewildered (adj)",
+    "native": "confused; verblüfft, verwirrt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "managerial (adj)",
-    "german": "organizational; relating to the management; geschäftsleitend, geschäftsführend",
+    "translation": "from boom to bust",
+    "native": "from rapid economic growth to economic decline; Berg- und Talfahrt; Auf- und Abschwung erleben",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be a hostage to fortune (v)",
-    "german": "something that could prove difficult to live up to; ein Risiko eingehen",
+    "translation": "to be tempered (v)",
+    "native": "to modify; abgestimmt sein mit; hier: begleitet werden von, untermauert sein",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be still in its infancy (v)",
-    "german": "to be at the very beginnings of something; noch in den Kinderschuhen stecken",
+    "translation": "prudent (adj)",
+    "native": "wise, careful; klug, bedacht",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "bewildered (adj)",
-    "german": "confused; verblüfft, verwirrt",
+    "translation": "vigilance (n)",
+    "native": "carefulness; Wachsamkeit, Aufmerksamkeit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "from boom to bust",
-    "german": "from rapid economic growth to economic decline; Berg- und Talfahrt; Auf- und Abschwung erleben",
+    "translation": "adversely (adv)",
+    "native": "harmfully; nachteilig, ungünstig",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to be tempered (v)",
-    "german": "to modify; abgestimmt sein mit; hier: begleitet werden von, untermauert sein",
+    "translation": "to blossom (v)",
+    "native": "to grow, to progress; aufblühen, erblühen, im Aufschwung sein",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "prudent (adj)",
-    "german": "wise, careful; klug, bedacht",
+    "translation": "to contradict (v)",
+    "native": "to deny, to oppose; widersprechen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "vigilance (n)",
-    "german": "carefulness; Wachsamkeit, Aufmerksamkeit",
+    "translation": "labour costs (n, pl.)",
+    "native": "the costs incurred by employing labour; Personalkosten, Lohnkosten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "adversely (adv)",
-    "german": "harmfully; nachteilig, ungünstig",
+    "translation": "fee (n)",
+    "native": "payment; hier: der Lohn, auch: Gebühr, Preise",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to prove something wrong (v)",
-    "german": "to show that something is wrong; etwas widerlegen",
+    "translation": "reputable (adj)",
+    "native": "having a good reputation; angesehen",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to blossom (v)",
-    "german": "to grow, to progress; aufblühen, erblühen, im Aufschwung sein",
+    "translation": "subtle (adj)",
+    "native": "delicate; subtil, fein(sinnig), raffiniert",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "to contradict (v)",
-    "german": "to deny, to oppose; widersprechen",
+    "translation": "erratic (adj)",
+    "native": "unpredictable; unberechenbar",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "labour costs (n, pl.)",
-    "german": "the costs incurred by employing labour; Personalkosten, Lohnkosten",
+    "translation": "to prove something wrong (v)",
+    "native": "to show that something is wrong; etwas widerlegen",
     "notes": "",
+    "learned": true,
     "c1business": true
   },
   {
-    "english": "fee (n)",
-    "german": "payment; hier: der Lohn, auch: Gebühr, Preise",
+    "translation": "to raise the profile of someone (v)",
+    "native": "to raise visibility of someone; sichtbarer machen, Wahrnehmbarkeit erhöhen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to raise the profile of someone (v)",
-    "german": "to raise visibility of someone; sichtbarer machen, Wahrnehmbarkeit erhöhen",
+    "translation": "promotional discount (n)",
+    "native": "lower price for promotional purpose; der Preisnachlass zu Werbezwecken",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "promotional discount (n)",
-    "german": "lower price for promotional purpose; der Preisnachlass zu Werbezwecken",
+    "translation": "corporate customer (n)",
+    "native": "a client from a company; Firmenkunde",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "corporate customer (n)",
-    "german": "a client from a company; Firmenkunde",
+    "translation": "inventory (n)",
+    "native": "list of items; Vorrat, Bestand",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "inventory (n)",
-    "german": "list of items; Vorrat, Bestand",
+    "translation": "trough (n)",
+    "native": "a point of low achievement; hier: Tiefpunkt (wirtschaftlich)",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "trough (n)",
-    "german": "a point of low achievement; hier: Tiefpunkt (wirtschaftlich)",
+    "translation": "incentive (n)",
+    "native": "something that motivates someone to do something; der Anreiz",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "incentive (n)",
-    "german": "something that motivates someone to do something; der Anreiz",
+    "translation": "credit manager (n)",
+    "native": "person who manages the credit department; der Kreditmanager",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "credit manager (n)",
-    "german": "person who manages the credit department; der Kreditmanager",
+    "translation": "to put on his or her customer relations hat (v)",
+    "native": "to represent a certain opinion; den Hut aufhaben; eine spezielle Position innehaben oder einnehmen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to put on his or her customer relations hat (v)",
-    "german": "to represent a certain opinion; den Hut aufhaben; eine spezielle Position innehaben oder einnehmen",
+    "translation": "to instigate (v)",
+    "native": "to encourage; jemanden anregen, anstiften",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to instigate (v)",
-    "german": "to encourage; jemanden anregen, anstiften",
+    "translation": "to merit (v)",
+    "native": "to deserve; etw. verdienen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to merit (v)",
-    "german": "to deserve; etw. verdienen",
+    "translation": "to attain (v)",
+    "native": "to reach; etw. erlangen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to attain (v)",
-    "german": "to reach; etw. erlangen",
+    "translation": "to convey (v)",
+    "native": "to transport, to carry; etw. übermitteln",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to convey (v)",
-    "german": "to transport, to carry; etw. übermitteln",
+    "translation": "disposition (n)",
+    "native": "arrangement, disposal; Anordnung, auch: Verfügbarkeit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "disposition (n)",
-    "german": "arrangement, disposal; Anordnung, auch: Verfügbarkeit",
+    "translation": "works (n, pl.)",
+    "native": "factory; Betrieb, Werke",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "complex (n)",
-    "german": "buildings of a factory; die Anlage",
+    "translation": "mechanical seal (n)",
+    "native": "a mechanical device to join two things together; Gleitringdichtung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "works (n, pl.)",
-    "german": "factory; Betrieb, Werke",
+    "translation": "to hit a target (v)",
+    "native": "to reach a goal; sein Ziel erreichen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "mechanical seal (n)",
-    "german": "a mechanical device to join two things together; Gleitringdichtung",
+    "translation": "annual revenue (n)",
+    "native": "the income of one year; das Jahreseinkommen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to hit a target (v)",
-    "german": "to reach a goal; sein Ziel erreichen",
+    "translation": "operating efficiencies (n, pl.)",
+    "native": "the ability to work effectively; betriebliche Leistungsfähigkeit",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "annual revenue (n)",
-    "german": "the income of one year; das Jahreseinkommen",
+    "translation": "scarcely (adj)",
+    "native": "almost not; kaum",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "operating efficiencies (n, pl.)",
-    "german": "the ability to work effectively; betriebliche Leistungsfähigkeit",
+    "translation": "to downsize (v)",
+    "native": "to reduce the number of employees; verkleinern, (Personalbestand) verringern",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "scarcely (adj)",
-    "german": "almost not; kaum",
+    "translation": "key account (n)",
+    "native": "top client; Hauptkunde",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to downsize (v)",
-    "german": "to reduce the number of employees; verkleinern, (Personalbestand) verringern",
+    "translation": "marketing division (n)",
+    "native": "department with responsibility for marketing; Marketingabteilung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "key account (n)",
-    "german": "top client; Hauptkunde",
+    "translation": "to assume responsibility (v)",
+    "native": "to take responsibility; die Verantwortung übernehmen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "marketing division (n)",
-    "german": "department with responsibility for marketing; Marketingabteilung",
+    "translation": "customer relations (n)",
+    "native": "department concerned with the relationship between a business and its customers; Kundendienst",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "to assume responsibility (v)",
-    "german": "to take responsibility; die Verantwortung übernehmen",
+    "translation": "customer relationship management (crm) (n)",
+    "native": "CRM manages a company’s relationships with customers and/or potential customers; das Kundenbeziehungsmanagement, auch Kundenpflege",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "customer relations (n)",
-    "german": "department concerned with the relationship between a business and its customers; Kundendienst",
+    "translation": "involvement (n)",
+    "native": "participation; Teilhabe, involvement of employees: Mitarbeiterbeteiligung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "customer relationship management (crm) (n)",
-    "german": "CRM manages a company’s relationships with customers and/or potential customers; das Kundenbeziehungsmanagement, auch Kundenpflege",
+    "translation": "obligatory (adj.)",
+    "native": "compulsory; verpflichtend, zwingend",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "involvement (n)",
-    "german": "participation; Teilhabe, involvement of employees: Mitarbeiterbeteiligung",
+    "translation": "reduction in the number of something (n)",
+    "native": "the amount by which something is made smaller, less, etc.; Reduktion, Senkung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "obligatory (adj.)",
-    "german": "compulsory; verpflichtend, zwingend",
+    "translation": "temporary posting (n)",
+    "native": "a temporary appointment to a job, often abroad; Abordnung, Versetzung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "reduction in the number of something (n)",
-    "german": "the amount by which something is made smaller, less, etc.; Reduktion, Senkung",
+    "translation": "potential backer (n)",
+    "native": "sponsor, supporter; Sponsor, Unterstützer",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "temporary posting (n)",
-    "german": "a temporary appointment to a job, often abroad; Abordnung, Versetzung",
+    "translation": "gap (n)",
+    "native": "lack of something; Lücke",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "potential backer (n)",
-    "german": "sponsor, supporter; Sponsor, Unterstützer",
+    "translation": "suitable premises (n, pl.)",
+    "native": "house or building; passende Räumlichkeiten",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "gap (n)",
-    "german": "lack of something; Lücke",
+    "translation": "inaptitude (n)",
+    "native": "inability; Unvermögen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "suitable premises (n, pl.)",
-    "german": "house or building; passende Räumlichkeiten",
+    "translation": "lead project (n)",
+    "native": "Leitprojekt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "inaptitude (n)",
-    "german": "inability; Unvermögen",
+    "translation": "mailshot",
+    "native": "Hauswurfsendung; Postwurfsendung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "lead project (n)",
-    "german": "Leitprojekt",
+    "translation": "odds (n)",
+    "native": "chances; Gewinnchancen; against all odds (coll.)",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "mailshot",
-    "german": "Hauswurfsendung; Postwurfsendung",
+    "translation": "portfolio (n)",
+    "native": "Mappe",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "odds (n)",
-    "german": "chances; Gewinnchancen; against all odds (coll.)",
+    "translation": "premise (n)",
+    "native": "Prämisse, Voraussetzung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "portfolio (n)",
-    "german": "Mappe",
+    "translation": "the bare minimum (coll.)",
+    "native": "das absolute Minimum",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "premise (n)",
-    "german": "Prämisse, Voraussetzung",
+    "translation": "to digest sth.",
+    "native": "etw. verdauen",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "the bare minimum (coll.)",
-    "german": "das absolute Minimum",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "to digest sth.",
-    "german": "etw. verdauen",
-    "notes": "",
-    "c1business": true
-  },
-  {
-    "english": "(stock-) carrying costs (n)",
-    "german": "Frachtkosten",
-    "notes": "freight charges",
-    "c1business": true
-  },
-  {
-    "english": "a trickle of",
-    "german": "einige (wenige)",
+    "translation": "a trickle of",
+    "native": "einige (wenige)",
     "notes": "a few",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "condoned",
-    "german": "gebilligt",
+    "translation": "condoned",
+    "native": "gebilligt",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "merit",
-    "german": "Verdienst / verdienen",
+    "translation": "merit",
+    "native": "Verdienst / verdienen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to contemplate",
-    "german": "in Betracht ziehen",
+    "translation": "to contemplate",
+    "native": "in Betracht ziehen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "vigorously",
-    "german": "energisch, kräftig",
+    "translation": "vigorously",
+    "native": "energisch, kräftig",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "to scrutinise",
-    "german": "untersuchen",
+    "translation": "to scrutinise",
+    "native": "untersuchen",
     "notes": "",
+    "learned": false,
     "c1business": false
   },
   {
-    "english": "staff induction",
-    "german": "Personaleinführung",
+    "translation": "staff induction",
+    "native": "Personaleinführung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "staff turnover",
-    "german": "Fluktuation",
+    "translation": "staff turnover",
+    "native": "Fluktuation",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "induction",
-    "german": "Einweisung",
+    "translation": "induction",
+    "native": "Einweisung",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "embark",
-    "german": "beginnen mit",
+    "translation": "embark",
+    "native": "beginnen mit",
     "notes": "not really commen",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "outset",
-    "german": "Beginn, Ausgangspunkt",
+    "translation": "outset",
+    "native": "Beginn, Ausgangspunkt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "diligence",
-    "german": "Sorgfalt",
+    "translation": "diligence",
+    "native": "Sorgfalt",
     "notes": "",
+    "learned": false,
     "c1business": true
   },
   {
-    "english": "downturn",
-    "german": "Rückgang, Rezession",
+    "translation": "downturn",
+    "native": "Rückgang, Rezession",
     "notes": "",
+    "learned": false,
     "c1business": true
+  },
+  {
+    "translation": "to fulfil / to fulfill sth. (v)",
+    "native": "to satisfy or carry out sth.; etw. erfüllen",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "to embrace sth. (v)",
+    "native": "to give sb. a hug; etw. umarmen; to accept an idea; eine Idee übernehmen",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "travel expenses (v)",
+    "native": "costs for a journey; Reisekosten",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "prone to",
+    "native": "likely to suffer from something unpleasant; anfällig für (hier: fehleranfällig)",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "demoted",
+    "native": "degradiert",
+    "notes": "",
+    "learned": true,
+    "c1business": false
+  },
+  {
+    "translation": "grave (adj.)",
+    "native": "requiring serious thought, momentuous (folgenschwer); ernst, schlimm, schwerwiegend",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "customer equity (n)",
+    "native": "value of the customers; Kundenwert",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "complex (n)",
+    "native": "buildings of a factory; die Anlage",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "captivate",
+    "native": "fesseln, faszinieren",
+    "notes": "",
+    "learned": true,
+    "c1business": false
+  },
+  {
+    "translation": "delicate",
+    "native": "kompliziert, empfindlich, schwierig",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "offshoring (n)",
+    "native": "the practice of moving employees or certain business activities to foreign countries as a way to lower costs, avoid taxes, etc.; Offshoring, Standortverlegung",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "relinquish",
+    "native": "aufgeben",
+    "notes": "",
+    "learned": true,
+    "c1business": false
+  },
+  {
+    "translation": "negligible",
+    "native": "vernachlässigbar",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "acquisition (n)",
+    "native": "the buying/obtaining of something; also: the learning or developing of something; Kauf, Erwerb, Aneignung",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "to embrace so./sth. (v)",
+    "native": "to hug so., jdn. umarmen; to eagerly accept sth., etw. bereitwillig übernehmen",
+    "notes": "",
+    "learned": true,
+    "c1business": true
+  },
+  {
+    "translation": "abide",
+    "native": "ausharren",
+    "notes": "",
+    "learned": false,
+    "c1business": false
+  },
+  {
+    "translation": "(stock-) carrying costs (n)",
+    "native": "Frachtkosten",
+    "notes": "freight charges",
+    "learned": false,
+    "c1business": true
+  },
+  {
+    "translation": "to abhor",
+    "native": "verabscheuen",
+    "notes": "",
+    "learned": false,
+    "c1business": false
   }
 ]

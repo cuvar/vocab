@@ -11,11 +11,12 @@ datasource db {
 }
 
 model Word {
-    english    String  @id @unique
-    german     String
-    notes      String  @default("")
-    learned    Boolean @default(false)
-    c1business Boolean @default(false)
+    id          String  @id @default(cuid())
+    translation String  @unique
+    native      String
+    notes       String  @default("")
+    learned     Boolean @default(false)
+    c1business  Boolean @default(false)
 }
 
 // Necessary for Next auth

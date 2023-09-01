@@ -96,9 +96,11 @@ export default function List(props: IProps) {
                 <p className="flex items-center space-x-2">
                   <span>{props.word.iconNative}</span>
                   <span>
-                    {props.word.translation}
+                    {props.word.otherWord}
                     <br />
-                    {props.word.notes.length > 0 && <p>{props.word.notes}</p>}
+                    {props.word.notes.length > 0 && (
+                      <span>{props.word.notes}</span>
+                    )}
                   </span>
                 </p>
               </div>

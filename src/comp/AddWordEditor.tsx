@@ -18,7 +18,7 @@ export default function Editor() {
   const addWordMutation = api.word.addWord.useMutation({
     onSuccess: (data) => {
       setToastType("success");
-      setToastText(`"${data.english}" added`);
+      setToastText(`"${data.translation}" added`);
       setTimeout(() => {
         setToastText("");
       }, 1500);
@@ -34,8 +34,8 @@ export default function Editor() {
 
   function addWord() {
     addWordMutation.mutate({
-      english: englishInput,
-      german: germanInput,
+      translation: englishInput,
+      native: germanInput,
       notes: notesInput,
       business: businessInput,
     });

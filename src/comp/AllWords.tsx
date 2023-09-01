@@ -15,9 +15,9 @@ export default function AllWords() {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
         return {
-          key: e.english,
-          word: e.english,
-          translation: e.german,
+          key: e.translation,
+          word: e.translation,
+          otherWord: e.native,
           ...e,
         };
       });
@@ -28,7 +28,7 @@ export default function AllWords() {
   const markAsLearnedQuery = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
       setToastType("success");
-      setToastText(`"${data.english}" (un)marked successfully`);
+      setToastText(`"${data.translation}" (un)marked successfully`);
       allQuery.refetch();
       setTimeout(() => {
         setToastText("");
@@ -45,7 +45,7 @@ export default function AllWords() {
   const deleteWordMutation = api.word.deleteWord.useMutation({
     onSuccess: (data) => {
       setToastType("success");
-      setToastText(`"${data.english}" was deleted successfully`);
+      setToastText(`"${data.translation}" was deleted successfully`);
       allQuery.refetch();
       setTimeout(() => {
         setToastText("");
@@ -70,13 +70,13 @@ export default function AllWords() {
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     markAsLearnedQuery.mutate({
-      word: arg.english,
+      word: arg.translation,
       learned: !arg.learned,
     });
   }
 
   function deleteWord(ev: InteractionEvent, arg: VocabularyWord) {
-    deleteWordMutation.mutate({ word: arg.english });
+    deleteWordMutation.mutate({ word: arg.translation });
   }
 
   const actions: ActionData[] = [

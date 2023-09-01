@@ -14,7 +14,7 @@ export default function Generator() {
   const markAsLearned = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
       setToastType("success");
-      setToastText(`${data.english} marked as learned`);
+      setToastText(`${data.translation} marked as learned`);
 
       setTimeout(() => {
         setToastText("");
@@ -42,7 +42,7 @@ export default function Generator() {
   }, [randomWord.data]);
 
   function handleClick() {
-    if (!randomWord.data?.english) {
+    if (!randomWord.data?.translation) {
       setToastType("error");
       setToastText("no word, try refreshing.");
       setTimeout(() => {
@@ -52,7 +52,7 @@ export default function Generator() {
     }
 
     markAsLearned.mutate({
-      word: randomWord.data?.english,
+      word: randomWord.data?.translation,
       learned: true,
     });
   }
@@ -64,8 +64,8 @@ export default function Generator() {
           <p className="text-3xl text-error">No word available</p>
         ) : (
           <>
-            <p className="text-3xl font-bold">{wordToDisplay.english}</p>
-            <p className="text-xl">{wordToDisplay.german}</p>
+            <p className="text-3xl font-bold">{wordToDisplay.translation}</p>
+            <p className="text-xl">{wordToDisplay.native}</p>
             <p className="text-xl">{wordToDisplay.notes}</p>
             {wordToDisplay.c1business && (
               <div className="text-md text-secondary">#Business</div>
@@ -83,7 +83,7 @@ export default function Generator() {
         >
           Next
         </button>
-        {randomWord.data?.english != null && (
+        {randomWord.data?.translation != null && (
           <button
             className="btn-accent btn-outline btn-md btn text-xl"
             onClick={handleClick}
