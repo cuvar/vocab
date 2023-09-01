@@ -53,7 +53,7 @@ export default function Learned() {
 
   function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
     markAsLearnedMutation.mutate({
-      word: arg.translation,
+      id: arg.id,
       learned: false,
     });
   }

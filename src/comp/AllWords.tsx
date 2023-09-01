@@ -70,13 +70,13 @@ export default function AllWords() {
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     markAsLearnedQuery.mutate({
-      word: arg.translation,
+      id: arg.id,
       learned: !arg.learned,
     });
   }
 
   function deleteWord(ev: InteractionEvent, arg: VocabularyWord) {
-    deleteWordMutation.mutate({ word: arg.translation });
+    deleteWordMutation.mutate({ id: arg.id });
   }
 
   const actions: ActionData[] = [

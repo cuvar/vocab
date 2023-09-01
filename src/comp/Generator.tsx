@@ -52,7 +52,7 @@ export default function Generator() {
     }
 
     markAsLearned.mutate({
-      word: randomWord.data?.translation,
+      id: randomWord.data?.id,
       learned: true,
     });
   }

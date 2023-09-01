@@ -1,6 +1,6 @@
 import { z } from "zod";
-// import * as allWords from "../../../../allwords.json";
 import Fuse from "fuse.js";
+// import * as allWords from "../../../../allwords.json";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
@@ -47,7 +47,7 @@ export const wordRouter = createTRPCRouter({
         iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
       };
     }),
-  getLearned: publicProcedure.query(async ({ ctx, input }) => {
+  getLearned: publicProcedure.query(async ({ ctx }) => {
     const data = await ctx.prisma.word.findMany({
       where: {
         learned: true,
@@ -111,11 +111,11 @@ export const wordRouter = createTRPCRouter({
     return randomWord;
   }),
   markAsLearned: publicProcedure
-    .input(z.object({ word: z.string(), learned: z.boolean() }))
+    .input(z.object({ id: z.string().min(1), learned: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
       const word = await ctx.prisma.word.findUnique({
         where: {
-          translation: input.word,
+          id: input.id,
         },
       });
 
@@ -169,13 +169,13 @@ export const wordRouter = createTRPCRouter({
   deleteWord: publicProcedure
     .input(
       z.object({
-        word: z.string().min(1),
+        id: z.string().min(1),
       })
     )
     .mutation(async ({ ctx, input }) => {
       return ctx.prisma.word.delete({
         where: {
-          translation: input.word,
+          id: input.id,
         },
       });
     }),
