@@ -18,6 +18,9 @@ export const wordRouter = createTRPCRouter({
     });
     return transformed;
   }),
+  getWordData: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.word.findMany();
+  }),
   getWord: publicProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ ctx, input }) => {
