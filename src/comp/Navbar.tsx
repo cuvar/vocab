@@ -1,5 +1,4 @@
-import { signOut } from "next-auth/react";
-import { hamburgerIcon, plusIcon, signOutIcon } from "../utils/icons";
+import { hamburgerIcon, plusIcon } from "../utils/icons";
 import { addModalIdAtom } from "../server/store";
 import { useAtom } from "jotai";
 import Menu from "./Menu";
