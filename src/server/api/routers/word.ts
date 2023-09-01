@@ -179,4 +179,29 @@ export const wordRouter = createTRPCRouter({
         },
       });
     }),
+  updateWord: publicProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+        translation: z.string(),
+        native: z.string(),
+        notes: z.string(),
+        business: z.boolean(),
+        learned: z.boolean(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      return ctx.prisma.word.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          translation: input.translation,
+          native: input.native,
+          notes: input.notes,
+          c1business: input.business,
+          learned: input.learned,
+        },
+      });
+    }),
 });

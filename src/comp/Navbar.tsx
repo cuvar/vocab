@@ -1,10 +1,10 @@
 import { hamburgerIcon, plusIcon } from "../utils/icons";
-import { addModalIdAtom } from "../server/store";
+import { modalIdAtom } from "../server/store";
 import { useAtom } from "jotai";
 import Menu from "./Menu";
 
 export default function Navbar() {
-  const [addModal, _] = useAtom(addModalIdAtom);
+  const [addModal, _] = useAtom(modalIdAtom);
 
   function handleAdd() {
     // @ts-ignore

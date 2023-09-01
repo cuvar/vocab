@@ -2,14 +2,21 @@ import { useState } from "react";
 import { api } from "../utils/api";
 import List from "./List";
 import { ActionData, InteractionEvent } from "swiper-action";
-import { switchIcon, trashIcon } from "../utils/icons";
+import { penIcon, switchIcon, trashIcon } from "../utils/icons";
 import { useAtom } from "jotai";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
+import {
+  modalIdAtom,
+  toastTextAtom,
+  toastTypeAtom,
+  wordToEditAtom,
+} from "../server/store";
 
 export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
   const [toastText, setToastText] = useAtom(toastTextAtom);
   const [toastType, setToastType] = useAtom(toastTypeAtom);
+  const [modalId, __] = useAtom(modalIdAtom);
+  const [wordToEdit, setWordToEdit] = useAtom(wordToEditAtom);
 
   const allQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
@@ -79,7 +86,21 @@ export default function AllWords() {
     deleteWordMutation.mutate({ id: arg.id });
   }
 
+  function editWord(ev: InteractionEvent, arg: VocabularyWord) {
+    setWordToEdit(arg);
+    // @ts-ignore
+    window[modalId].showModal();
+  }
+
   const actions: ActionData[] = [
+    {
+      action: editWord,
+      children: (
+        <div className="flex h-full items-center justify-center bg-teal-500 text-white">
+          {penIcon}
+        </div>
+      ),
+    },
     {
       action: changeMarkAsLearned,
       children: (

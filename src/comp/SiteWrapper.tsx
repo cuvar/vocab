@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Toast from "./Toast";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
 import { useAtom } from "jotai";
-import AddWordEditor from "./AddWordEditor";
+import Editor from "./Editor";
 import Navbar from "./Navbar";
 import Drawer from "./Drawer";
 import { useSession } from "next-auth/react";
@@ -15,6 +15,7 @@ interface Props {
 export default function SiteWrapper(props: Props) {
   const [toastText, _] = useAtom(toastTextAtom);
   const [toastType, __] = useAtom(toastTypeAtom);
+  const [wordToEdit, setWordToEdit] = useAtom(wordToEditAtom);
 
   const { data } = useSession();
   if (!data?.user) {
@@ -44,7 +45,7 @@ export default function SiteWrapper(props: Props) {
           mode={toastType}
           visible={toastText.length > 0}
         />
-        <AddWordEditor />
+        <Editor word={wordToEdit} />
       </Drawer>
     </>
   );

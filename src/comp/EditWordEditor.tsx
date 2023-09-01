@@ -2,22 +2,27 @@ import { useState } from "react";
 import { api } from "../utils/api";
 import { useAtom } from "jotai";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
-import RelatedWordList from "./RelatedWordList";
 
-export default function Editor() {
-  const [englishInput, setEnglishInput] = useState("");
-  const [germanInput, setGermanInput] = useState("");
-  const [notesInput, setNotesInput] = useState("");
-  const [businessInput, setBusinessInput] = useState(false);
-  const [showExistingWords, setShowExistingWords] = useState(false);
+type Props = {
+  word: VocabularyWord;
+};
+
+export default function Editor(props: Props) {
+  const [translationInput, setTranslationInput] = useState(
+    props.word.translation
+  );
+  const [nativeInput, setNativeInput] = useState(props.word.native);
+  const [notesInput, setNotesInput] = useState(props.word.notes);
+  const [businessInput, setBusinessInput] = useState(props.word.c1business);
+  const [learnedInput, setLearnedInput] = useState(props.word.learned);
 
   const [_, setToastText] = useAtom(toastTextAtom);
   const [__, setToastType] = useAtom(toastTypeAtom);
 
-  const addWordMutation = api.word.addWord.useMutation({
+  const updateWordMutation = api.word.updateWord.useMutation({
     onSuccess: (data) => {
       setToastType("success");
-      setToastText(`"${data.translation}" added`);
+      setToastText(`"${data.translation}" changed`);
       setTimeout(() => {
         setToastText("");
       }, 1500);
@@ -31,17 +36,19 @@ export default function Editor() {
     },
   });
 
-  function addWord() {
-    addWordMutation.mutate({
-      translation: englishInput,
-      native: germanInput,
+  function editWord() {
+    updateWordMutation.mutate({
+      id: props.word.id,
+      translation: translationInput,
+      native: nativeInput,
       notes: notesInput,
       business: businessInput,
+      learned: learnedInput,
     });
   }
 
   function disableButton() {
-    return englishInput.trim() == "" || germanInput.trim() == "";
+    return translationInput.trim() == "" || nativeInput.trim() == "";
   }
 
   return (
@@ -49,7 +56,9 @@ export default function Editor() {
       <button className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2">
         ✕
       </button>
-      <h3 className="mb-4 text-lg font-bold">Add a Word</h3>
+      <h3 className="mb-4 text-lg font-bold">
+        Edit "{props.word.translation}"
+      </h3>
       <div className="flex flex-col space-y-4">
         <div className="form-control w-full max-w-xs">
           <label className="label">
@@ -59,8 +68,8 @@ export default function Editor() {
             type="text"
             placeholder="Type here"
             className="input-bordered input w-full max-w-xs"
-            value={englishInput}
-            onChange={(e) => setEnglishInput(e.target.value)}
+            value={translationInput}
+            onChange={(e) => setTranslationInput(e.target.value)}
           />
         </div>
         <div className="form-control w-full max-w-xs">
@@ -71,8 +80,8 @@ export default function Editor() {
             type="text"
             placeholder="Type here"
             className="input-bordered input w-full max-w-xs"
-            value={germanInput}
-            onChange={(e) => setGermanInput(e.target.value)}
+            value={nativeInput}
+            onChange={(e) => setNativeInput(e.target.value)}
           />
         </div>
         <div className="form-control w-full max-w-xs">
@@ -98,25 +107,23 @@ export default function Editor() {
             />
           </label>
         </div>
-        <div className="collapse bg-base-200">
-          <input
-            type="checkbox"
-            checked={showExistingWords}
-            onChange={() => setShowExistingWords(!showExistingWords)}
-          />
-          <div className="collapse-title text-xl font-medium">
-            Existing words
-          </div>
-          <div className="collapse-content">
-            <RelatedWordList word={englishInput} />
-          </div>
+        <div className="form-control">
+          <label className="label cursor-pointer">
+            <span className="label-text">Learned</span>
+            <input
+              type="checkbox"
+              checked={learnedInput}
+              className="checkbox"
+              onChange={(e) => setLearnedInput(!businessInput)}
+            />
+          </label>
         </div>
         <button
           className="btn-success btn max-w-xs"
-          onClick={addWord}
+          onClick={editWord}
           disabled={disableButton()}
         >
-          Add
+          Save
         </button>
       </div>
     </form>
