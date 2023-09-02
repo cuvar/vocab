@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { api } from "../utils/api";
 import Loading from "./Loading";
 import Error from "./Error";
@@ -11,6 +11,7 @@ export default function FlashCards() {
   const [topCardIndex, setTopCardIndex] = useState<number>(-1);
   const [topCardWord, setTopCardWord] = useState<VocabularyWord | null>(null);
   const [showNative, setShowNative] = useState(false);
+  const cardRef = useRef(null);
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
@@ -24,7 +25,9 @@ export default function FlashCards() {
       );
       const randomized = transformed.sort(() => Math.random() - 0.5);
       setWords(randomized);
-      const unlearned = randomized.filter((e) => e.mode === "none");
+      const unlearned = randomized.filter(
+        (e) => e.mode === "none" || e.mode === "bad"
+      );
       setUnlearnedWords(unlearned);
       setTopCardIndex(unlearned.length > 0 ? 0 : -1);
       setTopCardWord(unlearned[0] ? unlearned[0] : null);
@@ -37,12 +40,18 @@ export default function FlashCards() {
   }
 
   function handleGood() {
-    console.log("good");
+    const word = words.find((e) => e.id === topCardWord?.id);
+    if (word) {
+      word.mode = "good";
+    }
     nextWord();
   }
 
   function handleBad() {
-    console.log("bad");
+    const word = words.find((e) => e.id === topCardWord?.id);
+    if (word) {
+      word.mode = "bad";
+    }
     nextWord();
   }
 
@@ -51,11 +60,31 @@ export default function FlashCards() {
       setTopCardIndex(topCardIndex + 1);
       const nextWord = unlearnedWords[topCardIndex + 1];
       setTopCardWord(nextWord ?? null);
+      animate();
     } else {
-      setTopCardIndex(-1);
-      setTopCardWord(null);
+      const unlearned = words.filter((e) => e.mode === "bad");
+      if (unlearned.length > 0) {
+        setUnlearnedWords(unlearned);
+        setTopCardIndex(0);
+        setTopCardWord(unlearned[0] ?? null);
+      } else {
+        setTopCardIndex(-1);
+        setTopCardWord(null);
+      }
     }
     setShowNative(false);
+  }
+
+  function animate() {
+    if (!cardRef.current) return;
+
+    (cardRef.current as HTMLElement).style.opacity = "0";
+
+    setTimeout(() => {
+      if (!cardRef.current) return;
+
+      (cardRef.current as HTMLElement).style.opacity = "1";
+    }, 100);
   }
 
   if (getLearnedQuery.isLoading) {
@@ -76,6 +105,7 @@ export default function FlashCards() {
           <div
             onClick={toggleShowNative}
             className="flex h-60 w-full items-center justify-center"
+            ref={cardRef}
           >
             <Card word={topCardWord} showNative={showNative} />
           </div>
