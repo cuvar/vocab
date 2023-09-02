@@ -5,6 +5,8 @@ import { useState } from "react";
 import { crossIcon } from "../utils/icons";
 import { useAtom } from "jotai";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
+import Loading from "./Loading";
+import Error from "./Error";
 
 export default function Learned() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
@@ -44,11 +46,11 @@ export default function Learned() {
   });
 
   if (getLearnedQuery.isLoading) {
-    return <div>loading</div>;
+    return <Loading />;
   }
 
   if (!wordsToDisplay || !getLearnedQuery.data) {
-    return <div>no data</div>;
+    return <Error msg={"No data available"} />;
   }
 
   function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {

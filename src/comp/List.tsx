@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import ListElement from "./ListElement";
 import { resetIcon } from "../utils/icons";
 import { ActionData } from "swiper-action";
+import Error from "./Error";
 
 interface IProps {
   words: ListElement[];
@@ -25,7 +26,7 @@ export default function List(props: IProps) {
   }, [sorted]);
 
   if (sorted.length === 0) {
-    return <div>no data</div>;
+    return <Error msg={"No data available"} />;
   }
 
   function toggleCurrentShown(e: string) {

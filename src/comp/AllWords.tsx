@@ -10,6 +10,8 @@ import {
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
+import Loading from "./Loading";
+import Error from "./Error";
 
 export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
@@ -68,11 +70,11 @@ export default function AllWords() {
   });
 
   if (allQuery.isLoading) {
-    return <div>loading</div>;
+    return <Loading />;
   }
 
   if (!allQuery.data) {
-    return <div>no data</div>;
+    return <Error msg={"No data available"} />;
   }
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
