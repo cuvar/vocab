@@ -68,18 +68,16 @@ export default function FlashCards() {
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
-      <h1 className="text-2xl tracking-tight">Flash card mode</h1>
+      <h1 className="text-2xl tracking-tight">
+        Flash card mode: {unlearnedWords.length} words
+      </h1>
       <div className="my-5 flex w-full max-w-[24rem] flex-col items-center space-y-12">
         {topCardWord ? (
           <div
             onClick={toggleShowNative}
             className="flex h-60 w-full items-center justify-center"
           >
-            <Card
-              word={topCardWord}
-              showNative={showNative}
-              className="z-50 "
-            />
+            <Card word={topCardWord} showNative={showNative} />
           </div>
         ) : (
           <p className="text-lg italic">No more words to learn</p>
