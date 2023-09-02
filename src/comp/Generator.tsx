@@ -63,14 +63,14 @@ export default function Generator() {
         {wordToDisplay == null ? (
           <p className="text-3xl text-error">No word available</p>
         ) : (
-          <>
+          <div className="flex h-60 w-full flex-col justify-center">
             <p className="text-3xl font-bold">{wordToDisplay.translation}</p>
             <p className="text-xl">{wordToDisplay.native}</p>
             <p className="text-xl">{wordToDisplay.notes}</p>
-            {wordToDisplay.c1business && (
-              <div className="text-md text-secondary">#Business</div>
-            )}
-          </>
+            <div className={`text-md ${!wordToDisplay.c1business && "hidden"}`}>
+              💼
+            </div>
+          </div>
         )}
       </div>
 

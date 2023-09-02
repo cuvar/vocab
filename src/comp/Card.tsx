@@ -19,7 +19,7 @@ export default function Card(props: Props) {
           </div>
           <div className="flex flex-col space-y-2 text-base font-normal">
             <div>{props.word.notes}</div>
-            {props.word.c1business && <div>#Business</div>}
+            {props.word.c1business && <div className="">💼</div>}
           </div>
         </div>
       ) : (
