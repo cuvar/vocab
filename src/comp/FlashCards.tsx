@@ -24,17 +24,24 @@ export default function FlashCards() {
           };
         }
       );
-      const randomized = transformed.sort(() => Math.random() - 0.5);
-      setWords(randomized);
-      const unlearned = randomized.filter(
-        (e) => e.mode === "none" || e.mode === "bad"
-      );
-      setUnlearnedWords(unlearned);
-      setTopCardIndex(unlearned.length > 0 ? 0 : -1);
-      setTopCardWord(unlearned[0] ? unlearned[0] : null);
+      init(transformed);
     },
     refetchOnWindowFocus: false,
   });
+
+  function init(words: VocabularyFlashCard[]) {
+    words.forEach((e) => {
+      e.mode = "none";
+    });
+    const randomized = words.sort(() => Math.random() - 0.5);
+    setWords(randomized);
+    const unlearned = randomized.filter(
+      (e) => e.mode === "none" || e.mode === "bad"
+    );
+    setUnlearnedWords(unlearned);
+    setTopCardIndex(unlearned.length > 0 ? 0 : -1);
+    setTopCardWord(unlearned[0] ? unlearned[0] : null);
+  }
 
   function toggleShowNative() {
     setShowNative(!showNative);
@@ -54,6 +61,10 @@ export default function FlashCards() {
       word.mode = "bad";
     }
     nextWord();
+  }
+
+  function handleRetry() {
+    init(words);
   }
 
   function nextWord() {
@@ -139,7 +150,7 @@ export default function FlashCards() {
           <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">
             <button
               className="flex w-full items-center justify-center rounded-md bg-primary py-2 active:opacity-80"
-              onClick={handleBad}
+              onClick={handleRetry}
             >
               Retry
             </button>
