@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { hatIcon, listIcon, sparklesIcon } from "../utils/icons";
+import { archiveIcon, hatIcon, listIcon, sparklesIcon } from "../utils/icons";
 
 interface Props {
   children: React.ReactNode;
@@ -14,6 +14,9 @@ export default function Drawer(props: Props) {
         <ul className="menu min-h-full w-80 space-y-2 bg-base-100 p-4 text-base-content">
           <li>
             <Link href="/learn">{hatIcon} Learn</Link>
+          </li>
+          <li>
+            <Link href="/cards">{archiveIcon} Flash cards</Link>
           </li>
           <li>
             <Link href="/words">{listIcon} All words</Link>
