@@ -1,14 +1,15 @@
 type Props = {
   word: VocabularyWord;
   showNative: boolean;
+  className?: string;
 };
 
 export default function Card(props: Props) {
   return (
     <div
-      className={`flex h-full w-full flex-col items-center justify-center rounded-lg p-4 text-2xl font-bold text-base-100 ${
+      className={`flex h-full w-full flex-col items-center justify-center rounded-lg border-2 border-black p-4 text-2xl font-bold text-base-100 ${
         !props.showNative ? "bg-white" : "bg-violet-200"
-      }`}
+      } ${props.className ?? ""}`}
     >
       {props.showNative ? (
         <div className="flex flex-col items-center">

@@ -18,3 +18,5 @@ declare type ListElement = VocabularyWord & {
 type ToastType = "success" | "error";
 
 type FlashCardMode = "good" | "bad" | "none";
+
+type VocabularyFlashCard = VocabularyWord & { mode: FlashCardMode };
