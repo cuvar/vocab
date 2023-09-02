@@ -4,6 +4,7 @@ import Loading from "./Loading";
 import Error from "./Error";
 import { arrowRoundIcon, thumbsDownIcon, thumbsUpIcon } from "../utils/icons";
 import Card from "./Card";
+import ProgressBar from "./ProgressBar";
 
 export default function FlashCards() {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
@@ -97,10 +98,11 @@ export default function FlashCards() {
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
-      <h1 className="text-2xl tracking-tight">
+      <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         Flash card mode: {unlearnedWords.length} words
       </h1>
-      <div className="my-5 flex w-full max-w-[24rem] flex-col items-center space-y-12">
+      <ProgressBar max={unlearnedWords.length} current={topCardIndex + 1} />
+      <div className="flex w-full max-w-[24rem] flex-col items-center space-y-12">
         {topCardWord ? (
           <div
             onClick={toggleShowNative}
