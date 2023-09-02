@@ -27,7 +27,7 @@ export default function SiteWrapper(props: Props) {
       <Head>
         <title>Vocab</title>
         <meta name="description" content="Vocabulary learning tool" />
-        <link rel="icon" href="/dyme.png" />
+        <link rel="icon" href="/icon-192x192.png" />
       </Head>
 
       <Drawer>
