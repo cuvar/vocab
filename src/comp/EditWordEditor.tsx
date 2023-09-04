@@ -76,10 +76,9 @@ export default function Editor(props: Props) {
           <label className="label">
             <span className="label-text">German</span>
           </label>
-          <input
-            type="text"
+          <textarea
             placeholder="Type here"
-            className="input-bordered input w-full max-w-xs"
+            className="textarea-bordered textarea w-full max-w-xs"
             value={nativeInput}
             onChange={(e) => setNativeInput(e.target.value)}
           />
