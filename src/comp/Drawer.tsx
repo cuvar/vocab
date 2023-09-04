@@ -17,26 +17,47 @@ export default function Drawer(props: Props) {
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu min-h-full w-80 space-y-2 bg-base-100 p-4 text-base-content">
           <li>
-            <Link href="/learn" className={path == "learn" ? `active` : ""}>
-              {hatIcon} Learn
+            <Link
+              href="/learn"
+              className={`flex flex-row space-x-1 ${
+                path == "learn" ? `active` : ""
+              }`}
+            >
+              <span>{hatIcon}</span>
+              <span>Learn</span>
             </Link>
           </li>
           <li>
-            <Link href="/cards" className={path == "cards" ? `active` : ""}>
-              {archiveIcon} Flash cards
+            <Link
+              href="/cards"
+              className={`flex flex-row space-x-1 ${
+                path == "cards" ? `active` : ""
+              }`}
+            >
+              <span>{archiveIcon}</span>
+              <span>Flash cards</span>
             </Link>
           </li>
           <li>
-            <Link href="/words" className={path == "words" ? `active` : ""}>
-              {listIcon} All words
+            <Link
+              href="/words"
+              className={`flex flex-row space-x-1 ${
+                path == "words" ? `active` : ""
+              }`}
+            >
+              <span>{listIcon}</span>
+              <span>All words</span>
             </Link>
           </li>
           <li>
             <Link
               href="/generate"
-              className={path == "generate" ? `active` : ""}
+              className={`flex flex-row space-x-1 ${
+                path == "generate" ? `active` : ""
+              }`}
             >
-              {sparklesIcon} Generator
+              <span>{sparklesIcon} </span>
+              <span>Generator</span>
             </Link>
           </li>
         </ul>
