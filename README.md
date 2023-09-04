@@ -1,3 +1,3 @@
 # Vocab
 
-A tool for choosing a word to learn every day
+A simple vocabulary app for learning new words.
