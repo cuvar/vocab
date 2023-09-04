@@ -19,7 +19,7 @@ export default function Drawer(props: Props) {
           <li>
             <Link
               href="/learn"
-              className={`flex flex-row space-x-1 rounded-lg py-2 px-4 ${
+              className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
                 path == "learn" ? `active` : ""
               }`}
             >
@@ -30,7 +30,7 @@ export default function Drawer(props: Props) {
           <li>
             <Link
               href="/cards"
-              className={`flex flex-row space-x-1 ${
+              className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
                 path == "cards" ? `active` : ""
               }`}
             >
@@ -41,7 +41,7 @@ export default function Drawer(props: Props) {
           <li>
             <Link
               href="/words"
-              className={`flex flex-row space-x-1 ${
+              className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
                 path == "words" ? `active` : ""
               }`}
             >
@@ -52,7 +52,7 @@ export default function Drawer(props: Props) {
           <li>
             <Link
               href="/generate"
-              className={`flex flex-row space-x-1 ${
+              className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
                 path == "generate" ? `active` : ""
               }`}
             >
