@@ -16,7 +16,7 @@ export default function Drawer(props: Props) {
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu min-h-full w-80 space-y-2 bg-base-100 p-4 text-base-content">
-          <li>
+          <li className="rounded-lg py-2">
             <Link
               href="/learn"
               className={`flex flex-row space-x-1 ${
