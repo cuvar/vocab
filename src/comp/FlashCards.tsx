@@ -5,14 +5,20 @@ import Error from "./Error";
 import { arrowRoundIcon, thumbsDownIcon, thumbsUpIcon } from "../utils/icons";
 import Card from "./Card";
 import ProgressBar from "./ProgressBar";
+import {
+  addLearnedWords,
+  clearLearnedWords,
+  getLearnedWordIds,
+} from "../utils/client-store";
 
 export default function FlashCards() {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
-  const [unlearnedWords, setUnlearnedWords] = useState<VocabularyWord[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(-1);
   const [topCardWord, setTopCardWord] = useState<VocabularyWord | null>(null);
   const [showNative, setShowNative] = useState(false);
   const cardRef = useRef(null);
+
+  const [unlearnedWords, setUnlearnedWords] = useState<VocabularyWord[]>([]);
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
@@ -29,15 +35,24 @@ export default function FlashCards() {
     refetchOnWindowFocus: false,
   });
 
-  function init(words: VocabularyFlashCard[]) {
-    words.forEach((e) => {
-      e.mode = "none";
+  function init(_words: VocabularyFlashCard[]) {
+    const learnedIds = getLearnedWordIds();
+
+    _words.forEach((e) => {
+      const found = learnedIds.find((l) => l === e.id);
+      if (found) {
+        e.mode = found ? "good" : "none";
+      }
     });
-    const randomized = words.sort(() => Math.random() - 0.5);
-    setWords(randomized);
+
+    console.log(_words.filter((e) => e.mode === "good").length);
+
+    const randomized = _words.sort(() => Math.random() - 0.5);
     const unlearned = randomized.filter(
       (e) => e.mode === "none" || e.mode === "bad"
     );
+
+    setWords(randomized);
     setUnlearnedWords(unlearned);
     setTopCardIndex(unlearned.length > 0 ? 0 : -1);
     setTopCardWord(unlearned[0] ? unlearned[0] : null);
@@ -51,6 +66,7 @@ export default function FlashCards() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
       word.mode = "good";
+      addLearnedWords(word);
     }
     nextWord();
   }
@@ -63,7 +79,16 @@ export default function FlashCards() {
     nextWord();
   }
 
-  function handleRetry() {
+  function handleReset() {
+    const confirmed = window.confirm(
+      "Are you sure you want to reset all learned words?"
+    );
+    if (!confirmed) return;
+
+    clearLearnedWords();
+    words.forEach((e) => {
+      e.mode = "none";
+    });
     init(words);
   }
 
@@ -125,37 +150,38 @@ export default function FlashCards() {
         ) : (
           <p className="text-lg italic">No more words to learn</p>
         )}
-        {topCardWord ? (
-          <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">
-            <button
-              className="flex w-full items-center justify-center rounded-md bg-error py-2 active:opacity-80"
-              onClick={handleBad}
-            >
-              {thumbsDownIcon}
-            </button>
-            <button
-              className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
-              onClick={toggleShowNative}
-            >
-              {arrowRoundIcon}
-            </button>
-            <button
-              className="flex w-full items-center justify-center rounded-md bg-success py-4 active:opacity-80"
-              onClick={handleGood}
-            >
-              {thumbsUpIcon}
-            </button>
-          </div>
-        ) : (
+        <div className="flex w-full flex-col space-y-10">
+          {topCardWord && (
+            <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">
+              <button
+                className="flex w-full items-center justify-center rounded-md bg-error py-2 active:opacity-80"
+                onClick={handleBad}
+              >
+                {thumbsDownIcon}
+              </button>
+              <button
+                className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
+                onClick={toggleShowNative}
+              >
+                {arrowRoundIcon}
+              </button>
+              <button
+                className="flex w-full items-center justify-center rounded-md bg-success py-4 active:opacity-80"
+                onClick={handleGood}
+              >
+                {thumbsUpIcon}
+              </button>
+            </div>
+          )}
           <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">
             <button
               className="flex w-full items-center justify-center rounded-md bg-primary py-2 active:opacity-80"
-              onClick={handleRetry}
+              onClick={handleReset}
             >
-              Retry
+              Reset
             </button>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
