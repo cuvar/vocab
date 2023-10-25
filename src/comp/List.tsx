@@ -6,14 +6,14 @@ import { ActionData } from "swiper-action";
 import Error from "./Error";
 import { searchWord } from "../service/searchService";
 
-interface IProps {
+type Props = {
   words: ListElement[];
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
   markLearned?: boolean;
 }
 
-export default function List(props: IProps) {
+export default function List(props: Props) {
   const sorted = props.words.sort((a, b) => a.word.localeCompare(b.word));
 
   const [currentShown, setCurrentShown] = useState("");

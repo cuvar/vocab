@@ -2,7 +2,7 @@ import Link from "next/link";
 import { archiveIcon, hatIcon, listIcon, sparklesIcon } from "../utils/icons";
 import { useRouter } from "next/router";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
 }
 export default function Drawer(props: Props) {

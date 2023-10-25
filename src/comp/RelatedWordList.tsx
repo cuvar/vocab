@@ -1,7 +1,7 @@
 import { api } from "../utils/api";
 import ListElement from "./ListElement";
 
-interface Props {
+type Props = {
   word: string;
 }
 

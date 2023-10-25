@@ -1,4 +1,4 @@
-declare interface VocabularyWord {
+declare type VocabularyWord = {
   id: string;
   translation: string;
   native: string;
