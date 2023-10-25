@@ -4,6 +4,7 @@ import ListElement from "./ListElement";
 import { resetIcon } from "../utils/icons";
 import { ActionData } from "swiper-action";
 import Error from "./Error";
+import { searchWord } from "../service/searchService";
 
 interface IProps {
   words: ListElement[];
@@ -48,22 +49,10 @@ export default function List(props: IProps) {
     }
 
     setShowReset(true);
-    const wordsToSearchThrough = sorted.map((word) => word.word);
-
-    const fuse = new Fuse(wordsToSearchThrough, {
-      includeScore: true,
-      shouldSort: true,
-    });
-
-    const res = fuse.search(input).map((w) => w.item);
-    const resultWordObjects: (ListElement | null)[] = res.map((r) => {
-      const res = sorted.find((el) => el.word == r);
-      if (res == undefined) return null;
-      return res;
-    });
+    const words = searchWord(sorted, input);
 
     setWordsToDisplay(
-      resultWordObjects.filter((r) => r !== null) as ListElement[]
+      words.filter((r) => r !== null) as ListElement[]
     );
   }
 
