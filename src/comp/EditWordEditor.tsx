@@ -43,7 +43,7 @@ export default function Editor(props: Props) {
       translation: translationInput,
       native: nativeInput,
       notes: notesInput,
-      business: businessInput,
+      c1business: businessInput,
       learned: learnedInput,
     });
   }

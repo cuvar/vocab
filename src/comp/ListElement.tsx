@@ -38,7 +38,7 @@ export default function ListItem(props: Props) {
     setMarkIcon(markIcon === checkedIcon ? uncheckedIcon : checkedIcon);
 
     if (typeof props.markHandler !== "undefined") {
-      props.markHandler(props.word.key, marked);
+      props.markHandler(props.word.id, marked);
     }
   }
 

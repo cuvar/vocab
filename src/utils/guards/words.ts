@@ -1,4 +1,4 @@
-import { ListElement, VocabularyWord } from "../../types/types";
+import { type ListElement, type VocabularyWord } from "../../types/types";
 import { isBoolean, isObject, isString } from "./base";
 
 /**
@@ -53,9 +53,6 @@ export function isVocabularyWordArray(data: unknown): data is VocabularyWord[] {
  */
 export function isListElement(data: unknown): data is ListElement {
   if (!isVocabularyWord(data)) {
-    return false;
-  }
-  if (!("key" in data) || !isString(data.key)) {
     return false;
   }
   if (!("word" in data) || !isString(data.word)) {

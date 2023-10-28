@@ -44,7 +44,6 @@ export default function Learned() {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
         return {
-          key: e.translation,
           word: e.translation,
           otherWord: e.native,
           ...e,

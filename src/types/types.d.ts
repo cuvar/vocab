@@ -10,12 +10,11 @@ export type VocabularyWord = {
 };
 
 export type ListElement = VocabularyWord & {
-  key: string;
   word: string;
   otherWord: string;
 };
 
-export type FEWord = Pick<
+export type SimpleWordInput = Pick<
   VocabularyWord,
   "translation" | "native" | "notes" | "c1business" | "learned"
 >;

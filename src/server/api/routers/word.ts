@@ -3,7 +3,6 @@ import { z } from "zod";
 
 import { TRPCError } from "@trpc/server";
 import { searchWord } from "../../../service/searchService";
-import { type FEWord } from "../../../types/types";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
@@ -155,21 +154,13 @@ export const wordRouter = createTRPCRouter({
         translation: z.string(),
         native: z.string(),
         notes: z.string(),
-        business: z.boolean(),
+        c1business: z.boolean(),
         learned: z.boolean(),
       })
     )
     .mutation(async ({ input }) => {
-      const newWord: FEWord = {
-        translation: input.translation,
-        native: input.native,
-        notes: input.notes,
-        c1business: input.business,
-        learned: input.learned,
-      };
-
       try {
-        const res = await repo.updateWord(input.id, newWord);
+        const res = await repo.updateWord(input.id, input);
         return res;
       } catch {
         throw new TRPCError({

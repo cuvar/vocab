@@ -79,15 +79,9 @@ export default function List(props: Props) {
       // show german
       const transformed: ListElement[] = wordsToDisplay.map((e) => {
         return {
-          id: e.id,
+          ...e,
           word: e.otherWord,
           otherWord: e.word,
-          key: e.translation,
-          notes: e.notes,
-          learned: e.learned,
-          c1business: e.c1business,
-          translation: e.translation,
-          native: e.native,
           iconNative: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
           iconTranslation: "🇩🇪",
         };
@@ -97,15 +91,9 @@ export default function List(props: Props) {
       // show english
       const transformed: ListElement[] = wordsToDisplay.map((e) => {
         return {
-          id: e.id,
+          ...e,
           word: e.otherWord,
           otherWord: e.word,
-          key: e.translation,
-          notes: e.notes,
-          learned: e.learned,
-          c1business: e.c1business,
-          translation: e.translation,
-          native: e.native,
           iconNative: "🇩🇪",
           iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
         };
@@ -149,7 +137,7 @@ export default function List(props: Props) {
         {wordsToDisplay.map((e) => {
           return (
             <ListItem
-              key={e.key}
+              key={e.id}
               word={e}
               showTranslation={e.word == currentShown}
               clickHandler={toggleCurrentShown}
