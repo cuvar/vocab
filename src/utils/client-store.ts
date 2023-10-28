@@ -15,6 +15,7 @@ export function getLearnedWords(
     .map((word) => ({
       ...word,
       mode: "good",
+      switched: false,
     }));
 
   return newWords;

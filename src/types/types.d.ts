@@ -18,7 +18,10 @@ export type SimpleWordInput = Pick<
   VocabularyWord,
   "translation" | "native" | "notes" | "c1business" | "learned"
 >;
-export type VocabularyFlashCard = VocabularyWord & { mode: FlashCardMode };
+export type VocabularyFlashCard = VocabularyWord & {
+  mode: FlashCardMode;
+  switched: boolean;
+};
 
 export type ToastType = "success" | "error";
 export type FlashCardMode = "good" | "bad" | "none";
