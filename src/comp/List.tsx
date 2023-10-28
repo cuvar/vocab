@@ -1,18 +1,18 @@
-import Fuse from "fuse.js";
 import { useEffect, useRef, useState } from "react";
-import ListElement from "./ListElement";
-import { resetIcon } from "../utils/icons";
 import { ActionData } from "swiper-action";
+import { searchWord } from "../service/searchService";
+import { resetIcon } from "../utils/icons";
 import Error from "./Error";
+import ListElement from "./ListElement";
 
-interface IProps {
+type Props = {
   words: ListElement[];
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
   markLearned?: boolean;
 }
 
-export default function List(props: IProps) {
+export default function List(props: Props) {
   const sorted = props.words.sort((a, b) => a.word.localeCompare(b.word));
 
   const [currentShown, setCurrentShown] = useState("");
@@ -39,8 +39,15 @@ export default function List(props: IProps) {
   }
 
   function searchForWord() {
+    if(!iwordenRef.current) {
+      return;
+    }
+    
+    // eslint-disable-next-line
     // @ts-ignore
-    const input = iwordenRef.current?.value ?? "";
+    // eslint-disable-next-line
+    const input = iwordenRef.current.value ?? "";
+
     if (input == "") {
       setWordsToDisplay(sorted);
       setShowReset(false);
@@ -48,27 +55,16 @@ export default function List(props: IProps) {
     }
 
     setShowReset(true);
-    const wordsToSearchThrough = sorted.map((word) => word.word);
-
-    const fuse = new Fuse(wordsToSearchThrough, {
-      includeScore: true,
-      shouldSort: true,
-    });
-
-    const res = fuse.search(input).map((w) => w.item);
-    const resultWordObjects: (ListElement | null)[] = res.map((r) => {
-      const res = sorted.find((el) => el.word == r);
-      if (res == undefined) return null;
-      return res;
-    });
+    const words = searchWord(sorted, input as string);
 
     setWordsToDisplay(
-      resultWordObjects.filter((r) => r !== null) as ListElement[]
+      words.filter((r) => r !== null) as ListElement[]
     );
   }
 
   function resetSearch() {
     if (!iwordenRef.current) return;
+    // eslint-disable-next-line
     // @ts-ignore
     iwordenRef.current.value = "";
     setWordsToDisplay(sorted);

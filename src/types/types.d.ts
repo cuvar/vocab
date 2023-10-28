@@ -1,4 +1,4 @@
-declare interface VocabularyWord {
+declare type VocabularyWord = {
   id: string;
   translation: string;
   native: string;
@@ -14,6 +14,8 @@ declare type ListElement = VocabularyWord & {
   word: string;
   otherWord: string;
 };
+
+declare type FEWord = Pick<VocabularyWord, "translation" | "native" | "notes" | "c1business" | "learned">
 
 type ToastType = "success" | "error";
 

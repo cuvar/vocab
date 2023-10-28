@@ -2,7 +2,7 @@ import { useState } from "react";
 import { SwiperAction, InteractionEvent, ActionData } from "swiper-action";
 import { uncheckedIcon, checkedIcon } from "../utils/icons";
 
-interface IProps {
+type Props = {
   word: ListElement;
   showTranslation: boolean;
   clickHandler: (eng: string) => void;
@@ -14,7 +14,7 @@ interface IProps {
 const checkedColor = "text-green-600";
 const uncheckedColor = "text-black-600";
 
-export default function List(props: IProps) {
+export default function List(props: Props) {
   const [isSwiping, setIsSwiping] = useState<boolean>(false);
   const [markIcon, setMarkIcon] = useState<React.ReactNode>(
     props.word.learned ? checkedIcon : uncheckedIcon

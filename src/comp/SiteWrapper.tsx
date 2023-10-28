@@ -8,7 +8,7 @@ import Drawer from "./Drawer";
 import { useSession } from "next-auth/react";
 import LogoutScreen from "./LogoutScreen";
 
-interface Props {
+type Props = {
   children: React.ReactNode;
 }
 

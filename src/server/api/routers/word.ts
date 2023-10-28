@@ -1,9 +1,12 @@
 import { z } from "zod";
-import Fuse from "fuse.js";
 // import * as allWords from "../../../../allwords.json";
 
-import { createTRPCRouter, publicProcedure } from "../trpc";
 import { TRPCError } from "@trpc/server";
+import { searchWord } from "../../../service/searchService";
+import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
+import { createTRPCRouter, publicProcedure } from "../trpc";
+
+const repo = new WordSupabaseRepository();
 
 export const wordRouter = createTRPCRouter({
   // initDB: publicProcedure.mutation(async ({ ctx }) => {
@@ -17,120 +20,89 @@ export const wordRouter = createTRPCRouter({
   //   }
   // }),
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const data = await ctx.prisma.word.findMany();
-    const transformed = data.map((e) => {
-      return {
-        ...e,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      };
-    });
-    return transformed;
-  }),
-  getWordData: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.prisma.word.findMany();
+    try {
+      const res = await repo.getWords();
+      return res;
+    } catch {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Internal Server Error",
+      });
+    }
   }),
   getWord: publicProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ ctx, input }) => {
-      const data = await ctx.prisma.word.findUnique({
-        where: {
-          translation: input.word,
-        },
-      });
-      if (data == null) {
-        throw new Error("Word not found");
+      try {
+        const res = await repo.getWord(input.word);
+        return res;
+      } catch {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
       }
-      return {
-        ...data,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      };
     }),
   getLearned: publicProcedure.query(async ({ ctx }) => {
-    const data = await ctx.prisma.word.findMany({
-      where: {
-        learned: true,
-      },
-    });
-    const transformed = data.map((e) => {
-      return {
-        ...e,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      };
-    });
-    return transformed;
+    try {
+      const learned = await repo.getWordsByFilter("", { learned: true });
+      return learned;
+    } catch {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Internal Server Error",
+      });
+    }
   }),
   searchWord: publicProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ ctx, input }) => {
-      const res = await ctx.prisma.word.findMany({
-        select: {
-          translation: true,
-        },
-      });
-
-      const words = res.map((word) => word.translation);
-
-      const fuse = new Fuse(words, {
-        includeScore: true,
-        shouldSort: true,
-      });
-
-      const result = fuse.search(input.word);
-      const resultWords = result.map((word) => word.item);
-
-      return resultWords.slice(0, Math.min(resultWords.length, 3));
+      try {
+        const res = await repo.getWords();
+        return searchWord(res, input.word);
+      } catch {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
     }),
-  getAmountOfUnlearnedWords: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.word.count({
-      where: {
-        learned: false,
-      },
-    });
+  getAmountOfUnlearnedWords: publicProcedure.query(async ({ ctx }) => {
+    try {
+      const res = await repo.getCountByFilter({ learned: false });
+      return res;
+    } catch {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Internal Server Error",
+      });
+    }
   }),
   getRandomUnlearnedWord: publicProcedure.query(async ({ ctx }) => {
-    const unlearned = await ctx.prisma.word.findMany({
-      where: {
-        learned: false,
-      },
-    });
-
-    const transformed = unlearned.map((e) => {
-      return {
-        ...e,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      };
-    });
-
-    // get random word from unlearned words
-    const randomWord =
-      transformed[Math.floor(Math.random() * unlearned.length)];
-    return randomWord;
+    try {
+      const unlearned = await repo.getWordsByFilter("", { learned: false });
+      const randomWord =
+        unlearned[Math.floor(Math.random() * unlearned.length)];
+      return randomWord;
+    } catch {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Internal Server Error",
+      });
+    }
   }),
   markAsLearned: publicProcedure
     .input(z.object({ id: z.string().min(1), learned: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
-      const word = await ctx.prisma.word.findUnique({
-        where: {
-          id: input.id,
-        },
-      });
-
-      if (!word) {
-        throw new Error("Word not found");
+      try {
+        const res = await repo.updateLearned(input.id, input.learned);
+        return res;
+      } catch {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
       }
-
-      return ctx.prisma.word.update({
-        where: {
-          translation: word.translation,
-        },
-        data: {
-          learned: input.learned,
-        },
-      });
     }),
   addWord: publicProcedure
     .input(
@@ -138,32 +110,24 @@ export const wordRouter = createTRPCRouter({
         translation: z.string(),
         native: z.string(),
         notes: z.string(),
-        business: z.boolean(),
+        c1business: z.boolean(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (input.translation === "" || input.native === "") {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Word cannot be empty",
-        });
-      }
-      if (input.translation.length > 100 || input.native.length > 100) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Word too long",
-        });
-      }
+      const newWord = {
+        ...input,
+        learned: false,
+      };
 
-      return ctx.prisma.word.create({
-        data: {
-          translation: input.translation,
-          native: input.native,
-          notes: input.notes,
-          c1business: input.business,
-          learned: false,
-        },
-      });
+      try {
+        const res = await repo.addWord(newWord);
+        return res;
+      } catch {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
     }),
 
   deleteWord: publicProcedure
@@ -173,11 +137,15 @@ export const wordRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.word.delete({
-        where: {
-          id: input.id,
-        },
-      });
+      try {
+        const res = await repo.deleteWord(input.id);
+        return res;
+      } catch (e) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
     }),
   updateWord: publicProcedure
     .input(
@@ -191,17 +159,22 @@ export const wordRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.word.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          translation: input.translation,
-          native: input.native,
-          notes: input.notes,
-          c1business: input.business,
-          learned: input.learned,
-        },
-      });
+      const newWord: FEWord = {
+        translation: input.translation,
+        native: input.native,
+        notes: input.notes,
+        c1business: input.business,
+        learned: input.learned,
+      };
+
+      try {
+        const res = await repo.updateWord(input.id, newWord);
+        return res;
+      } catch {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
     }),
 });

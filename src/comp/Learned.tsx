@@ -1,17 +1,17 @@
-import { ActionData, InteractionEvent } from "swiper-action";
-import { api } from "../utils/api";
-import List from "./List";
-import { useState } from "react";
-import { crossIcon, penIcon } from "../utils/icons";
 import { useAtom } from "jotai";
+import { useState } from "react";
+import { ActionData, InteractionEvent } from "swiper-action";
 import {
   modalIdAtom,
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
-import Loading from "./Loading";
+import { api } from "../utils/api";
+import { crossIcon, penIcon } from "../utils/icons";
 import Error from "./Error";
+import List from "./List";
+import Loading from "./Loading";
 
 export default function Learned() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
@@ -24,7 +24,9 @@ export default function Learned() {
     onSuccess: (data) => {
       setToastType("success");
       setToastText(`"${data.translation}" removed from learned words`);
-      getLearnedQuery.refetch();
+      void (async () => {
+          await getLearnedQuery.refetch();
+      })();
       setTimeout(() => {
         setToastText("");
       }, 1500);
@@ -69,7 +71,9 @@ export default function Learned() {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
+    // eslint-disable-next-line
     // @ts-ignore
+    // eslint-disable-next-line
     window[modalId].showModal();
   }
 

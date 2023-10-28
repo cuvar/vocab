@@ -1,6 +1,6 @@
 import { checkedIcon, crossRoundIcon } from "../utils/icons";
 
-interface Props {
+type Props = {
   msg: string;
   mode: ToastType;
   visible?: boolean;
