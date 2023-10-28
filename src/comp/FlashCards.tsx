@@ -15,12 +15,16 @@ import ProgressBar from "./ProgressBar";
 export default function FlashCards() {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(-1);
-  const [topCardWord, setTopCardWord] = useState<VocabularyWord | null>(null);
+  const [topCardWord, setTopCardWord] = useState<VocabularyFlashCard | null>(
+    null
+  );
   const [showNative, setShowNative] = useState(false);
+  const [switchChecked, setSwitchChecked] = useState(false);
   const cardRef = useRef(null);
 
-  const [unlearnedWords, setUnlearnedWords] = useState<VocabularyWord[]>([]);
-
+  const [unlearnedWords, setUnlearnedWords] = useState<VocabularyFlashCard[]>(
+    []
+  );
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: VocabularyFlashCard[] = data.map(
@@ -28,6 +32,7 @@ export default function FlashCards() {
           return {
             ...e,
             mode: "none",
+            switched: switchChecked ? Math.random() > 0.5 : false,
           };
         }
       );
@@ -46,7 +51,7 @@ export default function FlashCards() {
       }
     });
 
-    console.log(_words.filter((e) => e.mode === "good").length);
+    // console.log(_words.filter((e) => e.mode === "good").length);
 
     const randomized = _words.sort(() => Math.random() - 0.5);
     const unlearned = randomized.filter(
@@ -125,6 +130,16 @@ export default function FlashCards() {
     }, 100);
   }
 
+  function handleSwitchChange() {
+    const newChecked = !switchChecked;
+    setSwitchChecked(newChecked);
+    const newUnlearned = unlearnedWords.map((w) => {
+      w.switched = newChecked ? Math.random() > 0.5 : false;
+      return w;
+    });
+    setUnlearnedWords(newUnlearned);
+  }
+
   if (getLearnedQuery.isLoading) {
     return <Loading />;
   }
@@ -135,9 +150,20 @@ export default function FlashCards() {
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
-      <h1 className="mt-5 mb-2 text-2xl tracking-tight">
+      <h1 className="mt-5 text-2xl tracking-tight">
         Flash card mode: {unlearnedWords.length} words
       </h1>
+      <div className="flex w-full">
+        <label className="label mr-4 flex cursor-pointer space-x-2">
+          <input
+            type="checkbox"
+            checked={switchChecked}
+            className="checkbox"
+            onChange={handleSwitchChange}
+          />
+          <span className="label-text">Randomize</span>
+        </label>
+      </div>
       <ProgressBar max={unlearnedWords.length} current={topCardIndex + 1} />
       <div className="flex w-full max-w-[24rem] flex-col items-center space-y-12">
         {topCardWord ? (

@@ -1,7 +1,7 @@
-import { type VocabularyWord } from "../types/types";
+import { type VocabularyFlashCard } from "../types/types";
 
 type Props = {
-  word: VocabularyWord;
+  word: VocabularyFlashCard;
   showNative: boolean;
   className?: string;
 };
@@ -13,10 +13,11 @@ export default function Card(props: Props) {
         !props.showNative ? "bg-white" : "bg-violet-200"
       } ${props.className ?? ""}`}
     >
-      {props.showNative ? (
-        <div className="flex flex-col items-center overflow-hidden">
-          <div className="flex justify-center space-x-2">
-            <div>{props.word.iconNative}</div>
+      {(props.showNative && !props.word.switched) ||
+      (props.word.switched && !props.showNative) ? (
+        <div className="overflow- flex flex-col items-center overflow-hidden">
+          <div className="flex justify-center space-x-4">
+            <div className="flex items-center">{props.word.iconNative}</div>
             <div>{props.word.native}</div>
           </div>
           <div className="flex flex-col space-y-2 text-base font-normal">
