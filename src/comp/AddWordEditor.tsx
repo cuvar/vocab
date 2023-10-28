@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { api } from "../utils/api";
 import { useAtom } from "jotai";
+import { useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { api } from "../utils/api";
 import RelatedWordList from "./RelatedWordList";
 
 export default function Editor() {
@@ -36,7 +36,7 @@ export default function Editor() {
       translation: englishInput,
       native: germanInput,
       notes: notesInput,
-      business: businessInput,
+      c1business: businessInput,
     });
   }
 

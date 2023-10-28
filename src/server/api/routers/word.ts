@@ -120,7 +120,8 @@ export const wordRouter = createTRPCRouter({
       };
 
       try {
-        await repo.addWord(newWord);
+        const res = await repo.addWord(newWord);
+        return res;
       } catch {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",

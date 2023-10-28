@@ -5,6 +5,6 @@ export interface WordRepository {
   getCountByFilter: (filter: object) => Promise<number>;
   updateWord: (id: string, newWord: FEWord) => Promise<VocabularyWord>;
   deleteWord: (id: string) => Promise<VocabularyWord>;
-  addWord: (word: FEWord) => void;
+  addWord: (word: FEWord) => Promise<VocabularyWord>;
   updateLearned: (id: string, learned: boolean) => Promise<VocabularyWord>;
 }

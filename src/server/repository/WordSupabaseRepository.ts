@@ -110,7 +110,7 @@ export class WordSupabaseRepository implements WordRepository {
       throw new Error("Word too long");
     }
     try {
-      await prisma.word.create({
+      const res = await prisma.word.create({
         data: {
           translation: word.translation,
           native: word.native,
@@ -119,6 +119,11 @@ export class WordSupabaseRepository implements WordRepository {
           learned: false,
         },
       });
+      return {
+        ...res,
+        iconNative: "🇩🇪",
+        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      } satisfies VocabularyWord;
     } catch (error) {
       throw error;
     }
