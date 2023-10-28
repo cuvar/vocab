@@ -39,8 +39,15 @@ export default function List(props: Props) {
   }
 
   function searchForWord() {
+    if(!iwordenRef.current) {
+      return;
+    }
+    
+    // eslint-disable-next-line
     // @ts-ignore
-    const input = iwordenRef.current?.value ?? "";
+    // eslint-disable-next-line
+    const input = iwordenRef.current.value ?? "";
+
     if (input == "") {
       setWordsToDisplay(sorted);
       setShowReset(false);
@@ -48,7 +55,7 @@ export default function List(props: Props) {
     }
 
     setShowReset(true);
-    const words = searchWord(sorted, input);
+    const words = searchWord(sorted, input as string);
 
     setWordsToDisplay(
       words.filter((r) => r !== null) as ListElement[]
@@ -57,6 +64,7 @@ export default function List(props: Props) {
 
   function resetSearch() {
     if (!iwordenRef.current) return;
+    // eslint-disable-next-line
     // @ts-ignore
     iwordenRef.current.value = "";
     setWordsToDisplay(sorted);

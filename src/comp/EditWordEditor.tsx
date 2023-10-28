@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { api } from "../utils/api";
 import { useAtom } from "jotai";
+import { useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { api } from "../utils/api";
 
 type Props = {
   word: VocabularyWord;
@@ -57,7 +57,7 @@ export default function Editor(props: Props) {
         ✕
       </button>
       <h3 className="mb-4 text-lg font-bold">
-        Edit "{props.word.translation}"
+        Edit &quot;{props.word.translation}&quot;
       </h3>
       <div className="flex flex-col space-y-4">
         <div className="form-control w-full max-w-xs">

@@ -54,7 +54,6 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const session = await getServerAuthSession({ req, res });
 
   return createInnerTRPCContext({
-    // @ts-ignore
     session,
   });
 };

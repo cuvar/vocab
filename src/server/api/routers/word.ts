@@ -95,7 +95,8 @@ export const wordRouter = createTRPCRouter({
     .input(z.object({ id: z.string().min(1), learned: z.boolean() }))
     .mutation(async ({ ctx, input }) => {
       try {
-        await repo.updateLearned(input.id, input.learned);
+        const res = await repo.updateLearned(input.id, input.learned);
+        return res;
       } catch {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -136,7 +137,8 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        await repo.deleteWord(input.id);
+        const res = await repo.deleteWord(input.id);
+        return res;
       } catch (e) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -165,7 +167,8 @@ export const wordRouter = createTRPCRouter({
       };
 
       try {
-        await repo.updateWord(input.id, newWord);
+        const res = await repo.updateWord(input.id, newWord);
+        return res;
       } catch {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",

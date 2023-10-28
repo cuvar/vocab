@@ -34,7 +34,7 @@ export class WordSupabaseRepository implements WordRepository {
       iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     };
   };
-  getWordsByFilter = async (word: string, filter: any) => {
+  getWordsByFilter = async (word: string, filter: object) => {
     const filtered = await prisma.word.findMany({
       where: {
         ...filter,
@@ -54,7 +54,7 @@ export class WordSupabaseRepository implements WordRepository {
     });
     return transformed as VocabularyWord[];
   };
-  getCountByFilter = async (filter: any) => {
+  getCountByFilter = async (filter: object) => {
     const count = await prisma.word.count({
       where: {
         ...filter,
@@ -64,7 +64,7 @@ export class WordSupabaseRepository implements WordRepository {
   };
   updateWord = async (id: string, newWord: FEWord) => {
     try {
-      await prisma.word.update({
+      const res = await prisma.word.update({
         where: {
           id: id,
         },
@@ -76,17 +76,28 @@ export class WordSupabaseRepository implements WordRepository {
           learned: newWord.learned,
         },
       });
+      return {
+        ...res,
+        iconNative: "🇩🇪",
+        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      } satisfies VocabularyWord;
     } catch (error) {
       throw error;
     }
   };
   deleteWord = async (id: string) => {
     try {
-      await prisma.word.delete({
+      const res = await prisma.word.delete({
         where: {
           id: id,
         },
       });
+
+      return {
+        ...res,
+        iconNative: "🇩🇪",
+        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      } satisfies VocabularyWord;
     } catch (error) {
       throw error;
     }
@@ -124,7 +135,7 @@ export class WordSupabaseRepository implements WordRepository {
         throw new Error("Word not found");
       }
 
-      await prisma.word.update({
+      const res = await prisma.word.update({
         where: {
           translation: word.translation,
         },
@@ -132,6 +143,12 @@ export class WordSupabaseRepository implements WordRepository {
           learned: learned,
         },
       });
+
+      return {
+        ...res,
+        iconNative: "🇩🇪",
+        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+      } satisfies VocabularyWord;
     } catch (error) {
       throw error;
     }

@@ -1,5 +1,10 @@
 import { isBoolean, isObject, isString } from "./base";
 
+/**
+ * Checks whether data is of type VocabularyWord
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type VocabularyWord
+ */
 export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isObject(data)) {
     return false;
@@ -31,10 +36,20 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   return true;
 }
 
+/**
+ * Checks whether data is of type VocabularyWord[]
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type VocabularyWord[]
+ */
 export function isVocabularyWordArray(data: unknown): data is VocabularyWord[] {
   return Array.isArray(data) && data.every((d) => isVocabularyWord(d));
 }
 
+/**
+ * Checks whether data is of type ListElement
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type ListElement
+ */
 export function isListElement(data: unknown): data is ListElement {
   if (!isVocabularyWord(data)) {
     return false;
@@ -52,6 +67,11 @@ export function isListElement(data: unknown): data is ListElement {
   return true;
 }
 
+/**
+ * Checks whether data is of type ListElement[]
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type ListElement[]
+ */
 export function isListElementArray(data: unknown): data is ListElement[] {
   return Array.isArray(data) && data.every((d) => isListElement(d));
 }

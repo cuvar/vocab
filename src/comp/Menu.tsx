@@ -6,6 +6,12 @@ export default function Menu() {
     // todo: implement
   }
 
+  function handleLogout() {
+    void (async () => {
+      await signOut();
+    })();
+  }
+  
   return (
     <div>
       <div className="dropdown-end dropdown">
@@ -25,7 +31,7 @@ export default function Menu() {
           </button>
           <button
             className="btn-ghost flex items-center space-x-2 rounded-md px-2 py-2 text-left active:text-blue-500"
-            onClick={() => signOut()}
+            onClick={handleLogout}
           >
             <span>{signOutIcon}</span>
             <span>Log out</span>

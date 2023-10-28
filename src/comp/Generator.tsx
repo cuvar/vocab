@@ -1,7 +1,7 @@
-import { api } from "../utils/api";
-import { useEffect, useRef, useState } from "react";
 import { useAtom } from "jotai";
+import { useEffect, useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { api } from "../utils/api";
 
 export default function Generator() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
@@ -57,6 +57,12 @@ export default function Generator() {
     });
   }
 
+  function handleNextClick() {
+    void (async () => {
+      await randomWord.refetch();
+    })();
+  }
+
   return (
     <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <div className="flex-col items-center space-y-2 text-center">
@@ -77,9 +83,7 @@ export default function Generator() {
       <div className="flex space-x-4">
         <button
           className="btn-neutral btn-md btn text-xl"
-          onClick={async () => {
-            await randomWord.refetch();
-          }}
+          onClick={handleNextClick}
         >
           Next
         </button>

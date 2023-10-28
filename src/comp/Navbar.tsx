@@ -1,13 +1,15 @@
-import { hamburgerIcon, plusIcon } from "../utils/icons";
-import { modalIdAtom } from "../server/store";
 import { useAtom } from "jotai";
+import { modalIdAtom } from "../server/store";
+import { hamburgerIcon, plusIcon } from "../utils/icons";
 import Menu from "./Menu";
 
 export default function Navbar() {
   const [addModal, _] = useAtom(modalIdAtom);
 
   function handleAdd() {
+    // eslint-disable-next-line
     // @ts-ignore
+    // eslint-disable-next-line
     window[addModal].showModal();
   }
 
