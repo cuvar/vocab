@@ -1,4 +1,8 @@
-import { type ListElement, type VocabularyWord } from "../../types/types";
+import {
+  type ListElement,
+  type Tag,
+  type VocabularyWord,
+} from "../../types/types";
 import { isBoolean, isObject, isString } from "./base";
 
 /**
@@ -22,7 +26,7 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isString(data.notes)) {
     return false;
   }
-  if (!isBoolean(data.c1business)) {
+  if (!isTagArray(data.tag)) {
     return false;
   }
   if (!isBoolean(data.learned)) {
@@ -35,6 +39,27 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
     return false;
   }
   return true;
+}
+
+/**
+ * Checks whether data is of type Tag
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type Tag
+ */
+function isTag(data: unknown): data is Tag {
+  if (!isString(data)) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Checks whether data is of type Tag[]
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type Tag[]
+ */
+function isTagArray(data: unknown): data is Tag[] {
+  return Array.isArray(data) && data.every((d) => isTag(d));
 }
 
 /**

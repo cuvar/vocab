@@ -1,6 +1,11 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { showModalAtom, toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
+import {
+  showModalAtom,
+  toastTextAtom,
+  toastTypeAtom,
+  wordToEditAtom,
+} from "../server/store";
 import { api } from "../utils/api";
 import RelatedWordList from "./RelatedWordList";
 
@@ -8,11 +13,10 @@ export default function Editor() {
   const [englishInput, setEnglishInput] = useState("");
   const [germanInput, setGermanInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
-  const [businessInput, setBusinessInput] = useState(false);
   const [showExistingWords, setShowExistingWords] = useState(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [, setShowModal] = useAtom(showModalAtom)
-  
+  const [, setShowModal] = useAtom(showModalAtom);
+
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
 
@@ -38,7 +42,6 @@ export default function Editor() {
       translation: englishInput,
       native: germanInput,
       notes: notesInput,
-      c1business: businessInput,
     });
   }
 
@@ -50,14 +53,16 @@ export default function Editor() {
     setEnglishInput("");
     setGermanInput("");
     setNotesInput("");
-    setBusinessInput(false);
-    setShowExistingWords(false); 
+    setShowExistingWords(false);
     setWordToEdit(null);
     setShowModal(false);
   }
   return (
     <form method="dialog" className="modal-box max-w-xs">
-      <button className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2" onClick={clearEditor}>
+      <button
+        className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2"
+        onClick={clearEditor}
+      >
         ✕
       </button>
       <h3 className="mb-4 text-lg font-bold">Add a Word</h3>
@@ -98,7 +103,7 @@ export default function Editor() {
             onChange={(e) => setNotesInput(e.target.value)}
           />
         </div>
-        <div className="form-control">
+        {/* <div className="form-control">
           <label className="label cursor-pointer">
             <span className="label-text">Business word</span>
             <input
@@ -108,7 +113,7 @@ export default function Editor() {
               onChange={() => setBusinessInput(!businessInput)}
             />
           </label>
-        </div>
+        </div> */}
         <div className="collapse bg-base-200">
           <input
             type="checkbox"

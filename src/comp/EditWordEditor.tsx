@@ -1,6 +1,11 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { showModalAtom, toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
+import {
+  showModalAtom,
+  toastTextAtom,
+  toastTypeAtom,
+  wordToEditAtom,
+} from "../server/store";
 import { type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 
@@ -14,7 +19,6 @@ export default function Editor(props: Props) {
   );
   const [nativeInput, setNativeInput] = useState(props.word.native);
   const [notesInput, setNotesInput] = useState(props.word.notes);
-  const [businessInput, setBusinessInput] = useState(props.word.c1business);
   const [learnedInput, setLearnedInput] = useState(props.word.learned);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [showModal, setShowModal] = useAtom(showModalAtom);
@@ -45,7 +49,6 @@ export default function Editor(props: Props) {
       translation: translationInput,
       native: nativeInput,
       notes: notesInput,
-      c1business: businessInput,
       learned: learnedInput,
     });
   }
@@ -56,13 +59,16 @@ export default function Editor(props: Props) {
 
   function clearEditor() {
     // setShowModal(false)
-    console.log(showModal);;
+    console.log(showModal);
     setWordToEdit(null);
     setShowModal(false);
   }
   return (
     <form method="dialog" className="modal-box max-w-xs">
-      <button className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2" onClick={clearEditor}>
+      <button
+        className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2"
+        onClick={clearEditor}
+      >
         ✕
       </button>
       <h3 className="mb-4 text-lg font-bold">
@@ -106,23 +112,12 @@ export default function Editor(props: Props) {
         </div>
         <div className="form-control">
           <label className="label cursor-pointer">
-            <span className="label-text">Business word</span>
-            <input
-              type="checkbox"
-              checked={businessInput}
-              className="checkbox"
-              onChange={(e) => setBusinessInput(!businessInput)}
-            />
-          </label>
-        </div>
-        <div className="form-control">
-          <label className="label cursor-pointer">
             <span className="label-text">Learned</span>
             <input
               type="checkbox"
               checked={learnedInput}
               className="checkbox"
-              onChange={(e) => setLearnedInput(!businessInput)}
+              onChange={(e) => setLearnedInput(!learnedInput)}
             />
           </label>
         </div>

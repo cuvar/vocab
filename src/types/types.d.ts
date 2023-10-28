@@ -3,10 +3,10 @@ export type VocabularyWord = {
   translation: string;
   native: string;
   notes: string;
-  c1business: boolean;
   learned: boolean;
   iconTranslation: string;
   iconNative: string;
+  tags: Tag[];
 };
 
 export type ListElement = VocabularyWord & {
@@ -16,7 +16,7 @@ export type ListElement = VocabularyWord & {
 
 export type SimpleWordInput = Pick<
   VocabularyWord,
-  "translation" | "native" | "notes" | "c1business" | "learned"
+  "translation" | "native" | "notes" | "learned"
 >;
 export type VocabularyFlashCard = VocabularyWord & {
   mode: FlashCardMode;
@@ -25,3 +25,9 @@ export type VocabularyFlashCard = VocabularyWord & {
 
 export type ToastType = "success" | "error";
 export type FlashCardMode = "good" | "bad" | "none";
+
+export type Tag = {
+  id: string;
+  name: string;
+  description: string;
+};

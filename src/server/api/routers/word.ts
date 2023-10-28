@@ -1,11 +1,9 @@
 import { z } from "zod";
 // import * as allWords from "../../../../allwords.json";
-
 import { TRPCError } from "@trpc/server";
 import { searchWord } from "../../../service/searchService";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-
 const repo = new WordSupabaseRepository();
 
 export const wordRouter = createTRPCRouter({
@@ -122,7 +120,6 @@ export const wordRouter = createTRPCRouter({
         translation: z.string(),
         native: z.string(),
         notes: z.string(),
-        c1business: z.boolean(),
       })
     )
     .mutation(async ({ input }) => {
@@ -166,7 +163,6 @@ export const wordRouter = createTRPCRouter({
         translation: z.string(),
         native: z.string(),
         notes: z.string(),
-        c1business: z.boolean(),
         learned: z.boolean(),
       })
     )
