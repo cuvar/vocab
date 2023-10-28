@@ -15,6 +15,8 @@ declare type ListElement = VocabularyWord & {
   otherWord: string;
 };
 
+declare type FEWord = Pick<VocabularyWord, "translation" | "native" | "notes" | "c1business" | "learned">
+
 type ToastType = "success" | "error";
 
 type FlashCardMode = "good" | "bad" | "none";

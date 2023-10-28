@@ -1,10 +1,9 @@
-import Fuse from "fuse.js";
 import { useEffect, useRef, useState } from "react";
-import ListElement from "./ListElement";
-import { resetIcon } from "../utils/icons";
 import { ActionData } from "swiper-action";
-import Error from "./Error";
 import { searchWord } from "../service/searchService";
+import { resetIcon } from "../utils/icons";
+import Error from "./Error";
+import ListElement from "./ListElement";
 
 type Props = {
   words: ListElement[];
