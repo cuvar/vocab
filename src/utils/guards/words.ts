@@ -54,13 +54,13 @@ export function isListElement(data: unknown): data is ListElement {
   if (!isVocabularyWord(data)) {
     return false;
   }
-  if ("key" in data && !isString(data.key)) {
+  if (!("key" in data) || !isString(data.key)) {
     return false;
   }
-  if ("word" in data && !isString(data.word)) {
+  if (!("word" in data) || !isString(data.word)) {
     return false;
   }
-  if ("otherword" in data && !isString(data.otherword)) {
+  if (!("otherword" in data) || !isString(data.otherword)) {
     return false;
   }
 
