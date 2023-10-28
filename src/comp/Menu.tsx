@@ -1,11 +1,20 @@
 import { signOut } from "next-auth/react";
 import { ellipsisIcon, importIcon, signOutIcon } from "../utils/icons";
 
+/**
+ *
+ */
 export default function Menu() {
+  /**
+   *
+   */
   function triggerImport() {
     // todo: implement
   }
 
+  /**
+   *
+   */
   function handleLogout() {
     void (async () => {
       await signOut();

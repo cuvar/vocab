@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { archiveIcon, hatIcon, listIcon, sparklesIcon } from "../utils/icons";
 import { useRouter } from "next/router";
+import { archiveIcon, hatIcon, listIcon, sparklesIcon } from "../utils/icons";
 
 type Props = {
   children: React.ReactNode;
 }
+
 export default function Drawer(props: Props) {
   const router = useRouter();
   const path = router.pathname.split("/")[1];

@@ -1,3 +1,5 @@
+import { type FEWord, type VocabularyWord } from "../../types/types";
+
 export interface WordRepository {
   getWords: () => Promise<VocabularyWord[]>;
   getWord: (word: string) => Promise<VocabularyWord>;

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { ActionData } from "swiper-action";
+import { type ActionData } from "swiper-action";
 import { searchWord } from "../service/searchService";
+import { type ListElement } from "../types/types";
 import { resetIcon } from "../utils/icons";
 import Error from "./Error";
-import ListElement from "./ListElement";
+import ListItem from "./ListElement";
 
 type Props = {
   words: ListElement[];
@@ -147,7 +148,7 @@ export default function List(props: Props) {
       <div className="flex w-full flex-col items-center space-y-2">
         {wordsToDisplay.map((e) => {
           return (
-            <ListElement
+            <ListItem
               key={e.key}
               word={e}
               showTranslation={e.word == currentShown}

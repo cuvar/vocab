@@ -1,5 +1,6 @@
+import { type FEWord, type VocabularyWord } from "../../types/types";
 import { prisma } from "../db";
-import { WordRepository } from "./WordRepository";
+import { type WordRepository } from "./WordRepository";
 
 export class WordSupabaseRepository implements WordRepository {
   getWords = async () => {

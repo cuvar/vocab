@@ -1,3 +1,4 @@
+import { type ToastType } from "../types/types";
 import { checkedIcon, crossRoundIcon } from "../utils/icons";
 
 type Props = {

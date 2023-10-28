@@ -1,4 +1,4 @@
-declare type VocabularyWord = {
+export type VocabularyWord = {
   id: string;
   translation: string;
   native: string;
@@ -7,18 +7,19 @@ declare type VocabularyWord = {
   learned: boolean;
   iconTranslation: string;
   iconNative: string;
-}
+};
 
-declare type ListElement = VocabularyWord & {
+export type ListElement = VocabularyWord & {
   key: string;
   word: string;
   otherWord: string;
 };
 
-declare type FEWord = Pick<VocabularyWord, "translation" | "native" | "notes" | "c1business" | "learned">
+export type FEWord = Pick<
+  VocabularyWord,
+  "translation" | "native" | "notes" | "c1business" | "learned"
+>;
+export type VocabularyFlashCard = VocabularyWord & { mode: FlashCardMode };
 
-type ToastType = "success" | "error";
-
-type FlashCardMode = "good" | "bad" | "none";
-
-type VocabularyFlashCard = VocabularyWord & { mode: FlashCardMode };
+export type ToastType = "success" | "error";
+export type FlashCardMode = "good" | "bad" | "none";

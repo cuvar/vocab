@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 
 type Props = {
@@ -16,8 +17,8 @@ export default function Editor(props: Props) {
   const [businessInput, setBusinessInput] = useState(props.word.c1business);
   const [learnedInput, setLearnedInput] = useState(props.word.learned);
 
-  const [_, setToastText] = useAtom(toastTextAtom);
-  const [__, setToastType] = useAtom(toastTypeAtom);
+  const [, setToastText] = useAtom(toastTextAtom);
+  const [, setToastType] = useAtom(toastTypeAtom);
 
   const updateWordMutation = api.word.updateWord.useMutation({
     onSuccess: (data) => {

@@ -11,8 +11,8 @@ export default function Editor() {
   const [businessInput, setBusinessInput] = useState(false);
   const [showExistingWords, setShowExistingWords] = useState(false);
 
-  const [_, setToastText] = useAtom(toastTextAtom);
-  const [__, setToastType] = useAtom(toastTypeAtom);
+  const [, setToastText] = useAtom(toastTextAtom);
+  const [, setToastType] = useAtom(toastTypeAtom);
 
   const addWordMutation = api.word.addWord.useMutation({
     onSuccess: (data) => {
@@ -94,7 +94,7 @@ export default function Editor() {
               type="checkbox"
               checked={businessInput}
               className="checkbox"
-              onChange={(e) => setBusinessInput(!businessInput)}
+              onChange={() => setBusinessInput(!businessInput)}
             />
           </label>
         </div>

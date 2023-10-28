@@ -1,15 +1,16 @@
 import { useRef, useState } from "react";
+import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
-import Loading from "./Loading";
-import Error from "./Error";
-import { arrowRoundIcon, thumbsDownIcon, thumbsUpIcon } from "../utils/icons";
-import Card from "./Card";
-import ProgressBar from "./ProgressBar";
 import {
   addLearnedWords,
   clearLearnedWords,
   getLearnedWordIds,
 } from "../utils/client-store";
+import { arrowRoundIcon, thumbsDownIcon, thumbsUpIcon } from "../utils/icons";
+import Card from "./Card";
+import Error from "./Error";
+import Loading from "./Loading";
+import ProgressBar from "./ProgressBar";
 
 export default function FlashCards() {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);

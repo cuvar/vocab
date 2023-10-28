@@ -1,3 +1,4 @@
+import { ListElement, VocabularyWord } from "../../types/types";
 import { isBoolean, isObject, isString } from "./base";
 
 /**

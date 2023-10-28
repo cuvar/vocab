@@ -1,12 +1,13 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { ActionData, InteractionEvent } from "swiper-action";
+import { type ActionData, type InteractionEvent } from "swiper-action";
 import {
   modalIdAtom,
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
+import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { penIcon, switchIcon, trashIcon } from "../utils/icons";
 import Error from "./Error";
@@ -15,10 +16,10 @@ import Loading from "./Loading";
 
 export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
-  const [toastText, setToastText] = useAtom(toastTextAtom);
-  const [toastType, setToastType] = useAtom(toastTypeAtom);
-  const [modalId, __] = useAtom(modalIdAtom);
-  const [wordToEdit, setWordToEdit] = useAtom(wordToEditAtom);
+  const [, setToastText] = useAtom(toastTextAtom);
+  const [, setToastType] = useAtom(toastTypeAtom);
+  const [modalId] = useAtom(modalIdAtom);
+  const [, setWordToEdit] = useAtom(wordToEditAtom);
 
   const allQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {

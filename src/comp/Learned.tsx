@@ -1,12 +1,13 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { ActionData, InteractionEvent } from "swiper-action";
+import { type ActionData, type InteractionEvent } from "swiper-action";
 import {
   modalIdAtom,
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
+import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { crossIcon, penIcon } from "../utils/icons";
 import Error from "./Error";
@@ -15,10 +16,10 @@ import Loading from "./Loading";
 
 export default function Learned() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
-  const [toastText, setToastText] = useAtom(toastTextAtom);
-  const [toastType, setToastType] = useAtom(toastTypeAtom);
-  const [wordToEdit, setWordToEdit] = useAtom(wordToEditAtom);
-  const [modalId, __] = useAtom(modalIdAtom);
+  const [, setToastText] = useAtom(toastTextAtom);
+  const [, setToastType] = useAtom(toastTypeAtom);
+  const [, setWordToEdit] = useAtom(wordToEditAtom);
+  const [modalId] = useAtom(modalIdAtom);
 
   const markAsLearnedMutation = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
