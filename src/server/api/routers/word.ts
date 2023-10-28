@@ -4,7 +4,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { searchWord } from "../../../service/searchService";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 const repo = new WordSupabaseRepository();
 
@@ -19,7 +19,19 @@ export const wordRouter = createTRPCRouter({
   //     });
   //   }
   // }),
-  getAll: publicProcedure.query(async () => {
+  // backupAll: protectedProcedure.query(async () => {
+  //   try {
+  //     const res = await repo.getWords();
+  //     fs.writeFileSync("words.json", JSON.stringify(res, null, 2));
+  //     return res;
+  //   } catch {
+  //     throw new TRPCError({
+  //       code: "INTERNAL_SERVER_ERROR",
+  //       message: "Internal Server Error",
+  //     });
+  //   }
+  // }),
+  getAll: protectedProcedure.query(async () => {
     try {
       const res = await repo.getWords();
       return res;
@@ -30,7 +42,7 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
-  getWord: publicProcedure
+  getWord: protectedProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {
       try {
@@ -43,7 +55,7 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  getLearned: publicProcedure.query(async () => {
+  getLearned: protectedProcedure.query(async () => {
     try {
       const learned = await repo.getWordsByFilter("", { learned: true });
       return learned;
@@ -54,7 +66,7 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
-  searchWord: publicProcedure
+  searchWord: protectedProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {
       try {
@@ -67,7 +79,7 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  getAmountOfUnlearnedWords: publicProcedure.query(async () => {
+  getAmountOfUnlearnedWords: protectedProcedure.query(async () => {
     try {
       const res = await repo.getCountByFilter({ learned: false });
       return res;
@@ -78,7 +90,7 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
-  getRandomUnlearnedWord: publicProcedure.query(async () => {
+  getRandomUnlearnedWord: protectedProcedure.query(async () => {
     try {
       const unlearned = await repo.getWordsByFilter("", { learned: false });
       const randomWord =
@@ -91,7 +103,7 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
-  markAsLearned: publicProcedure
+  markAsLearned: protectedProcedure
     .input(z.object({ id: z.string().min(1), learned: z.boolean() }))
     .mutation(async ({ input }) => {
       try {
@@ -104,7 +116,7 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  addWord: publicProcedure
+  addWord: protectedProcedure
     .input(
       z.object({
         translation: z.string(),
@@ -130,7 +142,7 @@ export const wordRouter = createTRPCRouter({
       }
     }),
 
-  deleteWord: publicProcedure
+  deleteWord: protectedProcedure
     .input(
       z.object({
         id: z.string().min(1),
@@ -147,7 +159,7 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  updateWord: publicProcedure
+  updateWord: protectedProcedure
     .input(
       z.object({
         id: z.string().min(1),
