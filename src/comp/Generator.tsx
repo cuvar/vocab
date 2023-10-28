@@ -1,14 +1,15 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 
 export default function Generator() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
   );
-  const [_, setToastText] = useAtom(toastTextAtom);
-  const [__, setToastType] = useAtom(toastTypeAtom);
+  const [, setToastText] = useAtom(toastTextAtom);
+  const [, setToastType] = useAtom(toastTypeAtom);
 
   // const initDB = api.word.initDB.useMutation();
   const markAsLearned = api.word.markAsLearned.useMutation({

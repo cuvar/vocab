@@ -19,7 +19,7 @@ export const wordRouter = createTRPCRouter({
   //     });
   //   }
   // }),
-  getAll: publicProcedure.query(async ({ ctx }) => {
+  getAll: publicProcedure.query(async () => {
     try {
       const res = await repo.getWords();
       return res;
@@ -32,7 +32,7 @@ export const wordRouter = createTRPCRouter({
   }),
   getWord: publicProcedure
     .input(z.object({ word: z.string() }))
-    .query(async ({ ctx, input }) => {
+    .query(async ({ input }) => {
       try {
         const res = await repo.getWord(input.word);
         return res;
@@ -43,7 +43,7 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  getLearned: publicProcedure.query(async ({ ctx }) => {
+  getLearned: publicProcedure.query(async () => {
     try {
       const learned = await repo.getWordsByFilter("", { learned: true });
       return learned;
@@ -56,7 +56,7 @@ export const wordRouter = createTRPCRouter({
   }),
   searchWord: publicProcedure
     .input(z.object({ word: z.string() }))
-    .query(async ({ ctx, input }) => {
+    .query(async ({ input }) => {
       try {
         const res = await repo.getWords();
         return searchWord(res, input.word);
@@ -67,7 +67,7 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  getAmountOfUnlearnedWords: publicProcedure.query(async ({ ctx }) => {
+  getAmountOfUnlearnedWords: publicProcedure.query(async () => {
     try {
       const res = await repo.getCountByFilter({ learned: false });
       return res;
@@ -78,7 +78,7 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
-  getRandomUnlearnedWord: publicProcedure.query(async ({ ctx }) => {
+  getRandomUnlearnedWord: publicProcedure.query(async () => {
     try {
       const unlearned = await repo.getWordsByFilter("", { learned: false });
       const randomWord =
@@ -93,7 +93,7 @@ export const wordRouter = createTRPCRouter({
   }),
   markAsLearned: publicProcedure
     .input(z.object({ id: z.string().min(1), learned: z.boolean() }))
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ input }) => {
       try {
         const res = await repo.updateLearned(input.id, input.learned);
         return res;
@@ -113,7 +113,7 @@ export const wordRouter = createTRPCRouter({
         c1business: z.boolean(),
       })
     )
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ input }) => {
       const newWord = {
         ...input,
         learned: false,
@@ -136,7 +136,7 @@ export const wordRouter = createTRPCRouter({
         id: z.string().min(1),
       })
     )
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ input }) => {
       try {
         const res = await repo.deleteWord(input.id);
         return res;
@@ -154,21 +154,13 @@ export const wordRouter = createTRPCRouter({
         translation: z.string(),
         native: z.string(),
         notes: z.string(),
-        business: z.boolean(),
+        c1business: z.boolean(),
         learned: z.boolean(),
       })
     )
-    .mutation(async ({ ctx, input }) => {
-      const newWord: FEWord = {
-        translation: input.translation,
-        native: input.native,
-        notes: input.notes,
-        c1business: input.business,
-        learned: input.learned,
-      };
-
+    .mutation(async ({ input }) => {
       try {
-        const res = await repo.updateWord(input.id, newWord);
+        const res = await repo.updateWord(input.id, input);
         return res;
       } catch {
         throw new TRPCError({

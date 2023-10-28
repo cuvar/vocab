@@ -1,21 +1,21 @@
-import Head from "next/head";
-import Toast from "./Toast";
-import { toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
 import { useAtom } from "jotai";
-import Editor from "./Editor";
-import Navbar from "./Navbar";
-import Drawer from "./Drawer";
 import { useSession } from "next-auth/react";
+import Head from "next/head";
+import { toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
+import Drawer from "./Drawer";
+import Editor from "./Editor";
 import LogoutScreen from "./LogoutScreen";
+import Navbar from "./Navbar";
+import Toast from "./Toast";
 
 type Props = {
   children: React.ReactNode;
 }
 
 export default function SiteWrapper(props: Props) {
-  const [toastText, _] = useAtom(toastTextAtom);
-  const [toastType, __] = useAtom(toastTypeAtom);
-  const [wordToEdit, setWordToEdit] = useAtom(wordToEditAtom);
+  const [toastText,] = useAtom(toastTextAtom);
+  const [toastType,] = useAtom(toastTypeAtom);
+  const [wordToEdit,] = useAtom(wordToEditAtom);
 
   const { data } = useSession();
   if (!data?.user) {

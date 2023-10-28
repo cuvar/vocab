@@ -1,6 +1,12 @@
 import Fuse from "fuse.js";
+import type { ListElement, VocabularyWord } from "../types/types";
 import { isListElementArray } from "../utils/guards/words";
 
+/**
+ *
+ * @param words
+ * @param searched
+ */
 export function searchWord(
   words: ListElement[] | VocabularyWord[],
   searched: string
@@ -12,6 +18,11 @@ export function searchWord(
   }
 }
 
+/**
+ *
+ * @param words
+ * @param searched
+ */
 function searchListLement(words: ListElement[], searched: string) {
   console.log(words[0]);
   const wordsToSearchThrough = words.map((word) => word.word);
@@ -27,6 +38,11 @@ function searchListLement(words: ListElement[], searched: string) {
   return resultWords;
 }
 
+/**
+ *
+ * @param words
+ * @param searched
+ */
 function searchVocabularyWord(words: VocabularyWord[], searched: string) {
   const wordsToSearchThrough = words.map((word) => word.translation);
   const searchResults = search(wordsToSearchThrough, searched, 3);
@@ -41,6 +57,12 @@ function searchVocabularyWord(words: VocabularyWord[], searched: string) {
   return resultWords;
 }
 
+/**
+ *
+ * @param words
+ * @param searched
+ * @param limit
+ */
 function search(words: string[], searched: string, limit: number) {
   const fuse = new Fuse(words, {
     includeScore: true,

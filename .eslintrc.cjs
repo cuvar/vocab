@@ -63,6 +63,15 @@ const config = {
                 "**/?(*.)+(spec|test).[jt]s?(x)"
             ],
             "extends": ["plugin:testing-library/react"]
+        },
+        {
+            "files": [
+                "**/*.[jt]sx"
+            ],
+            plugins: ["eslint-plugin-jsdoc"],
+            rules: {
+                "jsdoc/require-jsdoc": 0,
+            },
         }
     ]
 };

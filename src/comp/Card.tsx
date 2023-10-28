@@ -1,3 +1,5 @@
+import { type VocabularyWord } from "../types/types";
+
 type Props = {
   word: VocabularyWord;
   showNative: boolean;

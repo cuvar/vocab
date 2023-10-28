@@ -1,3 +1,4 @@
+import { type VocabularyWord } from "../types/types";
 import AddWordEditor from "./AddWordEditor";
 import EditWordEditor from "./EditWordEditor";
 import Modal from "./Modal";

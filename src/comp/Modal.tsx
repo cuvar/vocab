@@ -6,7 +6,7 @@ type Props = {
 };
 
 export default function Modal(props: Props) {
-  const [modalId, setModelId] = useAtom(modalIdAtom);
+  const [modalId] = useAtom(modalIdAtom);
 
   return (
     <dialog id={modalId} className="modal">

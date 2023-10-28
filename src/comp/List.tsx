@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { ActionData } from "swiper-action";
+import { type ActionData } from "swiper-action";
 import { searchWord } from "../service/searchService";
+import { type ListElement } from "../types/types";
 import { resetIcon } from "../utils/icons";
 import Error from "./Error";
-import ListElement from "./ListElement";
+import ListItem from "./ListElement";
 
 type Props = {
   words: ListElement[];
@@ -78,15 +79,9 @@ export default function List(props: Props) {
       // show german
       const transformed: ListElement[] = wordsToDisplay.map((e) => {
         return {
-          id: e.id,
+          ...e,
           word: e.otherWord,
           otherWord: e.word,
-          key: e.translation,
-          notes: e.notes,
-          learned: e.learned,
-          c1business: e.c1business,
-          translation: e.translation,
-          native: e.native,
           iconNative: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
           iconTranslation: "🇩🇪",
         };
@@ -96,15 +91,9 @@ export default function List(props: Props) {
       // show english
       const transformed: ListElement[] = wordsToDisplay.map((e) => {
         return {
-          id: e.id,
+          ...e,
           word: e.otherWord,
           otherWord: e.word,
-          key: e.translation,
-          notes: e.notes,
-          learned: e.learned,
-          c1business: e.c1business,
-          translation: e.translation,
-          native: e.native,
           iconNative: "🇩🇪",
           iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
         };
@@ -147,8 +136,8 @@ export default function List(props: Props) {
       <div className="flex w-full flex-col items-center space-y-2">
         {wordsToDisplay.map((e) => {
           return (
-            <ListElement
-              key={e.key}
+            <ListItem
+              key={e.id}
               word={e}
               showTranslation={e.word == currentShown}
               clickHandler={toggleCurrentShown}

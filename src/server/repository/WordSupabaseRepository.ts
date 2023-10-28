@@ -1,18 +1,16 @@
+import { type Word } from "@prisma/client";
+import { type SimpleWordInput, type VocabularyWord } from "../../types/types";
 import { prisma } from "../db";
-import { WordRepository } from "./WordRepository";
+import { type WordRepository } from "./WordRepository";
 
 export class WordSupabaseRepository implements WordRepository {
   getWords = async () => {
     try {
       const data = await prisma.word.findMany();
       const transformed = data.map((e) => {
-        return {
-          ...e,
-          iconNative: "🇩🇪",
-          iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-        };
+        return addIcons(e);
       });
-      return transformed as VocabularyWord[];
+      return transformed satisfies VocabularyWord[];
     } catch (error) {
       throw error;
     }
@@ -28,11 +26,7 @@ export class WordSupabaseRepository implements WordRepository {
       throw new Error("Word not found");
     }
 
-    return {
-      ...data,
-      iconNative: "🇩🇪",
-      iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-    };
+    return addIcons(data);
   };
   getWordsByFilter = async (word: string, filter: object) => {
     const filtered = await prisma.word.findMany({
@@ -46,11 +40,7 @@ export class WordSupabaseRepository implements WordRepository {
     }
 
     const transformed = filtered.map((e) => {
-      return {
-        ...e,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      };
+      return addIcons(e);
     });
     return transformed as VocabularyWord[];
   };
@@ -62,7 +52,7 @@ export class WordSupabaseRepository implements WordRepository {
     });
     return count;
   };
-  updateWord = async (id: string, newWord: FEWord) => {
+  updateWord = async (id: string, newWord: SimpleWordInput) => {
     try {
       const res = await prisma.word.update({
         where: {
@@ -76,11 +66,7 @@ export class WordSupabaseRepository implements WordRepository {
           learned: newWord.learned,
         },
       });
-      return {
-        ...res,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      } satisfies VocabularyWord;
+      return addIcons(res);
     } catch (error) {
       throw error;
     }
@@ -93,16 +79,12 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
 
-      return {
-        ...res,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      } satisfies VocabularyWord;
+      return addIcons(res);
     } catch (error) {
       throw error;
     }
   };
-  addWord = async (word: FEWord) => {
+  addWord = async (word: SimpleWordInput) => {
     if (word.translation === "" || word.native === "") {
       throw new Error("Word cannot be empty");
     }
@@ -119,11 +101,7 @@ export class WordSupabaseRepository implements WordRepository {
           learned: false,
         },
       });
-      return {
-        ...res,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      } satisfies VocabularyWord;
+      return addIcons(res);
     } catch (error) {
       throw error;
     }
@@ -149,13 +127,22 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
 
-      return {
-        ...res,
-        iconNative: "🇩🇪",
-        iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-      } satisfies VocabularyWord;
+      return addIcons(res);
     } catch (error) {
       throw error;
     }
   };
+}
+
+/**
+ * Adds emoji icons to word object
+ * @param {Word} word Word object
+ * @returns {VocabularyWord} Word with icons
+ */
+function addIcons(word: Word): VocabularyWord {
+  return {
+    ...word,
+    iconNative: "🇩🇪",
+    iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+  } satisfies VocabularyWord;
 }
