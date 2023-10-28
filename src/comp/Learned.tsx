@@ -2,10 +2,10 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
 import {
-  modalIdAtom,
+  showModalAtom,
   toastTextAtom,
   toastTypeAtom,
-  wordToEditAtom,
+  wordToEditAtom
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
@@ -19,8 +19,8 @@ export default function Learned() {
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [modalId] = useAtom(modalIdAtom);
-
+  const [showModal, setShowModal] = useAtom(showModalAtom);
+  
   const markAsLearnedMutation = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
       setToastType("success");
@@ -71,10 +71,8 @@ export default function Learned() {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
-    // eslint-disable-next-line
-    // @ts-ignore
-    // eslint-disable-next-line
-    window[modalId].showModal();
+    setShowModal(true);
+    console.log(showModal);
   }
 
   const actions: ActionData[] = [

@@ -2,10 +2,10 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
 import {
-  modalIdAtom,
+  showModalAtom,
   toastTextAtom,
   toastTypeAtom,
-  wordToEditAtom,
+  wordToEditAtom
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
@@ -18,9 +18,9 @@ export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
-  const [modalId] = useAtom(modalIdAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-
+  const [, setShowModal] = useAtom(showModalAtom);
+  
   const allQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
@@ -94,10 +94,7 @@ export default function AllWords() {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
-    // eslint-disable-next-line
-    // @ts-ignore
-    // eslint-disable-next-line
-    window[modalId].showModal();
+    setShowModal(true);
   }
 
   const actions: ActionData[] = [

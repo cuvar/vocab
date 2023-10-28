@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { showModalAtom, toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
 import { type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 
@@ -16,6 +16,8 @@ export default function Editor(props: Props) {
   const [notesInput, setNotesInput] = useState(props.word.notes);
   const [businessInput, setBusinessInput] = useState(props.word.c1business);
   const [learnedInput, setLearnedInput] = useState(props.word.learned);
+  const [, setWordToEdit] = useAtom(wordToEditAtom);
+  const [showModal, setShowModal] = useAtom(showModalAtom);
 
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
@@ -52,9 +54,15 @@ export default function Editor(props: Props) {
     return translationInput.trim() == "" || nativeInput.trim() == "";
   }
 
+  function clearEditor() {
+    // setShowModal(false)
+    console.log(showModal);;
+    setWordToEdit(null);
+    setShowModal(false);
+  }
   return (
     <form method="dialog" className="modal-box max-w-xs">
-      <button className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2">
+      <button className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2" onClick={clearEditor}>
         ✕
       </button>
       <h3 className="mb-4 text-lg font-bold">
