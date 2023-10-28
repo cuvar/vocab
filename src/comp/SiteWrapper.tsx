@@ -2,7 +2,13 @@ import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect } from "react";
-import { modalIdAtom, showModalAtom, toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
+import {
+  modalIdAtom,
+  showModalAtom,
+  toastTextAtom,
+  toastTypeAtom,
+  wordToEditAtom,
+} from "../server/store";
 import Drawer from "./Drawer";
 import Editor from "./Editor";
 import LogoutScreen from "./LogoutScreen";
@@ -11,24 +17,23 @@ import Toast from "./Toast";
 
 type Props = {
   children: React.ReactNode;
-}
+};
 
 export default function SiteWrapper(props: Props) {
-  const [toastText,] = useAtom(toastTextAtom);
-  const [toastType,] = useAtom(toastTypeAtom);
-  const [wordToEdit,] = useAtom(wordToEditAtom);
-  const [modalId,] = useAtom(modalIdAtom);
-  const [showModal] = useAtom(showModalAtom)
+  const [toastText] = useAtom(toastTextAtom);
+  const [toastType] = useAtom(toastTypeAtom);
+  const [wordToEdit] = useAtom(wordToEditAtom);
+  const [modalId] = useAtom(modalIdAtom);
+  const [showModal] = useAtom(showModalAtom);
 
   useEffect(() => {
-
-    if(showModal) {
+    if (showModal) {
       // eslint-disable-next-line
       // @ts-ignore
       // eslint-disable-next-line
       window[modalId].showModal();
     }
-  }, [showModal])
+  }, [showModal]);
   const { data } = useSession();
   if (!data?.user) {
     return <LogoutScreen />;
