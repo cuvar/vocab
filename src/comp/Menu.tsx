@@ -2,16 +2,12 @@ import { signOut } from "next-auth/react";
 import { ellipsisIcon, importIcon, signOutIcon } from "../utils/icons";
 
 export default function Menu() {
-  function triggerImport() {
-    // todo: implement
-  }
-
   function handleLogout() {
     void (async () => {
       await signOut();
     })();
   }
-  
+
   return (
     <div>
       <div className="dropdown-end dropdown">
@@ -22,13 +18,13 @@ export default function Menu() {
           tabIndex={0}
           className={`dropdown-content menu rounded-box z-[1] w-52 border border-base-300 bg-base-200 p-2 shadow`}
         >
-          <button
+          <a
             className="btn-ghost flex items-center space-x-2 rounded-md px-2 py-2 text-left active:text-blue-500"
-            onClick={() => triggerImport()}
+            href="/import"
           >
             <span>{importIcon}</span>
-            <span>Import (todo)</span>
-          </button>
+            <span>JSON import</span>
+          </a>
           <button
             className="btn-ghost flex items-center space-x-2 rounded-md px-2 py-2 text-left active:text-blue-500"
             onClick={handleLogout}
