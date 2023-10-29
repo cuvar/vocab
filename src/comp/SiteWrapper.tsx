@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect } from "react";
 import {
-  modalIdAtom,
+  editorModalIdAtom,
   showEditorModalAtom,
   toastTextAtom,
   toastTypeAtom,
@@ -23,7 +23,7 @@ export default function SiteWrapper(props: Props) {
   const [toastText] = useAtom(toastTextAtom);
   const [toastType] = useAtom(toastTypeAtom);
   const [wordToEdit] = useAtom(wordToEditAtom);
-  const [modalId] = useAtom(modalIdAtom);
+  const [editorModalId] = useAtom(editorModalIdAtom);
   const [showEditorModal] = useAtom(showEditorModalAtom);
 
   useEffect(() => {
@@ -31,9 +31,9 @@ export default function SiteWrapper(props: Props) {
       // eslint-disable-next-line
       // @ts-ignore
       // eslint-disable-next-line
-      window[modalId].showModal();
+      window[editorModalId].showModal();
     }
-  }, [modalId, showEditorModal]);
+  }, [editorModalId, showEditorModal]);
   const { data } = useSession();
   if (!data?.user) {
     return <LogoutScreen />;
