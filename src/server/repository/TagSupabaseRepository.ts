@@ -130,12 +130,31 @@ export class TagSupabaseRepository implements TagRepository {
       throw error;
     }
   };
+
   addTag = async (name: string, description: string) => {
     try {
       const data = await prisma.tag.create({
         data: {
           name: name,
           description: description,
+        },
+      });
+
+      return {
+        id: data.id,
+        name: data.name,
+        description: data.description,
+      } satisfies Tag;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  deleteTag = async (tagId: string) => {
+    try {
+      const data = await prisma.tag.delete({
+        where: {
+          id: tagId,
         },
       });
 

@@ -73,4 +73,17 @@ export const tagRouter = createTRPCRouter({
         });
       }
     }),
+  deleteTag: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ input }) => {
+      try {
+        const deletedTag = await repo.deleteTag(input.id);
+        return deletedTag;
+      } catch {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
 });

@@ -52,6 +52,23 @@ export default function TagItem(props: Props) {
       }, 1500);
     },
   });
+  const deleteTagMutation = api.tag.deleteTag.useMutation({
+    onSuccess: (tag) => {
+      setToastType("success");
+      setToastText(`"${tag.name}" successfully deleted`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+      props.doneHandler();
+    },
+    onError: (err) => {
+      setToastType("error");
+      setToastText(`${err.message}`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
 
   function handleEdit() {
     setEditMode(true);
@@ -73,12 +90,20 @@ export default function TagItem(props: Props) {
     }
   }
 
-  function handleDelete() {
-    confirm("deleting?");
+  function handleAbort() {
+    if (!props.id) {
+      props.doneHandler();
+      return;
+    } else {
+      const confirmed = confirm("deleting?");
+      if (confirmed) {
+        deleteTagMutation.mutate({ id: props.id });
+      }
+    }
   }
 
   return (
-    <div className="border-base-500 flex w-full flex-col space-y-4 space-x-0 border-b px-2 py-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+    <div className="border-base-500 flex w-full flex-col justify-between space-y-4 space-x-0 border-b px-2 py-4 sm:flex-row sm:space-x-4 sm:space-y-0">
       <div className="flex space-x-4">
         <div className="form-control w-1/4 max-w-xs">
           <label className="label">
@@ -86,7 +111,7 @@ export default function TagItem(props: Props) {
           </label>
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="Name"
             className="input-bordered input w-full max-w-xs"
             disabled={!editMode}
             value={nameInput}
@@ -98,7 +123,7 @@ export default function TagItem(props: Props) {
             <span className="label-text">Description</span>
           </label>
           <textarea
-            placeholder="Type here"
+            placeholder="Description"
             className="textarea-bordered textarea w-full max-w-xs"
             disabled={!editMode}
             value={descInput}
@@ -123,7 +148,7 @@ export default function TagItem(props: Props) {
             {penIcon}
           </button>
         )}
-        <button className="btn-error btn align-bottom" onClick={handleDelete}>
+        <button className="btn-error btn align-bottom" onClick={handleAbort}>
           {crossIcon}
         </button>
       </div>
