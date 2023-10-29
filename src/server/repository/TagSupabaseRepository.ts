@@ -108,4 +108,26 @@ export class TagSupabaseRepository implements TagRepository {
       throw error;
     }
   };
+
+  updateTag = async (tagId: string, name: string, description: string) => {
+    try {
+      const data = await prisma.tag.update({
+        where: {
+          id: tagId,
+        },
+        data: {
+          name: name,
+          description: description,
+        },
+      });
+
+      return {
+        id: data.id,
+        name: data.name,
+        description: data.description,
+      } satisfies Tag;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
