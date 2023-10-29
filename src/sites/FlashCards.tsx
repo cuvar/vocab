@@ -1,6 +1,9 @@
+import { LearnMode } from "@prisma/client";
+import { useAtom } from "jotai";
 import { useRef, useState } from "react";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
+import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import {
@@ -8,7 +11,12 @@ import {
   clearLearnedWords,
   getLearnedWordIds,
 } from "../utils/client-store";
-import { arrowRoundIcon, thumbsDownIcon, thumbsUpIcon } from "../utils/icons";
+import {
+  archiveIcon,
+  arrowRoundIcon,
+  thumbsDownIcon,
+  thumbsUpIcon,
+} from "../utils/icons";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -24,6 +32,8 @@ export default function FlashCards() {
   const [unlearnedWords, setUnlearnedWords] = useState<VocabularyFlashCard[]>(
     []
   );
+  const [, setToastText] = useAtom(toastTextAtom);
+  const [, setToastType] = useAtom(toastTypeAtom);
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
@@ -39,6 +49,26 @@ export default function FlashCards() {
       init(transformed);
     },
     refetchOnWindowFocus: false,
+  });
+
+  const updateModeMutation = api.word.updateMode.useMutation({
+    onSuccess: (data) => {
+      setToastType("success");
+      setToastText(`${data.translation} marked as archived`);
+
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+      nextWord();
+    },
+    onError: (err) => {
+      setToastType("error");
+      setToastText(err.message);
+
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
   });
 
   function init(_words: VocabularyFlashCard[]) {
@@ -140,6 +170,17 @@ export default function FlashCards() {
     setUnlearnedWords(newUnlearned);
   }
 
+  function handleArchive() {
+    if (!topCardWord) {
+      return;
+    }
+
+    updateModeMutation.mutate({
+      id: topCardWord.id,
+      mode: LearnMode.ARCHIVED,
+    });
+  }
+
   if (getLearnedQuery.isLoading) {
     return <Loading />;
   }
@@ -179,25 +220,35 @@ export default function FlashCards() {
         )}
         <div className="flex w-full flex-col space-y-10">
           {topCardWord && (
-            <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">
-              <button
-                className="flex w-full items-center justify-center rounded-md bg-error py-2 active:opacity-80"
-                onClick={handleBad}
-              >
-                {thumbsDownIcon}
-              </button>
-              <button
-                className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
-                onClick={toggleShowNative}
-              >
-                {arrowRoundIcon}
-              </button>
-              <button
-                className="flex w-full items-center justify-center rounded-md bg-success py-4 active:opacity-80"
-                onClick={handleGood}
-              >
-                {thumbsUpIcon}
-              </button>
+            <div className="flex w-full flex-col space-y-10">
+              <div className="flex h-14 w-full items-stretch justify-evenly space-x-4 text-black">
+                <button
+                  className="flex w-full items-center justify-center rounded-md bg-error py-2 active:opacity-80"
+                  onClick={handleBad}
+                >
+                  {thumbsDownIcon}
+                </button>
+                <button
+                  className="flex w-full items-center justify-center rounded-md bg-success py-4 active:opacity-80"
+                  onClick={handleGood}
+                >
+                  {thumbsUpIcon}
+                </button>
+              </div>
+              <div className="flex h-14 w-full items-stretch justify-evenly space-x-4 text-black">
+                <button
+                  className="flex w-full items-center justify-center rounded-md bg-accent py-2 active:opacity-80"
+                  onClick={handleArchive}
+                >
+                  {archiveIcon}
+                </button>
+                <button
+                  className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
+                  onClick={toggleShowNative}
+                >
+                  {arrowRoundIcon}
+                </button>
+              </div>
             </div>
           )}
           <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">

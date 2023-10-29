@@ -13,7 +13,7 @@ export default function Generator() {
   const [, setToastType] = useAtom(toastTypeAtom);
 
   // const initDB = api.word.initDB.useMutation();
-  const markAsLearned = api.word.markAsLearned.useMutation({
+  const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
       setToastType("success");
       setToastText(`${data.translation} marked as learned`);
@@ -31,6 +31,7 @@ export default function Generator() {
       }, 1500);
     },
   });
+
   const randomWord = api.word.getRandomUnlearnedWord.useQuery(undefined, {
     refetchOnWindowFocus: false,
   });
@@ -53,7 +54,7 @@ export default function Generator() {
       return;
     }
 
-    markAsLearned.mutate({
+    updateModeMutation.mutate({
       id: randomWord.data?.id,
       mode: LearnMode.LEARNED,
     });

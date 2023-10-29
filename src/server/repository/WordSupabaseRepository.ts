@@ -234,7 +234,7 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  updateLearned = async (id: string, mode: LearnMode) => {
+  updateMode = async (id: string, mode: LearnMode) => {
     try {
       const word = await prisma.word.findUnique({
         where: {

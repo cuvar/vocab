@@ -24,7 +24,7 @@ export default function Learned() {
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
 
-  const markAsLearnedMutation = api.word.markAsLearned.useMutation({
+  const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
       setToastType("success");
       setToastText(`"${data.translation}" removed from learned words`);
@@ -76,7 +76,7 @@ export default function Learned() {
   }
 
   function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
-    markAsLearnedMutation.mutate({
+    updateModeMutation.mutate({
       id: arg.id,
       mode: LearnMode.UNLEARNED,
     });

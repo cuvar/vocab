@@ -143,7 +143,7 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
-  markAsLearned: protectedProcedure
+  updateMode: protectedProcedure
     .input(
       z.object({
         id: z.string().min(1),
@@ -152,7 +152,7 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const res = await repo.updateLearned(input.id, input.mode);
+        const res = await repo.updateMode(input.id, input.mode);
         return res;
       } catch (error) {
         console.error(error);

@@ -13,6 +13,6 @@ export interface WordRepository {
   updateWord: (id: string, newWord: SimpleWordInput) => Promise<string>;
   deleteWord: (id: string) => Promise<VocabularyWord>;
   addWord: (word: SimpleWordInput) => Promise<string>;
-  updateLearned: (id: string, mode: LearnMode) => Promise<VocabularyWord>;
+  updateMode: (id: string, mode: LearnMode) => Promise<VocabularyWord>;
   importWords: (words: JsonImportWord[]) => Promise<number>;
 }
