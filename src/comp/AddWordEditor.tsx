@@ -6,13 +6,16 @@ import {
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
+import { type TagData } from "../types/types";
 import { api } from "../utils/api";
 import RelatedWordList from "./RelatedWordList";
+import TagSelect from "./TagSelect";
 
 export default function Editor() {
   const [englishInput, setEnglishInput] = useState("");
   const [germanInput, setGermanInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
+  const [tagData, setTagData] = useState<TagData[]>([]);
   const [showExistingWords, setShowExistingWords] = useState(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowModal] = useAtom(showModalAtom);
@@ -20,10 +23,22 @@ export default function Editor() {
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
 
-  const addWordMutation = api.word.addWord.useMutation({
+  api.tag.getAll.useQuery(undefined, {
     onSuccess: (data) => {
+      const _tagData = data.map((d) => {
+        return {
+          ...d,
+          checked: false,
+        } satisfies TagData;
+      });
+      setTagData(_tagData);
+    },
+  });
+
+  const addWordMutation = api.word.addWord.useMutation({
+    onSuccess: (word) => {
       setToastType("success");
-      setToastText(`"${data.translation}" added`);
+      setToastText(`"${word}" added`);
       setTimeout(() => {
         setToastText("");
       }, 1500);
@@ -38,10 +53,12 @@ export default function Editor() {
   });
 
   function addWord() {
+    const tags: string[] = tagData.filter((t) => t.checked).map((t) => t.id);
     addWordMutation.mutate({
       translation: englishInput,
       native: germanInput,
       notes: notesInput,
+      tagIds: tags,
     });
   }
 
@@ -55,8 +72,14 @@ export default function Editor() {
     setNotesInput("");
     setShowExistingWords(false);
     setWordToEdit(null);
+    setTagData([]);
     setShowModal(false);
   }
+
+  function onTagsSelectChange(_tagData: TagData[]) {
+    setTagData(_tagData);
+  }
+
   return (
     <form method="dialog" className="modal-box max-w-xs">
       <button
@@ -103,24 +126,18 @@ export default function Editor() {
             onChange={(e) => setNotesInput(e.target.value)}
           />
         </div>
-        {/* <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Business word</span>
-            <input
-              type="checkbox"
-              checked={businessInput}
-              className="checkbox"
-              onChange={() => setBusinessInput(!businessInput)}
-            />
-          </label>
-        </div> */}
+        <div className="form-control">
+          {tagData.length > 0 && (
+            <TagSelect tags={tagData} handler={onTagsSelectChange} />
+          )}
+        </div>
         <div className="collapse bg-base-200">
           <input
             type="checkbox"
             checked={showExistingWords}
             onChange={() => setShowExistingWords(!showExistingWords)}
           />
-          <div className="collapse-title text-xl font-medium">
+          <div className="collapse-title text-lg font-medium">
             Existing words
           </div>
           <div className="collapse-content">

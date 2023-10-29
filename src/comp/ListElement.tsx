@@ -113,7 +113,11 @@ export default function ListItem(props: Props) {
           </button>
           <div className="mx-4 flex items-center space-x-4">
             {props.word.tags.length > 0 && (
-              <p>{props.word.tags.map((e) => e.name).join(" ")}</p>
+              <div className="flex space-x-2">
+                {props.word.tags.map((tag) => (
+                  <span key={tag.name}>{tag.name}</span>
+                ))}
+              </div>
             )}
             {showMarkSigns && (
               <button className={`${markColor}`} onClick={toggleMark}>

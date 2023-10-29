@@ -6,8 +6,9 @@ import {
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
-import { type VocabularyWord } from "../types/types";
+import { type TagData, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
+import TagSelect from "./TagSelect";
 
 type Props = {
   word: VocabularyWord;
@@ -22,14 +23,20 @@ export default function Editor(props: Props) {
   const [learnedInput, setLearnedInput] = useState(props.word.learned);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [showModal, setShowModal] = useAtom(showModalAtom);
+  const [tagData, setTagData] = useState<TagData[]>([]);
 
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
 
+  api.tag.getAllForWord.useQuery(
+    { wordId: props.word.id },
+    { onSuccess: (data) => setTagData(data) }
+  );
+
   const updateWordMutation = api.word.updateWord.useMutation({
-    onSuccess: (data) => {
+    onSuccess: (word) => {
       setToastType("success");
-      setToastText(`"${data.translation}" changed`);
+      setToastText(`"${word}" changed`);
       setTimeout(() => {
         setToastText("");
       }, 1500);
@@ -44,12 +51,15 @@ export default function Editor(props: Props) {
   });
 
   function editWord() {
+    const tags: string[] = tagData.filter((t) => t.checked).map((t) => t.id);
+
     updateWordMutation.mutate({
       id: props.word.id,
       translation: translationInput,
       native: nativeInput,
       notes: notesInput,
       learned: learnedInput,
+      tagIds: tags,
     });
   }
 
@@ -61,7 +71,12 @@ export default function Editor(props: Props) {
     // setShowModal(false)
     console.log(showModal);
     setWordToEdit(null);
+    setTagData([]);
     setShowModal(false);
+  }
+
+  function onTagsSelectChange(_tagData: TagData[]) {
+    setTagData(_tagData);
   }
   return (
     <form method="dialog" className="modal-box max-w-xs">
@@ -120,6 +135,11 @@ export default function Editor(props: Props) {
               onChange={(e) => setLearnedInput(!learnedInput)}
             />
           </label>
+        </div>
+        <div className="form-control">
+          {tagData.length > 0 && (
+            <TagSelect tags={tagData} handler={onTagsSelectChange} />
+          )}
         </div>
         <button
           className="btn-success btn max-w-xs"
