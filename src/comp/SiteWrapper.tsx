@@ -4,7 +4,10 @@ import Head from "next/head";
 import { useEffect } from "react";
 import {
   editorModalIdAtom,
+  messageModalIdAtom,
   showEditorModalAtom,
+  showMessageModalAtom,
+  tagToDeleteAtom,
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
@@ -12,6 +15,7 @@ import {
 import LogoutScreen from "../sites/LogoutScreen";
 import Drawer from "./Drawer";
 import Editor from "./Editor";
+import MessageModal from "./MessageModal";
 import Navbar from "./Navbar";
 import Toast from "./Toast";
 
@@ -23,17 +27,38 @@ export default function SiteWrapper(props: Props) {
   const [toastText] = useAtom(toastTextAtom);
   const [toastType] = useAtom(toastTypeAtom);
   const [wordToEdit] = useAtom(wordToEditAtom);
+  const [tagToDelete] = useAtom(tagToDeleteAtom);
   const [editorModalId] = useAtom(editorModalIdAtom);
-  const [showEditorModal] = useAtom(showEditorModalAtom);
+  const [showEditorModal, setShowEditorModal] = useAtom(showEditorModalAtom);
+  const [messageModalId] = useAtom(messageModalIdAtom);
+  const [showMessageModal, setShowMessageModal] = useAtom(showMessageModalAtom);
 
   useEffect(() => {
-    if (showEditorModal) {
+    if (showEditorModal && !showMessageModal) {
       // eslint-disable-next-line
       // @ts-ignore
       // eslint-disable-next-line
       window[editorModalId].showModal();
     }
-  }, [editorModalId, showEditorModal]);
+    if (showMessageModal && !showEditorModal) {
+      // eslint-disable-next-line
+      // @ts-ignore
+      // eslint-disable-next-line
+      window[messageModalId].showModal();
+    }
+    if (showEditorModal && showMessageModal) {
+      setShowEditorModal(false);
+      setShowMessageModal(false);
+    }
+  }, [
+    editorModalId,
+    messageModalId,
+    setShowEditorModal,
+    setShowMessageModal,
+    showEditorModal,
+    showMessageModal,
+  ]);
+
   const { data } = useSession();
   if (!data?.user) {
     return <LogoutScreen />;
@@ -63,6 +88,7 @@ export default function SiteWrapper(props: Props) {
           visible={toastText.length > 0}
         />
         {showEditorModal && <Editor word={wordToEdit} />}
+        {showMessageModal && <MessageModal tag={tagToDelete} />}
       </Drawer>
     </>
   );

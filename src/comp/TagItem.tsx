@@ -1,6 +1,12 @@
 import { useAtom } from "jotai";
-import { useState } from "react";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { useEffect, useState } from "react";
+import {
+  deleteTagConfirmedAtom,
+  showMessageModalAtom,
+  tagToDeleteAtom,
+  toastTextAtom,
+  toastTypeAtom,
+} from "../server/store";
 import { api } from "../utils/api";
 import { checkedIcon, crossIcon, penIcon } from "../utils/icons";
 
@@ -17,6 +23,11 @@ export default function TagItem(props: Props) {
   const [editMode, setEditMode] = useState(props.id ? false : true);
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
+  const [, setShowMessageModal] = useAtom(showMessageModalAtom);
+  const [tagToDelete, setTagToDelete] = useAtom(tagToDeleteAtom);
+  const [deleteTagConfirmed, setDeleteTagConfirmed] = useAtom(
+    deleteTagConfirmedAtom
+  );
 
   const updateTagMutation = api.tag.updateTag.useMutation({
     onSuccess: (tag) => {
@@ -35,6 +46,7 @@ export default function TagItem(props: Props) {
       }, 1500);
     },
   });
+
   const addTagMutation = api.tag.addTag.useMutation({
     onSuccess: (tag) => {
       setToastType("success");
@@ -52,6 +64,7 @@ export default function TagItem(props: Props) {
       }, 1500);
     },
   });
+
   const deleteTagMutation = api.tag.deleteTag.useMutation({
     onSuccess: (tag) => {
       setToastType("success");
@@ -95,12 +108,26 @@ export default function TagItem(props: Props) {
       props.doneHandler();
       return;
     } else {
-      const confirmed = confirm("deleting?");
-      if (confirmed) {
-        deleteTagMutation.mutate({ id: props.id });
-      }
+      setTagToDelete(props.name);
+      setShowMessageModal(true);
     }
   }
+
+  function deleteTag() {
+    if (props.id && props.name === tagToDelete) {
+      deleteTagMutation.mutate({ id: props.id });
+      setTagToDelete(null);
+    }
+  }
+
+  useEffect(() => {
+    if (deleteTagConfirmed) {
+      setDeleteTagConfirmed(false);
+      deleteTag();
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deleteTagConfirmed, setDeleteTagConfirmed]);
 
   return (
     <div className="border-base-500 flex w-full flex-col justify-between space-y-4 space-x-0 border-b px-2 py-4 sm:flex-row sm:space-x-4 sm:space-y-0">
