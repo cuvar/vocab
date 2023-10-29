@@ -1,6 +1,9 @@
+import { LearnMode } from "@prisma/client";
+import { useAtom } from "jotai";
 import { useRef, useState } from "react";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
+import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import {
@@ -8,7 +11,12 @@ import {
   clearLearnedWords,
   getLearnedWordIds,
 } from "../utils/client-store";
-import { arrowRoundIcon, thumbsDownIcon, thumbsUpIcon } from "../utils/icons";
+import {
+  archiveIcon,
+  arrowRoundIcon,
+  thumbsDownIcon,
+  thumbsUpIcon,
+} from "../utils/icons";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -21,17 +29,19 @@ export default function FlashCards() {
   const [showNative, setShowNative] = useState(false);
   const [switchChecked, setSwitchChecked] = useState(false);
   const cardRef = useRef(null);
-
   const [unlearnedWords, setUnlearnedWords] = useState<VocabularyFlashCard[]>(
     []
   );
+  const [, setToastText] = useAtom(toastTextAtom);
+  const [, setToastType] = useAtom(toastTypeAtom);
+
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: VocabularyFlashCard[] = data.map(
         (e: VocabularyWord) => {
           return {
             ...e,
-            mode: "none",
+            cardMode: "none",
             switched: switchChecked ? Math.random() > 0.5 : false,
           };
         }
@@ -41,13 +51,33 @@ export default function FlashCards() {
     refetchOnWindowFocus: false,
   });
 
+  const updateModeMutation = api.word.updateMode.useMutation({
+    onSuccess: (data) => {
+      setToastType("success");
+      setToastText(`${data.translation} marked as archived`);
+
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+      nextWord();
+    },
+    onError: (err) => {
+      setToastType("error");
+      setToastText(err.message);
+
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
+
   function init(_words: VocabularyFlashCard[]) {
     const learnedIds = getLearnedWordIds();
 
     _words.forEach((e) => {
       const found = learnedIds.find((l) => l === e.id);
       if (found) {
-        e.mode = found ? "good" : "none";
+        e.cardMode = found ? "good" : "none";
       }
     });
 
@@ -55,7 +85,7 @@ export default function FlashCards() {
 
     const randomized = _words.sort(() => Math.random() - 0.5);
     const unlearned = randomized.filter(
-      (e) => e.mode === "none" || e.mode === "bad"
+      (e) => e.cardMode === "none" || e.cardMode === "bad"
     );
 
     setWords(randomized);
@@ -71,7 +101,7 @@ export default function FlashCards() {
   function handleGood() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
-      word.mode = "good";
+      word.cardMode = "good";
       addLearnedWords(word);
     }
     nextWord();
@@ -80,7 +110,7 @@ export default function FlashCards() {
   function handleBad() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
-      word.mode = "bad";
+      word.cardMode = "bad";
     }
     nextWord();
   }
@@ -93,7 +123,7 @@ export default function FlashCards() {
 
     clearLearnedWords();
     words.forEach((e) => {
-      e.mode = "none";
+      e.cardMode = "none";
     });
     init(words);
   }
@@ -105,7 +135,7 @@ export default function FlashCards() {
       setTopCardWord(nextWord ?? null);
       animate();
     } else {
-      const unlearned = words.filter((e) => e.mode === "bad");
+      const unlearned = words.filter((e) => e.cardMode === "bad");
       if (unlearned.length > 0) {
         setUnlearnedWords(unlearned);
         setTopCardIndex(0);
@@ -138,6 +168,17 @@ export default function FlashCards() {
       return w;
     });
     setUnlearnedWords(newUnlearned);
+  }
+
+  function handleArchive() {
+    if (!topCardWord) {
+      return;
+    }
+
+    updateModeMutation.mutate({
+      id: topCardWord.id,
+      mode: LearnMode.ARCHIVED,
+    });
   }
 
   if (getLearnedQuery.isLoading) {
@@ -179,25 +220,35 @@ export default function FlashCards() {
         )}
         <div className="flex w-full flex-col space-y-10">
           {topCardWord && (
-            <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">
-              <button
-                className="flex w-full items-center justify-center rounded-md bg-error py-2 active:opacity-80"
-                onClick={handleBad}
-              >
-                {thumbsDownIcon}
-              </button>
-              <button
-                className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
-                onClick={toggleShowNative}
-              >
-                {arrowRoundIcon}
-              </button>
-              <button
-                className="flex w-full items-center justify-center rounded-md bg-success py-4 active:opacity-80"
-                onClick={handleGood}
-              >
-                {thumbsUpIcon}
-              </button>
+            <div className="flex w-full flex-col space-y-10">
+              <div className="flex h-14 w-full items-stretch justify-evenly space-x-4 text-black">
+                <button
+                  className="flex w-full items-center justify-center rounded-md bg-error py-2 active:opacity-80"
+                  onClick={handleBad}
+                >
+                  {thumbsDownIcon}
+                </button>
+                <button
+                  className="flex w-full items-center justify-center rounded-md bg-success py-4 active:opacity-80"
+                  onClick={handleGood}
+                >
+                  {thumbsUpIcon}
+                </button>
+              </div>
+              <div className="flex h-14 w-full items-stretch justify-evenly space-x-4 text-black">
+                <button
+                  className="flex w-full items-center justify-center rounded-md bg-accent py-2 active:opacity-80"
+                  onClick={handleArchive}
+                >
+                  {archiveIcon}
+                </button>
+                <button
+                  className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
+                  onClick={toggleShowNative}
+                >
+                  {arrowRoundIcon}
+                </button>
+              </div>
             </div>
           )}
           <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">

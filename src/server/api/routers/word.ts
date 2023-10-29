@@ -1,10 +1,11 @@
-import { z } from "zod";
-// import * as allWords from "../../../../allwords.json";
+import { LearnMode } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 import { searchWord } from "../../../service/searchService";
 import { isJsonImportWordArray } from "../../../utils/guards/words";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
+
 const repo = new WordSupabaseRepository();
 
 export const wordRouter = createTRPCRouter({
@@ -24,6 +25,36 @@ export const wordRouter = createTRPCRouter({
   //     fs.writeFileSync("words.json", JSON.stringify(res, null, 2));
   //     return res;
   //   } catch {
+  //     throw new TRPCError({
+  //       code: "INTERNAL_SERVER_ERROR",
+  //       message: "Internal Server Error",
+  //     });
+  //   }
+  // }),
+  // dbaction2: protectedProcedure.query(async () => {
+  // try {
+  //   const a = JSON.parse(fs.readFileSync("words.json").toString());
+  //   const learned = a
+  //     .filter((a) => a.learned)
+  //     .map((a) => {
+  //       return {
+  //         id: a.id,
+  //         learned: "LEARNED",
+  //       };
+  //     });
+
+  // await prisma?.word.updateMany({
+  //   where: {
+  //     id: {
+  //       in: learned.map((e) => e.id),
+  //     },
+  //   },
+  //   data: {
+  //     mode: "LEARNED",
+  //   },
+  // });
+  //   } catch (error) {
+  //     console.log(error);
   //     throw new TRPCError({
   //       code: "INTERNAL_SERVER_ERROR",
   //       message: "Internal Server Error",
@@ -58,7 +89,23 @@ export const wordRouter = createTRPCRouter({
     }),
   getLearned: protectedProcedure.query(async () => {
     try {
-      const learned = await repo.getWordsByFilter("", { learned: true });
+      const learned = await repo.getWordsByFilter({
+        mode: LearnMode.LEARNED,
+      });
+      return learned;
+    } catch (error) {
+      console.error(error);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Internal Server Error",
+      });
+    }
+  }),
+  getArchived: protectedProcedure.query(async () => {
+    try {
+      const learned = await repo.getWordsByFilter({
+        mode: LearnMode.ARCHIVED,
+      });
       return learned;
     } catch (error) {
       console.error(error);
@@ -84,7 +131,7 @@ export const wordRouter = createTRPCRouter({
     }),
   getAmountOfUnlearnedWords: protectedProcedure.query(async () => {
     try {
-      const res = await repo.getCountByFilter({ learned: false });
+      const res = await repo.getCountByFilter({ mode: LearnMode.UNLEARNED });
       return res;
     } catch (error) {
       console.error(error);
@@ -96,7 +143,9 @@ export const wordRouter = createTRPCRouter({
   }),
   getRandomUnlearnedWord: protectedProcedure.query(async () => {
     try {
-      const unlearned = await repo.getWordsByFilter("", { learned: false });
+      const unlearned = await repo.getWordsByFilter({
+        mode: LearnMode.UNLEARNED,
+      });
       const randomWord =
         unlearned[Math.floor(Math.random() * unlearned.length)];
       return randomWord;
@@ -108,11 +157,16 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
-  markAsLearned: protectedProcedure
-    .input(z.object({ id: z.string().min(1), learned: z.boolean() }))
+  updateMode: protectedProcedure
+    .input(
+      z.object({
+        id: z.string().min(1),
+        mode: z.enum(["UNLEARNED", "LEARNED", "ARCHIVED"]),
+      })
+    )
     .mutation(async ({ input }) => {
       try {
-        const res = await repo.updateLearned(input.id, input.learned);
+        const res = await repo.updateMode(input.id, input.mode);
         return res;
       } catch (error) {
         console.error(error);
@@ -134,7 +188,7 @@ export const wordRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       const newWord = {
         ...input,
-        learned: false,
+        mode: LearnMode.UNLEARNED,
       };
 
       try {
@@ -174,7 +228,7 @@ export const wordRouter = createTRPCRouter({
         translation: z.string(),
         native: z.string(),
         notes: z.string(),
-        learned: z.boolean(),
+        mode: z.enum(["UNLEARNED", "LEARNED", "ARCHIVED"]),
         tagIds: z.array(z.string()),
       })
     )

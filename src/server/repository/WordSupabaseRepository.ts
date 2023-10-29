@@ -1,4 +1,4 @@
-import { type Word } from "@prisma/client";
+import { LearnMode, type Word } from "@prisma/client";
 import { env } from "../../env/client.mjs";
 import {
   type JsonImportWord,
@@ -81,7 +81,7 @@ export class WordSupabaseRepository implements WordRepository {
     return { ...withIcons, tags: tags } satisfies VocabularyWord;
   };
 
-  getWordsByFilter = async (word: string, filter: object) => {
+  getWordsByFilter = async (filter: object) => {
     const filtered = await prisma.word.findMany({
       where: {
         ...filter,
@@ -138,7 +138,7 @@ export class WordSupabaseRepository implements WordRepository {
           translation: newWord.translation,
           native: newWord.native,
           notes: newWord.notes,
-          learned: newWord.learned,
+          mode: newWord.mode,
         },
         include: {
           tags: {
@@ -155,9 +155,7 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
 
-      const tagData = await tagRepo.setTagsForWord(wordId, newWord.tagIds);
-      console.log(tagData, newWord.tagIds.length);
-
+      await tagRepo.setTagsForWord(wordId, newWord.tagIds);
       return res.translation;
     } catch (error) {
       throw error;
@@ -212,7 +210,7 @@ export class WordSupabaseRepository implements WordRepository {
           translation: word.translation,
           native: word.native,
           notes: word.notes,
-          learned: false,
+          mode: LearnMode.UNLEARNED,
         },
         include: {
           tags: {
@@ -229,15 +227,14 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
 
-      const tagData = await tagRepo.setTagsForWord(res.id, word.tagIds);
-
+      await tagRepo.setTagsForWord(res.id, word.tagIds);
       return res.translation;
     } catch (error) {
       throw error;
     }
   };
 
-  updateLearned = async (id: string, learned: boolean) => {
+  updateMode = async (id: string, mode: LearnMode) => {
     try {
       const word = await prisma.word.findUnique({
         where: {
@@ -254,7 +251,7 @@ export class WordSupabaseRepository implements WordRepository {
           translation: word.translation,
         },
         data: {
-          learned: learned,
+          mode: mode,
         },
         include: {
           tags: {
@@ -291,7 +288,7 @@ export class WordSupabaseRepository implements WordRepository {
         return {
           native: w.native,
           translation: w.translation,
-          learned: w.learned,
+          mode: w.mode,
           notes: w.notes,
         };
       });

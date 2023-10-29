@@ -1,3 +1,4 @@
+import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
@@ -36,7 +37,8 @@ export default function AllWords() {
     },
     refetchOnWindowFocus: false,
   });
-  const markAsLearnedQuery = api.word.markAsLearned.useMutation({
+
+  const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
       setToastType("success");
       setToastText(`"${data.translation}" (un)marked successfully`);
@@ -55,6 +57,7 @@ export default function AllWords() {
       }, 1500);
     },
   });
+
   const deleteWordMutation = api.word.deleteWord.useMutation({
     onSuccess: (data) => {
       setToastType("success");
@@ -93,9 +96,12 @@ export default function AllWords() {
   }
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
-    markAsLearnedQuery.mutate({
+    updateModeMutation.mutate({
       id: arg.id,
-      learned: !arg.learned,
+      mode:
+        arg.mode === LearnMode.LEARNED
+          ? LearnMode.UNLEARNED
+          : LearnMode.LEARNED,
     });
   }
 

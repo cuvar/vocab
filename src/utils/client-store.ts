@@ -14,7 +14,7 @@ export function getLearnedWords(
     .filter((word) => ids.includes(word.id))
     .map((word) => ({
       ...word,
-      mode: "good",
+      cardMode: "good",
       switched: false,
     }));
 

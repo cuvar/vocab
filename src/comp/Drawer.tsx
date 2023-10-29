@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   archiveIcon,
+  boltIcon,
   hatIcon,
   listIcon,
   sparklesIcon,
@@ -29,7 +30,7 @@ export default function Drawer(props: Props) {
     {
       href: "/cards",
       displayName: "Flash cards",
-      icon: archiveIcon,
+      icon: boltIcon,
     },
     {
       href: "/words",
@@ -45,6 +46,11 @@ export default function Drawer(props: Props) {
       href: "/tags",
       displayName: "Tags",
       icon: tagIcon,
+    },
+    {
+      href: "/archive",
+      displayName: "Archive",
+      icon: archiveIcon,
     },
   ];
 

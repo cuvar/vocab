@@ -16,7 +16,7 @@ import { crossIcon, penIcon } from "../utils/icons";
 import Error from "./Error";
 import Loading from "./Loading";
 
-export default function Learned() {
+export default function Archive() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
@@ -29,7 +29,7 @@ export default function Learned() {
       setToastType("success");
       setToastText(`"${data.translation}" removed from learned words`);
       void (async () => {
-        await getLearnedQuery.refetch();
+        await getArchivedQuery.refetch();
       })();
       setTimeout(() => {
         setToastText("");
@@ -44,7 +44,7 @@ export default function Learned() {
     },
   });
 
-  const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
+  const getArchivedQuery = api.word.getArchived.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
         return {
@@ -62,23 +62,23 @@ export default function Learned() {
     if (refetchWords) {
       setRefetchWords(false);
       void (async () => {
-        await getLearnedQuery.refetch();
+        await getArchivedQuery.refetch();
       })();
     }
-  }, [getLearnedQuery, refetchWords, setRefetchWords]);
+  }, [getArchivedQuery, refetchWords, setRefetchWords]);
 
-  if (getLearnedQuery.isLoading) {
+  if (getArchivedQuery.isLoading) {
     return <Loading />;
   }
 
-  if (!wordsToDisplay || !getLearnedQuery.data) {
+  if (!wordsToDisplay || !getArchivedQuery.data) {
     return <Error msg={"No data available"} />;
   }
 
-  function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
+  function handleRemoveFromArchive(e: InteractionEvent, arg: VocabularyWord) {
     updateModeMutation.mutate({
       id: arg.id,
-      mode: LearnMode.UNLEARNED,
+      mode: LearnMode.LEARNED,
     });
   }
 
@@ -97,7 +97,7 @@ export default function Learned() {
       ),
     },
     {
-      action: handleRemoveFromLearned,
+      action: handleRemoveFromArchive,
       children: (
         <div className="flex h-full items-center justify-center bg-error text-white">
           {crossIcon}
@@ -109,7 +109,7 @@ export default function Learned() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
-        Learned words: {getLearnedQuery.data.length}
+        Archived words: {getArchivedQuery.data.length}
       </h1>
       <List words={wordsToDisplay} actions={actions}></List>
     </div>

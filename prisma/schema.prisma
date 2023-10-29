@@ -15,8 +15,14 @@ model Word {
     translation String     @unique
     native      String
     notes       String     @default("")
-    learned     Boolean    @default(false)
+    mode        LearnMode  @default(UNLEARNED)
     tags        WordTags[]
+}
+
+enum LearnMode {
+    UNLEARNED
+    LEARNED
+    ARCHIVED
 }
 
 model Tag {
