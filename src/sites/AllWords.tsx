@@ -1,17 +1,18 @@
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
+import List from "../comp/List";
 import {
-  showModalAtom,
+  refetchWordsAtom,
+  showEditorModalAtom,
   toastTextAtom,
   toastTypeAtom,
-  wordToEditAtom
+  wordToEditAtom,
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { penIcon, switchIcon, trashIcon } from "../utils/icons";
 import Error from "./Error";
-import List from "./List";
 import Loading from "./Loading";
 
 export default function AllWords() {
@@ -19,8 +20,9 @@ export default function AllWords() {
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [, setShowModal] = useAtom(showModalAtom);
-  
+  const [, setShowEditorModal] = useAtom(showEditorModalAtom);
+  const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
+
   const allQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
@@ -73,6 +75,15 @@ export default function AllWords() {
     },
   });
 
+  useEffect(() => {
+    if (refetchWords) {
+      setRefetchWords(false);
+      void (async () => {
+        await allQuery.refetch();
+      })();
+    }
+  }, [allQuery, refetchWords, setRefetchWords]);
+
   if (allQuery.isLoading) {
     return <Loading />;
   }
@@ -94,7 +105,7 @@ export default function AllWords() {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
-    setShowModal(true);
+    setShowEditorModal(true);
   }
 
   const actions: ActionData[] = [
@@ -125,7 +136,7 @@ export default function AllWords() {
   ];
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4">
+    <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>

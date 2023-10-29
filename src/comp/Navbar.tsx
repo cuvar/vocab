@@ -1,13 +1,13 @@
 import { useAtom } from "jotai";
-import { showModalAtom } from "../server/store";
+import { showEditorModalAtom } from "../server/store";
 import { hamburgerIcon, plusIcon } from "../utils/icons";
 import Menu from "./Menu";
 
 export default function Navbar() {
-  const [, setShowModal] = useAtom(showModalAtom)
-  
+  const [, setShowEditorModal] = useAtom(showEditorModalAtom);
+
   function handleAdd() {
-    setShowModal(true);
+    setShowEditorModal(true);
   }
 
   return (

@@ -1,17 +1,18 @@
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
+import List from "../comp/List";
 import {
-  showModalAtom,
+  refetchWordsAtom,
+  showEditorModalAtom,
   toastTextAtom,
   toastTypeAtom,
-  wordToEditAtom
+  wordToEditAtom,
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { crossIcon, penIcon } from "../utils/icons";
 import Error from "./Error";
-import List from "./List";
 import Loading from "./Loading";
 
 export default function Learned() {
@@ -19,14 +20,15 @@ export default function Learned() {
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [showModal, setShowModal] = useAtom(showModalAtom);
-  
+  const [, setShowEditorModal] = useAtom(showEditorModalAtom);
+  const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
+
   const markAsLearnedMutation = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
       setToastType("success");
       setToastText(`"${data.translation}" removed from learned words`);
       void (async () => {
-          await getLearnedQuery.refetch();
+        await getLearnedQuery.refetch();
       })();
       setTimeout(() => {
         setToastText("");
@@ -54,6 +56,15 @@ export default function Learned() {
     refetchOnWindowFocus: false,
   });
 
+  useEffect(() => {
+    if (refetchWords) {
+      setRefetchWords(false);
+      void (async () => {
+        await getLearnedQuery.refetch();
+      })();
+    }
+  }, [getLearnedQuery, refetchWords, setRefetchWords]);
+
   if (getLearnedQuery.isLoading) {
     return <Loading />;
   }
@@ -71,8 +82,7 @@ export default function Learned() {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
-    setShowModal(true);
-    console.log(showModal);
+    setShowEditorModal(true);
   }
 
   const actions: ActionData[] = [
@@ -95,7 +105,7 @@ export default function Learned() {
   ];
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-12 px-4">
+    <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         Learned words: {getLearnedQuery.data.length}
       </h1>

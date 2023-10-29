@@ -22,7 +22,9 @@ export default function Card(props: Props) {
           </div>
           <div className="flex flex-col space-y-2 text-base font-normal">
             <div>{props.word.notes}</div>
-            {props.word.c1business && <div className="">💼</div>}
+            {props.word.tags.length > 0 && (
+              <div>{props.word.tags.map((e) => e.name).join(" ")}</div>
+            )}
           </div>
         </div>
       ) : (

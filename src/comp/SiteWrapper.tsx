@@ -2,33 +2,63 @@ import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect } from "react";
-import { modalIdAtom, showModalAtom, toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
+import {
+  editorModalIdAtom,
+  messageModalIdAtom,
+  showEditorModalAtom,
+  showMessageModalAtom,
+  tagToDeleteAtom,
+  toastTextAtom,
+  toastTypeAtom,
+  wordToEditAtom,
+} from "../server/store";
+import LogoutScreen from "../sites/LogoutScreen";
 import Drawer from "./Drawer";
 import Editor from "./Editor";
-import LogoutScreen from "./LogoutScreen";
+import MessageModal from "./MessageModal";
 import Navbar from "./Navbar";
 import Toast from "./Toast";
 
 type Props = {
   children: React.ReactNode;
-}
+};
 
 export default function SiteWrapper(props: Props) {
-  const [toastText,] = useAtom(toastTextAtom);
-  const [toastType,] = useAtom(toastTypeAtom);
-  const [wordToEdit,] = useAtom(wordToEditAtom);
-  const [modalId,] = useAtom(modalIdAtom);
-  const [showModal] = useAtom(showModalAtom)
+  const [toastText] = useAtom(toastTextAtom);
+  const [toastType] = useAtom(toastTypeAtom);
+  const [wordToEdit] = useAtom(wordToEditAtom);
+  const [tagToDelete] = useAtom(tagToDeleteAtom);
+  const [editorModalId] = useAtom(editorModalIdAtom);
+  const [showEditorModal, setShowEditorModal] = useAtom(showEditorModalAtom);
+  const [messageModalId] = useAtom(messageModalIdAtom);
+  const [showMessageModal, setShowMessageModal] = useAtom(showMessageModalAtom);
 
   useEffect(() => {
-
-    if(showModal) {
+    if (showEditorModal && !showMessageModal) {
       // eslint-disable-next-line
       // @ts-ignore
       // eslint-disable-next-line
-      window[modalId].showModal();
+      window[editorModalId].showModal();
     }
-  }, [showModal])
+    if (showMessageModal && !showEditorModal) {
+      // eslint-disable-next-line
+      // @ts-ignore
+      // eslint-disable-next-line
+      window[messageModalId].showModal();
+    }
+    if (showEditorModal && showMessageModal) {
+      setShowEditorModal(false);
+      setShowMessageModal(false);
+    }
+  }, [
+    editorModalId,
+    messageModalId,
+    setShowEditorModal,
+    setShowMessageModal,
+    showEditorModal,
+    showMessageModal,
+  ]);
+
   const { data } = useSession();
   if (!data?.user) {
     return <LogoutScreen />;
@@ -57,7 +87,8 @@ export default function SiteWrapper(props: Props) {
           mode={toastType}
           visible={toastText.length > 0}
         />
-        {showModal && <Editor word={wordToEdit} />}
+        {showEditorModal && <Editor word={wordToEdit} />}
+        {showMessageModal && <MessageModal tag={tagToDelete} />}
       </Drawer>
     </>
   );

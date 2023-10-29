@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { type ActionData } from "swiper-action";
 import { searchWord } from "../service/searchService";
+import Error from "../sites/Error";
 import { type ListElement } from "../types/types";
 import { resetIcon } from "../utils/icons";
-import Error from "./Error";
-import ListItem from "./ListElement";
+import ListItem from "./ListItem";
 
 type Props = {
   words: ListElement[];
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
   markLearned?: boolean;
-}
+};
 
 export default function List(props: Props) {
   const sorted = props.words.sort((a, b) => a.word.localeCompare(b.word));
@@ -40,10 +40,10 @@ export default function List(props: Props) {
   }
 
   function searchForWord() {
-    if(!iwordenRef.current) {
+    if (!iwordenRef.current) {
       return;
     }
-    
+
     // eslint-disable-next-line
     // @ts-ignore
     // eslint-disable-next-line
@@ -58,9 +58,7 @@ export default function List(props: Props) {
     setShowReset(true);
     const words = searchWord(sorted, input as string);
 
-    setWordsToDisplay(
-      words.filter((r) => r !== null) as ListElement[]
-    );
+    setWordsToDisplay(words.filter((r) => r !== null) as ListElement[]);
   }
 
   function resetSearch() {

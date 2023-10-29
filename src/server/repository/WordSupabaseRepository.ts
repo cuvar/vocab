@@ -1,14 +1,42 @@
 import { type Word } from "@prisma/client";
-import { type SimpleWordInput, type VocabularyWord } from "../../types/types";
+import {
+  type SimpleWordInput,
+  type Tag,
+  type VocabularyWord,
+} from "../../types/types";
 import { prisma } from "../db";
+import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
+const tagRepo = new TagSupabaseRepository();
 
 export class WordSupabaseRepository implements WordRepository {
   getWords = async () => {
     try {
-      const data = await prisma.word.findMany();
+      const data = await prisma.word.findMany({
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
+              },
+            },
+          },
+        },
+      });
       const transformed = data.map((e) => {
-        return addIcons(e);
+        const tags = e.tags.map((t) => {
+          return {
+            id: t.tag.id,
+            name: t.tag.name,
+            description: t.tag.description,
+          } satisfies Tag;
+        });
+        const withIcons = addIcons(e);
+        return { ...withIcons, tags: tags } satisfies VocabularyWord;
       });
       return transformed satisfies VocabularyWord[];
     } catch (error) {
@@ -20,18 +48,52 @@ export class WordSupabaseRepository implements WordRepository {
       where: {
         translation: word,
       },
+      include: {
+        tags: {
+          select: {
+            tag: {
+              select: {
+                id: true,
+                name: true,
+                description: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (data == null) {
       throw new Error("Word not found");
     }
 
-    return addIcons(data);
+    const tags = data.tags.map((t) => {
+      return {
+        id: t.tag.id,
+        name: t.tag.name,
+        description: t.tag.description,
+      } satisfies Tag;
+    });
+    const withIcons = addIcons(data);
+    return { ...withIcons, tags: tags } satisfies VocabularyWord;
   };
   getWordsByFilter = async (word: string, filter: object) => {
     const filtered = await prisma.word.findMany({
       where: {
         ...filter,
+      },
+      include: {
+        tags: {
+          select: {
+            tag: {
+              select: {
+                id: true,
+                name: true,
+                description: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -40,9 +102,17 @@ export class WordSupabaseRepository implements WordRepository {
     }
 
     const transformed = filtered.map((e) => {
-      return addIcons(e);
+      const tags = e.tags.map((t) => {
+        return {
+          id: t.tag.id,
+          name: t.tag.name,
+          description: t.tag.description,
+        } satisfies Tag;
+      });
+      const withIcons = addIcons(e);
+      return { ...withIcons, tags: tags } satisfies VocabularyWord;
     });
-    return transformed as VocabularyWord[];
+    return transformed satisfies VocabularyWord[];
   };
   getCountByFilter = async (filter: object) => {
     const count = await prisma.word.count({
@@ -52,21 +122,37 @@ export class WordSupabaseRepository implements WordRepository {
     });
     return count;
   };
-  updateWord = async (id: string, newWord: SimpleWordInput) => {
+  updateWord = async (wordId: string, newWord: SimpleWordInput) => {
     try {
       const res = await prisma.word.update({
         where: {
-          id: id,
+          id: wordId,
         },
         data: {
           translation: newWord.translation,
           native: newWord.native,
           notes: newWord.notes,
-          c1business: newWord.c1business,
           learned: newWord.learned,
         },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
+              },
+            },
+          },
+        },
       });
-      return addIcons(res);
+
+      const tagData = await tagRepo.setTagsForWord(wordId, newWord.tagIds);
+      console.log(tagData, newWord.tagIds.length);
+
+      return res.translation;
     } catch (error) {
       throw error;
     }
@@ -77,9 +163,30 @@ export class WordSupabaseRepository implements WordRepository {
         where: {
           id: id,
         },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
+              },
+            },
+          },
+        },
       });
 
-      return addIcons(res);
+      const tags = res.tags.map((t) => {
+        return {
+          id: t.tag.id,
+          name: t.tag.name,
+          description: t.tag.description,
+        } satisfies Tag;
+      });
+      const withIcons = addIcons(res);
+      return { ...withIcons, tags: tags } satisfies VocabularyWord;
     } catch (error) {
       throw error;
     }
@@ -97,11 +204,26 @@ export class WordSupabaseRepository implements WordRepository {
           translation: word.translation,
           native: word.native,
           notes: word.notes,
-          c1business: word.c1business,
           learned: false,
         },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
+              },
+            },
+          },
+        },
       });
-      return addIcons(res);
+
+      const tagData = await tagRepo.setTagsForWord(res.id, word.tagIds);
+
+      return res.translation;
     } catch (error) {
       throw error;
     }
@@ -125,9 +247,30 @@ export class WordSupabaseRepository implements WordRepository {
         data: {
           learned: learned,
         },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
+              },
+            },
+          },
+        },
       });
 
-      return addIcons(res);
+      const tags = res.tags.map((t) => {
+        return {
+          id: t.tag.id,
+          name: t.tag.name,
+          description: t.tag.description,
+        } satisfies Tag;
+      });
+      const withIcons = addIcons(res);
+      return { ...withIcons, tags: tags } satisfies VocabularyWord;
     } catch (error) {
       throw error;
     }
@@ -139,10 +282,10 @@ export class WordSupabaseRepository implements WordRepository {
  * @param {Word} word Word object
  * @returns {VocabularyWord} Word with icons
  */
-function addIcons(word: Word): VocabularyWord {
+function addIcons(word: Word) {
   return {
     ...word,
     iconNative: "🇩🇪",
     iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-  } satisfies VocabularyWord;
+  };
 }

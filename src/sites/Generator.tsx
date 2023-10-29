@@ -74,9 +74,11 @@ export default function Generator() {
             <p className="text-3xl font-bold">{wordToDisplay.translation}</p>
             <p className="text-xl">{wordToDisplay.native}</p>
             <p className="text-xl">{wordToDisplay.notes}</p>
-            <div className={`text-md ${!wordToDisplay.c1business && "hidden"}`}>
-              💼
-            </div>
+            {wordToDisplay.tags.length > 0 && (
+              <p className="text-md">
+                {wordToDisplay.tags.map((e) => e.name).join(" ")}
+              </p>
+            )}
           </div>
         )}
       </div>

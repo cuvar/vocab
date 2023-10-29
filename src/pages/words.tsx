@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
-import AllWords from "../comp/AllWords";
 import SiteWrapper from "../comp/SiteWrapper";
+import AllWords from "../sites/AllWords";
 
 const SiteWords: NextPage = () => {
   return (

@@ -11,12 +11,30 @@ datasource db {
 }
 
 model Word {
-    id          String  @id @default(cuid())
-    translation String  @unique
+    id          String     @id @default(cuid())
+    translation String     @unique
     native      String
-    notes       String  @default("")
-    learned     Boolean @default(false)
-    c1business  Boolean @default(false)
+    notes       String     @default("")
+    learned     Boolean    @default(false)
+    tags        WordTags[]
+}
+
+model Tag {
+    id          String     @id @default(cuid())
+    name        String     @unique
+    description String
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    words       WordTags[]
+}
+
+model WordTags {
+    word   Word   @relation(fields: [wordId], references: [id])
+    wordId String
+    tag    Tag    @relation(fields: [tagId], references: [id])
+    tagId  String
+
+    @@id([wordId, tagId])
 }
 
 // Necessary for Next auth

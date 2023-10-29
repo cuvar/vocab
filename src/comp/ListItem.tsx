@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { SwiperAction, type ActionData, type InteractionEvent } from "swiper-action";
+import {
+  SwiperAction,
+  type ActionData,
+  type InteractionEvent,
+} from "swiper-action";
 import { type ListElement } from "../types/types";
 import { checkedIcon, uncheckedIcon } from "../utils/icons";
 
@@ -10,7 +14,7 @@ type Props = {
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
   markLearned?: boolean;
-}
+};
 
 const checkedColor = "text-green-600";
 const uncheckedColor = "text-black-600";
@@ -108,7 +112,13 @@ export default function ListItem(props: Props) {
             )}
           </button>
           <div className="mx-4 flex items-center space-x-4">
-            {props.word.c1business && <p>💼</p>}
+            {props.word.tags.length > 0 && (
+              <div className="flex space-x-2">
+                {props.word.tags.map((tag) => (
+                  <span key={tag.name}>{tag.name}</span>
+                ))}
+              </div>
+            )}
             {showMarkSigns && (
               <button className={`${markColor}`} onClick={toggleMark}>
                 {markIcon}

@@ -1,28 +1,49 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { showModalAtom, toastTextAtom, toastTypeAtom, wordToEditAtom } from "../server/store";
+import {
+  refetchWordsAtom,
+  showEditorModalAtom,
+  toastTextAtom,
+  toastTypeAtom,
+  wordToEditAtom,
+} from "../server/store";
+import { type TagData } from "../types/types";
 import { api } from "../utils/api";
 import RelatedWordList from "./RelatedWordList";
+import TagSelect from "./TagSelect";
 
 export default function Editor() {
   const [englishInput, setEnglishInput] = useState("");
   const [germanInput, setGermanInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
-  const [businessInput, setBusinessInput] = useState(false);
+  const [tagData, setTagData] = useState<TagData[]>([]);
   const [showExistingWords, setShowExistingWords] = useState(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [, setShowModal] = useAtom(showModalAtom)
-  
+  const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
+  const [, setRefetchWords] = useAtom(refetchWordsAtom);
+
+  api.tag.getAll.useQuery(undefined, {
+    onSuccess: (data) => {
+      const _tagData = data.map((d) => {
+        return {
+          ...d,
+          checked: false,
+        } satisfies TagData;
+      });
+      setTagData(_tagData);
+    },
+  });
 
   const addWordMutation = api.word.addWord.useMutation({
-    onSuccess: (data) => {
+    onSuccess: (word) => {
       setToastType("success");
-      setToastText(`"${data.translation}" added`);
+      setToastText(`"${word}" added`);
       setTimeout(() => {
         setToastText("");
       }, 1500);
+      setRefetchWords(true);
     },
     onError: (err) => {
       setToastType("error");
@@ -34,12 +55,14 @@ export default function Editor() {
   });
 
   function addWord() {
+    const tags: string[] = tagData.filter((t) => t.checked).map((t) => t.id);
     addWordMutation.mutate({
       translation: englishInput,
       native: germanInput,
       notes: notesInput,
-      c1business: businessInput,
+      tagIds: tags,
     });
+    clearEditor();
   }
 
   function disableButton() {
@@ -50,14 +73,22 @@ export default function Editor() {
     setEnglishInput("");
     setGermanInput("");
     setNotesInput("");
-    setBusinessInput(false);
-    setShowExistingWords(false); 
+    setShowExistingWords(false);
     setWordToEdit(null);
-    setShowModal(false);
+    setTagData([]);
+    setShowEditorModal(false);
   }
+
+  function onTagsSelectChange(_tagData: TagData[]) {
+    setTagData(_tagData);
+  }
+
   return (
     <form method="dialog" className="modal-box max-w-xs">
-      <button className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2" onClick={clearEditor}>
+      <button
+        className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2"
+        onClick={clearEditor}
+      >
         ✕
       </button>
       <h3 className="mb-4 text-lg font-bold">Add a Word</h3>
@@ -99,15 +130,9 @@ export default function Editor() {
           />
         </div>
         <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Business word</span>
-            <input
-              type="checkbox"
-              checked={businessInput}
-              className="checkbox"
-              onChange={() => setBusinessInput(!businessInput)}
-            />
-          </label>
+          {tagData.length > 0 && (
+            <TagSelect tags={tagData} handler={onTagsSelectChange} />
+          )}
         </div>
         <div className="collapse bg-base-200">
           <input
@@ -115,7 +140,7 @@ export default function Editor() {
             checked={showExistingWords}
             onChange={() => setShowExistingWords(!showExistingWords)}
           />
-          <div className="collapse-title text-xl font-medium">
+          <div className="collapse-title text-lg font-medium">
             Existing words
           </div>
           <div className="collapse-content">

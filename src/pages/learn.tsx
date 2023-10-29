@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
-import Learned from "../comp/Learned";
 import SiteWrapper from "../comp/SiteWrapper";
+import Learned from "../sites/Learned";
 
 const SiteLearn: NextPage = () => {
   return (

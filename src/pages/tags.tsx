@@ -1,13 +1,13 @@
 import { type NextPage } from "next";
+import Tags from "../sites/Tags";
 import SiteWrapper from "../comp/SiteWrapper";
-import Generator from "../sites/Generator";
 
-const SiteLearn: NextPage = () => {
+const SiteWords: NextPage = () => {
   return (
     <SiteWrapper>
-      <Generator />
+      <Tags />
     </SiteWrapper>
   );
 };
 
-export default SiteLearn;
+export default SiteWords;
