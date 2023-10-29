@@ -1,11 +1,12 @@
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
 import {
+  refetchWordsAtom,
   showModalAtom,
   toastTextAtom,
   toastTypeAtom,
-  wordToEditAtom
+  wordToEditAtom,
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
@@ -19,14 +20,15 @@ export default function Learned() {
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [showModal, setShowModal] = useAtom(showModalAtom);
-  
+  const [, setShowModal] = useAtom(showModalAtom);
+  const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
+
   const markAsLearnedMutation = api.word.markAsLearned.useMutation({
     onSuccess: (data) => {
       setToastType("success");
       setToastText(`"${data.translation}" removed from learned words`);
       void (async () => {
-          await getLearnedQuery.refetch();
+        await getLearnedQuery.refetch();
       })();
       setTimeout(() => {
         setToastText("");
@@ -54,6 +56,15 @@ export default function Learned() {
     refetchOnWindowFocus: false,
   });
 
+  useEffect(() => {
+    if (refetchWords) {
+      setRefetchWords(false);
+      void (async () => {
+        await getLearnedQuery.refetch();
+      })();
+    }
+  }, [getLearnedQuery, refetchWords, setRefetchWords]);
+
   if (getLearnedQuery.isLoading) {
     return <Loading />;
   }
@@ -72,7 +83,6 @@ export default function Learned() {
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
     setShowModal(true);
-    console.log(showModal);
   }
 
   const actions: ActionData[] = [

@@ -1,11 +1,12 @@
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
 import {
+  refetchWordsAtom,
   showModalAtom,
   toastTextAtom,
   toastTypeAtom,
-  wordToEditAtom
+  wordToEditAtom,
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
@@ -20,7 +21,8 @@ export default function AllWords() {
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowModal] = useAtom(showModalAtom);
-  
+  const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
+
   const allQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
@@ -72,6 +74,15 @@ export default function AllWords() {
       }, 1500);
     },
   });
+
+  useEffect(() => {
+    if (refetchWords) {
+      setRefetchWords(false);
+      void (async () => {
+        await allQuery.refetch();
+      })();
+    }
+  }, [allQuery, refetchWords, setRefetchWords]);
 
   if (allQuery.isLoading) {
     return <Loading />;

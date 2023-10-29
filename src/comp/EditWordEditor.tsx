@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
 import {
+  refetchWordsAtom,
   showModalAtom,
   toastTextAtom,
   toastTypeAtom,
@@ -22,11 +23,11 @@ export default function Editor(props: Props) {
   const [notesInput, setNotesInput] = useState(props.word.notes);
   const [learnedInput, setLearnedInput] = useState(props.word.learned);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [showModal, setShowModal] = useAtom(showModalAtom);
+  const [, setShowModal] = useAtom(showModalAtom);
   const [tagData, setTagData] = useState<TagData[]>([]);
-
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
+  const [, setRefetchWords] = useAtom(refetchWordsAtom);
 
   api.tag.getAllForWord.useQuery(
     { wordId: props.word.id },
@@ -40,6 +41,7 @@ export default function Editor(props: Props) {
       setTimeout(() => {
         setToastText("");
       }, 1500);
+      setRefetchWords(true);
     },
     onError: (err) => {
       setToastType("error");
@@ -61,6 +63,7 @@ export default function Editor(props: Props) {
       learned: learnedInput,
       tagIds: tags,
     });
+    clearEditor();
   }
 
   function disableButton() {
@@ -68,8 +71,6 @@ export default function Editor(props: Props) {
   }
 
   function clearEditor() {
-    // setShowModal(false)
-    console.log(showModal);
     setWordToEdit(null);
     setTagData([]);
     setShowModal(false);

@@ -33,7 +33,7 @@ export default function SiteWrapper(props: Props) {
       // eslint-disable-next-line
       window[modalId].showModal();
     }
-  }, [showModal]);
+  }, [modalId, showModal]);
   const { data } = useSession();
   if (!data?.user) {
     return <LogoutScreen />;

@@ -7,3 +7,4 @@ export const editorVisibleAtom = atom(false);
 export const modalIdAtom = atom("modalId");
 export const showModalAtom = atom(false);
 export const wordToEditAtom = atom<VocabularyWord | null>(null);
+export const refetchWordsAtom = atom<boolean>(false);
