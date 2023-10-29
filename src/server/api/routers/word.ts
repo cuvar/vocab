@@ -101,6 +101,20 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
+  getArchived: protectedProcedure.query(async () => {
+    try {
+      const learned = await repo.getWordsByFilter({
+        mode: LearnMode.ARCHIVED,
+      });
+      return learned;
+    } catch (error) {
+      console.error(error);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Internal Server Error",
+      });
+    }
+  }),
   searchWord: protectedProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {

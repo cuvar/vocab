@@ -84,7 +84,7 @@ export class WordSupabaseRepository implements WordRepository {
   getWordsByFilter = async (filter: object) => {
     const filtered = await prisma.word.findMany({
       where: {
-        mode: LearnMode.LEARNED,
+        ...filter,
       },
       include: {
         tags: {
