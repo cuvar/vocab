@@ -1,9 +1,10 @@
+import { type LearnMode } from "@prisma/client";
 export type VocabularyWord = {
   id: string;
   translation: string;
   native: string;
   notes: string;
-  learned: boolean;
+  mode: LearnMode;
   iconTranslation: string;
   iconNative: string;
   tags: Tag[];
@@ -16,10 +17,10 @@ export type ListElement = VocabularyWord & {
 
 export type SimpleWordInput = Pick<
   VocabularyWord,
-  "translation" | "native" | "notes" | "learned"
+  "translation" | "native" | "notes" | "mode"
 > & { tagIds: string[] };
 export type VocabularyFlashCard = VocabularyWord & {
-  mode: FlashCardMode;
+  cardMode: FlashCardMode;
   switched: boolean;
 };
 
@@ -40,7 +41,7 @@ export type JsonImportWord = {
   translation: string;
   native: string;
   notes: string;
-  learned: boolean;
+  mode: LearnMode;
   iconNative: string;
   iconTranslation: string;
 };

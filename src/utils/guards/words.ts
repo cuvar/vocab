@@ -1,3 +1,4 @@
+import { LearnMode } from "@prisma/client";
 import {
   type JsonImportWord,
   type ListElement,
@@ -31,7 +32,7 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isTagArray(data.tag)) {
     return false;
   }
-  if (!isBoolean(data.learned)) {
+  if (!isLearnMode(data.mode)) {
     return false;
   }
   if (!isString(data.iconTranslation)) {
@@ -40,6 +41,27 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isString(data.iconNative)) {
     return false;
   }
+  return true;
+}
+
+/**
+ * Checks whether data is of type LearnMode
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type LearnMode
+ */
+export function isLearnMode(data: unknown): data is LearnMode {
+  if (!isString(data)) {
+    return false;
+  }
+
+  if (
+    data !== LearnMode.UNLEARNED &&
+    data !== LearnMode.LEARNED &&
+    data !== LearnMode.ARCHIVED
+  ) {
+    return false;
+  }
+
   return true;
 }
 
@@ -144,7 +166,7 @@ export function isJsonImportWord(data: unknown): data is JsonImportWord {
   if (!isString(data.notes)) {
     return false;
   }
-  if (!isBoolean(data.learned)) {
+  if (!isLearnMode(data.mode)) {
     return false;
   }
   if (!isString(data.iconTranslation)) {

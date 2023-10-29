@@ -21,17 +21,17 @@ export default function FlashCards() {
   const [showNative, setShowNative] = useState(false);
   const [switchChecked, setSwitchChecked] = useState(false);
   const cardRef = useRef(null);
-
   const [unlearnedWords, setUnlearnedWords] = useState<VocabularyFlashCard[]>(
     []
   );
+
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: VocabularyFlashCard[] = data.map(
         (e: VocabularyWord) => {
           return {
             ...e,
-            mode: "none",
+            cardMode: "none",
             switched: switchChecked ? Math.random() > 0.5 : false,
           };
         }
@@ -47,7 +47,7 @@ export default function FlashCards() {
     _words.forEach((e) => {
       const found = learnedIds.find((l) => l === e.id);
       if (found) {
-        e.mode = found ? "good" : "none";
+        e.cardMode = found ? "good" : "none";
       }
     });
 
@@ -55,7 +55,7 @@ export default function FlashCards() {
 
     const randomized = _words.sort(() => Math.random() - 0.5);
     const unlearned = randomized.filter(
-      (e) => e.mode === "none" || e.mode === "bad"
+      (e) => e.cardMode === "none" || e.cardMode === "bad"
     );
 
     setWords(randomized);
@@ -71,7 +71,7 @@ export default function FlashCards() {
   function handleGood() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
-      word.mode = "good";
+      word.cardMode = "good";
       addLearnedWords(word);
     }
     nextWord();
@@ -80,7 +80,7 @@ export default function FlashCards() {
   function handleBad() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
-      word.mode = "bad";
+      word.cardMode = "bad";
     }
     nextWord();
   }
@@ -93,7 +93,7 @@ export default function FlashCards() {
 
     clearLearnedWords();
     words.forEach((e) => {
-      e.mode = "none";
+      e.cardMode = "none";
     });
     init(words);
   }
@@ -105,7 +105,7 @@ export default function FlashCards() {
       setTopCardWord(nextWord ?? null);
       animate();
     } else {
-      const unlearned = words.filter((e) => e.mode === "bad");
+      const unlearned = words.filter((e) => e.cardMode === "bad");
       if (unlearned.length > 0) {
         setUnlearnedWords(unlearned);
         setTopCardIndex(0);

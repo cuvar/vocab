@@ -1,3 +1,4 @@
+import { LearnMode } from "@prisma/client";
 import { useState } from "react";
 import {
   SwiperAction,
@@ -22,18 +23,18 @@ const uncheckedColor = "text-black-600";
 export default function ListItem(props: Props) {
   const [isSwiping, setIsSwiping] = useState<boolean>(false);
   const [markIcon, setMarkIcon] = useState<React.ReactNode>(
-    props.word.learned ? checkedIcon : uncheckedIcon
+    props.word.mode == LearnMode.LEARNED ? checkedIcon : uncheckedIcon
   );
   const showTranslationClass = !props.showTranslation
     ? "bg-white"
     : "bg-violet-200";
   const learnedClass =
-    props.word.learned && props.markLearned
+    props.word.mode == LearnMode.LEARNED && props.markLearned
       ? "border border-4 border-secondary"
       : "";
   const showMarkSigns = typeof props.markHandler !== "undefined";
   const [markColor, setMarkColor] = useState<string>(
-    props.word.learned ? checkedColor : uncheckedColor
+    props.word.mode == LearnMode.LEARNED ? checkedColor : uncheckedColor
   );
 
   function toggleMark() {

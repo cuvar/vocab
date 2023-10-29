@@ -50,7 +50,7 @@ export default function JsonImport() {
               <br />
               &quot;notes&quot;: &quot;&quot;,
               <br />
-              &quot;learned&quot;: false,
+              &quot;mode&quot;: &quot;UNLEARNED&quot;,
               <br />
               &quot;iconNative&quot;: &quot;{env.NEXT_PUBLIC_NATIVE_ICON}&quot;,
               <br />

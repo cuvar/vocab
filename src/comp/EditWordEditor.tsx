@@ -1,5 +1,6 @@
+import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -9,6 +10,7 @@ import {
 } from "../server/store";
 import { type TagData, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
+import { isLearnMode } from "../utils/guards/words";
 import TagSelect from "./TagSelect";
 
 type Props = {
@@ -21,7 +23,7 @@ export default function Editor(props: Props) {
   );
   const [nativeInput, setNativeInput] = useState(props.word.native);
   const [notesInput, setNotesInput] = useState(props.word.notes);
-  const [learnedInput, setLearnedInput] = useState(props.word.learned);
+  const [modeInput, setModeInput] = useState(props.word.mode);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [tagData, setTagData] = useState<TagData[]>([]);
@@ -60,7 +62,7 @@ export default function Editor(props: Props) {
       translation: translationInput,
       native: nativeInput,
       notes: notesInput,
-      learned: learnedInput,
+      mode: modeInput,
       tagIds: tags,
     });
     clearEditor();
@@ -79,6 +81,21 @@ export default function Editor(props: Props) {
   function onTagsSelectChange(_tagData: TagData[]) {
     setTagData(_tagData);
   }
+
+  function transformMode(mode: LearnMode) {
+    const firstLetter = mode.slice(0, 1);
+    const lastLetters = mode.slice(1);
+    return firstLetter + lastLetters.toLocaleLowerCase();
+  }
+
+  function handleSelectChange(e: ChangeEvent<HTMLSelectElement>) {
+    const value = e.target.value;
+    if (!isLearnMode(value)) {
+      return;
+    }
+    setModeInput(value);
+  }
+
   return (
     <form method="dialog" className="modal-box max-w-xs">
       <button
@@ -127,15 +144,33 @@ export default function Editor(props: Props) {
           />
         </div>
         <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Learned</span>
-            <input
-              type="checkbox"
-              checked={learnedInput}
-              className="checkbox"
-              onChange={(e) => setLearnedInput(!learnedInput)}
-            />
+          <label className="label">
+            <span className="label-text">Mode</span>
           </label>
+
+          <select
+            className="select-bordered select w-full max-w-xs"
+            onChange={handleSelectChange}
+          >
+            <option
+              value={LearnMode.LEARNED}
+              selected={modeInput === LearnMode.LEARNED}
+            >
+              {transformMode(LearnMode.LEARNED)}
+            </option>
+            <option
+              value={LearnMode.UNLEARNED}
+              selected={modeInput === LearnMode.UNLEARNED}
+            >
+              {transformMode(LearnMode.UNLEARNED)}
+            </option>
+            <option
+              value={LearnMode.ARCHIVED}
+              selected={modeInput === LearnMode.ARCHIVED}
+            >
+              {transformMode(LearnMode.ARCHIVED)}
+            </option>
+          </select>
         </div>
         <div className="form-control">
           {tagData.length > 0 && (

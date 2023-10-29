@@ -1,3 +1,4 @@
+import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
@@ -95,7 +96,10 @@ export default function AllWords() {
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     markAsLearnedQuery.mutate({
       id: arg.id,
-      learned: !arg.learned,
+      mode:
+        arg.mode === LearnMode.LEARNED
+          ? LearnMode.UNLEARNED
+          : LearnMode.LEARNED,
     });
   }
 

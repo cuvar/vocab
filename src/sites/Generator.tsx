@@ -1,3 +1,4 @@
+import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
@@ -54,7 +55,7 @@ export default function Generator() {
 
     markAsLearned.mutate({
       id: randomWord.data?.id,
-      learned: true,
+      mode: LearnMode.LEARNED,
     });
   }
 

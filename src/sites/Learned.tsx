@@ -1,3 +1,4 @@
+import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
@@ -42,6 +43,7 @@ export default function Learned() {
       }, 1500);
     },
   });
+
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
       const transformed: ListElement[] = data.map((e: VocabularyWord) => {
@@ -76,7 +78,7 @@ export default function Learned() {
   function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
     markAsLearnedMutation.mutate({
       id: arg.id,
-      learned: false,
+      mode: LearnMode.UNLEARNED,
     });
   }
 
