@@ -9,9 +9,9 @@ import {
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
+import LogoutScreen from "../sites/LogoutScreen";
 import Drawer from "./Drawer";
 import Editor from "./Editor";
-import LogoutScreen from "./LogoutScreen";
 import Navbar from "./Navbar";
 import Toast from "./Toast";
 

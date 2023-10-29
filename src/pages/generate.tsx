@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
-import Generator from "../comp/Generator";
 import SiteWrapper from "../comp/SiteWrapper";
+import Generator from "../sites/Generator";
 
 const SiteLearn: NextPage = () => {
   return (

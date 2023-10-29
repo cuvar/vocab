@@ -1,6 +1,6 @@
 import { type NextPage } from "next";
-import FlashCards from "../comp/FlashCards";
 import SiteWrapper from "../comp/SiteWrapper";
+import FlashCards from "../sites/FlashCards";
 
 const SiteLearn: NextPage = () => {
   return (

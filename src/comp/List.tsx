@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { type ActionData } from "swiper-action";
 import { searchWord } from "../service/searchService";
+import Error from "../sites/Error";
 import { type ListElement } from "../types/types";
 import { resetIcon } from "../utils/icons";
-import Error from "./Error";
 import ListItem from "./ListItem";
 
 type Props = {

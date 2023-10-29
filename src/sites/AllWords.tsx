@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
+import List from "../comp/List";
 import {
   refetchWordsAtom,
   showModalAtom,
@@ -12,7 +13,6 @@ import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { penIcon, switchIcon, trashIcon } from "../utils/icons";
 import Error from "./Error";
-import List from "./List";
 import Loading from "./Loading";
 
 export default function AllWords() {
