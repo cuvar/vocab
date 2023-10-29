@@ -14,10 +14,11 @@ export default function Tags() {
   });
 
   function handleAdd() {
-    //
+    setAddMode(true);
   }
 
-  function refetchTags() {
+  function onDoneEditing() {
+    setAddMode(false);
     void (async () => {
       await allQuery.refetch();
     })();
@@ -36,10 +37,19 @@ export default function Tags() {
           {tags.map((tag) => (
             <TagItem
               key={tag.name}
-              tag={tag}
-              refetchHandler={() => refetchTags()}
+              id={tag.id}
+              name={tag.name}
+              description={tag.description}
+              doneHandler={() => onDoneEditing()}
             />
           ))}
+          {addMode && (
+            <TagItem
+              name={""}
+              description={""}
+              doneHandler={() => onDoneEditing()}
+            />
+          )}
         </div>
       </div>
     </div>

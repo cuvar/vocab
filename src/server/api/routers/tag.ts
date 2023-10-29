@@ -60,4 +60,17 @@ export const tagRouter = createTRPCRouter({
         });
       }
     }),
+  addTag: protectedProcedure
+    .input(z.object({ name: z.string(), description: z.string() }))
+    .mutation(async ({ input }) => {
+      try {
+        const addedTag = await repo.addTag(input.name, input.description);
+        return addedTag;
+      } catch {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
 });

@@ -1,19 +1,20 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
-import { type Tag } from "../types/types";
 import { api } from "../utils/api";
 import { checkedIcon, penIcon } from "../utils/icons";
 
 type Props = {
-  tag: Tag;
-  refetchHandler: () => void;
+  id?: string;
+  name: string;
+  description: string;
+  doneHandler: () => void;
 };
 
 export default function TagItem(props: Props) {
-  const [nameInput, setNameInput] = useState(props.tag.name);
-  const [descInput, setDescInput] = useState(props.tag.description);
-  const [editMode, setEditMode] = useState(false);
+  const [nameInput, setNameInput] = useState(props.name);
+  const [descInput, setDescInput] = useState(props.description);
+  const [editMode, setEditMode] = useState(props.id ? false : true);
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
 
@@ -24,7 +25,24 @@ export default function TagItem(props: Props) {
       setTimeout(() => {
         setToastText("");
       }, 1500);
-      props.refetchHandler();
+      props.doneHandler();
+    },
+    onError: (err) => {
+      setToastType("error");
+      setToastText(`${err.message}`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
+  const addTagMutation = api.tag.addTag.useMutation({
+    onSuccess: (tag) => {
+      setToastType("success");
+      setToastText(`"${tag.name}" added`);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+      props.doneHandler();
     },
     onError: (err) => {
       setToastType("error");
@@ -41,11 +59,18 @@ export default function TagItem(props: Props) {
 
   function handleSave() {
     setEditMode(false);
-    updateTagMutation.mutate({
-      id: props.tag.id,
-      name: nameInput,
-      description: descInput,
-    });
+    if (props.id) {
+      updateTagMutation.mutate({
+        id: props.id,
+        name: nameInput,
+        description: descInput,
+      });
+    } else {
+      addTagMutation.mutate({
+        name: nameInput,
+        description: descInput,
+      });
+    }
   }
 
   return (

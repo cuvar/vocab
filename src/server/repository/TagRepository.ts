@@ -6,4 +6,5 @@ export interface TagRepository {
   getTagsForWord: (word: string) => Promise<Tag[]>;
   setTagsForWord: (wordId: string, tagIds: string[]) => Promise<number>;
   updateTag: (tagId: string, name: string, description: string) => Promise<Tag>;
+  addTag: (name: string, description: string) => Promise<Tag>;
 }
