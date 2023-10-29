@@ -1,6 +1,7 @@
 import {
   type ListElement,
   type Tag,
+  type TagData,
   type VocabularyWord,
 } from "../../types/types";
 import { isBoolean, isObject, isString } from "./base";
@@ -46,7 +47,7 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
  * @param {unknown} data Unkown type to be checked
  * @returns {boolean} Whether data is of type Tag
  */
-function isTag(data: unknown): data is Tag {
+export function isTag(data: unknown): data is Tag {
   if (!isString(data)) {
     return false;
   }
@@ -58,8 +59,33 @@ function isTag(data: unknown): data is Tag {
  * @param {unknown} data Unkown type to be checked
  * @returns {boolean} Whether data is of type Tag[]
  */
-function isTagArray(data: unknown): data is Tag[] {
+export function isTagArray(data: unknown): data is Tag[] {
   return Array.isArray(data) && data.every((d) => isTag(d));
+}
+
+/**
+ * Checks whether data is of type TagData
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type TagData
+ */
+export function isTagData(data: unknown): data is TagData {
+  if (!isTag(data)) {
+    return false;
+  }
+  if (!("checked" in data) || !isBoolean(data.checked)) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * Checks whether data is of type TagData[]
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type TagData[]
+ */
+export function isTagDataArray(data: unknown): data is TagData[] {
+  return Array.isArray(data) && data.every((d) => isTagData(d));
 }
 
 /**

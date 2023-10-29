@@ -17,7 +17,7 @@ export type ListElement = VocabularyWord & {
 export type SimpleWordInput = Pick<
   VocabularyWord,
   "translation" | "native" | "notes" | "learned"
->;
+> & { tagIds: string[] };
 export type VocabularyFlashCard = VocabularyWord & {
   mode: FlashCardMode;
   switched: boolean;
@@ -30,4 +30,8 @@ export type Tag = {
   id: string;
   name: string;
   description: string;
+};
+
+export type TagData = Tag & {
+  checked: boolean;
 };

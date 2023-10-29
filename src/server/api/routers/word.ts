@@ -120,6 +120,7 @@ export const wordRouter = createTRPCRouter({
         translation: z.string(),
         native: z.string(),
         notes: z.string(),
+        tagIds: z.array(z.string()),
       })
     )
     .mutation(async ({ input }) => {
@@ -164,6 +165,7 @@ export const wordRouter = createTRPCRouter({
         native: z.string(),
         notes: z.string(),
         learned: z.boolean(),
+        tagIds: z.array(z.string()),
       })
     )
     .mutation(async ({ input }) => {
