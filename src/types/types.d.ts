@@ -35,3 +35,12 @@ export type Tag = {
 export type TagData = Tag & {
   checked: boolean;
 };
+
+export type JsonImportWord = {
+  translation: string;
+  native: string;
+  notes: string;
+  learned: boolean;
+  iconNative: string;
+  iconTranslation: string;
+};

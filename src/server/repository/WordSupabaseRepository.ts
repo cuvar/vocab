@@ -1,5 +1,7 @@
 import { type Word } from "@prisma/client";
+import { env } from "../../env/client.mjs";
 import {
+  type JsonImportWord,
   type SimpleWordInput,
   type Tag,
   type VocabularyWord,
@@ -43,6 +45,7 @@ export class WordSupabaseRepository implements WordRepository {
       throw error;
     }
   };
+
   getWord = async (word: string) => {
     const data = await prisma.word.findUnique({
       where: {
@@ -77,6 +80,7 @@ export class WordSupabaseRepository implements WordRepository {
     const withIcons = addIcons(data);
     return { ...withIcons, tags: tags } satisfies VocabularyWord;
   };
+
   getWordsByFilter = async (word: string, filter: object) => {
     const filtered = await prisma.word.findMany({
       where: {
@@ -114,6 +118,7 @@ export class WordSupabaseRepository implements WordRepository {
     });
     return transformed satisfies VocabularyWord[];
   };
+
   getCountByFilter = async (filter: object) => {
     const count = await prisma.word.count({
       where: {
@@ -122,6 +127,7 @@ export class WordSupabaseRepository implements WordRepository {
     });
     return count;
   };
+
   updateWord = async (wordId: string, newWord: SimpleWordInput) => {
     try {
       const res = await prisma.word.update({
@@ -157,6 +163,7 @@ export class WordSupabaseRepository implements WordRepository {
       throw error;
     }
   };
+
   deleteWord = async (id: string) => {
     try {
       const res = await prisma.word.delete({
@@ -191,6 +198,7 @@ export class WordSupabaseRepository implements WordRepository {
       throw error;
     }
   };
+
   addWord = async (word: SimpleWordInput) => {
     if (word.translation === "" || word.native === "") {
       throw new Error("Word cannot be empty");
@@ -228,6 +236,7 @@ export class WordSupabaseRepository implements WordRepository {
       throw error;
     }
   };
+
   updateLearned = async (id: string, learned: boolean) => {
     try {
       const word = await prisma.word.findUnique({
@@ -275,6 +284,27 @@ export class WordSupabaseRepository implements WordRepository {
       throw error;
     }
   };
+
+  importWords = async (words: JsonImportWord[]) => {
+    try {
+      const transformed = words.map((w) => {
+        return {
+          native: w.native,
+          translation: w.translation,
+          learned: w.learned,
+          notes: w.notes,
+        };
+      });
+      const data = await prisma.word.createMany({
+        data: transformed,
+        skipDuplicates: true,
+      });
+
+      return data.count;
+    } catch (error) {
+      throw error;
+    }
+  };
 }
 
 /**
@@ -285,7 +315,7 @@ export class WordSupabaseRepository implements WordRepository {
 function addIcons(word: Word) {
   return {
     ...word,
-    iconNative: "🇩🇪",
-    iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
+    iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
   };
 }

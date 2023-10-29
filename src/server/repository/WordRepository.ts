@@ -1,4 +1,8 @@
-import { type SimpleWordInput, type VocabularyWord } from "../../types/types";
+import {
+  type JsonImportWord,
+  type SimpleWordInput,
+  type VocabularyWord,
+} from "../../types/types";
 
 export interface WordRepository {
   getWords: () => Promise<VocabularyWord[]>;
@@ -9,4 +13,5 @@ export interface WordRepository {
   deleteWord: (id: string) => Promise<VocabularyWord>;
   addWord: (word: SimpleWordInput) => Promise<string>;
   updateLearned: (id: string, learned: boolean) => Promise<VocabularyWord>;
+  importWords: (words: JsonImportWord[]) => Promise<number>;
 }

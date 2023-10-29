@@ -2,6 +2,7 @@ import { z } from "zod";
 // import * as allWords from "../../../../allwords.json";
 import { TRPCError } from "@trpc/server";
 import { searchWord } from "../../../service/searchService";
+import { isJsonImportWordArray } from "../../../utils/guards/words";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 const repo = new WordSupabaseRepository();
@@ -33,7 +34,8 @@ export const wordRouter = createTRPCRouter({
     try {
       const res = await repo.getWords();
       return res;
-    } catch {
+    } catch (error) {
+      console.error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -46,7 +48,8 @@ export const wordRouter = createTRPCRouter({
       try {
         const res = await repo.getWord(input.word);
         return res;
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -57,7 +60,8 @@ export const wordRouter = createTRPCRouter({
     try {
       const learned = await repo.getWordsByFilter("", { learned: true });
       return learned;
-    } catch {
+    } catch (error) {
+      console.error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -70,7 +74,8 @@ export const wordRouter = createTRPCRouter({
       try {
         const res = await repo.getWords();
         return searchWord(res, input.word);
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -81,7 +86,8 @@ export const wordRouter = createTRPCRouter({
     try {
       const res = await repo.getCountByFilter({ learned: false });
       return res;
-    } catch {
+    } catch (error) {
+      console.error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -94,7 +100,8 @@ export const wordRouter = createTRPCRouter({
       const randomWord =
         unlearned[Math.floor(Math.random() * unlearned.length)];
       return randomWord;
-    } catch {
+    } catch (error) {
+      console.error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -107,7 +114,8 @@ export const wordRouter = createTRPCRouter({
       try {
         const res = await repo.updateLearned(input.id, input.learned);
         return res;
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -132,7 +140,8 @@ export const wordRouter = createTRPCRouter({
       try {
         const res = await repo.addWord(newWord);
         return res;
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -150,7 +159,8 @@ export const wordRouter = createTRPCRouter({
       try {
         const res = await repo.deleteWord(input.id);
         return res;
-      } catch (e) {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -172,7 +182,31 @@ export const wordRouter = createTRPCRouter({
       try {
         const res = await repo.updateWord(input.id, input);
         return res;
-      } catch {
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
+  importWords: protectedProcedure
+    .input(
+      z.object({
+        text: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      try {
+        const parsed = JSON.parse(input.text) as string;
+        if (!isJsonImportWordArray(parsed)) {
+          throw new Error("Input is in wrong format");
+        }
+
+        const res = await repo.importWords(parsed);
+        return res;
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
