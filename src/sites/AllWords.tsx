@@ -4,7 +4,7 @@ import { type ActionData, type InteractionEvent } from "swiper-action";
 import List from "../comp/List";
 import {
   refetchWordsAtom,
-  showModalAtom,
+  showEditorModalAtom,
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
@@ -20,7 +20,7 @@ export default function AllWords() {
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [, setShowModal] = useAtom(showModalAtom);
+  const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
 
   const allQuery = api.word.getAll.useQuery(undefined, {
@@ -105,7 +105,7 @@ export default function AllWords() {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
-    setShowModal(true);
+    setShowEditorModal(true);
   }
 
   const actions: ActionData[] = [

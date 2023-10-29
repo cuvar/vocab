@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { modalIdAtom, showModalAtom } from "../server/store";
+import { modalIdAtom, showEditorModalAtom } from "../server/store";
 
 type Props = {
   children: React.ReactNode;
@@ -7,11 +7,11 @@ type Props = {
 
 export default function Modal(props: Props) {
   const [modalId] = useAtom(modalIdAtom);
-  const [showModal, setShowModal] = useAtom(showModalAtom);
+  const [showEditorModal, setShowEditorModal] = useAtom(showEditorModalAtom);
 
   window.addEventListener("keydown", (evt) => {
-    if (showModal && evt.key === "Escape") {
-      setShowModal(false);
+    if (showEditorModal && evt.key === "Escape") {
+      setShowEditorModal(false);
     }
   });
 

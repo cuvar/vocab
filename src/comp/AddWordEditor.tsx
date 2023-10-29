@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import {
   refetchWordsAtom,
-  showModalAtom,
+  showEditorModalAtom,
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
@@ -19,7 +19,7 @@ export default function Editor() {
   const [tagData, setTagData] = useState<TagData[]>([]);
   const [showExistingWords, setShowExistingWords] = useState(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
-  const [, setShowModal] = useAtom(showModalAtom);
+  const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setRefetchWords] = useAtom(refetchWordsAtom);
@@ -76,7 +76,7 @@ export default function Editor() {
     setShowExistingWords(false);
     setWordToEdit(null);
     setTagData([]);
-    setShowModal(false);
+    setShowEditorModal(false);
   }
 
   function onTagsSelectChange(_tagData: TagData[]) {

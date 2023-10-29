@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useEffect } from "react";
 import {
   modalIdAtom,
-  showModalAtom,
+  showEditorModalAtom,
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
@@ -24,16 +24,16 @@ export default function SiteWrapper(props: Props) {
   const [toastType] = useAtom(toastTypeAtom);
   const [wordToEdit] = useAtom(wordToEditAtom);
   const [modalId] = useAtom(modalIdAtom);
-  const [showModal] = useAtom(showModalAtom);
+  const [showEditorModal] = useAtom(showEditorModalAtom);
 
   useEffect(() => {
-    if (showModal) {
+    if (showEditorModal) {
       // eslint-disable-next-line
       // @ts-ignore
       // eslint-disable-next-line
       window[modalId].showModal();
     }
-  }, [modalId, showModal]);
+  }, [modalId, showEditorModal]);
   const { data } = useSession();
   if (!data?.user) {
     return <LogoutScreen />;
@@ -62,7 +62,7 @@ export default function SiteWrapper(props: Props) {
           mode={toastType}
           visible={toastText.length > 0}
         />
-        {showModal && <Editor word={wordToEdit} />}
+        {showEditorModal && <Editor word={wordToEdit} />}
       </Drawer>
     </>
   );
