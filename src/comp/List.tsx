@@ -5,6 +5,7 @@ import Error from "../sites/Error";
 import { type ListElement } from "../types/types";
 import { resetIcon } from "../utils/icons";
 import ListItem from "./ListItem";
+import { env } from "../env/client.mjs";
 
 type Props = {
   words: ListElement[];
@@ -80,8 +81,8 @@ export default function List(props: Props) {
           ...e,
           word: e.otherWord,
           otherWord: e.word,
-          iconNative: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-          iconTranslation: "🇩🇪",
+          iconNative: env.NEXT_PUBLIC_TRANSLATION_ICON,
+          iconTranslation: env.NEXT_PUBLIC_NATIVE_ICON,
         };
       });
       setWordsToDisplay(transformed);
@@ -92,8 +93,8 @@ export default function List(props: Props) {
           ...e,
           word: e.otherWord,
           otherWord: e.word,
-          iconNative: "🇩🇪",
-          iconTranslation: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+          iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
+          iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
         };
       });
       setWordsToDisplay(transformed);

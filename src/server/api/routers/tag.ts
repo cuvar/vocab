@@ -11,7 +11,8 @@ export const tagRouter = createTRPCRouter({
     try {
       const res = await repo.getTags();
       return res;
-    } catch {
+    } catch (error) {
+      console.error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -34,7 +35,8 @@ export const tagRouter = createTRPCRouter({
         });
 
         return combinedTags;
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -53,7 +55,8 @@ export const tagRouter = createTRPCRouter({
           input.description
         );
         return updatedTag;
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -66,7 +69,8 @@ export const tagRouter = createTRPCRouter({
       try {
         const addedTag = await repo.addTag(input.name, input.description);
         return addedTag;
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -79,7 +83,8 @@ export const tagRouter = createTRPCRouter({
       try {
         const deletedTag = await repo.deleteTag(input.id);
         return deletedTag;
-      } catch {
+      } catch (error) {
+        console.error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",

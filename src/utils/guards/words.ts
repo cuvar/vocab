@@ -1,4 +1,5 @@
 import {
+  type JsonImportWord,
   type ListElement,
   type Tag,
   type TagData,
@@ -123,4 +124,43 @@ export function isListElement(data: unknown): data is ListElement {
  */
 export function isListElementArray(data: unknown): data is ListElement[] {
   return Array.isArray(data) && data.every((d) => isListElement(d));
+}
+
+/**
+ * Checks whether data is of type JsonImportWord
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type JsonImportWord
+ */
+export function isJsonImportWord(data: unknown): data is JsonImportWord {
+  if (!isObject(data)) {
+    return false;
+  }
+  if (!isString(data.translation)) {
+    return false;
+  }
+  if (!isString(data.native)) {
+    return false;
+  }
+  if (!isString(data.notes)) {
+    return false;
+  }
+  if (!isBoolean(data.learned)) {
+    return false;
+  }
+  if (!isString(data.iconTranslation)) {
+    return false;
+  }
+  if (!isString(data.iconNative)) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Checks whether data is of type JsonImportWord[]
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type JsonImportWord[]
+ */
+export function isJsonImportWordArray(data: unknown): data is ListElement[] {
+  return Array.isArray(data) && data.every((d) => isJsonImportWord(d));
 }

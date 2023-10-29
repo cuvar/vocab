@@ -13,6 +13,8 @@ jobs:
       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
       USERNAME: ${{ secrets.USERNAME }}
       PASSWORD: ${{ secrets.PASSWORD }}
+      NEXT_PUBLIC_NATIVE_ICON: ${{ secrets.NEXT_PUBLIC_NATIVE_ICON }}
+      NEXT_PUBLIC_TRANSLATION_ICON: ${{ secrets.NEXT_PUBLIC_TRANSLATION_ICON }}
 
     strategy:
       matrix:
