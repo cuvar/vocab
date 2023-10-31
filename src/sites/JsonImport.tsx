@@ -1,6 +1,5 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { env } from "../env/client.mjs";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { api } from "../utils/api";
 
@@ -51,11 +50,6 @@ export default function JsonImport() {
               &quot;notes&quot;: &quot;&quot;,
               <br />
               &quot;mode&quot;: &quot;UNLEARNED&quot;,
-              <br />
-              &quot;iconNative&quot;: &quot;{env.NEXT_PUBLIC_NATIVE_ICON}&quot;,
-              <br />
-              &quot;iconTranslation&quot;: &quot;
-              {env.NEXT_PUBLIC_TRANSLATION_ICON}&quot;
               <br />
               &#125;]
             </code>
