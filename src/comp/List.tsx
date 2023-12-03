@@ -12,6 +12,7 @@ type Props = {
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
   markLearned?: boolean;
+  enableClickingItems: boolean;
 };
 
 export default function List(props: Props) {
@@ -139,7 +140,9 @@ export default function List(props: Props) {
               key={e.id}
               word={e}
               showTranslation={e.word == currentShown}
-              clickHandler={toggleCurrentShown}
+              clickHandler={
+                props.enableClickingItems ? toggleCurrentShown : undefined
+              }
               markHandler={props.markHandler}
               actions={props.actions}
               markLearned={props.markLearned}

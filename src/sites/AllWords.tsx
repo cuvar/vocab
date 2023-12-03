@@ -146,7 +146,12 @@ export default function AllWords() {
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>
-      <List words={wordsToDisplay} actions={actions} markLearned={true} />
+      <List
+        words={wordsToDisplay}
+        actions={actions}
+        markLearned={true}
+        enableClickingItems={false}
+      />
     </div>
   );
 }
