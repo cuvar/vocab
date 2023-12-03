@@ -111,7 +111,11 @@ export default function Archive() {
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         Archived words: {getArchivedQuery.data.length}
       </h1>
-      <List words={wordsToDisplay} actions={actions}></List>
+      <List
+        words={wordsToDisplay}
+        actions={actions}
+        enableClickingItems={false}
+      ></List>
     </div>
   );
 }

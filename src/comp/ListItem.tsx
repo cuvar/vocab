@@ -11,7 +11,7 @@ import { checkedIcon, uncheckedIcon } from "../utils/icons";
 type Props = {
   word: ListElement;
   showTranslation: boolean;
-  clickHandler: (eng: string) => void;
+  clickHandler?: (eng: string) => void;
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
   markLearned?: boolean;
@@ -50,7 +50,9 @@ export default function ListItem(props: Props) {
   function handleClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     if (isSwiping) return;
 
-    props.clickHandler(props.word.word);
+    if (props.clickHandler) {
+      props.clickHandler(props.word.word);
+    }
   }
 
   function handleSwipeStart(e: InteractionEvent) {

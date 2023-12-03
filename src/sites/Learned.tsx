@@ -111,7 +111,11 @@ export default function Learned() {
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         Learned words: {getLearnedQuery.data.length}
       </h1>
-      <List words={wordsToDisplay} actions={actions}></List>
+      <List
+        words={wordsToDisplay}
+        actions={actions}
+        enableClickingItems={false}
+      ></List>
     </div>
   );
 }
