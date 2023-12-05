@@ -70,7 +70,11 @@ export default function Generator() {
     <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <div className="flex-col items-center space-y-2 text-center">
         {wordToDisplay == null ? (
-          <p className="text-3xl text-error">No word available</p>
+          randomWord.error ? (
+            <p className="text-3xl text-error">No word available</p>
+          ) : (
+            <p className="text-3xl italic">Loading...</p>
+          )
         ) : (
           <div className="flex h-60 w-full flex-col justify-center">
             <p className="text-3xl font-bold">{wordToDisplay.translation}</p>
