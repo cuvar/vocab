@@ -15,9 +15,12 @@ import { api } from "../utils/api";
 import { crossIcon, penIcon } from "../utils/icons";
 import Error from "./Error";
 import Loading from "./Loading";
+import { getLearnedWords, setLearnedWords } from "../service/cache";
 
 export default function Learned() {
-  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
+  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
+    getLearnedWords()
+  );
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
@@ -54,6 +57,7 @@ export default function Learned() {
         };
       });
       setWordsToDisplay(transformed);
+      setLearnedWords(transformed);
     },
     refetchOnWindowFocus: false,
   });
