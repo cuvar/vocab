@@ -14,6 +14,7 @@ import {
 } from "../utils/icons";
 import { addCard, clearCards, getCardsIds } from "../utils/store/flashcard";
 import { getLearnedWords } from "../utils/store/learned";
+import { getSettings, setSettings } from "../utils/store/settings";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -24,7 +25,9 @@ export default function FlashCards() {
     null
   );
   const [showNative, setShowNative] = useState(false);
-  const [switchChecked, setSwitchChecked] = useState(false);
+  const [switchChecked, setSwitchChecked] = useState(
+    getSettings()?.randomizeCards ?? false
+  );
   const cardRef = useRef(null);
   const [unlearnedWords, setUnlearnedWords] = useState<VocabularyFlashCard[]>(
     []
@@ -176,6 +179,7 @@ export default function FlashCards() {
       return w;
     });
     setUnlearnedWords(newUnlearned);
+    setSettings({ randomizeCards: newChecked });
   }
 
   function handleArchive() {

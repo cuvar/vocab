@@ -1,4 +1,5 @@
 import type { Settings } from "../../types/types";
+import { isObject } from "./base";
 
 /**
  * Checks whether data is of type Settings
@@ -6,5 +7,13 @@ import type { Settings } from "../../types/types";
  * @returns {boolean} Whether data is of type Date
  */
 export function isVocabSettings(data: unknown): data is Settings {
-  return data instanceof Date;
+  if (!isObject(data)) {
+    return false;
+  }
+
+  if (!("randomizeCards" in data) || typeof data.randomizeCards !== "boolean") {
+    return false;
+  }
+
+  return true;
 }
