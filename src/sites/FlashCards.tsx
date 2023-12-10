@@ -67,6 +67,7 @@ export default function FlashCards() {
   useEffect(() => {
     const transformed = toFlashCards(getLearnedWords());
     initState(transformed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function toFlashCards(data: VocabularyWord[]) {
