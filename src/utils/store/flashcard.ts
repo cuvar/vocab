@@ -2,7 +2,7 @@ import {
   type VocabularyFlashCard,
   type VocabularyWord,
 } from "../../types/types";
-import { KEY_LEARNED_CARDS, KEY_UNLEARNED_CARDS } from "./keys";
+import { KEY_LEARNED_CARDS } from "./keys";
 
 /**
  * Returns the learned cards
@@ -32,22 +32,10 @@ export function getCards(
  * @returns {string[]} The ids of the learned cards
  */
 export function getCardsIds(learned: boolean) {
-  const key = learned ? KEY_LEARNED_CARDS : KEY_UNLEARNED_CARDS;
-  const idString = localStorage.getItem(key);
+  const idString = localStorage.getItem(getKey(learned));
   if (!idString) return [];
   const ids = idString.split(",").map((id) => id.trim());
   return ids;
-}
-
-/**
- * Sets the learned cards in the localStorage
- * @param {VocabularyWord[]} words The words that have been learned
- * @param {boolean} learned Whether it should be set in learned or unlearned store
- */
-export function setCards(words: VocabularyWord[], learned: boolean) {
-  const idString = words.map((word) => word.id).join(",");
-  const key = learned ? KEY_LEARNED_CARDS : KEY_UNLEARNED_CARDS;
-  localStorage.setItem(key, idString);
 }
 
 /**
@@ -61,19 +49,7 @@ export function addCard(newWord: VocabularyWord, learned: boolean) {
     return;
   }
   const newIds = learnedWordIds.concat(newWord.id);
-  const key = learned ? KEY_LEARNED_CARDS : KEY_UNLEARNED_CARDS;
-  localStorage.setItem(key, newIds.join(","));
-}
-
-/**
- * Removes a word that has been learned from the localStorage
- * @param {VocabularyWord} word The word that has been learned
- * @param {boolean} learned Whether it should be removed from learned or unlearned store
- */
-export function removeCard(word: VocabularyWord, learned: boolean) {
-  const learnedWordIds = getCardsIds(learned);
-  const newIds = learnedWordIds.filter((id) => id !== word.id);
-  localStorage.setItem(KEY_LEARNED_CARDS, newIds.join(","));
+  localStorage.setItem(getKey(learned), newIds.join(","));
 }
 
 /**
@@ -81,9 +57,16 @@ export function removeCard(word: VocabularyWord, learned: boolean) {
  * @param {boolean} learned Whether it should be cleared from learned or unlearned store
  */
 export function clearCards(learned: boolean) {
-  if (learned) {
-    localStorage.removeItem(KEY_LEARNED_CARDS);
-  } else {
-    localStorage.removeItem(KEY_UNLEARNED_CARDS);
-  }
+  localStorage.removeItem(getKey(learned));
+}
+
+/**
+ * Returns the key for the localStorage
+ * @param {boolean} chooseLearned Whether it should be returned from learned or unlearned store
+ * @returns {string} The key for the localStorage
+ */
+function getKey(chooseLearned: boolean) {
+  return KEY_LEARNED_CARDS;
+  // this is not used as keyLookeAtCards is not used
+  // return chooseLearned ? KEY_LEARNED_CARDS : KEY_LOOKED_AT_CARDS;
 }

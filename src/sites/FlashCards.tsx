@@ -29,9 +29,7 @@ export default function FlashCards() {
     getSettings()?.randomizeCards ?? false
   );
   const cardRef = useRef(null);
-  const [unlearnedWords, setUnlearnedWords] = useState<VocabularyFlashCard[]>(
-    []
-  );
+  const [unlookedWords, setUnlookedWords] = useState<VocabularyFlashCard[]>([]);
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
 
@@ -95,12 +93,10 @@ export default function FlashCards() {
 
   function initState(_words: VocabularyFlashCard[]) {
     const randomized = _words.sort(() => Math.random() - 0.5);
-    const unlearned = randomized.filter(
-      (e) => e.cardMode === "none" || e.cardMode === "bad"
-    );
+    const unlearned = randomized.filter((e) => e.cardMode !== "good");
 
     setWords(randomized);
-    setUnlearnedWords(unlearned);
+    setUnlookedWords(unlearned);
     setTopCardIndex(unlearned.length > 0 ? 0 : -1);
     setTopCardWord(unlearned[0] ? unlearned[0] : null);
   }
@@ -122,6 +118,7 @@ export default function FlashCards() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
       word.cardMode = "bad";
+      addCard(word, false);
     }
     nextWord();
   }
@@ -140,15 +137,15 @@ export default function FlashCards() {
   }
 
   function nextWord() {
-    if (unlearnedWords.length > topCardIndex + 1) {
+    if (unlookedWords.length > topCardIndex + 1) {
       setTopCardIndex(topCardIndex + 1);
-      const nextWord = unlearnedWords[topCardIndex + 1];
+      const nextWord = unlookedWords[topCardIndex + 1];
       setTopCardWord(nextWord ?? null);
       animate();
     } else {
       const unlearned = words.filter((e) => e.cardMode === "bad");
       if (unlearned.length > 0) {
-        setUnlearnedWords(unlearned);
+        setUnlookedWords(unlearned);
         setTopCardIndex(0);
         setTopCardWord(unlearned[0] ?? null);
       } else {
@@ -174,11 +171,11 @@ export default function FlashCards() {
   function handleSwitchChange() {
     const newChecked = !switchChecked;
     setSwitchChecked(newChecked);
-    const newUnlearned = unlearnedWords.map((w) => {
+    const newUnlearned = unlookedWords.map((w) => {
       w.switched = newChecked ? Math.random() > 0.5 : false;
       return w;
     });
-    setUnlearnedWords(newUnlearned);
+    setUnlookedWords(newUnlearned);
     setSettings({ randomizeCards: newChecked });
   }
 
@@ -204,7 +201,7 @@ export default function FlashCards() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 text-2xl tracking-tight">
-        Flash card mode: {unlearnedWords.length} words
+        Flash card mode: {unlookedWords.length} words
       </h1>
       <div className="flex w-full">
         <label className="label mr-4 flex cursor-pointer space-x-2">
@@ -217,7 +214,7 @@ export default function FlashCards() {
           <span className="label-text">Randomize</span>
         </label>
       </div>
-      <ProgressBar max={unlearnedWords.length} current={topCardIndex + 1} />
+      <ProgressBar max={unlookedWords.length} current={topCardIndex + 1} />
       <div className="flex w-full max-w-[24rem] flex-col items-center space-y-12">
         {topCardWord ? (
           <div
