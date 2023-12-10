@@ -7,19 +7,15 @@ import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import {
-  addLearnedCard,
-  clearLearnedCards,
-  getLearnedCardsIds,
-} from "../utils/store/flashcard";
-import {
   archiveIcon,
   arrowRoundIcon,
   thumbsDownIcon,
   thumbsUpIcon,
 } from "../utils/icons";
+import { addCard, clearCards, getCardsIds } from "../utils/store/flashcard";
+import { getLearnedWords } from "../utils/store/learned";
 import Error from "./Error";
 import Loading from "./Loading";
-import { getLearnedWords } from "../utils/store/learned";
 
 export default function FlashCards() {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
@@ -82,7 +78,7 @@ export default function FlashCards() {
   }
 
   function init(_words: VocabularyFlashCard[]) {
-    const learnedIds = getLearnedCardsIds();
+    const learnedIds = getCardsIds(true);
 
     _words.forEach((e) => {
       const found = learnedIds.find((l) => l === e.id);
@@ -114,7 +110,7 @@ export default function FlashCards() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
       word.cardMode = "good";
-      addLearnedCard(word);
+      addCard(word, true);
     }
     nextWord();
   }
@@ -133,7 +129,7 @@ export default function FlashCards() {
     );
     if (!confirmed) return;
 
-    clearLearnedCards();
+    clearCards(true);
     words.forEach((e) => {
       e.cardMode = "none";
     });
