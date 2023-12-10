@@ -27,13 +27,13 @@ export const api = createTRPCNext<AppRouter>({
       /**
        * Transformer used for data de-serialization from the server
        * @see https://trpc.io/docs/data-transformers
-       **/
+       */
       transformer: superjson,
 
       /**
        * Links used to determine request flow from client to server
        * @see https://trpc.io/docs/links
-       * */
+       */
       links: [
         loggerLink({
           enabled: (opts) =>
@@ -42,6 +42,9 @@ export const api = createTRPCNext<AppRouter>({
         }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
+          headers: {
+            "Cache-Control": "s-maxage=1, stale-while-revalidate=59",
+          },
         }),
       ],
     };
@@ -56,10 +59,10 @@ export const api = createTRPCNext<AppRouter>({
 /**
  * Inference helper for inputs
  * @example type HelloInput = RouterInputs['example']['hello']
- **/
+ */
 export type RouterInputs = inferRouterInputs<AppRouter>;
 /**
  * Inference helper for outputs
  * @example type HelloOutput = RouterOutputs['example']['hello']
- **/
+ */
 export type RouterOutputs = inferRouterOutputs<AppRouter>;
