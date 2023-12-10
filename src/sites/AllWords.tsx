@@ -13,9 +13,9 @@ import {
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { penIcon, switchIcon, trashIcon } from "../utils/icons";
+import { getAllWords, setAllWords } from "../utils/store/allwords";
 import Error from "./Error";
 import Loading from "./Loading";
-import { getAllWords, setAllWords } from "../service/parseCache.service";
 
 export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
