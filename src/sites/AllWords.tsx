@@ -15,9 +15,12 @@ import { api } from "../utils/api";
 import { penIcon, switchIcon, trashIcon } from "../utils/icons";
 import Error from "./Error";
 import Loading from "./Loading";
+import { getAllWords, setAllWords } from "../service/cache";
 
 export default function AllWords() {
-  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
+  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
+    getAllWords()
+  );
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
@@ -34,6 +37,7 @@ export default function AllWords() {
         };
       });
       setWordsToDisplay(transformed);
+      setAllWords(transformed);
     },
     refetchOnWindowFocus: false,
   });

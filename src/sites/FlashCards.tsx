@@ -1,6 +1,6 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
@@ -19,6 +19,7 @@ import {
 } from "../utils/icons";
 import Error from "./Error";
 import Loading from "./Loading";
+import { getLearnedWords } from "../service/cache";
 
 export default function FlashCards() {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
@@ -37,15 +38,7 @@ export default function FlashCards() {
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: VocabularyFlashCard[] = data.map(
-        (e: VocabularyWord) => {
-          return {
-            ...e,
-            cardMode: "none",
-            switched: switchChecked ? Math.random() > 0.5 : false,
-          };
-        }
-      );
+      const transformed = toFlashCards(data);
       init(transformed);
     },
     refetchOnWindowFocus: false,
@@ -71,6 +64,22 @@ export default function FlashCards() {
     },
   });
 
+  useEffect(() => {
+    const transformed = toFlashCards(getLearnedWords());
+    initState(transformed);
+  }, []);
+
+  function toFlashCards(data: VocabularyWord[]) {
+    const transformed: VocabularyFlashCard[] = data.map((e: VocabularyWord) => {
+      return {
+        ...e,
+        cardMode: "none",
+        switched: switchChecked ? Math.random() > 0.5 : false,
+      };
+    });
+    return transformed;
+  }
+
   function init(_words: VocabularyFlashCard[]) {
     const learnedIds = getLearnedWordIds();
 
@@ -81,8 +90,10 @@ export default function FlashCards() {
       }
     });
 
-    // console.log(_words.filter((e) => e.mode === "good").length);
+    initState(_words);
+  }
 
+  function initState(_words: VocabularyFlashCard[]) {
     const randomized = _words.sort(() => Math.random() - 0.5);
     const unlearned = randomized.filter(
       (e) => e.cardMode === "none" || e.cardMode === "bad"
