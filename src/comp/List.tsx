@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { type ActionData } from "swiper-action";
-import { searchWord } from "../service/searchService";
+import { searchWord } from "../service/search.service";
 import Error from "../sites/Error";
 import { type ListElement } from "../types/types";
 import {

@@ -45,3 +45,7 @@ export type JsonImportWord = {
   iconNative: string;
   iconTranslation: string;
 };
+
+export type Settings = {
+  randomizeCards: boolean;
+};

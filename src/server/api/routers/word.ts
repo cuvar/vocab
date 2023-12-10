@@ -1,7 +1,7 @@
 import { LearnMode } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { searchWord } from "../../../service/searchService";
+import { searchWord } from "../../../service/search.service";
 import { isJsonImportWordArray } from "../../../utils/guards/words";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { createTRPCRouter, protectedProcedure } from "../trpc";

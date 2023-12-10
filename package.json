@@ -6,8 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "prisma generate",
-    "lint": "next lint",
-    "lint:quiet": "next lint --quiet",
+    "lint": "next lint --quiet",
+    "lint:all": "next lint",
     "start": "next start",
     "test": "jest --passWithNoTests"
   },
