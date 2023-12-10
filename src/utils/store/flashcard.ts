@@ -2,9 +2,7 @@ import {
   type VocabularyFlashCard,
   type VocabularyWord,
 } from "../../types/types";
-
-const LEARNED_CARDS = "learned_cards";
-const UNLEARNED_CARDS = "unlearned_cards";
+import { KEY_LEARNED_CARDS, KEY_UNLEARNED_CARDS } from "./keys";
 
 /**
  * Returns the learned cards
@@ -34,7 +32,7 @@ export function getCards(
  * @returns {string[]} The ids of the learned cards
  */
 export function getCardsIds(learned: boolean) {
-  const key = learned ? LEARNED_CARDS : UNLEARNED_CARDS;
+  const key = learned ? KEY_LEARNED_CARDS : KEY_UNLEARNED_CARDS;
   const idString = localStorage.getItem(key);
   if (!idString) return [];
   const ids = idString.split(",").map((id) => id.trim());
@@ -48,7 +46,7 @@ export function getCardsIds(learned: boolean) {
  */
 export function setCards(words: VocabularyWord[], learned: boolean) {
   const idString = words.map((word) => word.id).join(",");
-  const key = learned ? LEARNED_CARDS : UNLEARNED_CARDS;
+  const key = learned ? KEY_LEARNED_CARDS : KEY_UNLEARNED_CARDS;
   localStorage.setItem(key, idString);
 }
 
@@ -63,7 +61,7 @@ export function addCard(newWord: VocabularyWord, learned: boolean) {
     return;
   }
   const newIds = learnedWordIds.concat(newWord.id);
-  const key = learned ? LEARNED_CARDS : UNLEARNED_CARDS;
+  const key = learned ? KEY_LEARNED_CARDS : KEY_UNLEARNED_CARDS;
   localStorage.setItem(key, newIds.join(","));
 }
 
@@ -75,7 +73,7 @@ export function addCard(newWord: VocabularyWord, learned: boolean) {
 export function removeCard(word: VocabularyWord, learned: boolean) {
   const learnedWordIds = getCardsIds(learned);
   const newIds = learnedWordIds.filter((id) => id !== word.id);
-  localStorage.setItem(LEARNED_CARDS, newIds.join(","));
+  localStorage.setItem(KEY_LEARNED_CARDS, newIds.join(","));
 }
 
 /**
@@ -84,8 +82,8 @@ export function removeCard(word: VocabularyWord, learned: boolean) {
  */
 export function clearCards(learned: boolean) {
   if (learned) {
-    localStorage.removeItem(LEARNED_CARDS);
+    localStorage.removeItem(KEY_LEARNED_CARDS);
   } else {
-    localStorage.removeItem(UNLEARNED_CARDS);
+    localStorage.removeItem(KEY_UNLEARNED_CARDS);
   }
 }

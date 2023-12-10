@@ -1,7 +1,6 @@
-import type { ListElement } from "../../types/types";
 import { parseListElements } from "../../service/parseCache.service";
-
-const KEY_ALL_WORDS = "all_words";
+import type { ListElement } from "../../types/types";
+import { KEY_ALL_WORDS } from "./keys";
 
 /**
  * Sets the learned words in the localStorage
