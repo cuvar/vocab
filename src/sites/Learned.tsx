@@ -10,12 +10,13 @@ import {
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
+import { notifyMe } from "../service/notification.service";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { crossIcon, penIcon } from "../utils/icons";
+import { getLearnedWords, setLearnedWords } from "../utils/store/learned";
 import Error from "./Error";
 import Loading from "./Loading";
-import { getLearnedWords, setLearnedWords } from "../utils/store/learned";
 
 export default function Learned() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
@@ -91,6 +92,10 @@ export default function Learned() {
     setShowEditorModal(true);
   }
 
+  function handleNotification() {
+    void (async () => await notifyMe())();
+  }
+
   const actions: ActionData[] = [
     {
       action: editWord,
@@ -115,6 +120,9 @@ export default function Learned() {
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         Learned words: {getLearnedQuery.data.length}
       </h1>
+      <button className="btn-ghost btn" onClick={handleNotification}>
+        notify
+      </button>
       <List
         words={wordsToDisplay}
         actions={actions}
