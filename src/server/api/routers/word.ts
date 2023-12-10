@@ -157,6 +157,22 @@ export const wordRouter = createTRPCRouter({
       });
     }
   }),
+  getWordOfTheDay: protectedProcedure.query(async () => {
+    try {
+      const unlearned = await repo.getWordsByFilter({
+        mode: LearnMode.UNLEARNED,
+      });
+      const randomWord =
+        unlearned[Math.floor(Math.random() * unlearned.length)];
+      return randomWord;
+    } catch (error) {
+      console.error(error);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Internal Server Error",
+      });
+    }
+  }),
   updateMode: protectedProcedure
     .input(
       z.object({

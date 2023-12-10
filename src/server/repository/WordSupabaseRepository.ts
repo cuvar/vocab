@@ -1,11 +1,11 @@
-import { LearnMode, type Word } from "@prisma/client";
-import { env } from "../../env/client.mjs";
+import { LearnMode } from "@prisma/client";
 import {
   type JsonImportWord,
   type SimpleWordInput,
   type Tag,
   type VocabularyWord,
 } from "../../types/types";
+import { addIcons } from "../../utils/helper";
 import { prisma } from "../db";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
@@ -301,18 +301,5 @@ export class WordSupabaseRepository implements WordRepository {
     } catch (error) {
       throw error;
     }
-  };
-}
-
-/**
- * Adds emoji icons to word object
- * @param {Word} word Word object
- * @returns {VocabularyWord} Word with icons
- */
-function addIcons(word: Word) {
-  return {
-    ...word,
-    iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
-    iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
   };
 }
