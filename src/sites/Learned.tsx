@@ -15,7 +15,7 @@ import { api } from "../utils/api";
 import { crossIcon, penIcon } from "../utils/icons";
 import Error from "./Error";
 import Loading from "./Loading";
-import { getLearnedWords, setLearnedWords } from "../service/cache";
+import { getLearnedWords, setLearnedWords } from "../utils/store/learned";
 
 export default function Learned() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(

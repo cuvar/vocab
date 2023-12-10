@@ -1,15 +1,18 @@
-import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
+import {
+  type VocabularyFlashCard,
+  type VocabularyWord,
+} from "../../types/types";
 
-const LOCAL_STORAGE_KEY = "vocab_learned_words";
+const LEARNED_CARDS = "learned_cards";
 
 /**
  *
  * @param words
  */
-export function getLearnedWords(
+export function getLearnedCards(
   words: VocabularyWord[]
 ): VocabularyFlashCard[] {
-  const ids = getLearnedWordIds();
+  const ids = getLearnedCardsIds();
   const newWords: VocabularyFlashCard[] = words
     .filter((word) => ids.includes(word.id))
     .map((word) => ({
@@ -24,8 +27,8 @@ export function getLearnedWords(
 /**
  *
  */
-export function getLearnedWordIds() {
-  const idString = localStorage.getItem(LOCAL_STORAGE_KEY);
+export function getLearnedCardsIds() {
+  const idString = localStorage.getItem(LEARNED_CARDS);
   if (!idString) return [];
   const ids = idString.split(",").map((id) => id.trim());
   return ids;
@@ -35,22 +38,22 @@ export function getLearnedWordIds() {
  *
  * @param words
  */
-export function setLearnedWords(words: VocabularyWord[]) {
+export function setLearnedCards(words: VocabularyWord[]) {
   const idString = words.map((word) => word.id).join(",");
-  localStorage.setItem(LOCAL_STORAGE_KEY, idString);
+  localStorage.setItem(LEARNED_CARDS, idString);
 }
 
 /**
  *
  * @param newWord
  */
-export function addLearnedWords(newWord: VocabularyWord) {
-  const learnedWordIds = getLearnedWordIds();
+export function addLearnedCard(newWord: VocabularyWord) {
+  const learnedWordIds = getLearnedCardsIds();
   if (learnedWordIds.includes(newWord.id)) {
     return;
   }
   const newIds = learnedWordIds.concat(newWord.id);
-  localStorage.setItem(LOCAL_STORAGE_KEY, newIds.join(","));
+  localStorage.setItem(LEARNED_CARDS, newIds.join(","));
 }
 
 /**
@@ -58,14 +61,14 @@ export function addLearnedWords(newWord: VocabularyWord) {
  * @param word
  */
 export function removeLearnedWords(word: VocabularyWord) {
-  const learnedWordIds = getLearnedWordIds();
+  const learnedWordIds = getLearnedCardsIds();
   const newIds = learnedWordIds.filter((id) => id !== word.id);
-  localStorage.setItem(LOCAL_STORAGE_KEY, newIds.join(","));
+  localStorage.setItem(LEARNED_CARDS, newIds.join(","));
 }
 
 /**
  *
  */
-export function clearLearnedWords() {
-  localStorage.removeItem(LOCAL_STORAGE_KEY);
+export function clearLearnedCards() {
+  localStorage.removeItem(LEARNED_CARDS);
 }
