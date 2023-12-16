@@ -49,3 +49,9 @@ export type JsonImportWord = {
 export type Settings = {
   randomizeCards: boolean;
 };
+
+export type WOTD = {
+  id: string;
+  word: VocabularyWord;
+  date: Date;
+};

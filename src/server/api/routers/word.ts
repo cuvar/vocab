@@ -2,6 +2,7 @@ import { LearnMode } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { searchWord } from "../../../service/search.service";
+import { getWOTD } from "../../../service/wotd.service";
 import { isJsonImportWordArray } from "../../../utils/guards/words";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
@@ -159,12 +160,8 @@ export const wordRouter = createTRPCRouter({
   }),
   getWordOfTheDay: protectedProcedure.query(async () => {
     try {
-      const unlearned = await repo.getWordsByFilter({
-        mode: LearnMode.UNLEARNED,
-      });
-      const randomWord =
-        unlearned[Math.floor(Math.random() * unlearned.length)];
-      return randomWord;
+      const wotd = await getWOTD();
+      return wotd;
     } catch (error) {
       console.error(error);
       throw new TRPCError({

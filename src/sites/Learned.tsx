@@ -10,7 +10,7 @@ import {
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
-import { notifyMe } from "../service/notification.service";
+import { sendWOTDNotification } from "../service/notification.service";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { crossIcon, penIcon } from "../utils/icons";
@@ -63,6 +63,10 @@ export default function Learned() {
     refetchOnWindowFocus: false,
   });
 
+  // const getWordOfTheDayQuery = api.word.getWordOfTheDay.useQuery(undefined, {
+  //   refetchOnWindowFocus: false,
+  // });
+
   useEffect(() => {
     if (refetchWords) {
       setRefetchWords(false);
@@ -93,7 +97,7 @@ export default function Learned() {
   }
 
   function handleNotification() {
-    void (async () => await notifyMe())();
+    // void (async () => await sendWOTDNotification())();
   }
 
   const actions: ActionData[] = [

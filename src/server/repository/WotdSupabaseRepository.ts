@@ -1,75 +1,75 @@
+import type { Word } from "@prisma/client";
 import { type Tag, type VocabularyWord } from "../../types/types";
 import { addIcons } from "../../utils/helper";
 import { prisma } from "../db";
 import { type WOTDRepository } from "./WOTDRepository";
 
 export class WOTDSupabaseRepository implements WOTDRepository {
-  getWords = async () => {
+  getLastWords = async (limit: number) => {
     try {
-      const data = await prisma.word.findMany({
+      const data = await prisma.wotd.findMany({
+        take: limit,
         include: {
-          tags: {
+          word: {
             select: {
-              tag: {
+              id: true,
+              mode: true,
+              native: true,
+              notes: true,
+              translation: true,
+              tags: {
                 select: {
-                  id: true,
-                  name: true,
-                  description: true,
+                  tag: {
+                    select: {
+                      id: true,
+                      name: true,
+                      description: true,
+                    },
+                  },
                 },
               },
             },
           },
         },
       });
+
       const transformed = data.map((e) => {
-        const tags = e.tags.map((t) => {
+        const withIcons = addIcons(e.word);
+        const tags = e.word.tags.map((t) => {
           return {
             id: t.tag.id,
             name: t.tag.name,
             description: t.tag.description,
           } satisfies Tag;
         });
-        const withIcons = addIcons(e);
-        return { ...withIcons, tags: tags } satisfies VocabularyWord;
+
+        const word = { ...withIcons, tags: tags } satisfies VocabularyWord;
+        return {
+          id: e.id,
+          word: word satisfies VocabularyWord,
+          date: e.date,
+        };
       });
-      return transformed satisfies VocabularyWord[];
+      return transformed;
     } catch (error) {
       throw error;
     }
   };
 
-  getWord = async (word: string) => {
-    const data = await prisma.word.findUnique({
-      where: {
-        translation: word,
-      },
-      include: {
-        tags: {
-          select: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-                description: true,
-              },
+  add = async (word: Word, date: Date) => {
+    try {
+      await prisma.wotd.create({
+        data: {
+          word: {
+            connect: {
+              id: word.id,
             },
           },
+          date: date,
         },
-      },
-    });
-
-    if (data == null) {
-      throw new Error("Word not found");
+      });
+    } catch (error) {
+      throw error;
     }
-
-    const tags = data.tags.map((t) => {
-      return {
-        id: t.tag.id,
-        name: t.tag.name,
-        description: t.tag.description,
-      } satisfies Tag;
-    });
-    const withIcons = addIcons(data);
-    return { ...withIcons, tags: tags } satisfies VocabularyWord;
   };
 }
