@@ -1,6 +1,7 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { sendWOTDNotification } from "../service/notification.service";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 
@@ -23,6 +24,17 @@ export default function WordOfTheDay() {
     },
   });
 
+  const wotdMutation = api.utils.notify.useMutation({
+    onError: (err) => {
+      setToastType("error");
+      setToastText(err.message);
+
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
+
   useEffect(() => {
     if (!wotdQuery.data) {
       return;
@@ -30,6 +42,11 @@ export default function WordOfTheDay() {
 
     setWordToDisplay(wotdQuery.data.word);
   }, [wotdQuery.data]);
+
+  function handleNotify() {
+    if (!wotdQuery.data) return;
+    void (async () => await sendWOTDNotification(wotdQuery.data))();
+  }
 
   return (
     <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
@@ -53,6 +70,9 @@ export default function WordOfTheDay() {
             )}
           </div>
         )}
+        <div>
+          <button onClick={handleNotify}>send</button>
+        </div>
       </div>
     </div>
   );

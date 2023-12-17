@@ -1,12 +1,11 @@
-import { getWOTD } from "./wotd.service";
+import type { WOTD } from "../types/types";
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 
-export async function sendWOTDNotification() {
+export async function sendWOTDNotification(wotd: WOTD) {
   try {
-    const wotd = await getWOTD();
-    const notificationTitle = `Word of the day: ${wotd.native} - ${wotd.translation}`;
-    const notificationBody = `${wotd.native}`;
+    const notificationTitle = `Word of the day: ${wotd.word.native} - ${wotd.word.translation}`;
+    const notificationBody = `${wotd.word.native}`;
     await sendNotification(notificationTitle, notificationBody);
   } catch (error) {
     console.log(error);

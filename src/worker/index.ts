@@ -55,7 +55,7 @@ self.addEventListener("notificationclick", (event) => {
           }
           return client.focus();
         }
-        return self.clients.openWindow("/");
+        return self.clients.openWindow("/wotd");
       })
   );
 });
