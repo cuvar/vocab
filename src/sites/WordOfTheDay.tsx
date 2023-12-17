@@ -24,17 +24,6 @@ export default function WordOfTheDay() {
     },
   });
 
-  const wotdMutation = api.utils.notify.useMutation({
-    onError: (err) => {
-      setToastType("error");
-      setToastText(err.message);
-
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
-  });
-
   useEffect(() => {
     if (!wotdQuery.data) {
       return;
