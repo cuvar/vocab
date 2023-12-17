@@ -1,7 +1,7 @@
 import { LearnMode } from "@prisma/client";
 import { WOTDSupabaseRepository } from "../server/repository/WOTDSupabaseRepository";
 import { WordSupabaseRepository } from "../server/repository/WordSupabaseRepository";
-import type { VocabularyWord } from "../types/types";
+import type { VocabularyWord, WOTD } from "../types/types";
 
 const wotdRepo = new WOTDSupabaseRepository();
 const wordRepo = new WordSupabaseRepository();
@@ -10,11 +10,11 @@ const LAST_N = 100;
 
 /**
  * Gets the word of the day that has not been learned yet
- * @returns {Promise<VocabularyWord>} Word of the day
+ * @returns {Promise<WOTD>} Word of the day
  */
 export async function getWOTD() {
   try {
-    const today = await wotdRepo.getLastWords(LAST_N);
+    const today = await wotdRepo.getToday();
     if (today) {
       return today;
     }
@@ -28,7 +28,7 @@ export async function getWOTD() {
 
 /**
  * Generates a new word of the day
- * @returns {Promise<VocabularyWord>} New word of the day
+ * @returns {Promise<WOTD>} New word of the day
  */
 async function getNewWOTD() {
   try {
@@ -53,8 +53,8 @@ async function getNewWOTD() {
     }
 
     if (!choice) throw new Error("No word of the day could be found.");
-    await wotdRepo.add(choice, new Date());
-    return choice;
+    const addedWord = await wotdRepo.add(choice, new Date());
+    return addedWord;
   } catch (error) {
     throw new Error("Cannot create new word of the day");
   }

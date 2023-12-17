@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import {
   archiveIcon,
   boltIcon,
+  calendarIcon,
   hatIcon,
   listIcon,
   sparklesIcon,
@@ -51,6 +52,11 @@ export default function Drawer(props: Props) {
       href: "/archive",
       displayName: "Archive",
       icon: archiveIcon,
+    },
+    {
+      href: "/wotd",
+      displayName: "Wotd",
+      icon: calendarIcon,
     },
   ];
 
