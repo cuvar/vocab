@@ -5,6 +5,58 @@ import { prisma } from "../db";
 import { type WOTDRepository } from "./WOTDRepository";
 
 export class WOTDSupabaseRepository implements WOTDRepository {
+  getToday = async () => {
+    try {
+      const data = await prisma.wotd.findUnique({
+        where: {
+          date: new Date().toISOString(),
+        },
+        include: {
+          word: {
+            select: {
+              id: true,
+              mode: true,
+              native: true,
+              notes: true,
+              translation: true,
+              tags: {
+                select: {
+                  tag: {
+                    select: {
+                      id: true,
+                      name: true,
+                      description: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!data) return null;
+
+      const withIcons = addIcons(data.word);
+      const tags = data.word.tags.map((t) => {
+        return {
+          id: t.tag.id,
+          name: t.tag.name,
+          description: t.tag.description,
+        } satisfies Tag;
+      });
+
+      const word = { ...withIcons, tags: tags } satisfies VocabularyWord;
+      const transformed = {
+        id: data.id,
+        word: word satisfies VocabularyWord,
+        date: data.date,
+      };
+      return transformed;
+    } catch (error) {
+      throw error;
+    }
+  };
   getLastWords = async (limit: number) => {
     try {
       const data = await prisma.wotd.findMany({

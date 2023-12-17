@@ -25,7 +25,7 @@ model Wotd {
     id     String   @id @default(cuid())
     word   Word     @relation(fields: [wordId], references: [id])
     wordId String
-    date   DateTime @default(now())
+    date   DateTime @unique @default(now())
 }
 
 enum LearnMode {

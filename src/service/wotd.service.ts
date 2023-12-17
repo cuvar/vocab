@@ -10,9 +10,27 @@ const LAST_N = 100;
 
 /**
  * Gets the word of the day that has not been learned yet
- * @returns {Promise<VocabularyWord>}
+ * @returns {Promise<VocabularyWord>} Word of the day
  */
 export async function getWOTD() {
+  try {
+    const today = await wotdRepo.getLastWords(LAST_N);
+    if (today) {
+      return today;
+    }
+    const newWord = await getNewWOTD();
+    return newWord;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Cannot get word of the day");
+  }
+}
+
+/**
+ * Generates a new word of the day
+ * @returns {Promise<VocabularyWord>} New word of the day
+ */
+async function getNewWOTD() {
   try {
     const lastNWords = await wotdRepo.getLastWords(LAST_N);
     const unlearned = await wordRepo.getWordsByFilter({
@@ -38,7 +56,6 @@ export async function getWOTD() {
     await wotdRepo.add(choice, new Date());
     return choice;
   } catch (error) {
-    console.log(error);
-    throw new Error("Cannot fetch word of the day");
+    throw new Error("Cannot create new word of the day");
   }
 }
