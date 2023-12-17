@@ -10,7 +10,6 @@ import {
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
-import { sendWOTDNotification } from "../service/notification.service";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { crossIcon, penIcon } from "../utils/icons";
