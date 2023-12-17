@@ -55,3 +55,8 @@ export type WOTD = {
   word: VocabularyWord;
   date: Date;
 };
+
+export type NotificationData = {
+  title: string;
+  message: string;
+};
