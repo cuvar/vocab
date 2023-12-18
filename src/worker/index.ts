@@ -31,6 +31,9 @@ self.addEventListener("message", (event) => {
   if (event.data.command === "reminderTime") {
     if (!isObject(event.data.message)) return;
     updateReminderTime(event.data.message.time);
+    if (!CURRENT_WOTD) {
+      void (async () => await fetchWOTD())();
+    }
     return;
   }
 });
