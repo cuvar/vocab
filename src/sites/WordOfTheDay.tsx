@@ -75,6 +75,12 @@ export default function WordOfTheDay() {
     updateSettings({ reminderTime: reminderTime });
     if (!wotdQuery.data) return;
     sendServiceWorkerWordOfTheDay(wotdQuery.data, reminderTime);
+
+    setToastType("success");
+    setToastText(`Time successfully saved`);
+    setTimeout(() => {
+      setToastText("");
+    }, 1500);
   }
 
   return (
