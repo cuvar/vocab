@@ -34,6 +34,7 @@ setInterval(() => {
     try {
       void (async () => await sendWotdNotification(CURRENT_WOTD))();
       LAST_WOTD = CURRENT_WOTD;
+      void (async () => await fetchWOTD())();
     } catch (error) {
       console.error(
         "Could not send notification due to following error.",
@@ -43,6 +44,21 @@ setInterval(() => {
   }
 }, 60 * 1000);
 
+/**
+ * Fetches the wotd from the api
+ */
+async function fetchWOTD() {
+  try {
+    const res = await fetch("/api/workers/wotd");
+    const json = (await res.json()) as unknown;
+    if (!isObject(json)) return;
+    if (!("wotd" in json) || !isString(json.wotd)) return;
+    const newWotd = JSON.parse(json.wotd) as object;
+    updateWOTD(newWotd);
+  } catch (error) {
+    throw error;
+  }
+}
 /**
  * Updates file-gobal wotd variable
  * @param {object} data Data from message event
