@@ -27,6 +27,22 @@ self.addEventListener("message", (event) => {
   }
 });
 
+setInterval(() => {
+  if (!CURRENT_WOTD || CURRENT_WOTD == LAST_WOTD) return;
+  const formated = formatTime(new Date());
+  if (formated === REMINDER_TIME) {
+    try {
+      void (async () => await sendWotdNotification(CURRENT_WOTD))();
+      LAST_WOTD = CURRENT_WOTD;
+    } catch (error) {
+      console.error(
+        "Could not send notification due to following error.",
+        error
+      );
+    }
+  }
+}, 60 * 1000);
+
 /**
  * Updates file-gobal wotd variable
  * @param {object} data Data from message event
@@ -51,6 +67,19 @@ async function sendWotdNotification(wotd: WOTD) {
   });
 }
 
+/**
+ * Formats hours and minutes to HH:MM string
+ * @param {Date} date Date to format
+ * @returns {string} HH:MM string
+ */
+function formatTime(date: Date) {
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  const hoursString = hours.toString().padStart(2, "0");
+  const minutesString = minutes.toString().padStart(2, "0");
+  return `${hoursString}:${minutesString}`;
+}
 // self.addEventListener('fetch', event => {
 //   // Intercept fetch requests and respond with cached resources if available
 //   event.respondWith(
@@ -111,33 +140,3 @@ async function sendWotdNotification(wotd: WOTD) {
 //       })
 //   );
 // });
-
-setInterval(() => {
-  if (!CURRENT_WOTD || CURRENT_WOTD == LAST_WOTD) return;
-  const formated = formatTime(new Date());
-  if (formated === REMINDER_TIME) {
-    try {
-      void (async () => await sendWotdNotification(CURRENT_WOTD))();
-      LAST_WOTD = CURRENT_WOTD;
-    } catch (error) {
-      console.error(
-        "Could not send notification due to following error.",
-        error
-      );
-    }
-  }
-}, 60 * 1000);
-
-/**
- * Formats hours and minutes to HH:MM string
- * @param {Date} date Date to format
- * @returns {string} HH:MM string
- */
-function formatTime(date: Date) {
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-
-  const hoursString = hours.toString().padStart(2, "0");
-  const minutesString = minutes.toString().padStart(2, "0");
-  return `${hoursString}:${minutesString}`;
-}
