@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { sendServiceWorkerReminderTime } from "../server/service/serviceWorker.service";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
 import type { Settings } from "../types/types";
 import { DEFAULT_SETTINGS } from "../utils/const";
@@ -19,35 +20,76 @@ export default function SettingsComp() {
     }
   }, []);
 
-  function handleReminderTimeChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleChangeReminderTime(e: React.ChangeEvent<HTMLInputElement>) {
     setSettingsData({ ...settingsData, reminderTime: e.target.value });
   }
 
   function handleChangeFlashCardRandomize(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
-    if (!settingsData) return;
     setSettingsData({ ...settingsData, randomizeCards: e.target.checked });
   }
 
   function handleChangeSendNotifications(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
-    setSettingsData({
-      ...settingsData,
-      sendWOTDNotifications: e.target.checked,
-    });
+    if (e.target.checked === false) {
+      setSettingsData({
+        ...settingsData,
+        sendWOTDNotifications: e.target.checked,
+      });
+      return;
+    }
+
+    void (async () => {
+      try {
+        const permitted = await checkNotificationsPermission();
+        if (permitted === false) {
+          return;
+        }
+        setSettingsData({
+          ...settingsData,
+          sendWOTDNotifications: true,
+        });
+      } catch (error) {
+        setToastType("error");
+        setToastText(`Cannot enable permissions`);
+        setTimeout(() => {
+          setToastText("");
+        }, 1500);
+      }
+    })();
   }
 
-  function handleSaveReminderTime() {
+  function handleSave() {
     setSettings(settingsData);
-    // sendServiceWorkerWordOfTheDay(wotdQuery.data, reminderTime); // todo
+    sendServiceWorkerReminderTime(settingsData.reminderTime);
 
     setToastType("success");
     setToastText(`Settings successfully saved`);
     setTimeout(() => {
       setToastText("");
     }, 1500);
+  }
+
+  async function checkNotificationsPermission() {
+    if (!window.Notification) {
+      console.log("This browser does not support desktop notification");
+      return false;
+    }
+    if (Notification.permission === "granted") {
+      return true;
+    }
+
+    if (Notification.permission !== "denied") {
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") {
+        console.log("Permission not granted for Notification");
+        return false;
+      }
+      return true;
+    }
+    return false;
   }
 
   return (
@@ -74,7 +116,7 @@ export default function SettingsComp() {
             <input
               type="time"
               value={settingsData.reminderTime}
-              onChange={handleReminderTimeChange}
+              onChange={handleChangeReminderTime}
               className="input-bordered input w-40"
               name="reminder"
             />
@@ -84,7 +126,7 @@ export default function SettingsComp() {
           <h2 className="text-xl font-bold">Flash cards</h2>
           <div className="form-control">
             <label className="label w-72 cursor-pointer space-x-2">
-              <span className="label-text">Randomize flash cards words</span>
+              <span className="label-text">Randomize flash card words</span>
               <input
                 type="checkbox"
                 checked={settingsData.randomizeCards}
@@ -94,10 +136,7 @@ export default function SettingsComp() {
             </label>
           </div>
         </div>
-        <button
-          className="btn-success btn-outline btn"
-          onClick={handleSaveReminderTime}
-        >
+        <button className="btn-success btn-outline btn" onClick={handleSave}>
           Save
         </button>
       </div>
