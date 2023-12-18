@@ -17,6 +17,15 @@ model Word {
     notes       String     @default("")
     mode        LearnMode  @default(UNLEARNED)
     tags        WordTags[]
+    Wotd        Wotd[]
+}
+
+// word of the day
+model Wotd {
+    id     String   @id @default(cuid())
+    word   Word     @relation(fields: [wordId], references: [id])
+    wordId String
+    date   DateTime @unique @default(now())
 }
 
 enum LearnMode {

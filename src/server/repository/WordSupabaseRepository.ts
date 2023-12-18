@@ -1,11 +1,12 @@
-import { LearnMode, type Word } from "@prisma/client";
-import { env } from "../../env/client.mjs";
+import { LearnMode } from "@prisma/client";
 import {
   type JsonImportWord,
   type SimpleWordInput,
   type Tag,
   type VocabularyWord,
 } from "../../types/types";
+import AppError from "../../utils/error";
+import { addIcons } from "../../utils/helper";
 import { prisma } from "../db";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
@@ -67,7 +68,7 @@ export class WordSupabaseRepository implements WordRepository {
     });
 
     if (data == null) {
-      throw new Error("Word not found");
+      throw new AppError("Word not found");
     }
 
     const tags = data.tags.map((t) => {
@@ -102,7 +103,7 @@ export class WordSupabaseRepository implements WordRepository {
     });
 
     if (filtered == null) {
-      throw new Error("Word not found");
+      throw new AppError("Word not found");
     }
 
     const transformed = filtered.map((e) => {
@@ -199,10 +200,10 @@ export class WordSupabaseRepository implements WordRepository {
 
   addWord = async (word: SimpleWordInput) => {
     if (word.translation === "" || word.native === "") {
-      throw new Error("Word cannot be empty");
+      throw new AppError("Word cannot be empty");
     }
     if (word.translation.length > 100 || word.native.length > 100) {
-      throw new Error("Word too long");
+      throw new AppError("Word too long");
     }
     try {
       const res = await prisma.word.create({
@@ -243,7 +244,7 @@ export class WordSupabaseRepository implements WordRepository {
       });
 
       if (!word) {
-        throw new Error("Word not found");
+        throw new AppError("Word not found");
       }
 
       const res = await prisma.word.update({
@@ -301,18 +302,5 @@ export class WordSupabaseRepository implements WordRepository {
     } catch (error) {
       throw error;
     }
-  };
-}
-
-/**
- * Adds emoji icons to word object
- * @param {Word} word Word object
- * @returns {VocabularyWord} Word with icons
- */
-function addIcons(word: Word) {
-  return {
-    ...word,
-    iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
-    iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
   };
 }

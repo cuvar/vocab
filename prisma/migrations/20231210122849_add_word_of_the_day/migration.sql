@@ -1,0 +1,11 @@
+-- CreateTable
+CREATE TABLE "Wotd" (
+    "id" TEXT NOT NULL,
+    "wordId" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Wotd_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "Wotd" ADD CONSTRAINT "Wotd_wordId_fkey" FOREIGN KEY ("wordId") REFERENCES "Word"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

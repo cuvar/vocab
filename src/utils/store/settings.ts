@@ -1,4 +1,4 @@
-import { parseSettings } from "../../service/parseCache.service";
+import { parseSettings } from "../../server/service/parseCache.service";
 import type { Settings } from "../../types/types";
 import { KEY_SETTINGS } from "./keys";
 
@@ -8,6 +8,19 @@ import { KEY_SETTINGS } from "./keys";
  */
 export function setSettings(settings: Settings) {
   localStorage.setItem(KEY_SETTINGS, JSON.stringify(settings));
+}
+
+/**
+ * Updates the settings in the localStorage
+ * @param {Partial<Settings>} newValues New values that should be updated
+ */
+export function updateSettings(newValues: Partial<Settings>) {
+  const currentSettings = getSettings();
+  const newSettings = {
+    ...currentSettings,
+    ...newValues,
+  };
+  localStorage.setItem(KEY_SETTINGS, JSON.stringify(newSettings));
 }
 
 /**

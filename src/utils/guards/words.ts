@@ -1,12 +1,13 @@
 import { LearnMode } from "@prisma/client";
-import {
-  type JsonImportWord,
-  type ListElement,
-  type Tag,
-  type TagData,
-  type VocabularyWord,
+import type {
+  JsonImportWord,
+  ListElement,
+  Tag,
+  TagData,
+  VocabularyWord,
+  WOTD,
 } from "../../types/types";
-import { isBoolean, isObject, isString } from "./base";
+import { isBoolean, isDate, isObject, isString } from "./base";
 
 /**
  * Checks whether data is of type VocabularyWord
@@ -29,7 +30,7 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isString(data.notes)) {
     return false;
   }
-  if (!isTagArray(data.tag)) {
+  if (!isTagArray(data.tags)) {
     return false;
   }
   if (!isLearnMode(data.mode)) {
@@ -39,6 +40,27 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
     return false;
   }
   if (!isString(data.iconNative)) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Checks whether data is of type WOTD
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type WOTD
+ */
+export function isWOTD(data: unknown): data is WOTD {
+  if (!isObject(data)) {
+    return false;
+  }
+  if (!isString(data.id)) {
+    return false;
+  }
+  if (!isDate(data.date)) {
+    return false;
+  }
+  if (!isVocabularyWord(data.word)) {
     return false;
   }
   return true;
@@ -71,7 +93,16 @@ export function isLearnMode(data: unknown): data is LearnMode {
  * @returns {boolean} Whether data is of type Tag
  */
 export function isTag(data: unknown): data is Tag {
-  if (!isString(data)) {
+  if (!isObject(data)) {
+    return false;
+  }
+  if (!isString(data.id)) {
+    return false;
+  }
+  if (!isString(data.name)) {
+    return false;
+  }
+  if (!isString(data.description)) {
     return false;
   }
   return true;

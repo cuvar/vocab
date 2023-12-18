@@ -14,7 +14,7 @@ import {
 } from "../utils/icons";
 import { addCard, clearCards, getCardsIds } from "../utils/store/flashcard";
 import { getLearnedWords } from "../utils/store/learned";
-import { getSettings, setSettings } from "../utils/store/settings";
+import { getSettings, updateSettings } from "../utils/store/settings";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -176,7 +176,7 @@ export default function FlashCards() {
       return w;
     });
     setUnlookedWords(newUnlearned);
-    setSettings({ randomizeCards: newChecked });
+    updateSettings({ randomizeCards: newChecked });
   }
 
   function handleArchive() {
