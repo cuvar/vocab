@@ -2,11 +2,19 @@ import type { WOTD } from "../types/types";
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 
-export async function sendWOTDNotification(wotd: WOTD) {
+/**
+ * Sends a notification with the word of the day
+ * @param {WOTD} wotd Word of the day object
+ * @returns {{title: string, body: string}} Notification title and body
+ */
+export function getWotdNotificationData(wotd: WOTD) {
   try {
-    const notificationTitle = `Word of the day: ${wotd.word.native} - ${wotd.word.translation}`;
+    const notificationTitle = `WOTD: ${wotd.word.translation}`;
     const notificationBody = `${wotd.word.native}`;
-    await sendNotification(notificationTitle, notificationBody);
+    return {
+      title: notificationTitle,
+      body: notificationBody,
+    };
   } catch (error) {
     console.log(error);
     throw error;
@@ -31,8 +39,8 @@ export async function sendNotification(title: string, body: string) {
     }
   }
 
-  const notification = new Notification(title, {
-    icon: "/favicon.ico",
+  new Notification(title, {
+    icon: "/apple-icon-60x60.png",
     body: body,
   });
 }

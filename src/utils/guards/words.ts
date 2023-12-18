@@ -1,12 +1,13 @@
 import { LearnMode } from "@prisma/client";
-import {
-  type JsonImportWord,
-  type ListElement,
-  type Tag,
-  type TagData,
-  type VocabularyWord,
+import type {
+  JsonImportWord,
+  ListElement,
+  Tag,
+  TagData,
+  VocabularyWord,
+  WOTD,
 } from "../../types/types";
-import { isBoolean, isObject, isString } from "./base";
+import { isBoolean, isDate, isObject, isString } from "./base";
 
 /**
  * Checks whether data is of type VocabularyWord
@@ -29,9 +30,9 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isString(data.notes)) {
     return false;
   }
-  if (!isTagArray(data.tag)) {
-    return false;
-  }
+  // if (!isTagArray(data.tag)) {
+  //   return false;
+  // }
   if (!isLearnMode(data.mode)) {
     return false;
   }
@@ -39,6 +40,27 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
     return false;
   }
   if (!isString(data.iconNative)) {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * Checks whether data is of type WOTD
+ * @param {unknown} data Unkown type to be checked
+ * @returns {boolean} Whether data is of type WOTD
+ */
+export function isWOTD(data: unknown): data is WOTD {
+  if (!isObject(data)) {
+    return false;
+  }
+  if (!isString(data.id)) {
+    return false;
+  }
+  if (!isDate(data.date)) {
+    return false;
+  }
+  if (!isVocabularyWord(data.word)) {
     return false;
   }
   return true;
@@ -70,7 +92,7 @@ export function isLearnMode(data: unknown): data is LearnMode {
  * @param {unknown} data Unkown type to be checked
  * @returns {boolean} Whether data is of type Tag
  */
-export function isTag(data: unknown): data is Tag {
+export function isTagString(data: unknown): data is Tag {
   if (!isString(data)) {
     return false;
   }
@@ -83,7 +105,7 @@ export function isTag(data: unknown): data is Tag {
  * @returns {boolean} Whether data is of type Tag[]
  */
 export function isTagArray(data: unknown): data is Tag[] {
-  return Array.isArray(data) && data.every((d) => isTag(d));
+  return Array.isArray(data) && data.every((d) => isTagString(d));
 }
 
 /**
@@ -92,7 +114,7 @@ export function isTagArray(data: unknown): data is Tag[] {
  * @returns {boolean} Whether data is of type TagData
  */
 export function isTagData(data: unknown): data is TagData {
-  if (!isTag(data)) {
+  if (!isTagString(data)) {
     return false;
   }
   if (!("checked" in data) || !isBoolean(data.checked)) {

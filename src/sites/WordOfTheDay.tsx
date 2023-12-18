@@ -1,7 +1,8 @@
+import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
-import { sendWOTDNotification } from "../service/notification.service";
+import { sendServiceWorkerWordOfTheDay } from "../service/serviceWorker.service";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 
@@ -17,7 +18,26 @@ export default function WordOfTheDay() {
     onError: (err) => {
       setToastType("error");
       setToastText(err.message);
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+  });
 
+  const updateModeMutation = api.word.updateMode.useMutation({
+    onSuccess: (data) => {
+      setToastType("success");
+      setToastText(`"${data.translation}" successfully added`);
+      void (async () => {
+        await wotdQuery.refetch();
+      })();
+      setTimeout(() => {
+        setToastText("");
+      }, 1500);
+    },
+    onError: (err) => {
+      setToastType("error");
+      setToastText(`${err.message}`);
       setTimeout(() => {
         setToastText("");
       }, 1500);
@@ -34,7 +54,14 @@ export default function WordOfTheDay() {
 
   function handleNotify() {
     if (!wotdQuery.data) return;
-    void (async () => await sendWOTDNotification(wotdQuery.data))();
+    sendServiceWorkerWordOfTheDay(wotdQuery.data);
+  }
+
+  function handleMarkAsLearned() {
+    updateModeMutation.mutate({
+      id: wotdQuery.data?.word.id ?? "",
+      mode: LearnMode.LEARNED,
+    });
   }
 
   return (
@@ -59,8 +86,17 @@ export default function WordOfTheDay() {
             )}
           </div>
         )}
-        <div>
-          <button onClick={handleNotify}>send</button>
+        <div className="space-x-4">
+          <button className="btn-ghost btn" onClick={handleNotify}>
+            send
+          </button>
+          <button
+            className="btn-secondary btn"
+            onClick={handleMarkAsLearned}
+            disabled={wotdQuery.data?.word.mode !== LearnMode.UNLEARNED}
+          >
+            Mark as learned
+          </button>
         </div>
       </div>
     </div>
