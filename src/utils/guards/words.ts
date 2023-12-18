@@ -30,9 +30,9 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isString(data.notes)) {
     return false;
   }
-  // if (!isTagArray(data.tag)) {
-  //   return false;
-  // }
+  if (!isTagArray(data.tag)) {
+    return false;
+  }
   if (!isLearnMode(data.mode)) {
     return false;
   }
@@ -92,8 +92,17 @@ export function isLearnMode(data: unknown): data is LearnMode {
  * @param {unknown} data Unkown type to be checked
  * @returns {boolean} Whether data is of type Tag
  */
-export function isTagString(data: unknown): data is Tag {
-  if (!isString(data)) {
+export function isTag(data: unknown): data is Tag {
+  if (!isObject(data)) {
+    return false;
+  }
+  if (!isString(data.id)) {
+    return false;
+  }
+  if (!isString(data.name)) {
+    return false;
+  }
+  if (!isString(data.description)) {
     return false;
   }
   return true;
@@ -105,7 +114,7 @@ export function isTagString(data: unknown): data is Tag {
  * @returns {boolean} Whether data is of type Tag[]
  */
 export function isTagArray(data: unknown): data is Tag[] {
-  return Array.isArray(data) && data.every((d) => isTagString(d));
+  return Array.isArray(data) && data.every((d) => isTag(d));
 }
 
 /**
@@ -114,7 +123,7 @@ export function isTagArray(data: unknown): data is Tag[] {
  * @returns {boolean} Whether data is of type TagData
  */
 export function isTagData(data: unknown): data is TagData {
-  if (!isTagString(data)) {
+  if (!isTag(data)) {
     return false;
   }
   if (!("checked" in data) || !isBoolean(data.checked)) {
