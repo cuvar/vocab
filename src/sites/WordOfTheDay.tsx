@@ -5,22 +5,22 @@ import { sendServiceWorkerWordOfTheDay } from "../server/service/serviceWorker.s
 import { toastTextAtom, toastTypeAtom } from "../server/store";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
-import { getSettings, updateSettings } from "../utils/store/settings";
+import { DEFAULT_SETTINGS } from "../utils/const";
+import { getSettings } from "../utils/store/settings";
 
 export default function WordOfTheDay() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
   );
-  const [reminderTime, setReminderTime] = useState<string>(
-    getSettings()?.reminderTime ?? "09:00"
-  );
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
 
+  const REMINDER_TIME =
+    getSettings()?.reminderTime ?? DEFAULT_SETTINGS.reminderTime;
   const wotdQuery = api.word.getWordOfTheDay.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess: (data) => {
-      sendServiceWorkerWordOfTheDay(data, reminderTime);
+      sendServiceWorkerWordOfTheDay(data, REMINDER_TIME);
     },
     onError: (err) => {
       setToastType("error");
@@ -66,23 +66,6 @@ export default function WordOfTheDay() {
     });
   }
 
-  function handleReminderTimeChange(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
-    setReminderTime(e.target.value);
-  }
-
-  function handleSaveReminderTime() {
-    updateSettings({ reminderTime: reminderTime });
-    if (!wotdQuery.data) return;
-    sendServiceWorkerWordOfTheDay(wotdQuery.data, reminderTime);
-
-    setToastType("success");
-    setToastText(`Time successfully saved`);
-    setTimeout(() => {
-      setToastText("");
-    }, 1500);
-  }
-
   return (
     <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <div className="flex-col items-center space-y-2 text-center">
@@ -94,7 +77,9 @@ export default function WordOfTheDay() {
           )
         ) : (
           <div className="flex h-60 w-full flex-col justify-center">
-            <h2 className="mb-20 text-2xl">Your Word of the day</h2>
+            <h1 className="mb-20 text-2xl tracking-tight">
+              Your Word of the Day
+            </h1>
             <p className="text-3xl font-bold">{wordToDisplay.translation}</p>
             <p className="text-xl">{wordToDisplay.native}</p>
             <p className="text-xl">{wordToDisplay.notes}</p>
@@ -112,27 +97,6 @@ export default function WordOfTheDay() {
             disabled={wotdQuery.data?.word.mode !== LearnMode.UNLEARNED}
           >
             Mark as learned
-          </button>
-        </div>
-        <div className="flex w-full items-end justify-center space-x-4 pt-20">
-          <label className="form-control">
-            <div className="label">
-              <span className="label-text">Reminder time</span>
-            </div>
-            <input
-              type="time"
-              value={reminderTime}
-              onChange={handleReminderTimeChange}
-              className="input-bordered input w-40"
-              name="reminder"
-            />
-          </label>
-
-          <button
-            className="btn-success btn-outline btn"
-            onClick={handleSaveReminderTime}
-          >
-            Save
           </button>
         </div>
       </div>
