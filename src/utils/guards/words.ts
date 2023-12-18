@@ -30,7 +30,7 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isString(data.notes)) {
     return false;
   }
-  if (!isTagArray(data.tag)) {
+  if (!isTagArray(data.tags)) {
     return false;
   }
   if (!isLearnMode(data.mode)) {

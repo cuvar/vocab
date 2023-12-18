@@ -5,6 +5,7 @@ import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { sendServiceWorkerWordOfTheDay } from "../service/serviceWorker.service";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
+import { env } from "../env/client.mjs";
 
 export default function WordOfTheDay() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
@@ -54,7 +55,10 @@ export default function WordOfTheDay() {
 
   function handleNotify() {
     if (!wotdQuery.data) return;
-    sendServiceWorkerWordOfTheDay(wotdQuery.data);
+    sendServiceWorkerWordOfTheDay(
+      wotdQuery.data,
+      env.NEXT_PUBLIC_REMINDER_TIME
+    );
   }
 
   function handleMarkAsLearned() {

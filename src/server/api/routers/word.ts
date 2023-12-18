@@ -56,7 +56,7 @@ export const wordRouter = createTRPCRouter({
   //   },
   // });
   //   } catch (error) {
-  //     Log(error);
+  //     console.logerror);
   //     throw new TRPCError({
   //       code: "INTERNAL_SERVER_ERROR",
   //       message: "Internal Server Error",

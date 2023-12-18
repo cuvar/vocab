@@ -1,7 +1,6 @@
 import Fuse from "fuse.js";
 import type { ListElement, VocabularyWord } from "../types/types";
 import { isListElementArray } from "../utils/guards/words";
-import Log from "../utils/log";
 
 /**
  *
@@ -25,7 +24,7 @@ export function searchWord(
  * @param searched
  */
 function searchListLement(words: ListElement[], searched: string) {
-  Log(words[0]);
+  console.log(words[0]);
   const wordsToSearchThrough = words.map((word) => word.word);
   const searchResults = search(wordsToSearchThrough, searched, 5);
 

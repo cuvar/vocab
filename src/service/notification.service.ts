@@ -1,5 +1,4 @@
 import type { WOTD } from "../types/types";
-import Log from "../utils/log";
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 
@@ -17,7 +16,7 @@ export function getWotdNotificationData(wotd: WOTD) {
       body: notificationBody,
     };
   } catch (error) {
-    Log(error);
+    console.log(error);
     throw error;
   }
 }
@@ -30,7 +29,7 @@ export function getWotdNotificationData(wotd: WOTD) {
  */
 export async function sendNotification(title: string, body: string) {
   if (!("Notification" in window)) {
-    Log("This browser does not support desktop notification");
+    console.log("This browser does not support desktop notification");
     return;
   }
   if (Notification.permission !== "denied") {

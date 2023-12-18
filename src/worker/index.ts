@@ -2,40 +2,47 @@ import { getWotdNotificationData } from "../service/notification.service";
 import type { WOTD } from "../types/types";
 import { isObject, isString } from "../utils/guards/base";
 import { isWOTD } from "../utils/guards/words";
-import Log from "../utils/log";
 
 declare let self: ServiceWorkerGlobalScope;
 
 // window.navigator.serviceWorker.controller.postMessage({command: 'log', message: 'hello world'})
-self.addEventListener("message", async (event) => {
+let CURRENT_WOTD: WOTD | null = null;
+let REMINDER_TIME = "";
+
+self.addEventListener("message", (event) => {
   if (!isObject(event)) return;
   if (!isObject(event.data)) return;
   if (!isString(event.data.command)) return;
 
   if (event.data.command === "log") {
     if (!("message" in event.data)) return;
-    Log(event?.data.message);
+    console.log(event?.data.message);
     return;
   }
 
   if (event.data.command === "wotd") {
-    await sendWotdNotification(event.data);
+    updateWOTD(event.data.message);
     return;
   }
-
-  Log("hello data world");
 });
 
 /**
- * Sends actual notification to user
+ * Updates file-gobal wotd variable
  * @param {object} data Data from message event
  */
-async function sendWotdNotification(data: Record<string, string>) {
-  if (!isObject(data.word)) return;
-  Log(data.word);
+function updateWOTD(data: unknown) {
+  if (!isObject(data)) return;
+  if (!isString(data.time)) return;
   if (!isWOTD(data.word)) return;
-
-  const wotd = data.word as WOTD;
+  CURRENT_WOTD = data.word as WOTD;
+  REMINDER_TIME = data.time;
+  console.log("updated wotd");
+}
+/**
+ * Sends actual notification to user
+ * @param {WOTD} wotd Data from message event
+ */
+async function sendWotdNotification(wotd: WOTD) {
   const { title, body } = getWotdNotificationData(wotd);
   await self.registration.showNotification(title, {
     body: body,
@@ -69,7 +76,7 @@ async function sendWotdNotification(data: Record<string, string>) {
 // });
 
 // self.addEventListener("activate", () => {
-//   Log("service worker activated");
+//   console.log"service worker activated");
 // });
 
 // self.addEventListener("push", (event) => {
@@ -104,12 +111,12 @@ async function sendWotdNotification(data: Record<string, string>) {
 //   );
 // });
 
-const REMINDER_TIME = "8:00";
-
 setInterval(() => {
+  console.log(REMINDER_TIME);
+  if (!CURRENT_WOTD) return;
   const formated = formatTime(new Date());
   if (formated === REMINDER_TIME) {
-    // TODO: send notification
+    void (async () => await sendWotdNotification(CURRENT_WOTD))();
   }
 }, 59 * 1000);
 
