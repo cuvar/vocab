@@ -1,8 +1,8 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { sendServiceWorkerWordOfTheDay } from "../server/service/serviceWorker.service";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
-import { sendServiceWorkerWordOfTheDay } from "../service/serviceWorker.service";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { getSettings, updateSettings } from "../utils/store/settings";
