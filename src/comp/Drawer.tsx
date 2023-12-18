@@ -57,7 +57,7 @@ export default function Drawer(props: Props) {
     },
     {
       href: "/wotd",
-      displayName: "Wotd",
+      displayName: "WOTD",
       icon: calendarIcon,
     },
     {
@@ -76,8 +76,8 @@ export default function Drawer(props: Props) {
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <div className="flex min-h-full flex-col justify-between">
-          <ul className="menu w-80 space-y-2 bg-base-100 p-4 text-base-content">
+        <div className="flex min-h-full flex-col justify-between bg-base-100 text-base-content">
+          <ul className="menu w-80 space-y-2 p-4">
             {drawerItems
               .filter((d) => d.position !== "bottom")
               .map((item) => (
@@ -94,7 +94,7 @@ export default function Drawer(props: Props) {
                 </li>
               ))}
           </ul>
-          <ul className="menu w-80 space-y-2 bg-base-100 p-4 text-base-content">
+          <ul className="menu w-80 space-y-2 p-4">
             {drawerItems
               .filter((d) => d.position === "bottom")
               .map((item) => (
