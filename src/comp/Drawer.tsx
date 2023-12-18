@@ -4,6 +4,7 @@ import {
   archiveIcon,
   boltIcon,
   calendarIcon,
+  cogIcon,
   hatIcon,
   listIcon,
   sparklesIcon,
@@ -18,6 +19,7 @@ type DrawerItem = {
   href: string;
   displayName: string;
   icon: React.ReactNode;
+  position?: "top" | "bottom";
 };
 export default function Drawer(props: Props) {
   const router = useRouter();
@@ -58,6 +60,12 @@ export default function Drawer(props: Props) {
       displayName: "Wotd",
       icon: calendarIcon,
     },
+    {
+      href: "/settings",
+      displayName: "Settings",
+      icon: cogIcon,
+      position: "bottom",
+    },
   ];
 
   return (
@@ -68,21 +76,42 @@ export default function Drawer(props: Props) {
       </div>
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="menu min-h-full w-80 space-y-2 bg-base-100 p-4 text-base-content">
-          {drawerItems.map((item) => (
-            <li key={item.href}>
-              <Link
-                href={item.href}
-                className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
-                  path == item.href.slice(1) ? `active` : ""
-                }`}
-              >
-                <span>{item.icon}</span>
-                <span>{item.displayName}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="flex min-h-full flex-col justify-between">
+          <ul className="menu w-80 space-y-2 bg-base-100 p-4 text-base-content">
+            {drawerItems
+              .filter((d) => d.position !== "bottom")
+              .map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
+                      path == item.href.slice(1) ? `active` : ""
+                    }`}
+                  >
+                    <span>{item.icon}</span>
+                    <span>{item.displayName}</span>
+                  </Link>
+                </li>
+              ))}
+          </ul>
+          <ul className="menu w-80 space-y-2 bg-base-100 p-4 text-base-content">
+            {drawerItems
+              .filter((d) => d.position === "bottom")
+              .map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
+                      path == item.href.slice(1) ? `active` : ""
+                    }`}
+                  >
+                    <span>{item.icon}</span>
+                    <span>{item.displayName}</span>
+                  </Link>
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
