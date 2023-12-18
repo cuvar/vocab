@@ -5,17 +5,23 @@ import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { sendServiceWorkerWordOfTheDay } from "../service/serviceWorker.service";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
-import { env } from "../env/client.mjs";
+import { getSettings, updateSettings } from "../utils/store/settings";
 
 export default function WordOfTheDay() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
+  );
+  const [reminderTime, setReminderTime] = useState<string>(
+    getSettings()?.reminderTime ?? "09:00"
   );
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
 
   const wotdQuery = api.word.getWordOfTheDay.useQuery(undefined, {
     refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      sendServiceWorkerWordOfTheDay(data, reminderTime);
+    },
     onError: (err) => {
       setToastType("error");
       setToastText(err.message);
@@ -53,19 +59,22 @@ export default function WordOfTheDay() {
     setWordToDisplay(wotdQuery.data.word);
   }, [wotdQuery.data]);
 
-  function handleNotify() {
-    if (!wotdQuery.data) return;
-    sendServiceWorkerWordOfTheDay(
-      wotdQuery.data,
-      env.NEXT_PUBLIC_REMINDER_TIME
-    );
-  }
-
   function handleMarkAsLearned() {
     updateModeMutation.mutate({
       id: wotdQuery.data?.word.id ?? "",
       mode: LearnMode.LEARNED,
     });
+  }
+
+  function handleReminderTimeChange(e: React.ChangeEvent<HTMLInputElement>) {
+    console.log(e.target.value);
+    setReminderTime(e.target.value);
+  }
+
+  function handleSaveReminderTime() {
+    updateSettings({ reminderTime: reminderTime });
+    if (!wotdQuery.data) return;
+    sendServiceWorkerWordOfTheDay(wotdQuery.data, reminderTime);
   }
 
   return (
@@ -91,15 +100,33 @@ export default function WordOfTheDay() {
           </div>
         )}
         <div className="space-x-4">
-          <button className="btn-ghost btn" onClick={handleNotify}>
-            send
-          </button>
           <button
             className="btn-secondary btn"
             onClick={handleMarkAsLearned}
             disabled={wotdQuery.data?.word.mode !== LearnMode.UNLEARNED}
           >
             Mark as learned
+          </button>
+        </div>
+        <div className="flex w-full items-end justify-center space-x-4 pt-20">
+          <label className="form-control">
+            <div className="label">
+              <span className="label-text">Reminder time</span>
+            </div>
+            <input
+              type="time"
+              value={reminderTime}
+              onChange={handleReminderTimeChange}
+              className="input-bordered input w-40"
+              name="reminder"
+            />
+          </label>
+
+          <button
+            className="btn-success btn-outline btn"
+            onClick={handleSaveReminderTime}
+          >
+            Save
           </button>
         </div>
       </div>

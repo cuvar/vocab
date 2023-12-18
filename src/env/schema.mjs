@@ -45,7 +45,6 @@ export const serverEnv = {
 export const clientSchema = z.object({
   NEXT_PUBLIC_NATIVE_ICON: z.string(),
   NEXT_PUBLIC_TRANSLATION_ICON: z.string(),
-  NEXT_PUBLIC_REMINDER_TIME: z.string().length(5).regex(/^\d{2}:\d{2}$/),
 });
 
 /**
@@ -57,5 +56,4 @@ export const clientSchema = z.object({
 export const clientEnv = {
   NEXT_PUBLIC_NATIVE_ICON: process.env.NEXT_PUBLIC_NATIVE_ICON,
   NEXT_PUBLIC_TRANSLATION_ICON: process.env.NEXT_PUBLIC_TRANSLATION_ICON,
-  NEXT_PUBLIC_REMINDER_TIME: process.env.NEXT_PUBLIC_REMINDER_TIME,
 };

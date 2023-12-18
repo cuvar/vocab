@@ -112,13 +112,19 @@ async function sendWotdNotification(wotd: WOTD) {
 // });
 
 setInterval(() => {
-  console.log(REMINDER_TIME);
   if (!CURRENT_WOTD) return;
   const formated = formatTime(new Date());
   if (formated === REMINDER_TIME) {
-    void (async () => await sendWotdNotification(CURRENT_WOTD))();
+    try {
+      void (async () => await sendWotdNotification(CURRENT_WOTD))();
+    } catch (error) {
+      console.error(
+        "Could not send notification due to following error.",
+        error
+      );
+    }
   }
-}, 59 * 1000);
+}, 60 * 1000);
 
 /**
  * Formats hours and minutes to HH:MM string

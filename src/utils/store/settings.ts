@@ -11,6 +11,19 @@ export function setSettings(settings: Settings) {
 }
 
 /**
+ * Updates the settings in the localStorage
+ * @param {Partial<Settings>} newValues New values that should be updated
+ */
+export function updateSettings(newValues: Partial<Settings>) {
+  const currentSettings = getSettings();
+  const newSettings = {
+    ...currentSettings,
+    ...newValues,
+  };
+  localStorage.setItem(KEY_SETTINGS, JSON.stringify(newSettings));
+}
+
+/**
  * Returns the learned words
  * @returns {Settings[]} The settings for the app
  */

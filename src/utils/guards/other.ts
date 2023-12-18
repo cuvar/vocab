@@ -15,6 +15,10 @@ export function isVocabSettings(data: unknown): data is Settings {
     return false;
   }
 
+  if (!("reminderTime" in data) || typeof data.reminderTime !== "string") {
+    return false;
+  }
+
   return true;
 }
 

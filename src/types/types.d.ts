@@ -48,6 +48,7 @@ export type JsonImportWord = {
 
 export type Settings = {
   randomizeCards: boolean;
+  reminderTime: string;
 };
 
 export type WOTD = {
