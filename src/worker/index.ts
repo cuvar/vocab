@@ -22,7 +22,18 @@ self.addEventListener("message", (event) => {
   }
 
   if (event.data.command === "wotd") {
-    updateWOTD(event.data.message);
+    if (!isObject(event.data.message)) return;
+    updateWOTD(event.data.message.word);
+    updateReminderTime(event.data.message.time);
+    return;
+  }
+
+  if (event.data.command === "reminderTime") {
+    if (!isObject(event.data.message)) return;
+    updateReminderTime(event.data.message.time);
+    if (!CURRENT_WOTD) {
+      void (async () => await fetchWOTD())();
+    }
     return;
   }
 });
@@ -59,23 +70,43 @@ async function fetchWOTD() {
     throw error;
   }
 }
+
 /**
  * Updates file-gobal wotd variable
- * @param {object} data Data from message event
+ * @param {object} word Data from message event
  */
-function updateWOTD(data: unknown) {
-  if (!isObject(data)) return;
-  if (!isString(data.time)) return;
-  if (!isWOTD(data.word)) return;
-  CURRENT_WOTD = data.word as WOTD;
-  REMINDER_TIME = data.time;
+function updateWOTD(word: unknown) {
+  if (!isWOTD(word)) return;
+  CURRENT_WOTD = word as WOTD;
   console.log("updated wotd");
 }
+
+/**
+ * Updates file-gobal reminder time variable
+ * @param {object} time Data from message event
+ */
+function updateReminderTime(time: unknown) {
+  if (!isString(time)) return;
+  REMINDER_TIME = time;
+  console.log("updated time");
+}
+
 /**
  * Sends actual notification to user
  * @param {WOTD} wotd Data from message event
  */
 async function sendWotdNotification(wotd: WOTD) {
+  if (!("Notification" in window)) {
+    console.log("This browser does not support desktop notification");
+    return;
+  }
+  if (Notification.permission !== "denied") {
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      return;
+    }
+  }
+
   const { title, body } = getWotdNotificationData(wotd);
   await self.registration.showNotification(title, {
     body: body,
