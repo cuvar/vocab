@@ -2,6 +2,7 @@ import { getWotdNotificationData } from "../service/notification.service";
 import type { WOTD } from "../types/types";
 import { isObject, isString } from "../utils/guards/base";
 import { isWOTD } from "../utils/guards/words";
+import Log from "../utils/log";
 
 declare let self: ServiceWorkerGlobalScope;
 
@@ -13,7 +14,7 @@ self.addEventListener("message", async (event) => {
 
   if (event.data.command === "log") {
     if (!("message" in event.data)) return;
-    console.log(event?.data.message);
+    Log(event?.data.message);
     return;
   }
 
@@ -22,7 +23,7 @@ self.addEventListener("message", async (event) => {
     return;
   }
 
-  console.log("hello data world");
+  Log("hello data world");
 });
 
 /**
@@ -31,7 +32,7 @@ self.addEventListener("message", async (event) => {
  */
 async function sendWotdNotification(data: Record<string, string>) {
   if (!isObject(data.word)) return;
-  console.log(data.word);
+  Log(data.word);
   if (!isWOTD(data.word)) return;
 
   const wotd = data.word as WOTD;
@@ -68,7 +69,7 @@ async function sendWotdNotification(data: Record<string, string>) {
 // });
 
 // self.addEventListener("activate", () => {
-//   console.log("service worker activated");
+//   Log("service worker activated");
 // });
 
 // self.addEventListener("push", (event) => {

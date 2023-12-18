@@ -1,4 +1,5 @@
 import { type Tag } from "../../types/types";
+import AppError from "../../utils/error";
 import { prisma } from "../db";
 import { type TagRepository } from "./TagRepository";
 
@@ -28,7 +29,7 @@ export class TagSupabaseRepository implements TagRepository {
       });
 
       if (!data) {
-        throw new Error("Cannot find tag " + tagName);
+        throw new AppError("Cannot find tag " + tagName);
       }
 
       return {
@@ -63,7 +64,7 @@ export class TagSupabaseRepository implements TagRepository {
       });
 
       if (!data) {
-        throw new Error("Cannot find word with id " + wordId);
+        throw new AppError("Cannot find word with id " + wordId);
       }
 
       const tags = data.tags.map((t) => {
@@ -100,7 +101,7 @@ export class TagSupabaseRepository implements TagRepository {
       });
 
       if (!createRes) {
-        throw new Error("Cannot set tags for word with id " + wordId);
+        throw new AppError("Cannot set tags for word with id " + wordId);
       }
 
       return createRes.count;

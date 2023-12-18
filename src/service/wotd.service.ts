@@ -3,6 +3,8 @@ import { WOTDSupabaseRepository } from "../server/repository/WOTDSupabaseReposit
 import { WordSupabaseRepository } from "../server/repository/WordSupabaseRepository";
 import type { VocabularyWord, WOTD } from "../types/types";
 import { getTodayMorning } from "./getDate.service";
+import AppError from "../utils/error";
+import Log from "../utils/log";
 
 const wotdRepo = new WOTDSupabaseRepository();
 const wordRepo = new WordSupabaseRepository();
@@ -22,8 +24,8 @@ export async function getWOTD() {
     const newWord = await getNewWOTD();
     return newWord;
   } catch (error) {
-    console.log(error);
-    throw new Error("Cannot get word of the day");
+    Log(error);
+    throw new AppError("Cannot get word of the day", error);
   }
 }
 
@@ -39,7 +41,7 @@ async function getNewWOTD() {
     });
     const lastWordsIds = lastNWords.map((w) => w.word.id);
 
-    if (unlearned.length == 0) throw new Error("No words left");
+    if (unlearned.length == 0) throw new AppError("No words left");
 
     let choice: VocabularyWord | null = null;
     let i = 0;
@@ -53,10 +55,10 @@ async function getNewWOTD() {
       break;
     }
 
-    if (!choice) throw new Error("No word of the day could be found.");
+    if (!choice) throw new AppError("No word of the day could be found.");
     const addedWord = await wotdRepo.add(choice, getTodayMorning());
     return addedWord;
   } catch (error) {
-    throw new Error("Cannot create new word of the day");
+    throw new AppError("Cannot create new word of the day");
   }
 }

@@ -1,4 +1,5 @@
 import type { WOTD } from "../types/types";
+import AppError from "../utils/error";
 
 /**
  * Sends notification to service worker for WOTD notification
@@ -7,13 +8,13 @@ import type { WOTD } from "../types/types";
  */
 export function sendServiceWorkerWordOfTheDay(word: WOTD) {
   if (typeof window === "undefined") {
-    throw new Error("Window not defined");
+    throw new AppError("Window not defined");
   }
   if (!window.navigator.serviceWorker) {
-    throw new Error("Service worker not supported");
+    throw new AppError("Service worker not supported");
   }
   if (!window.navigator.serviceWorker.controller) {
-    throw new Error("Service worker not active");
+    throw new AppError("Service worker not active");
   }
 
   window.navigator.serviceWorker.controller.postMessage({

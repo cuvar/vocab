@@ -1,9 +1,11 @@
+import Log from "../utils/log";
+
 /**
  * Tests es6+ syntax
  */
 export function util() {
-  console.log("Hello from util.");
-  console.log("es6+ syntax test:");
+  Log("Hello from util.");
+  Log("es6+ syntax test:");
   const foo = { message: "working" };
-  console.log(foo?.message);
+  Log(foo?.message);
 }

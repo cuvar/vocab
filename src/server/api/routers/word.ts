@@ -3,6 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { searchWord } from "../../../service/search.service";
 import { getWOTD } from "../../../service/wotd.service";
+import AppError from "../../../utils/error";
 import { isJsonImportWordArray } from "../../../utils/guards/words";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
@@ -55,7 +56,7 @@ export const wordRouter = createTRPCRouter({
   //   },
   // });
   //   } catch (error) {
-  //     console.log(error);
+  //     Log(error);
   //     throw new TRPCError({
   //       code: "INTERNAL_SERVER_ERROR",
   //       message: "Internal Server Error",
@@ -267,7 +268,7 @@ export const wordRouter = createTRPCRouter({
       try {
         const parsed = JSON.parse(input.text) as string;
         if (!isJsonImportWordArray(parsed)) {
-          throw new Error("Input is in wrong format");
+          throw new AppError("Input is in wrong format");
         }
 
         const res = await repo.importWords(parsed);
