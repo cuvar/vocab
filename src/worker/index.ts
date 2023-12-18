@@ -6,6 +6,7 @@ import { isWOTD } from "../utils/guards/words";
 declare let self: ServiceWorkerGlobalScope;
 
 // window.navigator.serviceWorker.controller.postMessage({command: 'log', message: 'hello world'})
+let LAST_WOTD: WOTD | null = null;
 let CURRENT_WOTD: WOTD | null = null;
 let REMINDER_TIME = "";
 
@@ -112,11 +113,12 @@ async function sendWotdNotification(wotd: WOTD) {
 // });
 
 setInterval(() => {
-  if (!CURRENT_WOTD) return;
+  if (!CURRENT_WOTD || CURRENT_WOTD == LAST_WOTD) return;
   const formated = formatTime(new Date());
   if (formated === REMINDER_TIME) {
     try {
       void (async () => await sendWotdNotification(CURRENT_WOTD))();
+      LAST_WOTD = CURRENT_WOTD;
     } catch (error) {
       console.error(
         "Could not send notification due to following error.",
