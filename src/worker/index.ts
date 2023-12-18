@@ -76,6 +76,17 @@ function updateWOTD(data: unknown) {
  * @param {WOTD} wotd Data from message event
  */
 async function sendWotdNotification(wotd: WOTD) {
+  if (!("Notification" in window)) {
+    console.log("This browser does not support desktop notification");
+    return;
+  }
+  if (Notification.permission !== "denied") {
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      return;
+    }
+  }
+
   const { title, body } = getWotdNotificationData(wotd);
   await self.registration.showNotification(title, {
     body: body,
