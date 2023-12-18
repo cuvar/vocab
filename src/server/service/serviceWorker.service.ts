@@ -27,3 +27,28 @@ export function sendServiceWorkerWordOfTheDay(word: WOTD, time: string) {
     message,
   });
 }
+
+/**
+ * Sends notification to service worker for reminder time
+ * @param {string} time Time to send notification
+ * @returns {void}
+ */
+export function sendServiceWorkerReminderTime(time: string) {
+  if (typeof window === "undefined") {
+    throw new AppError("Window not defined");
+  }
+  if (!window.navigator.serviceWorker) {
+    throw new AppError("Service worker not supported");
+  }
+  if (!window.navigator.serviceWorker.controller) {
+    throw new AppError("Service worker not active");
+  }
+
+  const message = {
+    time: time,
+  };
+  window.navigator.serviceWorker.controller.postMessage({
+    command: "reminderTime",
+    message,
+  });
+}
