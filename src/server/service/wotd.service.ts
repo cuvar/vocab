@@ -34,20 +34,24 @@ export async function getWOTD() {
  */
 async function getNewWOTD() {
   try {
-    const lastNWords = await wotdRepo.getLastWords(LAST_N);
-    const unlearned = await wordRepo.getWordsByFilter({
-      mode: LearnMode.UNLEARNED,
+    const countLearned = await wordRepo.getCountByFilter({
+      mode: LearnMode.LEARNED,
+    });
+    const last_n = Math.min(LAST_N, countLearned - 1);
+    const lastNWords = await wotdRepo.getLastWords(last_n);
+    const learnedWords = await wordRepo.getWordsByFilter({
+      mode: LearnMode.LEARNED,
     });
     const lastWordsIds = lastNWords.map((w) => w.word.id);
 
-    if (unlearned.length == 0) throw new AppError("No words left");
+    if (learnedWords.length == 0) throw new AppError("No words left");
 
     let choice: VocabularyWord | null = null;
     let i = 0;
     while (choice == null && i < 150) {
       i++;
       const randomWord =
-        unlearned[Math.floor(Math.random() * unlearned.length)];
+        learnedWords[Math.floor(Math.random() * learnedWords.length)];
       if (!randomWord) continue;
       if (lastWordsIds.includes(randomWord.id)) continue;
       choice = randomWord;
