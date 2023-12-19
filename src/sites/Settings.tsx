@@ -63,8 +63,11 @@ export default function SettingsComp() {
 
   function handleSave() {
     setSettings(settingsData);
-    sendServiceWorkerReminderTime(settingsData.reminderTime);
-
+    try {
+      sendServiceWorkerReminderTime(settingsData.reminderTime);
+    } catch (error: unknown) {
+      console.error(error);
+    }
     setToastType("success");
     setToastText(`Settings successfully saved`);
     setTimeout(() => {
