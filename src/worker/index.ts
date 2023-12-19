@@ -39,13 +39,13 @@ self.addEventListener("message", (event) => {
 });
 
 setInterval(() => {
-  if (!CURRENT_WOTD || CURRENT_WOTD == LAST_WOTD) return;
   const formated = formatTime(new Date());
   if (formated !== REMINDER_TIME) {
     return;
   }
   try {
     void (async () => await fetchWOTD())();
+    if (!CURRENT_WOTD || CURRENT_WOTD == LAST_WOTD) return;
     void (async () => await sendWotdNotification(CURRENT_WOTD))();
     LAST_WOTD = CURRENT_WOTD;
   } catch (error) {
@@ -62,7 +62,8 @@ async function fetchWOTD() {
     const json = (await res.json()) as unknown;
     if (!isObject(json)) return;
     if (!("wotd" in json) || !isString(json.wotd)) return;
-    const newWotd = JSON.parse(json.wotd) as object;
+    const newWotd = JSON.parse(json.wotd) as WOTD;
+    newWotd.date = new Date(newWotd.date);
     updateWOTD(newWotd);
   } catch (error) {
     console.error("fetchWOTD:", error);
@@ -95,14 +96,12 @@ function updateReminderTime(time: unknown) {
  * @param {WOTD} wotd Data from message event
  */
 async function sendWotdNotification(wotd: WOTD) {
-  if (!("Notification" in window)) {
+  if (!Notification) {
     throw new Error("This browser does not support desktop notification");
   }
-  if (Notification.permission !== "denied") {
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      throw new Error("Permission not granted");
-    }
+
+  if (Notification.permission !== "granted") {
+    throw new Error("Permission not granted");
   }
 
   const { title, body } = getWotdNotificationData(wotd);

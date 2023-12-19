@@ -84,7 +84,6 @@ export default function SettingsComp() {
   }
 
   async function requestPermissions() {
-    showToast(`Requesting permissions`, "success");
     try {
       const permission = await Notification.requestPermission();
       if (permission !== "granted") {
@@ -125,7 +124,7 @@ export default function SettingsComp() {
     <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">Settings</h1>
       <div className="w-full flex-col items-start justify-start space-y-8">
-        <div className="flex w-full flex-col">
+        <div className="flex w-full flex-col space-y-4">
           <h2 className="text-xl font-bold">Notifications</h2>
           <div className="form-control">
             <label className="label w-72 cursor-pointer space-x-2">
@@ -137,7 +136,10 @@ export default function SettingsComp() {
                 onChange={handleChangeSendNotifications}
               />
             </label>
-            <button className="btn-ghost btn" onClick={handleRequestPermission}>
+            <button
+              className="btn-primary btn w-40"
+              onClick={handleRequestPermission}
+            >
               Request permissions
             </button>
           </div>
