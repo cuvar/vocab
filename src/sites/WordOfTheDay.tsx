@@ -1,4 +1,3 @@
-import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { sendServiceWorkerWordOfTheDay } from "../server/service/serviceWorker.service";
@@ -20,31 +19,15 @@ export default function WordOfTheDay() {
   const wotdQuery = api.word.getWordOfTheDay.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess: (data) => {
-      sendServiceWorkerWordOfTheDay(data, REMINDER_TIME);
+      try {
+        sendServiceWorkerWordOfTheDay(data, REMINDER_TIME);
+      } catch (error: unknown) {
+        console.error(error);
+      }
     },
     onError: (err) => {
       setToastType("error");
       setToastText(err.message);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
-  });
-
-  const updateModeMutation = api.word.updateMode.useMutation({
-    onSuccess: (data) => {
-      setToastType("success");
-      setToastText(`"${data.translation}" successfully added`);
-      void (async () => {
-        await wotdQuery.refetch();
-      })();
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
       setTimeout(() => {
         setToastText("");
       }, 1500);
@@ -58,13 +41,6 @@ export default function WordOfTheDay() {
 
     setWordToDisplay(wotdQuery.data.word);
   }, [wotdQuery.data]);
-
-  function handleMarkAsLearned() {
-    updateModeMutation.mutate({
-      id: wotdQuery.data?.word.id ?? "",
-      mode: LearnMode.LEARNED,
-    });
-  }
 
   return (
     <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
@@ -90,15 +66,6 @@ export default function WordOfTheDay() {
             )}
           </div>
         )}
-        <div className="space-x-4">
-          <button
-            className="btn-secondary btn"
-            onClick={handleMarkAsLearned}
-            disabled={wotdQuery.data?.word.mode !== LearnMode.UNLEARNED}
-          >
-            Mark as learned
-          </button>
-        </div>
       </div>
     </div>
   );
