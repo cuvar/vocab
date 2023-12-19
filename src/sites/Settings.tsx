@@ -52,11 +52,7 @@ export default function SettingsComp() {
           sendWOTDNotifications: true,
         });
       } catch (error) {
-        setToastType("error");
-        setToastText(`Cannot enable permissions`);
-        setTimeout(() => {
-          setToastText("");
-        }, 1500);
+        showToast(`Cannot enable permissions`, "error");
       }
     })();
   }
@@ -68,31 +64,61 @@ export default function SettingsComp() {
     } catch (error: unknown) {
       console.error(error);
     }
-    setToastType("success");
-    setToastText(`Settings successfully saved`);
-    setTimeout(() => {
-      setToastText("");
-    }, 1500);
+    showToast(`Settings successfully saved`, "success");
   }
 
   async function checkNotificationsPermission() {
     if (!window.Notification) {
-      console.log("This browser does not support desktop notification");
+      showToast(`Your browser does not support notifications`, "error");
       return false;
     }
     if (Notification.permission === "granted") {
+      showToast(`Permissions already granted`, "success");
       return true;
     }
 
-    if (Notification.permission !== "denied") {
+    try {
+      const hasPermissions = await requestPermissions();
+      return hasPermissions ?? false;
+    } catch (error) {}
+  }
+
+  async function requestPermissions() {
+    showToast(`Requesting permissions`, "success");
+    try {
       const permission = await Notification.requestPermission();
       if (permission !== "granted") {
-        console.log("Permission not granted for Notification");
+        showToast(`Permissions denied`, "error");
         return false;
       }
+
+      showToast(`Permissions granted`, "success");
       return true;
+    } catch (error) {
+      showToast(`Cannot enable permissions`, "error");
     }
-    return false;
+  }
+
+  function handleRequestPermission() {
+    void (async () => {
+      try {
+        const permitted = await requestPermissions();
+        setSettingsData({
+          ...settingsData,
+          sendWOTDNotifications: permitted ?? false,
+        });
+      } catch (error) {
+        showToast(`Cannot enable permissions`, "error");
+      }
+    })();
+  }
+
+  function showToast(text: string, type: "success" | "error") {
+    setToastType(type);
+    setToastText(text);
+    setTimeout(() => {
+      setToastText("");
+    }, 1500);
   }
 
   return (
@@ -111,6 +137,9 @@ export default function SettingsComp() {
                 onChange={handleChangeSendNotifications}
               />
             </label>
+            <button className="btn-ghost btn" onClick={handleRequestPermission}>
+              Request permissions
+            </button>
           </div>
           <label className="form-control">
             <div className="label">
