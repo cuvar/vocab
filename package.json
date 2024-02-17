@@ -11,6 +11,10 @@
     "start": "next start",
     "test": "jest --passWithNoTests"
   },
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.8.0",
