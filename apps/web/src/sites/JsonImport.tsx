@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { toastTextAtom, toastTypeAtom } from "../../../server/src/store";
 import { api } from "../utils/api";
 
 export default function JsonImport() {

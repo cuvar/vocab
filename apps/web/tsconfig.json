@@ -22,7 +22,9 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",
-    "**/*.mjs"
+    "**/*.mjs",
+    "../server/src/auth.ts",
+    "../server/src/store.ts"
   ],
   "exclude": ["node_modules"]
 }

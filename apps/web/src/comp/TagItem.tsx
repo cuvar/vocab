@@ -6,7 +6,7 @@ import {
   tagToDeleteAtom,
   toastTextAtom,
   toastTypeAtom,
-} from "../server/store";
+} from "../../../server/src/store";
 import { api } from "../utils/api";
 import { checkedIcon, crossIcon, penIcon } from "../utils/icons";
 

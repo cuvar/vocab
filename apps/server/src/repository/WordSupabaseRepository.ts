@@ -4,9 +4,9 @@ import {
   type SimpleWordInput,
   type Tag,
   type VocabularyWord,
-} from "../../types/types";
-import AppError from "../../utils/error";
-import { addIcons } from "../../utils/helper";
+} from "../../../web/src/types/types";
+import AppError from "../../../web/src/utils/error";
+import { addIcons } from "../../../web/src/utils/helper";
 import { prisma } from "../db";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";

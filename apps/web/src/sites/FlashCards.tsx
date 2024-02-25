@@ -1,9 +1,9 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
+import { toastTextAtom, toastTypeAtom } from "../../../server/src/store";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import {

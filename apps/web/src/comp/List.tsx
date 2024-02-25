@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { type ActionData } from "swiper-action";
+import { searchWord } from "../../../server/src/service/search.service";
 import { env } from "../env/client.mjs";
-import { searchWord } from "../server/service/search.service";
 import Error from "../sites/Error";
 import { type ListElement } from "../types/types";
 import {

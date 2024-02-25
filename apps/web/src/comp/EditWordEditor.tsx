@@ -7,7 +7,7 @@ import {
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
-} from "../server/store";
+} from "../../../server/src/store";
 import { type TagData, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { isLearnMode } from "../utils/guards/words";

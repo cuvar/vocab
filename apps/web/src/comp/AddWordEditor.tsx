@@ -6,7 +6,7 @@ import {
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
-} from "../server/store";
+} from "../../../server/src/store";
 import { type TagData } from "../types/types";
 import { api } from "../utils/api";
 import RelatedWordList from "./RelatedWordList";

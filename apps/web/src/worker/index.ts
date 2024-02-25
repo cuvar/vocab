@@ -1,4 +1,4 @@
-import { getWotdNotificationData } from "../server/service/notification.service";
+import { getWotdNotificationData } from "../../../server/src/service/notification.service";
 import type { WOTD } from "../types/types";
 import { isObject, isString } from "../utils/guards/base";
 import { isWOTD } from "../utils/guards/words";

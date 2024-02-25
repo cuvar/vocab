@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { sendServiceWorkerWordOfTheDay } from "../server/service/serviceWorker.service";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { sendServiceWorkerWordOfTheDay } from "../../../server/src/service/serviceWorker.service";
+import { toastTextAtom, toastTypeAtom } from "../../../server/src/store";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { DEFAULT_SETTINGS } from "../utils/const";

@@ -1,5 +1,5 @@
-import { type Tag } from "../../types/types";
-import AppError from "../../utils/error";
+import { type Tag } from "../../../web/src/types/types";
+import AppError from "../../../web/src/utils/error";
 import { prisma } from "../db";
 import { type TagRepository } from "./TagRepository";
 

@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { editorModalIdAtom } from "../server/store";
+import { editorModalIdAtom } from "../../../server/src/store";
 import { type VocabularyWord } from "../types/types";
 import AddWordEditor from "./AddWordEditor";
 import EditWordEditor from "./EditWordEditor";

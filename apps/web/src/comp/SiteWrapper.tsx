@@ -11,7 +11,7 @@ import {
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
-} from "../server/store";
+} from "../../../server/src/store";
 import LogoutScreen from "../sites/LogoutScreen";
 import Drawer from "./Drawer";
 import Editor from "./Editor";

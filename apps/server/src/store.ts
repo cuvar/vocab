@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { type ToastType, type VocabularyWord } from "../types/types";
+import { type ToastType, type VocabularyWord } from "../../web/src/types/types";
 
 // Toast
 export const toastTextAtom = atom("");

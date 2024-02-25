@@ -3,7 +3,7 @@ import {
   deleteTagConfirmedAtom,
   showMessageModalAtom,
   tagToDeleteAtom,
-} from "../server/store";
+} from "../../../server/src/store";
 
 type Props = {
   tag: string;

@@ -3,7 +3,7 @@ import {
   type JsonImportWord,
   type SimpleWordInput,
   type VocabularyWord,
-} from "../../types/types";
+} from "../../../web/src/types/types";
 
 export interface WordRepository {
   getWords: () => Promise<VocabularyWord[]>;

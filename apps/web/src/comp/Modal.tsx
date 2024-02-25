@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { showEditorModalAtom } from "../server/store";
+import { showEditorModalAtom } from "../../../server/src/store";
 
 type Props = {
   children: React.ReactNode;
