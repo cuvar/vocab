@@ -1,5 +1,5 @@
 {
-  "name": "@acme/expo",
+  "name": "@vocab/expo",
   "version": "0.1.0",
   "private": true,
   "main": "expo-router/entry",
@@ -39,11 +39,11 @@
     "superjson": "2.2.1"
   },
   "devDependencies": {
-    "@acme/api": "workspace:^0.1.0",
-    "@acme/eslint-config": "workspace:^0.2.0",
-    "@acme/prettier-config": "workspace:^0.1.0",
-    "@acme/tailwind-config": "workspace:^0.1.0",
-    "@acme/tsconfig": "workspace:^0.1.0",
+    "@vocab/api": "workspace:^0.1.0",
+    "@vocab/eslint-config": "workspace:^0.2.0",
+    "@vocab/prettier-config": "workspace:^0.1.0",
+    "@vocab/tailwind-config": "workspace:^0.1.0",
+    "@vocab/tsconfig": "workspace:^0.1.0",
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "@babel/runtime": "^7.23.9",
@@ -57,12 +57,12 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "@acme/eslint-config/base",
-      "@acme/eslint-config/react"
+      "@vocab/eslint-config/base",
+      "@vocab/eslint-config/react"
     ],
     "ignorePatterns": [
       "expo-plugins/**"
     ]
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@vocab/prettier-config"
 }
