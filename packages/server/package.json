@@ -1,0 +1,55 @@
+{
+  "name": "@vocab/server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./env": "./env.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vocab/db": "workspace:^0.1.0",
+    "@vocab/utils": "workspace:^0.1.0",
+    "@auth/drizzle-adapter": "^0.6.3",
+    "@t3-oss/env-nextjs": "^0.9.2",
+    "next": "^14.1.0",
+    "next-auth": "5.0.0-beta.9",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "fuse.js": "^6.6.2",
+    "zod": "^3.22.4",
+    "@prisma/client": "^4.8.0",
+    "@vocab/validators": "workspace:^0.1.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "devDependencies": {
+    "@vocab/eslint-config": "workspace:^0.2.0",
+    "@vocab/prettier-config": "workspace:^0.1.0",
+    "@vocab/tsconfig": "workspace:^0.1.0",
+    "@types/node": "^20.11.13",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "@jest/globals": "^29.7.0",
+    "@testing-library/dom": "^9.3.3",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.6",
+    "jest": "^29.7.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@vocab/eslint-config/base"
+    ]
+  },
+  "prettier": "@vocab/prettier-config"
+}

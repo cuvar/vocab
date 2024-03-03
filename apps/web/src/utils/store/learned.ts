@@ -1,0 +1,25 @@
+import type { ListElement } from "@vocab/validators";
+import { parseListElements } from "@vocab/server";
+
+import { KEY_LEARNED_WORDS } from "./keys";
+
+/**
+ * Sets the learned words in the localStorage
+ * @param {ListElement[]} words The words that have been learned
+ */
+export function setLearnedWords(words: ListElement[]) {
+  localStorage.setItem(KEY_LEARNED_WORDS, JSON.stringify(words));
+}
+
+/**
+ * Returns the learned words
+ * @returns {ListElement[]} The learned words
+ */
+export function getLearnedWords(): ListElement[] {
+  const res = localStorage.getItem(KEY_LEARNED_WORDS);
+  if (!res) {
+    return [];
+  }
+
+  return parseListElements(res);
+}

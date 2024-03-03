@@ -1,0 +1,4 @@
+{
+  "extends": "@vocab/tsconfig/base.json",
+  "include": ["routes"]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@vocab/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vocab/auth": "workspace:^0.1.0",
+    "@vocab/db": "workspace:^0.1.0",
+    "@vocab/validators": "workspace:^0.1.0",
+    "@vocab/server": "workspace:^0.1.0",
+    "@vocab/utils": "workspace:^0.1.0",
+    "@trpc/server": "11.0.0-next-beta.264",
+    "superjson": "2.2.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@vocab/eslint-config": "workspace:^0.2.0",
+    "@vocab/prettier-config": "workspace:^0.1.0",
+    "@vocab/tsconfig": "workspace:^0.1.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@vocab/eslint-config/base"
+    ]
+  },
+  "prettier": "@vocab/prettier-config"
+}

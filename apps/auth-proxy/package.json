@@ -1,0 +1,35 @@
+{
+  "name": "@vocab/auth-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nitro build",
+    "clean": "rm -rf .turbo node_modules",
+    "dev": "nitro dev --port 3001",
+    "lint": "eslint .",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@auth/core": "0.26.3"
+  },
+  "devDependencies": {
+    "@vocab/eslint-config": "workspace:^0.2.0",
+    "@vocab/prettier-config": "workspace:^0.1.0",
+    "@vocab/tailwind-config": "workspace:^0.1.0",
+    "@vocab/tsconfig": "workspace:^0.1.0",
+    "@types/node": "^20.11.13",
+    "eslint": "^8.56.0",
+    "h3": "^1.10.1",
+    "nitropack": "^2.8.1",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@vocab/eslint-config/base"
+    ]
+  },
+  "prettier": "@vocab/prettier-config"
+}
