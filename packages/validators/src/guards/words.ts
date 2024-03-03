@@ -6,7 +6,7 @@ import type {
   TagData,
   VocabularyWord,
   WOTD,
-} from "../../types/types";
+} from "../types";
 import { isBoolean, isDate, isObject, isString } from "./base";
 
 /**

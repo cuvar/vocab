@@ -1,11 +1,11 @@
 import { LearnMode } from "@prisma/client";
+import { type ListElement } from "@vocab/validators/src/types";
 import { useState } from "react";
 import {
   SwiperAction,
   type ActionData,
   type InteractionEvent,
 } from "swiper-action";
-import { type ListElement } from "../types/types";
 import { checkedIcon, uncheckedIcon } from "../utils/icons";
 
 type Props = {

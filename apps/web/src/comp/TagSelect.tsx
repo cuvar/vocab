@@ -1,5 +1,5 @@
+import { type TagData } from "@vocab/validators/src/types";
 import { useState } from "react";
-import { type TagData } from "../types/types";
 
 type Props = {
   tags: TagData[];

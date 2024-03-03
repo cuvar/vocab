@@ -1,26 +1,27 @@
+import type { ActionData, InteractionEvent } from "swiper-action";
+import { useEffect, useState } from "react";
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
-import { type ActionData, type InteractionEvent } from "swiper-action";
+
+import type { ListElement, VocabularyWord } from "@vocab/validators";
+import { api } from "@vocab/api";
+
+import List from "../comp/List";
+import { penIcon, switchIcon, trashIcon } from "../utils/icons";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
-} from "../../../server/src/store";
-import List from "../comp/List";
-import { type ListElement, type VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
-import { penIcon, switchIcon, trashIcon } from "../utils/icons";
+} from "../utils/store";
 import { getAllWords, setAllWords } from "../utils/store/allwords";
 import Error from "./Error";
 import Loading from "./Loading";
 
 export default function AllWords() {
-  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
-    getAllWords()
-  );
+  const [wordsToDisplay, setWordsToDisplay] =
+    useState<ListElement[]>(getAllWords());
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
@@ -147,7 +148,7 @@ export default function AllWords() {
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
-      <h1 className="mt-5 mb-2 text-2xl tracking-tight">
+      <h1 className="mb-2 mt-5 text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>
       <List

@@ -1,4 +1,5 @@
-import { type NextPage } from "next";
+import type { NextPage } from "next";
+
 import SiteWrapper from "../comp/SiteWrapper";
 import WordOfTheDay from "../sites/WordOfTheDay";
 

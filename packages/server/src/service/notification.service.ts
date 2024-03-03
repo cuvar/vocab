@@ -1,4 +1,4 @@
-import type { WOTD } from "../../../web/src/types/types";
+import type { WOTD } from "@vocab/validators";
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 

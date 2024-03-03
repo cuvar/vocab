@@ -1,5 +1,6 @@
-import { type NextPage } from "next";
+import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+
 import SiteWrapper from "../comp/SiteWrapper";
 import LogoutScreen from "../sites/LogoutScreen";
 

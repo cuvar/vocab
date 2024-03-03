@@ -1,4 +1,4 @@
-import { type VocabularyFlashCard } from "../types/types";
+import { type VocabularyFlashCard } from "@vocab/validators/src/types";
 
 type Props = {
   word: VocabularyFlashCard;

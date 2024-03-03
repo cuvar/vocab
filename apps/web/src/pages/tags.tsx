@@ -1,6 +1,7 @@
-import { type NextPage } from "next";
-import Tags from "../sites/Tags";
+import type { NextPage } from "next";
+
 import SiteWrapper from "../comp/SiteWrapper";
+import Tags from "../sites/Tags";
 
 const SiteWords: NextPage = () => {
   return (

@@ -1,17 +1,19 @@
+import { useEffect, useRef, useState } from "react";
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
-import { useEffect, useRef, useState } from "react";
-import { toastTextAtom, toastTypeAtom } from "../../../server/src/store";
+
+import type { VocabularyFlashCard, VocabularyWord } from "@vocab/validators";
+import { api } from "@vocab/api";
+
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
-import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
 import {
   archiveIcon,
   arrowRoundIcon,
   thumbsDownIcon,
   thumbsUpIcon,
 } from "../utils/icons";
+import { toastTextAtom, toastTypeAtom } from "../utils/store";
 import { addCard, clearCards, getCardsIds } from "../utils/store/flashcard";
 import { getLearnedWords } from "../utils/store/learned";
 import { getSettings, updateSettings } from "../utils/store/settings";
@@ -22,11 +24,11 @@ export default function FlashCards() {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(-1);
   const [topCardWord, setTopCardWord] = useState<VocabularyFlashCard | null>(
-    null
+    null,
   );
   const [showNative, setShowNative] = useState(false);
   const [switchChecked, setSwitchChecked] = useState(
-    getSettings()?.randomizeCards ?? false
+    getSettings()?.randomizeCards ?? false,
   );
   const cardRef = useRef(null);
   const [unlookedWords, setUnlookedWords] = useState<VocabularyFlashCard[]>([]);
@@ -125,7 +127,7 @@ export default function FlashCards() {
 
   function handleReset() {
     const confirmed = window.confirm(
-      "Are you sure you want to reset all learned words?"
+      "Are you sure you want to reset all learned words?",
     );
     if (!confirmed) return;
 

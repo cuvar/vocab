@@ -1,4 +1,4 @@
-import type { Settings } from "../types/types";
+import type { Settings } from "@vocab/validators/src/types";
 
 export const DEFAULT_SETTINGS: Settings = {
   randomizeCards: true,

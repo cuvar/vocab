@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import type { ListElement, Settings } from "../../../web/src/types/types";
-import { isVocabSettings } from "../../../web/src/utils/guards/other";
-import { isListElement } from "../../../web/src/utils/guards/words";
+import type { ListElement, Settings } from "@vocab/validators";
+import { isListElement, isVocabSettings } from "@vocab/validators";
 
 export function parseListElements(input: string): ListElement[] {
   const parsed = JSON.parse(input) as unknown;

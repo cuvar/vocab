@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import {
   messageModalIdAtom,
   showMessageModalAtom,
-} from "../../../server/src/store";
+} from "../utils/store";
 import DeleteTagModal from "./DeleteTagModal";
 import Modal from "./Modal";
 

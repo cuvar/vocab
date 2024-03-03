@@ -1,5 +1,6 @@
-import { parseSettings } from "../../../../server/src/service/parseCache.service";
-import type { Settings } from "../../types/types";
+import type { Settings } from "@vocab/validators";
+import { parseSettings } from "@vocab/server";
+
 import { KEY_SETTINGS } from "./keys";
 
 /**

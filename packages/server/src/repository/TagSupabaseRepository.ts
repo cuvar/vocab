@@ -1,7 +1,8 @@
-import { type Tag } from "../../../web/src/types/types";
-import AppError from "../../../web/src/utils/error";
-import { prisma } from "../db";
-import { type TagRepository } from "./TagRepository";
+import type { Tag } from "@vocab/validators";
+import { prisma } from "@vocab/db";
+import { AppError } from "@vocab/utils";
+
+import type { TagRepository } from "./TagRepository";
 
 export class TagSupabaseRepository implements TagRepository {
   getTags = async () => {

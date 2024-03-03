@@ -2,6 +2,7 @@ import { useAtom } from "jotai";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect } from "react";
+import LogoutScreen from "../sites/LogoutScreen";
 import {
   editorModalIdAtom,
   messageModalIdAtom,
@@ -11,8 +12,7 @@ import {
   toastTextAtom,
   toastTypeAtom,
   wordToEditAtom,
-} from "../../../server/src/store";
-import LogoutScreen from "../sites/LogoutScreen";
+} from "../utils/store";
 import Drawer from "./Drawer";
 import Editor from "./Editor";
 import MessageModal from "./MessageModal";

@@ -1,9 +1,11 @@
 import type { Word } from "@prisma/client";
-import { type Tag, type VocabularyWord, type WOTD } from "../../../web/src/types/types";
-import { addIcons } from "../../../web/src/utils/helper";
-import { prisma } from "../db";
+
+import type { Tag, VocabularyWord, WOTD } from "@vocab/validators";
+import { prisma } from "@vocab/db";
+
+import type { WOTDRepository } from "./WOTDRepository";
+import { addIcons } from "../helper";
 import { getTodayMorning } from "../service/getDate.service";
-import { type WOTDRepository } from "./WOTDRepository";
 
 export class WOTDSupabaseRepository implements WOTDRepository {
   getToday = async () => {

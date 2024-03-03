@@ -1,4 +1,4 @@
-import { type ToastType } from "../types/types";
+import { type ToastType } from "@vocab/validators/src/types";
 import { checkedIcon, crossRoundIcon } from "../utils/icons";
 
 type Props = {

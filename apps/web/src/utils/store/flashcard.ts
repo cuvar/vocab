@@ -1,7 +1,5 @@
-import {
-  type VocabularyFlashCard,
-  type VocabularyWord,
-} from "../../types/types";
+import type { VocabularyFlashCard, VocabularyWord } from "@vocab/validators";
+
 import { KEY_LEARNED_CARDS } from "./keys";
 
 /**
@@ -12,7 +10,7 @@ import { KEY_LEARNED_CARDS } from "./keys";
  */
 export function getCards(
   words: VocabularyWord[],
-  learned: boolean
+  learned: boolean,
 ): VocabularyFlashCard[] {
   const ids = getCardsIds(learned);
   const newWords: VocabularyFlashCard[] = words

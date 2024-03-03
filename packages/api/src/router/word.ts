@@ -1,11 +1,11 @@
 import { LearnMode } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import AppError from "../../../utils/error";
-import { isJsonImportWordArray } from "../../../utils/guards/words";
-import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
-import { searchWord } from "../../service/search.service";
-import { getWOTD } from "../../service/wotd.service";
+
+import { getWOTD, searchWord, WordSupabaseRepository } from "@vocab/server";
+import { AppError } from "@vocab/utils";
+import { isJsonImportWordArray } from "@vocab/validators";
+
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 const repo = new WordSupabaseRepository();
@@ -176,7 +176,7 @@ export const wordRouter = createTRPCRouter({
       z.object({
         id: z.string().min(1),
         mode: z.enum(["UNLEARNED", "LEARNED", "ARCHIVED"]),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       try {
@@ -197,7 +197,7 @@ export const wordRouter = createTRPCRouter({
         native: z.string(),
         notes: z.string(),
         tagIds: z.array(z.string()),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       const newWord = {
@@ -221,7 +221,7 @@ export const wordRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string().min(1),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       try {
@@ -244,7 +244,7 @@ export const wordRouter = createTRPCRouter({
         notes: z.string(),
         mode: z.enum(["UNLEARNED", "LEARNED", "ARCHIVED"]),
         tagIds: z.array(z.string()),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       try {
@@ -262,7 +262,7 @@ export const wordRouter = createTRPCRouter({
     .input(
       z.object({
         text: z.string(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       try {

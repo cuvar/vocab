@@ -1,15 +1,18 @@
 import { LearnMode } from "@prisma/client";
-import {
-  type JsonImportWord,
-  type SimpleWordInput,
-  type Tag,
-  type VocabularyWord,
-} from "../../../web/src/types/types";
-import AppError from "../../../web/src/utils/error";
-import { addIcons } from "../../../web/src/utils/helper";
-import { prisma } from "../db";
+
+import type {
+  JsonImportWord,
+  SimpleWordInput,
+  Tag,
+  VocabularyWord,
+} from "@vocab/validators";
+import { prisma } from "@vocab/db";
+import { AppError } from "@vocab/utils";
+
+import type { WordRepository } from "./WordRepository";
+import { addIcons } from "../helper";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
-import { type WordRepository } from "./WordRepository";
+
 const tagRepo = new TagSupabaseRepository();
 
 export class WordSupabaseRepository implements WordRepository {

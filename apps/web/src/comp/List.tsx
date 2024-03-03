@@ -1,9 +1,9 @@
+import { type ListElement } from "@vocab/validators/src/types";
 import { useEffect, useRef, useState } from "react";
 import { type ActionData } from "swiper-action";
 import { searchWord } from "../../../server/src/service/search.service";
 import { env } from "../env/client.mjs";
 import Error from "../sites/Error";
-import { type ListElement } from "../types/types";
 import {
   chevronLeft,
   chevronRight,

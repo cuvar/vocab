@@ -1,7 +1,8 @@
 import type { DefaultSession } from "next-auth";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { env } from "../env";
+
+// import { env } from "../env";
 
 export type { Session } from "next-auth";
 
@@ -21,23 +22,24 @@ export const {
 } = NextAuth({
   providers: [
     CredentialsProvider({
-    name: "Credentials",
-    credentials: {
-      username: { label: "Username", type: "text", placeholder: "jsmith" },
-      password: { label: "Password", type: "password" },
-    },
-    authorize(credentials, req) {
-      if (credentials?.username != env.USERNAME) {
-        return null;
-      }
+      name: "Credentials",
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize(credentials, req) {
+        if (credentials?.username != "env.USERNAME") {
+          return null;
+        }
+        // TODO: FIX
+        if (credentials?.password != "env.PASSWORD") {
+          return null;
+        }
 
-      if (credentials?.password != env.PASSWORD) {
-        return null;
-      }
-
-      return { id: "1", name: "cuvar", email: "info@cuvar.dev" };
-    },
-  }),],
+        return { id: "1", name: "cuvar", email: "info@cuvar.dev" };
+      },
+    }),
+  ],
   // callbacks: {
   //   session: (opts) => {
   //     if (!("user" in opts)) throw "unreachable with session strategy";

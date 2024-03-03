@@ -1,4 +1,4 @@
-import { type Tag } from "../../../web/src/types/types";
+import type { Tag } from "@vocab/validators";
 
 export interface TagRepository {
   getTags: () => Promise<Tag[]>;

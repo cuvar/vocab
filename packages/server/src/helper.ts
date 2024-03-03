@@ -1,6 +1,9 @@
 import type { Word } from "@prisma/client";
-import { env } from "../env/client.mjs";
-import { VocabularyWord } from "../types/types";
+
+import { VocabularyWord } from "@vocab/validators";
+
+// import { env } from "../../../apps/web/src/env/client.mjs";
+
 /**
  * Adds emoji icons to word object
  * @param {Word} word Word object
@@ -9,7 +12,9 @@ import { VocabularyWord } from "../types/types";
 export function addIcons(word: Word) {
   return {
     ...word,
-    iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
-    iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
+    iconNative: "env.NEXT_PUBLIC_NATIVE_ICON",
+    iconTranslation: "env.NEXT_PUBLIC_TRANSLATION_ICON",
   };
 }
+
+// TODO: FIX

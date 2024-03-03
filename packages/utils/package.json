@@ -1,7 +1,7 @@
 {
-  "name": "@vocab/api",
-  "version": "0.1.0",
+  "name": "@vocab/utils",
   "private": true,
+  "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
@@ -14,13 +14,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@vocab/auth": "workspace:^0.1.0",
-    "@vocab/db": "workspace:^0.1.0",
     "@vocab/validators": "workspace:^0.1.0",
-    "@vocab/server": "workspace:^0.1.0",
-    "@vocab/utils": "workspace:^0.1.0",
-    "@trpc/server": "11.0.0-next-beta.264",
-    "superjson": "2.2.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -29,10 +23,10 @@
     "@vocab/tsconfig": "workspace:^0.1.0",
     "eslint": "^8.56.0",
     "prettier": "^3.2.5",
+    "@prisma/client": "^4.8.0",
     "typescript": "^5.3.3"
   },
   "eslintConfig": {
-    "root": true,
     "extends": [
       "@vocab/eslint-config/base"
     ]

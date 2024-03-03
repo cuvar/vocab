@@ -12,7 +12,7 @@ import { ZodError } from "zod";
 
 import type { Session } from "@vocab/auth";
 import { auth } from "@vocab/auth";
-import { db } from "@vocab/db";
+import { prisma } from "@vocab/db";
 
 /**
  * 1. CONTEXT
@@ -23,7 +23,9 @@ import { db } from "@vocab/db";
  *
  * This helper generates the "internals" for a tRPC context. The API handler and RSC clients each
  * wrap this and provides the required context.
- *
+ * @param opts
+ * @param opts.headers
+ * @param opts.session
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: {
@@ -37,7 +39,7 @@ export const createTRPCContext = async (opts: {
 
   return {
     session,
-    db,
+    db: prisma,
   };
 };
 
@@ -91,7 +93,6 @@ export const publicProcedure = t.procedure;
  *
  * If you want a query or mutation to ONLY be accessible to logged in users, use this. It verifies
  * the session is valid and guarantees `ctx.session.user` is not null.
- *
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(({ ctx, next }) => {

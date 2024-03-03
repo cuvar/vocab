@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
-import { showEditorModalAtom } from "../../../server/src/store";
 import { hamburgerIcon, plusIcon } from "../utils/icons";
+import { showEditorModalAtom } from "../utils/store";
 import Menu from "./Menu";
 
 export default function Navbar() {

@@ -1,5 +1,5 @@
-import type { WOTD } from "../../../web/src/types/types";
-import AppError from "../../../web/src/utils/error";
+import type { WOTD } from "@vocab/validators";
+import { AppError } from "@vocab/utils";
 
 /**
  * Sends notification to service worker for WOTD notification

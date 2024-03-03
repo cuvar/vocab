@@ -1,5 +1,6 @@
-import { parseListElements } from "../../../../server/src/service/parseCache.service";
-import type { ListElement } from "../../types/types";
+import type { ListElement } from "@vocab/validators";
+import { parseListElements } from "@vocab/server";
+
 import { KEY_ALL_WORDS } from "./keys";
 
 /**

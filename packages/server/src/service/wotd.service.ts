@@ -1,8 +1,10 @@
 import { LearnMode } from "@prisma/client";
-import type { VocabularyWord, WOTD } from "../../../web/src/types/types";
-import AppError from "../../../web/src/utils/error";
-import { WOTDSupabaseRepository } from "../repository/WOTDSupabaseRepository";
+
+import type { VocabularyWord, WOTD } from "@vocab/validators";
+import { AppError } from "@vocab/utils";
+
 import { WordSupabaseRepository } from "../repository/WordSupabaseRepository";
+import { WOTDSupabaseRepository } from "../repository/WOTDSupabaseRepository";
 import { getTodayMorning } from "./getDate.service";
 
 const wotdRepo = new WOTDSupabaseRepository();

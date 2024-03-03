@@ -1,15 +1,17 @@
-import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { sendServiceWorkerWordOfTheDay } from "../../../server/src/service/serviceWorker.service";
-import { toastTextAtom, toastTypeAtom } from "../../../server/src/store";
-import type { VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
-import { DEFAULT_SETTINGS } from "../utils/const";
+import { useAtom } from "jotai";
+
+import type { VocabularyWord } from "@vocab/validators/src/types";
+import { api } from "@vocab/api";
+import { sendServiceWorkerWordOfTheDay } from "@vocab/server";
+import { DEFAULT_SETTINGS } from "@vocab/utils";
+
+import { toastTextAtom, toastTypeAtom } from "../utils/store";
 import { getSettings } from "../utils/store/settings";
 
 export default function WordOfTheDay() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
-    null
+    null,
   );
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
@@ -43,7 +45,7 @@ export default function WordOfTheDay() {
   }, [wotdQuery.data]);
 
   return (
-    <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
+    <div className="mx-5 my-20 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <div className="flex-col items-center space-y-2 text-center">
         {wordToDisplay == null ? (
           wotdQuery.error ? (

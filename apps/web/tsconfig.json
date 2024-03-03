@@ -23,8 +23,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    "../server/src/auth.ts",
-    "../server/src/store.ts"
+    "../../packages/utils/src/const.ts",
+    "../../packages/utils/src/error.ts"
   ],
   "exclude": ["node_modules"]
 }

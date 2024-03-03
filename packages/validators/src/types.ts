@@ -1,4 +1,5 @@
-import { type LearnMode } from "@prisma/client";
+import type { LearnMode } from "@prisma/client";
+
 export type VocabularyWord = {
   id: string;
   translation: string;

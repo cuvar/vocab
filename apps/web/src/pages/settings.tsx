@@ -1,4 +1,5 @@
-import { type NextPage } from "next";
+import type { NextPage } from "next";
+
 import SiteWrapper from "../comp/SiteWrapper";
 import Settings from "../sites/Settings";
 

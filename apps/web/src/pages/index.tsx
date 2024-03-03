@@ -1,6 +1,7 @@
-import { type NextPage } from "next";
-import { useSession } from "next-auth/react";
+import type { NextPage } from "next";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+
 import SiteWrapper from "../comp/SiteWrapper";
 import LogoutScreen from "../sites/LogoutScreen";
 import { hatIcon, listIcon, sparklesIcon } from "../utils/icons";
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
         <li className="flex">
           <Link
             href="/learn"
-            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg"
+            className="btn btn-ghost flex h-full w-full items-center space-x-2 py-10 text-lg"
           >
             <span>{hatIcon}</span>
             <span>Learn Mode</span>
@@ -26,7 +27,7 @@ const Home: NextPage = () => {
         <li className="flex">
           <Link
             href="/words"
-            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg "
+            className="btn btn-ghost flex h-full w-full items-center space-x-2 py-10 text-lg "
           >
             <span>{listIcon}</span>
             <span>All words</span>
@@ -35,7 +36,7 @@ const Home: NextPage = () => {
         <li className="flex">
           <Link
             href="/generate"
-            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg "
+            className="btn btn-ghost flex h-full w-full items-center space-x-2 py-10 text-lg "
           >
             <span>{sparklesIcon}</span>
             <span>Generate</span>
