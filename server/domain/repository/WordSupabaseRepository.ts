@@ -1,10 +1,10 @@
 import { LearnMode } from "@prisma/client";
 import {
-  type JsonImportWord,
-  type SimpleWordInput,
-  type Tag,
-  type VocabularyWord,
-} from "../../../types/types";
+    type JsonImportWord,
+    type SimpleWordInput,
+    type Tag,
+    type VocabularyWord,
+} from "../../../src/types/types";
 import { prisma } from "../../db";
 import AppError from "../../utils/error";
 import { addIcons } from "../../utils/helper";

@@ -1,5 +1,5 @@
 import Fuse from "fuse.js";
-import type { ListElement, VocabularyWord } from "../../../types/types";
+import type { ListElement, VocabularyWord } from "../../../src/types/types";
 import { isListElementArray } from "../../utils/guards/words";
 
 /**

@@ -1,4 +1,4 @@
-import type { WOTD } from "../../../types/types";
+import type { WOTD } from "../../../src/types/types";
 import AppError from "../../utils/error";
 
 /**

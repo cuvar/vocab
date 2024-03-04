@@ -1,4 +1,4 @@
-import { api } from "../server/api/api";
+import { api } from "../../server/api/api";
 
 type Props = {
   word: string;

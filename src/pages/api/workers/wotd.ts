@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getWOTD } from "../../../server/domain/service/wotd.service";
+import { getWOTD } from "../../../../server/domain/service/wotd.service";
 
 type ResponseData = {
   wotd: string;

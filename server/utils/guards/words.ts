@@ -1,12 +1,12 @@
 import { LearnMode } from "@prisma/client";
 import type {
-  JsonImportWord,
-  ListElement,
-  Tag,
-  TagData,
-  VocabularyWord,
-  WOTD,
-} from "../../../types/types";
+    JsonImportWord,
+    ListElement,
+    Tag,
+    TagData,
+    VocabularyWord,
+    WOTD,
+} from "../../../src/types/types";
 import { isBoolean, isDate, isObject, isString } from "./base";
 
 /**

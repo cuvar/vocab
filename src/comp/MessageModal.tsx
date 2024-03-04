@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { messageModalIdAtom, showMessageModalAtom } from "../server/store";
+import { messageModalIdAtom, showMessageModalAtom } from "../../server/store";
 import DeleteTagModal from "./DeleteTagModal";
 import Modal from "./Modal";
 

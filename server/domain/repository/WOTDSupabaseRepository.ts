@@ -1,5 +1,5 @@
 import type { Word } from "@prisma/client";
-import { type Tag, type VocabularyWord, type WOTD } from "../../../types/types";
+import { type Tag, type VocabularyWord, type WOTD } from "../../../src/types/types";
 import { prisma } from "../../db";
 import { addIcons } from "../../utils/helper";
 import { getTodayMorning } from "../service/getDate.service";

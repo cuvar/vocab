@@ -1,9 +1,9 @@
 import { type LearnMode } from "@prisma/client";
 import {
-  type JsonImportWord,
-  type SimpleWordInput,
-  type VocabularyWord,
-} from "../../../types/types";
+    type JsonImportWord,
+    type SimpleWordInput,
+    type VocabularyWord,
+} from "../../../src/types/types";
 
 export interface WordRepository {
   getWords: () => Promise<VocabularyWord[]>;

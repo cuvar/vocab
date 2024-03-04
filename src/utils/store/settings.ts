@@ -1,4 +1,4 @@
-import { parseSettings } from "../../server/domain/service/parseCache.service";
+import { parseSettings } from "../../../server/domain/service/parseCache.service";
 import type { Settings } from "../../types/types";
 import { KEY_SETTINGS } from "./keys";
 

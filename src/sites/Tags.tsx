@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { api } from "../../server/api/api";
 import TagItem from "../comp/TagItem";
-import { api } from "../server/api/api";
 import { type Tag } from "../types/types";
 import { plusIcon } from "../utils/icons";
 

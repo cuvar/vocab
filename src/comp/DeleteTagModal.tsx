@@ -1,9 +1,9 @@
 import { useAtom } from "jotai";
 import {
-  deleteTagConfirmedAtom,
-  showMessageModalAtom,
-  tagToDeleteAtom,
-} from "../server/store";
+    deleteTagConfirmedAtom,
+    showMessageModalAtom,
+    tagToDeleteAtom,
+} from "../../server/store";
 
 type Props = {
   tag: string;

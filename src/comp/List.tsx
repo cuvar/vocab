@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { type ActionData } from "swiper-action";
+import { searchWord } from "../../server/domain/service/search.service";
 import { env } from "../env/client.mjs";
-import { searchWord } from "../server/domain/service/search.service";
 import Error from "../sites/Error";
 import { type ListElement } from "../types/types";
 import {
-  chevronLeft,
-  chevronRight,
-  doubleChevronLeft,
-  doubleChevronRight,
-  resetIcon,
+    chevronLeft,
+    chevronRight,
+    doubleChevronLeft,
+    doubleChevronRight,
+    resetIcon,
 } from "../utils/icons";
 import ListItem from "./ListItem";
 

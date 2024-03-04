@@ -1,16 +1,16 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
+import { api } from "../../server/api/api";
+import { toastTextAtom, toastTypeAtom } from "../../server/store";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
-import { api } from "../server/api/api";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
 import {
-  archiveIcon,
-  arrowRoundIcon,
-  thumbsDownIcon,
-  thumbsUpIcon,
+    archiveIcon,
+    arrowRoundIcon,
+    thumbsDownIcon,
+    thumbsUpIcon,
 } from "../utils/icons";
 import { addCard, clearCards, getCardsIds } from "../utils/store/flashcard";
 import { getLearnedWords } from "../utils/store/learned";

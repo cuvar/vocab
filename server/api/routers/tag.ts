@@ -1,7 +1,7 @@
 // import * as allWords from "../../../../allwords.json";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { type TagData } from "../../../types/types";
+import { type TagData } from "../../../src/types/types";
 import { TagSupabaseRepository } from "../../domain/repository/TagSupabaseRepository";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 const repo = new TagSupabaseRepository();

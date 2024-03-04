@@ -2,15 +2,15 @@ import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
-import List from "../comp/List";
-import { api } from "../server/api/api";
+import { api } from "../../server/api/api";
 import {
-  refetchWordsAtom,
-  showEditorModalAtom,
-  toastTextAtom,
-  toastTypeAtom,
-  wordToEditAtom,
-} from "../server/store";
+    refetchWordsAtom,
+    showEditorModalAtom,
+    toastTextAtom,
+    toastTypeAtom,
+    wordToEditAtom,
+} from "../../server/store";
+import List from "../comp/List";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { penIcon, switchIcon, trashIcon } from "../utils/icons";
 import { getAllWords, setAllWords } from "../utils/store/allwords";

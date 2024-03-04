@@ -3,15 +3,15 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useEffect } from "react";
 import {
-  editorModalIdAtom,
-  messageModalIdAtom,
-  showEditorModalAtom,
-  showMessageModalAtom,
-  tagToDeleteAtom,
-  toastTextAtom,
-  toastTypeAtom,
-  wordToEditAtom,
-} from "../server/store";
+    editorModalIdAtom,
+    messageModalIdAtom,
+    showEditorModalAtom,
+    showMessageModalAtom,
+    tagToDeleteAtom,
+    toastTextAtom,
+    toastTypeAtom,
+    wordToEditAtom,
+} from "../../server/store";
 import LogoutScreen from "../sites/LogoutScreen";
 import Drawer from "./Drawer";
 import Editor from "./Editor";

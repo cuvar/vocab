@@ -1,5 +1,5 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import type { ListElement, Settings } from "../../../types/types";
+import type { ListElement, Settings } from "../../../src/types/types";
 import { isVocabSettings } from "../../utils/guards/other";
 import { isListElement } from "../../utils/guards/words";
 

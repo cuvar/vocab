@@ -1,5 +1,5 @@
 import { LearnMode } from "@prisma/client";
-import type { VocabularyWord, WOTD } from "../../../types/types";
+import type { VocabularyWord, WOTD } from "../../../src/types/types";
 import AppError from "../../utils/error";
 import { WOTDSupabaseRepository } from "../repository/WOTDSupabaseRepository";
 import { WordSupabaseRepository } from "../repository/WordSupabaseRepository";

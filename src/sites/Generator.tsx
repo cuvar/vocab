@@ -1,8 +1,8 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { api } from "../server/api/api";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
+import { api } from "../../server/api/api";
+import { toastTextAtom, toastTypeAtom } from "../../server/store";
 import { type VocabularyWord } from "../types/types";
 
 export default function Generator() {

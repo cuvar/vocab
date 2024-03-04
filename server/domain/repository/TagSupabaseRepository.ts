@@ -1,4 +1,4 @@
-import { type Tag } from "../../../types/types";
+import { type Tag } from "../../../src/types/types";
 import { prisma } from "../../db";
 import AppError from "../../utils/error";
 import { type TagRepository } from "./TagRepository";
