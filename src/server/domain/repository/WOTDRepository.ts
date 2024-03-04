@@ -1,5 +1,5 @@
 import type { Word } from "@prisma/client";
-import type { WOTD } from "../../types/types";
+import type { WOTD } from "../../../types/types";
 
 export interface WOTDRepository {
   getToday: () => Promise<WOTD | null>;

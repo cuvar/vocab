@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { sendServiceWorkerWordOfTheDay } from "../server/service/serviceWorker.service";
+import { sendServiceWorkerWordOfTheDay } from "../server/domain/service/serviceWorker.service";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
@@ -9,7 +9,7 @@ import { getSettings } from "../utils/store/settings";
 
 export default function WordOfTheDay() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
-    null
+    null,
   );
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
@@ -43,7 +43,7 @@ export default function WordOfTheDay() {
   }, [wotdQuery.data]);
 
   return (
-    <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
+    <div className="mx-5 my-20 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <div className="flex-col items-center space-y-2 text-center">
         {wordToDisplay == null ? (
           wotdQuery.error ? (

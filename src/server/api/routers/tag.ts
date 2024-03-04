@@ -2,7 +2,7 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { type TagData } from "../../../types/types";
-import { TagSupabaseRepository } from "../../repository/TagSupabaseRepository";
+import { TagSupabaseRepository } from "../../domain/repository/TagSupabaseRepository";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 const repo = new TagSupabaseRepository();
 
@@ -45,14 +45,14 @@ export const tagRouter = createTRPCRouter({
     }),
   updateTag: protectedProcedure
     .input(
-      z.object({ id: z.string(), name: z.string(), description: z.string() })
+      z.object({ id: z.string(), name: z.string(), description: z.string() }),
     )
     .mutation(async ({ input }) => {
       try {
         const updatedTag = await repo.updateTag(
           input.id,
           input.name,
-          input.description
+          input.description,
         );
         return updatedTag;
       } catch (error) {

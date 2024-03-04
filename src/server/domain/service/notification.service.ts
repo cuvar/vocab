@@ -1,4 +1,4 @@
-import type { WOTD } from "../../types/types";
+import type { WOTD } from "../../../types/types";
 
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 

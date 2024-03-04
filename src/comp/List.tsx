@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { type ActionData } from "swiper-action";
 import { env } from "../env/client.mjs";
-import { searchWord } from "../server/service/search.service";
+import { searchWord } from "../server/domain/service/search.service";
 import Error from "../sites/Error";
 import { type ListElement } from "../types/types";
 import {
@@ -34,8 +34,8 @@ export default function List(props: Props) {
   const [pageWords, setPageWords] = useState(
     wordsToDisplay.slice(
       0 + page * AMOUNT_OF_WORDS_PER_PAGE,
-      AMOUNT_OF_WORDS_PER_PAGE + page * AMOUNT_OF_WORDS_PER_PAGE
-    )
+      AMOUNT_OF_WORDS_PER_PAGE + page * AMOUNT_OF_WORDS_PER_PAGE,
+    ),
   );
   const iwordenRef = useRef(null);
 
@@ -49,8 +49,8 @@ export default function List(props: Props) {
     setPageWords(
       wordsToDisplay.slice(
         0 + page * AMOUNT_OF_WORDS_PER_PAGE,
-        AMOUNT_OF_WORDS_PER_PAGE + page * AMOUNT_OF_WORDS_PER_PAGE
-      )
+        AMOUNT_OF_WORDS_PER_PAGE + page * AMOUNT_OF_WORDS_PER_PAGE,
+      ),
     );
   }, [wordsToDisplay, page]);
 
@@ -201,14 +201,14 @@ export default function List(props: Props) {
       </div>
       <div className="flex items-center space-x-4 md:space-x-8">
         <button
-          className="btn-ghost btn"
+          className="btn btn-ghost"
           onClick={handleFirstPage}
           disabled={page === 0}
         >
           {doubleChevronLeft}
         </button>
         <button
-          className="btn-ghost btn"
+          className="btn btn-ghost"
           onClick={handlePrevPage}
           disabled={page < 1}
         >
@@ -218,14 +218,14 @@ export default function List(props: Props) {
           {page + 1} / {MAX_PAGES}
         </span>
         <button
-          className="btn-ghost btn"
+          className="btn btn-ghost"
           onClick={handleNextPage}
           disabled={page >= MAX_PAGES - 1}
         >
           {chevronRight}
         </button>
         <button
-          className="btn-ghost btn"
+          className="btn btn-ghost"
           onClick={handleLastPage}
           disabled={page == MAX_PAGES - 1}
         >
