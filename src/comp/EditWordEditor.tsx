@@ -8,9 +8,9 @@ import {
   toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
+import { isLearnMode } from "../server/utils/guards/words";
 import { type TagData, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
-import { isLearnMode } from "../utils/guards/words";
 import TagSelect from "./TagSelect";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 
 export default function Editor(props: Props) {
   const [translationInput, setTranslationInput] = useState(
-    props.word.translation
+    props.word.translation,
   );
   const [nativeInput, setNativeInput] = useState(props.word.native);
   const [notesInput, setNotesInput] = useState(props.word.notes);
@@ -33,7 +33,7 @@ export default function Editor(props: Props) {
 
   api.tag.getAllForWord.useQuery(
     { wordId: props.word.id },
-    { onSuccess: (data) => setTagData(data) }
+    { onSuccess: (data) => setTagData(data) },
   );
 
   const updateWordMutation = api.word.updateWord.useMutation({
@@ -99,7 +99,7 @@ export default function Editor(props: Props) {
   return (
     <form method="dialog" className="modal-box max-w-xs">
       <button
-        className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2"
+        className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
         onClick={clearEditor}
       >
         ✕
@@ -115,7 +115,7 @@ export default function Editor(props: Props) {
           <input
             type="text"
             placeholder="Type here"
-            className="input-bordered input w-full max-w-xs"
+            className="input input-bordered w-full max-w-xs"
             value={translationInput}
             onChange={(e) => setTranslationInput(e.target.value)}
           />
@@ -126,7 +126,7 @@ export default function Editor(props: Props) {
           </label>
           <textarea
             placeholder="Type here"
-            className="textarea-bordered textarea w-full max-w-xs"
+            className="textarea textarea-bordered w-full max-w-xs"
             value={nativeInput}
             onChange={(e) => setNativeInput(e.target.value)}
           />
@@ -138,7 +138,7 @@ export default function Editor(props: Props) {
           <input
             type="text"
             placeholder="Type here"
-            className="input-bordered input w-full max-w-xs"
+            className="input input-bordered w-full max-w-xs"
             value={notesInput}
             onChange={(e) => setNotesInput(e.target.value)}
           />
@@ -149,7 +149,7 @@ export default function Editor(props: Props) {
           </label>
 
           <select
-            className="select-bordered select w-full max-w-xs"
+            className="select select-bordered w-full max-w-xs"
             onChange={handleSelectChange}
           >
             <option
@@ -178,7 +178,7 @@ export default function Editor(props: Props) {
           )}
         </div>
         <button
-          className="btn-success btn max-w-xs"
+          className="btn btn-success max-w-xs"
           onClick={editWord}
           disabled={disableButton()}
         >

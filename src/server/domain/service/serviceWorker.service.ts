@@ -1,5 +1,5 @@
 import type { WOTD } from "../../../types/types";
-import AppError from "../../../utils/error";
+import AppError from "../../utils/error";
 
 /**
  * Sends notification to service worker for WOTD notification

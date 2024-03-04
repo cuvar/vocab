@@ -1,4 +1,4 @@
-import type { NotificationData, Settings } from "../../types/types";
+import type { NotificationData, Settings } from "../../../types/types";
 import { isObject } from "./base";
 
 /**

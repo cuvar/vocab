@@ -1,11 +1,11 @@
 import { LearnMode } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import AppError from "../../../utils/error";
-import { isJsonImportWordArray } from "../../../utils/guards/words";
 import { WordSupabaseRepository } from "../../domain/repository/WordSupabaseRepository";
 import { searchWord } from "../../domain/service/search.service";
 import { getWOTD } from "../../domain/service/wotd.service";
+import AppError from "../../utils/error";
+import { isJsonImportWordArray } from "../../utils/guards/words";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 const repo = new WordSupabaseRepository();

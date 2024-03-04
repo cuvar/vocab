@@ -5,9 +5,9 @@ import {
   type Tag,
   type VocabularyWord,
 } from "../../../types/types";
-import AppError from "../../../utils/error";
-import { addIcons } from "../../../utils/helper";
 import { prisma } from "../../db";
+import AppError from "../../utils/error";
+import { addIcons } from "../../utils/helper";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
 const tagRepo = new TagSupabaseRepository();
