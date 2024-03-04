@@ -1,13 +1,13 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { api } from "../server/api/api";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
 
 export default function Generator() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
-    null
+    null,
   );
   const [, setToastText] = useAtom(toastTextAtom);
   const [, setToastType] = useAtom(toastTypeAtom);
@@ -67,7 +67,7 @@ export default function Generator() {
   }
 
   return (
-    <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
+    <div className="mx-5 my-20 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <div className="flex-col items-center space-y-2 text-center">
         {wordToDisplay == null ? (
           randomWord.error ? (
@@ -91,14 +91,14 @@ export default function Generator() {
 
       <div className="flex space-x-4">
         <button
-          className="btn-neutral btn-md btn text-xl"
+          className="btn btn-neutral btn-md text-xl"
           onClick={handleNextClick}
         >
           Next
         </button>
         {randomWord.data?.translation != null && (
           <button
-            className="btn-accent btn-outline btn-md btn text-xl"
+            className="btn btn-accent btn-outline btn-md text-xl"
             onClick={handleClick}
           >
             Choose

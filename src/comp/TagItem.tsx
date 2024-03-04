@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { api } from "../server/api/api";
 import {
   deleteTagConfirmedAtom,
   showMessageModalAtom,
@@ -7,7 +8,6 @@ import {
   toastTextAtom,
   toastTypeAtom,
 } from "../server/store";
-import { api } from "../utils/api";
 import { checkedIcon, crossIcon, penIcon } from "../utils/icons";
 
 type Props = {
@@ -26,7 +26,7 @@ export default function TagItem(props: Props) {
   const [, setShowMessageModal] = useAtom(showMessageModalAtom);
   const [tagToDelete, setTagToDelete] = useAtom(tagToDeleteAtom);
   const [deleteTagConfirmed, setDeleteTagConfirmed] = useAtom(
-    deleteTagConfirmedAtom
+    deleteTagConfirmedAtom,
   );
 
   const updateTagMutation = api.tag.updateTag.useMutation({
@@ -130,7 +130,7 @@ export default function TagItem(props: Props) {
   }, [deleteTagConfirmed, setDeleteTagConfirmed]);
 
   return (
-    <div className="border-base-500 flex w-full flex-col justify-between space-y-4 space-x-0 border-b px-2 py-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+    <div className="border-base-500 flex w-full flex-col justify-between space-x-0 space-y-4 border-b px-2 py-4 sm:flex-row sm:space-x-4 sm:space-y-0">
       <div className="flex space-x-4">
         <div className="form-control w-1/4 max-w-xs">
           <label className="label">
@@ -139,7 +139,7 @@ export default function TagItem(props: Props) {
           <input
             type="text"
             placeholder="Name"
-            className="input-bordered input w-full max-w-xs"
+            className="input input-bordered w-full max-w-xs"
             disabled={!editMode}
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
@@ -151,7 +151,7 @@ export default function TagItem(props: Props) {
           </label>
           <textarea
             placeholder="Description"
-            className="textarea-bordered textarea w-full max-w-xs"
+            className="textarea textarea-bordered w-full max-w-xs"
             disabled={!editMode}
             value={descInput}
             rows={1}
@@ -162,20 +162,20 @@ export default function TagItem(props: Props) {
       <div className="flex items-end justify-end space-x-4 sm:justify-end">
         {editMode ? (
           <button
-            className="btn-secondary btn align-bottom"
+            className="btn btn-secondary align-bottom"
             onClick={handleSave}
           >
             {checkedIcon}
           </button>
         ) : (
           <button
-            className="btn-secondary btn align-bottom"
+            className="btn btn-secondary align-bottom"
             onClick={handleEdit}
           >
             {penIcon}
           </button>
         )}
-        <button className="btn-error btn align-bottom" onClick={handleAbort}>
+        <button className="btn btn-error align-bottom" onClick={handleAbort}>
           {crossIcon}
         </button>
       </div>

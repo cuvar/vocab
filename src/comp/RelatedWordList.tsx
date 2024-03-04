@@ -1,8 +1,8 @@
-import { api } from "../utils/api";
+import { api } from "../server/api/api";
 
 type Props = {
   word: string;
-}
+};
 
 export default function RelatedWordList(props: Props) {
   const searchWordQuery = api.word.searchWord.useQuery({ word: props.word });
@@ -15,7 +15,7 @@ export default function RelatedWordList(props: Props) {
         searchWordQuery.data.map((word) => (
           <div
             key={word.translation}
-            className="rounded-md border-t-2 border-b-2 border-black bg-white px-2 py-2 text-black"
+            className="rounded-md border-b-2 border-t-2 border-black bg-white px-2 py-2 text-black"
           >
             <p>{word.translation}</p>
           </div>

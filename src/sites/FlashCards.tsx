@@ -3,9 +3,9 @@ import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
+import { api } from "../server/api/api";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
 import {
   archiveIcon,
   arrowRoundIcon,
@@ -22,11 +22,11 @@ export default function FlashCards() {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(-1);
   const [topCardWord, setTopCardWord] = useState<VocabularyFlashCard | null>(
-    null
+    null,
   );
   const [showNative, setShowNative] = useState(false);
   const [switchChecked, setSwitchChecked] = useState(
-    getSettings()?.randomizeCards ?? false
+    getSettings()?.randomizeCards ?? false,
   );
   const cardRef = useRef(null);
   const [unlookedWords, setUnlookedWords] = useState<VocabularyFlashCard[]>([]);
@@ -125,7 +125,7 @@ export default function FlashCards() {
 
   function handleReset() {
     const confirmed = window.confirm(
-      "Are you sure you want to reset all learned words?"
+      "Are you sure you want to reset all learned words?",
     );
     if (!confirmed) return;
 

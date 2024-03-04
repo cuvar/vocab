@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
 import List from "../comp/List";
+import { api } from "../server/api/api";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -11,7 +12,6 @@ import {
   wordToEditAtom,
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
 import { crossIcon, penIcon } from "../utils/icons";
 import Error from "./Error";
 import Loading from "./Loading";
@@ -108,7 +108,7 @@ export default function Archive() {
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
-      <h1 className="mt-5 mb-2 text-2xl tracking-tight">
+      <h1 className="mb-2 mt-5 text-2xl tracking-tight">
         Archived words: {getArchivedQuery.data.length}
       </h1>
       <List

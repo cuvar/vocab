@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { api } from "../server/api/api";
 import { toastTextAtom, toastTypeAtom } from "../server/store";
-import { api } from "../utils/api";
 
 export default function JsonImport() {
   const [jsonInput, setJsonInput] = useState("");
@@ -32,7 +32,7 @@ export default function JsonImport() {
   }
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
-      <h1 className="mt-5 mb-2 text-2xl tracking-tight">JSON import</h1>
+      <h1 className="mb-2 mt-5 text-2xl tracking-tight">JSON import</h1>
       <div className="flex w-full flex-col items-center space-y-4">
         <div className="collapse bg-base-200">
           <input type="checkbox" />
@@ -61,14 +61,14 @@ export default function JsonImport() {
           </label>
           <textarea
             placeholder="Data"
-            className="textarea-bordered textarea w-full font-mono"
+            className="textarea textarea-bordered w-full font-mono"
             value={jsonInput}
             rows={20}
             onChange={(e) => setJsonInput(e.target.value)}
           />
         </div>
         <div className="flex w-full justify-end space-x-4">
-          <button className="btn-secondary btn" onClick={handleImport}>
+          <button className="btn btn-secondary" onClick={handleImport}>
             Import
           </button>
         </div>

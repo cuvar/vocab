@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { api } from "../server/api/api";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -8,7 +9,6 @@ import {
   wordToEditAtom,
 } from "../server/store";
 import { type TagData } from "../types/types";
-import { api } from "../utils/api";
 import RelatedWordList from "./RelatedWordList";
 import TagSelect from "./TagSelect";
 
@@ -86,7 +86,7 @@ export default function Editor() {
   return (
     <form method="dialog" className="modal-box max-w-xs">
       <button
-        className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2"
+        className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
         onClick={clearEditor}
       >
         ✕
@@ -100,7 +100,7 @@ export default function Editor() {
           <input
             type="text"
             placeholder="Type here"
-            className="input-bordered input w-full max-w-xs"
+            className="input input-bordered w-full max-w-xs"
             value={englishInput}
             onChange={(e) => setEnglishInput(e.target.value)}
           />
@@ -112,7 +112,7 @@ export default function Editor() {
           <input
             type="text"
             placeholder="Type here"
-            className="input-bordered input w-full max-w-xs"
+            className="input input-bordered w-full max-w-xs"
             value={germanInput}
             onChange={(e) => setGermanInput(e.target.value)}
           />
@@ -124,7 +124,7 @@ export default function Editor() {
           <input
             type="text"
             placeholder="Type here"
-            className="input-bordered input w-full max-w-xs"
+            className="input input-bordered w-full max-w-xs"
             value={notesInput}
             onChange={(e) => setNotesInput(e.target.value)}
           />
@@ -148,7 +148,7 @@ export default function Editor() {
           </div>
         </div>
         <button
-          className="btn-success btn max-w-xs"
+          className="btn btn-success max-w-xs"
           onClick={addWord}
           disabled={disableButton()}
         >

@@ -1,6 +1,7 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useState, type ChangeEvent } from "react";
+import { api } from "../server/api/api";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -10,7 +11,6 @@ import {
 } from "../server/store";
 import { isLearnMode } from "../server/utils/guards/words";
 import { type TagData, type VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
 import TagSelect from "./TagSelect";
 
 type Props = {
