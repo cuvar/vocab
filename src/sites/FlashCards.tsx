@@ -42,9 +42,10 @@ export default function FlashCards() {
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
       showToast(`${data.translation} marked as archived`, "success");
-      nextWord();
     },
-    onError: (err) => showToast(`${err.message}`, "error"),
+    onError: (err) => {
+      showToast(`${err.message}`, "error");
+    },
   });
 
   useEffect(() => {
@@ -158,6 +159,8 @@ export default function FlashCards() {
     if (!topCardWord) {
       return;
     }
+
+    nextWord();
 
     updateModeMutation.mutate({
       id: topCardWord.id,
