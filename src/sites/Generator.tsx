@@ -1,35 +1,19 @@
 import { LearnMode } from "@prisma/client";
-import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
+import { useToast } from "../utils/hooks";
 
 export default function Generator() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
   );
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
-
+  const showToast = useToast();
   // const initDB = api.word.initDB.useMutation();
   const updateModeMutation = api.word.updateMode.useMutation({
-    onSuccess: (data) => {
-      setToastType("success");
-      setToastText(`${data.translation} marked as learned`);
-
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(err.message);
-
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onSuccess: (data) =>
+      showToast(`${data.translation} marked as learned`, "success"),
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   const randomWord = api.word.getRandomUnlearnedWord.useQuery(undefined, {
@@ -46,11 +30,7 @@ export default function Generator() {
 
   function handleClick() {
     if (!randomWord.data?.translation) {
-      setToastType("error");
-      setToastText("no word, try refreshing.");
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      showToast("no word, try refreshing.", "error");
       return;
     }
 

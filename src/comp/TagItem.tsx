@@ -4,10 +4,9 @@ import {
   deleteTagConfirmedAtom,
   showMessageModalAtom,
   tagToDeleteAtom,
-  toastTextAtom,
-  toastTypeAtom,
 } from "../server/store";
 import { api } from "../utils/api";
+import { useToast } from "../utils/hooks";
 import { checkedIcon, crossIcon, penIcon } from "../utils/icons";
 
 type Props = {
@@ -21,66 +20,36 @@ export default function TagItem(props: Props) {
   const [nameInput, setNameInput] = useState(props.name);
   const [descInput, setDescInput] = useState(props.description);
   const [editMode, setEditMode] = useState(props.id ? false : true);
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
   const [, setShowMessageModal] = useAtom(showMessageModalAtom);
   const [tagToDelete, setTagToDelete] = useAtom(tagToDeleteAtom);
   const [deleteTagConfirmed, setDeleteTagConfirmed] = useAtom(
     deleteTagConfirmedAtom
   );
 
+  const showToast = useToast();
+
   const updateTagMutation = api.tag.updateTag.useMutation({
     onSuccess: (tag) => {
-      setToastType("success");
-      setToastText(`"${tag.name}" changed`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      showToast(`"${tag.name}" changed`, "success");
       props.doneHandler();
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   const addTagMutation = api.tag.addTag.useMutation({
     onSuccess: (tag) => {
-      setToastType("success");
-      setToastText(`"${tag.name}" added`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      showToast(`"${tag.name}" added`, "success");
       props.doneHandler();
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   const deleteTagMutation = api.tag.deleteTag.useMutation({
     onSuccess: (tag) => {
-      setToastType("success");
-      setToastText(`"${tag.name}" successfully deleted`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      showToast(`"${tag.name}" successfully deleted`, "success");
       props.doneHandler();
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   function handleEdit() {

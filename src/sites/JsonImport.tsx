@@ -1,28 +1,16 @@
-import { useAtom } from "jotai";
 import { useState } from "react";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { api } from "../utils/api";
+import { useToast } from "../utils/hooks";
 
 export default function JsonImport() {
   const [jsonInput, setJsonInput] = useState("");
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
+
+  const showToast = useToast();
 
   const importWordsMutation = api.word.importWords.useMutation({
-    onSuccess: (count) => {
-      setToastType("success");
-      setToastText(`Successfully imported ${count} words`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onSuccess: (count) =>
+      showToast(`Successfully imported ${count} words`, "success"),
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   function handleImport() {

@@ -1,103 +1,93 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
+import { type FilterProps, type FilterState } from "../comp/Filter";
+import FilterBar from "../comp/FilterBar";
 import List from "../comp/List";
+import Mutator from "../comp/Mutator";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
-  toastTextAtom,
-  toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
-import { penIcon, switchIcon, trashIcon } from "../utils/icons";
+import { toListElement } from "../utils/helper";
+import { useToast } from "../utils/hooks";
+import { archiveIcon, penIcon, resetIcon, switchIcon } from "../utils/icons";
 import { getAllWords, setAllWords } from "../utils/store/allwords";
+import { getArchivedWords, setArchivedWords } from "../utils/store/archived";
+import { getLearnedWords, setLearnedWords } from "../utils/store/learned";
 import Error from "./Error";
 import Loading from "./Loading";
 
 export default function AllWords() {
+  const [filterState, setFilterState] = useState<FilterState>(null);
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
     getAllWords()
   );
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
+  const [showNative, setShowNative] = useState<boolean>(false);
+  const [searchString, setSearchString] = useState("");
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
 
-  const allQuery = api.word.getAll.useQuery(undefined, {
+  const iwordenRef = useRef(null);
+
+  const showToast = useToast();
+
+  const filter: FilterProps[] = [
+    {
+      state: "learned",
+      text: "Learned",
+    },
+    {
+      state: "archived",
+      text: "Archived",
+    },
+  ];
+
+  const updateModeMutation = api.word.updateMode.useMutation({
+    onSuccess: (data) =>
+      showToast(`"${data.translation}" (un)marked successfully`, "success"),
+    onError: (err) => showToast(`${err.message}`, "error"),
+  });
+
+  const getAllQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) => {
-        return {
-          word: e.translation,
-          otherWord: e.native,
-          ...e,
-        };
-      });
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+        toListElement(e)
+      );
       setWordsToDisplay(transformed);
       setAllWords(transformed);
     },
     refetchOnWindowFocus: false,
   });
 
-  const updateModeMutation = api.word.updateMode.useMutation({
+  const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
-      setToastType("success");
-      setToastText(`"${data.translation}" (un)marked successfully`);
-      void (async () => {
-        await allQuery.refetch();
-      })();
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+        toListElement(e)
+      );
+      setWordsToDisplay(transformed);
+      setLearnedWords(transformed);
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    refetchOnWindowFocus: false,
+    enabled: false,
   });
 
-  const deleteWordMutation = api.word.deleteWord.useMutation({
+  const getArchivedQuery = api.word.getArchived.useQuery(undefined, {
     onSuccess: (data) => {
-      setToastType("success");
-      setToastText(`"${data.translation}" was deleted successfully`);
-      void (async () => {
-        await allQuery.refetch();
-      })();
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+        toListElement(e)
+      );
+      setWordsToDisplay(transformed);
+      setArchivedWords(transformed);
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    refetchOnWindowFocus: false,
+    enabled: false,
   });
-
-  useEffect(() => {
-    if (refetchWords) {
-      setRefetchWords(false);
-      void (async () => {
-        await allQuery.refetch();
-      })();
-    }
-  }, [allQuery, refetchWords, setRefetchWords]);
-
-  if (allQuery.isLoading) {
-    return <Loading />;
-  }
-
-  if (!allQuery.data) {
-    return <Error msg={"No data available"} />;
-  }
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     updateModeMutation.mutate({
@@ -109,8 +99,11 @@ export default function AllWords() {
     });
   }
 
-  function deleteWord(ev: InteractionEvent, arg: VocabularyWord) {
-    deleteWordMutation.mutate({ id: arg.id });
+  function archiveWord(ev: InteractionEvent, arg: VocabularyWord) {
+    updateModeMutation.mutate({
+      id: arg.id,
+      mode: LearnMode.ARCHIVED,
+    });
   }
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
@@ -128,33 +121,138 @@ export default function AllWords() {
       ),
     },
     {
-      action: changeMarkAsLearned,
+      action:
+        filterState === "learned"
+          ? archiveWord
+          : filterState === "archived"
+          ? changeMarkAsLearned
+          : changeMarkAsLearned,
       children: (
         <div className="flex h-full items-center justify-center bg-accent text-white">
-          {switchIcon}
-        </div>
-      ),
-    },
-    {
-      action: deleteWord,
-      children: (
-        <div className="flex h-full items-center justify-center bg-error text-white">
-          {trashIcon}
+          {filterState === "learned"
+            ? archiveIcon
+            : filterState === "archived"
+            ? switchIcon
+            : switchIcon}
         </div>
       ),
     },
   ];
 
+  function handleFilterChanged(newFilterState: FilterState) {
+    setFilterState(newFilterState);
+
+    if (newFilterState === "learned") {
+      const words = getLearnedWords();
+      if (words.length === 0) {
+        void getLearnedQuery.refetch();
+        return;
+      }
+      setWordsToDisplay(words);
+    } else if (newFilterState === "archived") {
+      const words = getArchivedWords();
+      if (words.length === 0) {
+        void getArchivedQuery.refetch();
+        return;
+      }
+      setWordsToDisplay(words);
+    } else {
+      const words = getAllWords();
+      if (words.length === 0) {
+        void getAllQuery.refetch();
+        return;
+      }
+      setWordsToDisplay(words);
+    }
+  }
+
+  function handleShowNativeChanged() {
+    const newShowNative = !showNative;
+    setShowNative(newShowNative);
+  }
+
+  function resetSearch() {
+    if (!iwordenRef.current) return;
+    // eslint-disable-next-line
+    // @ts-ignore
+    iwordenRef.current.value = "";
+    // setWordsToDisplay(sorted);
+    setSearchString("");
+  }
+
+  function searchForWord() {
+    if (!iwordenRef.current) {
+      setSearchString("");
+      return;
+    }
+    // eslint-disable-next-line
+    // @ts-ignore
+    // eslint-disable-next-line
+    const input = (iwordenRef.current.value ?? "") as string;
+
+    if (input == "") {
+      setSearchString("");
+      return;
+    }
+    setSearchString(input);
+  }
+
+  useEffect(() => {
+    if (refetchWords) {
+      setRefetchWords(false);
+      void (async () => {
+        await getAllQuery.refetch();
+      })();
+    }
+  }, [getAllQuery, refetchWords, setRefetchWords]);
+
+  if (getAllQuery.isLoading) {
+    return <Loading />;
+  }
+
+  if (!wordsToDisplay) {
+    return <Error msg={"No data available"} />;
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
-        All words: {allQuery.data.length}
+        {wordsToDisplay.length} words
       </h1>
+      <div className="flex w-full flex-col space-y-4">
+        <FilterBar filter={filter} onChange={handleFilterChanged} />
+        <div className="flex w-full space-x-4 overflow-y-scroll">
+          <Mutator
+            id={"showNative"}
+            text={"Show Native"}
+            onclick={handleShowNativeChanged}
+            active={showNative}
+          />
+        </div>
+      </div>
+      <div className="flex rounded-lg border border-secondary bg-neutral-focus">
+        <input
+          type="text"
+          placeholder="Search word"
+          className="my-3 rounded-lg border-none bg-transparent pl-4 pr-2 outline-none"
+          ref={iwordenRef}
+          onChange={searchForWord}
+          name="searchword"
+        />
+        <button
+          onClick={resetSearch}
+          className={`pr-2 ${searchString.length ? "visible" : "invisible"}`}
+        >
+          {resetIcon}
+        </button>
+      </div>
       <List
         words={wordsToDisplay}
         actions={actions}
-        markLearned={true}
+        markLearned={false}
         enableClickingItems={false}
+        showNative={showNative}
+        searchString={searchString}
       />
     </div>
   );

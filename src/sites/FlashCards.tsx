@@ -1,11 +1,10 @@
 import { LearnMode } from "@prisma/client";
-import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
+import { useToast } from "../utils/hooks";
 import {
   archiveIcon,
   arrowRoundIcon,
@@ -14,7 +13,7 @@ import {
 } from "../utils/icons";
 import { addCard, clearCards, getCardsIds } from "../utils/store/flashcard";
 import { getLearnedWords } from "../utils/store/learned";
-import { getSettings, updateSettings } from "../utils/store/settings";
+import { getSettings } from "../utils/store/settings";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -25,13 +24,12 @@ export default function FlashCards() {
     null
   );
   const [showNative, setShowNative] = useState(false);
-  const [switchChecked, setSwitchChecked] = useState(
-    getSettings()?.randomizeCards ?? false
-  );
   const cardRef = useRef(null);
   const [unlookedWords, setUnlookedWords] = useState<VocabularyFlashCard[]>([]);
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
+
+  const showToast = useToast();
+
+  const randomizeCards = getSettings()?.randomizeCards ?? false;
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
@@ -43,21 +41,10 @@ export default function FlashCards() {
 
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
-      setToastType("success");
-      setToastText(`${data.translation} marked as archived`);
-
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-      nextWord();
+      showToast(`${data.translation} marked as archived`, "success");
     },
     onError: (err) => {
-      setToastType("error");
-      setToastText(err.message);
-
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      showToast(`${err.message}`, "error");
     },
   });
 
@@ -72,7 +59,7 @@ export default function FlashCards() {
       return {
         ...e,
         cardMode: "none",
-        switched: switchChecked ? Math.random() > 0.5 : false,
+        switched: randomizeCards ? Math.random() > 0.5 : false,
       };
     });
     return transformed;
@@ -168,21 +155,12 @@ export default function FlashCards() {
     }, 100);
   }
 
-  function handleSwitchChange() {
-    const newChecked = !switchChecked;
-    setSwitchChecked(newChecked);
-    const newUnlearned = unlookedWords.map((w) => {
-      w.switched = newChecked ? Math.random() > 0.5 : false;
-      return w;
-    });
-    setUnlookedWords(newUnlearned);
-    updateSettings({ randomizeCards: newChecked });
-  }
-
   function handleArchive() {
     if (!topCardWord) {
       return;
     }
+
+    nextWord();
 
     updateModeMutation.mutate({
       id: topCardWord.id,
@@ -203,17 +181,6 @@ export default function FlashCards() {
       <h1 className="mt-5 text-2xl tracking-tight">
         Flash card mode: {unlookedWords.length} words
       </h1>
-      <div className="flex w-full">
-        <label className="label mr-4 flex cursor-pointer space-x-2">
-          <input
-            type="checkbox"
-            checked={switchChecked}
-            className="checkbox"
-            onChange={handleSwitchChange}
-          />
-          <span className="label-text">Randomize</span>
-        </label>
-      </div>
       <ProgressBar max={unlookedWords.length} current={topCardIndex + 1} />
       <div className="flex w-full max-w-[24rem] flex-col items-center space-y-12">
         {topCardWord ? (

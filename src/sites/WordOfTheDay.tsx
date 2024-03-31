@@ -1,21 +1,21 @@
-import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { sendServiceWorkerWordOfTheDay } from "../server/service/serviceWorker.service";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
 import type { VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { DEFAULT_SETTINGS } from "../utils/const";
+import { useToast } from "../utils/hooks";
 import { getSettings } from "../utils/store/settings";
 
 export default function WordOfTheDay() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
   );
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
+
+  const showToast = useToast();
 
   const REMINDER_TIME =
     getSettings()?.reminderTime ?? DEFAULT_SETTINGS.reminderTime;
+
   const wotdQuery = api.word.getWordOfTheDay.useQuery(undefined, {
     refetchOnWindowFocus: false,
     onSuccess: (data) => {
@@ -25,13 +25,7 @@ export default function WordOfTheDay() {
         console.error(error);
       }
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(err.message);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   useEffect(() => {

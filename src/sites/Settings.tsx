@@ -1,9 +1,8 @@
-import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { sendServiceWorkerReminderTime } from "../server/service/serviceWorker.service";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
 import type { Settings } from "../types/types";
 import { DEFAULT_SETTINGS } from "../utils/const";
+import { useToast } from "../utils/hooks";
 import { getSettings, setSettings } from "../utils/store/settings";
 
 export default function SettingsComp() {
@@ -11,8 +10,7 @@ export default function SettingsComp() {
     getSettings() ?? DEFAULT_SETTINGS
   );
 
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
+  const showToast = useToast();
 
   useEffect(() => {
     if (!getSettings()) {
@@ -110,14 +108,6 @@ export default function SettingsComp() {
         showToast(`Cannot enable permissions`, "error");
       }
     })();
-  }
-
-  function showToast(text: string, type: "success" | "error") {
-    setToastType(type);
-    setToastText(text);
-    setTimeout(() => {
-      setToastText("");
-    }, 1500);
   }
 
   return (

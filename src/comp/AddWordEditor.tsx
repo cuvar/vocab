@@ -3,12 +3,11 @@ import { useState } from "react";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
-  toastTextAtom,
-  toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
 import { type TagData } from "../types/types";
 import { api } from "../utils/api";
+import { useToast } from "../utils/hooks";
 import RelatedWordList from "./RelatedWordList";
 import TagSelect from "./TagSelect";
 
@@ -20,9 +19,9 @@ export default function Editor() {
   const [showExistingWords, setShowExistingWords] = useState(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
   const [, setRefetchWords] = useAtom(refetchWordsAtom);
+
+  const showToast = useToast();
 
   api.tag.getAll.useQuery(undefined, {
     onSuccess: (data) => {
@@ -38,20 +37,10 @@ export default function Editor() {
 
   const addWordMutation = api.word.addWord.useMutation({
     onSuccess: (word) => {
-      setToastType("success");
-      setToastText(`"${word}" added`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      showToast(`"${word}" added`, "success");
       setRefetchWords(true);
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   function addWord() {
