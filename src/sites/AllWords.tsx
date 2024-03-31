@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
 import List from "../comp/List";
+import Tag from "../comp/Tag";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -12,7 +13,7 @@ import {
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
-import { penIcon, switchIcon, trashIcon } from "../utils/icons";
+import { crossIcon, penIcon, switchIcon, trashIcon } from "../utils/icons";
 import { getAllWords, setAllWords } from "../utils/store/allwords";
 import Error from "./Error";
 import Loading from "./Loading";
@@ -82,11 +83,28 @@ export default function AllWords() {
     },
   });
 
+  // const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
+  //   onSuccess: (data) => {
+  //     const transformed: ListElement[] = data.map((e: VocabularyWord) => {
+  //       return {
+  //         word: e.translation,
+  //         otherWord: e.native,
+  //         ...e,
+  //       };
+  //     });
+  //     setWordsToDisplay(transformed);
+  //     setLearnedWords(transformed);
+  //   },
+  //   refetchOnWindowFocus: false,
+  //   enabled: false,
+  // });
+
   useEffect(() => {
     if (refetchWords) {
       setRefetchWords(false);
       void (async () => {
         await allQuery.refetch();
+        // await getLearnedQuery.refetch();
       })();
     }
   }, [allQuery, refetchWords, setRefetchWords]);
@@ -97,6 +115,13 @@ export default function AllWords() {
 
   if (!allQuery.data) {
     return <Error msg={"No data available"} />;
+  }
+
+  function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
+    updateModeMutation.mutate({
+      id: arg.id,
+      mode: LearnMode.UNLEARNED,
+    });
   }
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
@@ -143,6 +168,14 @@ export default function AllWords() {
         </div>
       ),
     },
+    {
+      action: handleRemoveFromLearned,
+      children: (
+        <div className="flex h-full items-center justify-center bg-error text-white">
+          {crossIcon}
+        </div>
+      ),
+    },
   ];
 
   return (
@@ -150,6 +183,10 @@ export default function AllWords() {
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         All words: {allQuery.data.length}
       </h1>
+      <div className="flex w-full space-x-4 overflow-y-scroll">
+        <Tag text={"Learned"} onclick={() => console.log("Learned")} />
+        <Tag text={"Archived"} onclick={() => console.log("Archived")} />
+      </div>
       <List
         words={wordsToDisplay}
         actions={actions}
