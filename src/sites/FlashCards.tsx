@@ -1,11 +1,10 @@
 import { LearnMode } from "@prisma/client";
-import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
 import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
+import { useToast } from "../utils/hooks";
 import {
   archiveIcon,
   arrowRoundIcon,
@@ -30,8 +29,8 @@ export default function FlashCards() {
   );
   const cardRef = useRef(null);
   const [unlookedWords, setUnlookedWords] = useState<VocabularyFlashCard[]>([]);
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
+
+  const showToast = useToast();
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
@@ -43,22 +42,10 @@ export default function FlashCards() {
 
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
-      setToastType("success");
-      setToastText(`${data.translation} marked as archived`);
-
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      showToast(`${data.translation} marked as archived`, "success");
       nextWord();
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(err.message);
-
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   useEffect(() => {
