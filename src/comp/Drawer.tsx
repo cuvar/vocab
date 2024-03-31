@@ -5,7 +5,6 @@ import {
   boltIcon,
   calendarIcon,
   cogIcon,
-  hatIcon,
   listIcon,
   sparklesIcon,
   tagIcon,
@@ -26,18 +25,13 @@ export default function Drawer(props: Props) {
   const path = router.pathname.split("/")[1];
   const drawerItems: DrawerItem[] = [
     {
-      href: "/learn",
-      displayName: "Learn",
-      icon: hatIcon,
-    },
-    {
       href: "/cards",
       displayName: "Flash cards",
       icon: boltIcon,
     },
     {
       href: "/words",
-      displayName: "All words",
+      displayName: "Words",
       icon: listIcon,
     },
     {

@@ -2,9 +2,13 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 // This function can be marked `async` if using `await` inside
+/**
+ *
+ * @param request
+ */
 export function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.trim() === "/") {
-    return NextResponse.redirect(new URL("/learn", request.url));
+    return NextResponse.redirect(new URL("/cards", request.url));
   }
 }
 
