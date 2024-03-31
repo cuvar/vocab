@@ -14,7 +14,7 @@ import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { toListElement } from "../utils/helper";
 import { useToast } from "../utils/hooks";
-import { penIcon, switchIcon, trashIcon } from "../utils/icons";
+import { archiveIcon, penIcon, switchIcon } from "../utils/icons";
 import { getAllWords, setAllWords } from "../utils/store/allwords";
 import { getArchivedWords, setArchivedWords } from "../utils/store/archived";
 import { getLearnedWords, setLearnedWords } from "../utils/store/learned";
@@ -22,6 +22,7 @@ import Error from "./Error";
 import Loading from "./Loading";
 
 export default function AllWords() {
+  const [filterState, setFilterState] = useState<FilterState>(null);
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
     getAllWords()
   );
@@ -45,12 +46,6 @@ export default function AllWords() {
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) =>
       showToast(`"${data.translation}" (un)marked successfully`, "success"),
-    onError: (err) => showToast(`${err.message}`, "error"),
-  });
-
-  const deleteWordMutation = api.word.deleteWord.useMutation({
-    onSuccess: (data) =>
-      showToast(`"${data.translation}" was deleted successfully`, "success"),
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 
@@ -99,8 +94,11 @@ export default function AllWords() {
     });
   }
 
-  function deleteWord(ev: InteractionEvent, arg: VocabularyWord) {
-    deleteWordMutation.mutate({ id: arg.id });
+  function archiveWord(ev: InteractionEvent, arg: VocabularyWord) {
+    updateModeMutation.mutate({
+      id: arg.id,
+      mode: LearnMode.ARCHIVED,
+    });
   }
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
@@ -118,32 +116,35 @@ export default function AllWords() {
       ),
     },
     {
-      action: changeMarkAsLearned,
+      action:
+        filterState === "learned"
+          ? archiveWord
+          : filterState === "archived"
+          ? changeMarkAsLearned
+          : changeMarkAsLearned,
       children: (
         <div className="flex h-full items-center justify-center bg-accent text-white">
-          {switchIcon}
-        </div>
-      ),
-    },
-    {
-      action: deleteWord,
-      children: (
-        <div className="flex h-full items-center justify-center bg-error text-white">
-          {trashIcon}
+          {filterState === "learned"
+            ? archiveIcon
+            : filterState === "archived"
+            ? switchIcon
+            : switchIcon}
         </div>
       ),
     },
   ];
 
-  function handleFilterChanged(filterState: FilterState) {
-    if (filterState === "learned") {
+  function handleFilterChanged(newFilterState: FilterState) {
+    setFilterState(newFilterState);
+
+    if (newFilterState === "learned") {
       const words = getLearnedWords();
       if (words.length === 0) {
         void getLearnedQuery.refetch();
         return;
       }
       setWordsToDisplay(words);
-    } else if (filterState === "archived") {
+    } else if (newFilterState === "archived") {
       const words = getArchivedWords();
       if (words.length === 0) {
         void getArchivedQuery.refetch();

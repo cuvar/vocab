@@ -4,13 +4,12 @@ import { useState, type ChangeEvent } from "react";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
-  toastTextAtom,
-  toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
 import { type TagData, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { isLearnMode } from "../utils/guards/words";
+import { useToast } from "../utils/hooks";
 import TagSelect from "./TagSelect";
 
 type Props = {
@@ -27,9 +26,9 @@ export default function Editor(props: Props) {
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [tagData, setTagData] = useState<TagData[]>([]);
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
   const [, setRefetchWords] = useAtom(refetchWordsAtom);
+
+  const showToast = useToast();
 
   api.tag.getAllForWord.useQuery(
     { wordId: props.word.id },
@@ -38,20 +37,16 @@ export default function Editor(props: Props) {
 
   const updateWordMutation = api.word.updateWord.useMutation({
     onSuccess: (word) => {
-      setToastType("success");
-      setToastText(`"${word}" changed`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      showToast(`"${word}" changed`, "success");
       setRefetchWords(true);
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    onError: (err) => showToast(`${err.message}`, "error"),
+  });
+
+  const deleteWordMutation = api.word.deleteWord.useMutation({
+    onSuccess: (data) =>
+      showToast(`"${data.translation}" was deleted successfully`, "success"),
+    onError: (err) => showToast(`${err.message}`, "error"),
   });
 
   function editWord() {
@@ -94,6 +89,13 @@ export default function Editor(props: Props) {
       return;
     }
     setModeInput(value);
+  }
+
+  function deleteWord() {
+    const confirmed = confirm("Are you sure you want to delete this word?");
+    if (confirmed) {
+      deleteWordMutation.mutate({ id: props.word.id });
+    }
   }
 
   return (
@@ -183,6 +185,9 @@ export default function Editor(props: Props) {
           disabled={disableButton()}
         >
           Save
+        </button>
+        <button className="btn-error btn max-w-xs" onClick={deleteWord}>
+          Delete
         </button>
       </div>
     </form>
