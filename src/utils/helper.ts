@@ -1,6 +1,6 @@
 import type { Word } from "@prisma/client";
 import { env } from "../env/client.mjs";
-import { VocabularyWord } from "../types/types";
+import { type ListElement, type VocabularyWord } from "../types/types";
 /**
  * Adds emoji icons to word object
  * @param {Word} word Word object
@@ -11,5 +11,17 @@ export function addIcons(word: Word) {
     ...word,
     iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
     iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
+  };
+}
+
+/**
+ * @param {VocabularyWord} word The word to transform
+ * @returns {ListElement} The word to transform
+ */
+export function toListElement(word: VocabularyWord): ListElement {
+  return {
+    word: word.translation,
+    otherWord: word.native,
+    ...word,
   };
 }

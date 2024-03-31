@@ -2,19 +2,22 @@ import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
-import Filter from "../comp/Filter";
+import { type FilterProps, type FilterState } from "../comp/Filter";
+import FilterBar from "../comp/FilterBar";
 import List from "../comp/List";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
-  toastTextAtom,
-  toastTypeAtom,
   wordToEditAtom,
 } from "../server/store";
 import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
-import { crossIcon, penIcon, switchIcon, trashIcon } from "../utils/icons";
+import { toListElement } from "../utils/helper";
+import { useToast } from "../utils/hooks";
+import { penIcon, switchIcon, trashIcon } from "../utils/icons";
 import { getAllWords, setAllWords } from "../utils/store/allwords";
+import { getArchivedWords, setArchivedWords } from "../utils/store/archived";
+import { getLearnedWords, setLearnedWords } from "../utils/store/learned";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -22,107 +25,69 @@ export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
     getAllWords()
   );
-  const [, setToastText] = useAtom(toastTextAtom);
-  const [, setToastType] = useAtom(toastTypeAtom);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
 
-  const allQuery = api.word.getAll.useQuery(undefined, {
+  const showToast = useToast();
+
+  const filter: FilterProps[] = [
+    {
+      state: "learned",
+      text: "Learned",
+    },
+    {
+      state: "archived",
+      text: "Archived",
+    },
+  ];
+
+  const updateModeMutation = api.word.updateMode.useMutation({
+    onSuccess: (data) =>
+      showToast(`"${data.translation}" (un)marked successfully`, "success"),
+    onError: (err) => showToast(`${err.message}`, "error"),
+  });
+
+  const deleteWordMutation = api.word.deleteWord.useMutation({
+    onSuccess: (data) =>
+      showToast(`"${data.translation}" was deleted successfully`, "success"),
+    onError: (err) => showToast(`${err.message}`, "error"),
+  });
+
+  const getAllQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) => {
-        return {
-          word: e.translation,
-          otherWord: e.native,
-          ...e,
-        };
-      });
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+        toListElement(e)
+      );
       setWordsToDisplay(transformed);
       setAllWords(transformed);
     },
     refetchOnWindowFocus: false,
   });
 
-  const updateModeMutation = api.word.updateMode.useMutation({
+  const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
-      setToastType("success");
-      setToastText(`"${data.translation}" (un)marked successfully`);
-      void (async () => {
-        await allQuery.refetch();
-      })();
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+        toListElement(e)
+      );
+      setWordsToDisplay(transformed);
+      setLearnedWords(transformed);
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    refetchOnWindowFocus: false,
+    enabled: false,
   });
 
-  const deleteWordMutation = api.word.deleteWord.useMutation({
+  const getArchivedQuery = api.word.getArchived.useQuery(undefined, {
     onSuccess: (data) => {
-      setToastType("success");
-      setToastText(`"${data.translation}" was deleted successfully`);
-      void (async () => {
-        await allQuery.refetch();
-      })();
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+        toListElement(e)
+      );
+      setWordsToDisplay(transformed);
+      setArchivedWords(transformed);
     },
-    onError: (err) => {
-      setToastType("error");
-      setToastText(`${err.message}`);
-      setTimeout(() => {
-        setToastText("");
-      }, 1500);
-    },
+    refetchOnWindowFocus: false,
+    enabled: false,
   });
-
-  // const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
-  //   onSuccess: (data) => {
-  //     const transformed: ListElement[] = data.map((e: VocabularyWord) => {
-  //       return {
-  //         word: e.translation,
-  //         otherWord: e.native,
-  //         ...e,
-  //       };
-  //     });
-  //     setWordsToDisplay(transformed);
-  //     setLearnedWords(transformed);
-  //   },
-  //   refetchOnWindowFocus: false,
-  //   enabled: false,
-  // });
-
-  useEffect(() => {
-    if (refetchWords) {
-      setRefetchWords(false);
-      void (async () => {
-        await allQuery.refetch();
-        // await getLearnedQuery.refetch();
-      })();
-    }
-  }, [allQuery, refetchWords, setRefetchWords]);
-
-  if (allQuery.isLoading) {
-    return <Loading />;
-  }
-
-  if (!allQuery.data) {
-    return <Error msg={"No data available"} />;
-  }
-
-  function handleRemoveFromLearned(e: InteractionEvent, arg: VocabularyWord) {
-    updateModeMutation.mutate({
-      id: arg.id,
-      mode: LearnMode.UNLEARNED,
-    });
-  }
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     updateModeMutation.mutate({
@@ -168,29 +133,60 @@ export default function AllWords() {
         </div>
       ),
     },
-    {
-      action: handleRemoveFromLearned,
-      children: (
-        <div className="flex h-full items-center justify-center bg-error text-white">
-          {crossIcon}
-        </div>
-      ),
-    },
   ];
+
+  function handleFilterChanged(filterState: FilterState) {
+    if (filterState === "learned") {
+      const words = getLearnedWords();
+      if (words.length === 0) {
+        void getLearnedQuery.refetch();
+        return;
+      }
+      setWordsToDisplay(words);
+    } else if (filterState === "archived") {
+      const words = getArchivedWords();
+      if (words.length === 0) {
+        void getArchivedQuery.refetch();
+        return;
+      }
+      setWordsToDisplay(words);
+    } else {
+      const words = getAllWords();
+      if (words.length === 0) {
+        void getAllQuery.refetch();
+        return;
+      }
+      setWordsToDisplay(words);
+    }
+  }
+
+  useEffect(() => {
+    if (refetchWords) {
+      setRefetchWords(false);
+      void (async () => {
+        await getAllQuery.refetch();
+      })();
+    }
+  }, [getAllQuery, refetchWords, setRefetchWords]);
+
+  if (getAllQuery.isLoading) {
+    return <Loading />;
+  }
+
+  if (!wordsToDisplay) {
+    return <Error msg={"No data available"} />;
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
-        All words: {allQuery.data.length}
+        {wordsToDisplay.length} words
       </h1>
-      <div className="flex w-full space-x-4 overflow-y-scroll">
-        <Filter text={"Learned"} onclick={() => console.log("Learned")} />
-        <Filter text={"Archived"} onclick={() => console.log("Archived")} />
-      </div>
+      <FilterBar filter={filter} onChange={handleFilterChanged} />
       <List
         words={wordsToDisplay}
         actions={actions}
-        markLearned={true}
+        markLearned={false}
         enableClickingItems={false}
       />
     </div>
