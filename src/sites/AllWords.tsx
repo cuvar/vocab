@@ -2,8 +2,8 @@ import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
+import Filter from "../comp/Filter";
 import List from "../comp/List";
-import Tag from "../comp/Tag";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -184,8 +184,8 @@ export default function AllWords() {
         All words: {allQuery.data.length}
       </h1>
       <div className="flex w-full space-x-4 overflow-y-scroll">
-        <Tag text={"Learned"} onclick={() => console.log("Learned")} />
-        <Tag text={"Archived"} onclick={() => console.log("Archived")} />
+        <Filter text={"Learned"} onclick={() => console.log("Learned")} />
+        <Filter text={"Archived"} onclick={() => console.log("Archived")} />
       </div>
       <List
         words={wordsToDisplay}
