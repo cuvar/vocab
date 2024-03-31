@@ -25,7 +25,7 @@ export default function FilterBar(props: Props) {
   }
 
   return (
-    <div className="flex w-full space-x-4 overflow-y-scroll">
+    <div className="flex space-x-4 overflow-y-scroll">
       {props.filter.map((filter) => (
         <Filter
           key={filter.state}

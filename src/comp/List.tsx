@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { type ActionData } from "swiper-action";
 import { env } from "../env/client.mjs";
 import { searchWord } from "../server/service/search.service";
@@ -10,7 +10,6 @@ import {
   chevronRight,
   doubleChevronLeft,
   doubleChevronRight,
-  resetIcon,
 } from "../utils/icons";
 import ListItem from "./ListItem";
 
@@ -21,11 +20,11 @@ type Props = {
   markLearned?: boolean;
   enableClickingItems: boolean;
   showNative: boolean;
+  searchString: string;
 };
 
 export default function List(props: Props) {
   const [currentShown, setCurrentShown] = useState("");
-  const [showReset, setShowReset] = useState(false);
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
   const [sorted, setSorted] = useState<ListElement[]>([]);
   const [page, setPage] = useState(0);
@@ -35,7 +34,6 @@ export default function List(props: Props) {
       AMOUNT_OF_WORDS_PER_PAGE + page * AMOUNT_OF_WORDS_PER_PAGE
     )
   );
-  const iwordenRef = useRef(null);
 
   const MAX_PAGES = Math.ceil(wordsToDisplay.length / AMOUNT_OF_WORDS_PER_PAGE);
 
@@ -47,6 +45,15 @@ export default function List(props: Props) {
     setWordsToDisplay(sortedWords);
     setSorted(sortedWords);
   }, [props.words, props.showNative]);
+
+  useEffect(() => {
+    if (props.searchString.trim() == "") {
+      setWordsToDisplay(sorted);
+      return;
+    }
+    const words = searchWord(sorted, props.searchString);
+    setWordsToDisplay(words.filter((r) => r !== null) as ListElement[]);
+  }, [props.searchString]);
 
   useEffect(() => {
     setPageWords(
@@ -68,37 +75,6 @@ export default function List(props: Props) {
     }
 
     setCurrentShown("");
-  }
-
-  function searchForWord() {
-    if (!iwordenRef.current) {
-      return;
-    }
-
-    // eslint-disable-next-line
-    // @ts-ignore
-    // eslint-disable-next-line
-    const input = iwordenRef.current.value ?? "";
-
-    if (input == "") {
-      setWordsToDisplay(sorted);
-      setShowReset(false);
-      return;
-    }
-
-    setShowReset(true);
-    const words = searchWord(sorted, input as string);
-
-    setWordsToDisplay(words.filter((r) => r !== null) as ListElement[]);
-  }
-
-  function resetSearch() {
-    if (!iwordenRef.current) return;
-    // eslint-disable-next-line
-    // @ts-ignore
-    iwordenRef.current.value = "";
-    setWordsToDisplay(sorted);
-    setShowReset(false);
   }
 
   function transformForShowNative(showNative: boolean, e: ListElement) {
@@ -148,26 +124,6 @@ export default function List(props: Props) {
 
   return (
     <>
-      <div className="flex w-full">
-        <div className="flex w-full flex-wrap items-center justify-between">
-          <div className="flex rounded-lg border border-secondary bg-neutral-focus">
-            <input
-              type="text"
-              placeholder="Search word"
-              className="my-3 rounded-lg border-none bg-transparent pl-4 pr-2 outline-none"
-              ref={iwordenRef}
-              onChange={searchForWord}
-              name="searchword"
-            />
-            <button
-              onClick={resetSearch}
-              className={`pr-2 ${showReset ? "visible" : "invisible"}`}
-            >
-              {resetIcon}
-            </button>
-          </div>
-        </div>
-      </div>
       <div className="flex w-full flex-col items-center space-y-2">
         {pageWords.map((e) => {
           return (

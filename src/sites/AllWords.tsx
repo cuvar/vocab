@@ -1,6 +1,6 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
 import { type FilterProps, type FilterState } from "../comp/Filter";
 import FilterBar from "../comp/FilterBar";
@@ -15,7 +15,7 @@ import { type ListElement, type VocabularyWord } from "../types/types";
 import { api } from "../utils/api";
 import { toListElement } from "../utils/helper";
 import { useToast } from "../utils/hooks";
-import { archiveIcon, penIcon, switchIcon } from "../utils/icons";
+import { archiveIcon, penIcon, resetIcon, switchIcon } from "../utils/icons";
 import { getAllWords, setAllWords } from "../utils/store/allwords";
 import { getArchivedWords, setArchivedWords } from "../utils/store/archived";
 import { getLearnedWords, setLearnedWords } from "../utils/store/learned";
@@ -28,9 +28,12 @@ export default function AllWords() {
     getAllWords()
   );
   const [showNative, setShowNative] = useState<boolean>(false);
+  const [searchString, setSearchString] = useState("");
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
+
+  const iwordenRef = useRef(null);
 
   const showToast = useToast();
 
@@ -168,6 +171,32 @@ export default function AllWords() {
     setShowNative(newShowNative);
   }
 
+  function resetSearch() {
+    if (!iwordenRef.current) return;
+    // eslint-disable-next-line
+    // @ts-ignore
+    iwordenRef.current.value = "";
+    // setWordsToDisplay(sorted);
+    setSearchString("");
+  }
+
+  function searchForWord() {
+    if (!iwordenRef.current) {
+      setSearchString("");
+      return;
+    }
+    // eslint-disable-next-line
+    // @ts-ignore
+    // eslint-disable-next-line
+    const input = (iwordenRef.current.value ?? "") as string;
+
+    if (input == "") {
+      setSearchString("");
+      return;
+    }
+    setSearchString(input);
+  }
+
   useEffect(() => {
     if (refetchWords) {
       setRefetchWords(false);
@@ -201,12 +230,29 @@ export default function AllWords() {
           />
         </div>
       </div>
+      <div className="flex rounded-lg border border-secondary bg-neutral-focus">
+        <input
+          type="text"
+          placeholder="Search word"
+          className="my-3 rounded-lg border-none bg-transparent pl-4 pr-2 outline-none"
+          ref={iwordenRef}
+          onChange={searchForWord}
+          name="searchword"
+        />
+        <button
+          onClick={resetSearch}
+          className={`pr-2 ${searchString.length ? "visible" : "invisible"}`}
+        >
+          {resetIcon}
+        </button>
+      </div>
       <List
         words={wordsToDisplay}
         actions={actions}
         markLearned={false}
         enableClickingItems={false}
         showNative={showNative}
+        searchString={searchString}
       />
     </div>
   );
