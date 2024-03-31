@@ -4,6 +4,7 @@ import { env } from "../env/client.mjs";
 import { searchWord } from "../server/service/search.service";
 import Error from "../sites/Error";
 import { type ListElement } from "../types/types";
+import { AMOUNT_OF_WORDS_PER_PAGE } from "../utils/const";
 import {
   chevronLeft,
   chevronRight,
@@ -19,17 +20,14 @@ type Props = {
   actions?: ActionData[];
   markLearned?: boolean;
   enableClickingItems: boolean;
+  showNative: boolean;
 };
 
 export default function List(props: Props) {
-  const AMOUNT_OF_WORDS_PER_PAGE = 10;
-
-  const sorted = props.words.sort((a, b) => a.word.localeCompare(b.word));
-
   const [currentShown, setCurrentShown] = useState("");
   const [showReset, setShowReset] = useState(false);
-  const [wordsToDisplay, setWordsToDisplay] = useState(sorted);
-  const [switchChecked, setSwitchChecked] = useState(false);
+  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
+  const [sorted, setSorted] = useState<ListElement[]>([]);
   const [page, setPage] = useState(0);
   const [pageWords, setPageWords] = useState(
     wordsToDisplay.slice(
@@ -42,8 +40,13 @@ export default function List(props: Props) {
   const MAX_PAGES = Math.ceil(wordsToDisplay.length / AMOUNT_OF_WORDS_PER_PAGE);
 
   useEffect(() => {
-    setWordsToDisplay(sorted);
-  }, [sorted]);
+    const sortedWords = props.words
+      .sort((a, b) => a.word.localeCompare(b.word))
+      .map((e) => transformForShowNative(props.showNative, e));
+
+    setWordsToDisplay(sortedWords);
+    setSorted(sortedWords);
+  }, [props.words, props.showNative]);
 
   useEffect(() => {
     setPageWords(
@@ -98,33 +101,25 @@ export default function List(props: Props) {
     setShowReset(false);
   }
 
-  function handleSwitchChange() {
-    const newChecked = !switchChecked;
-    setSwitchChecked(newChecked);
-    if (newChecked) {
+  function transformForShowNative(showNative: boolean, e: ListElement) {
+    if (showNative) {
       // show german
-      const transformed: ListElement[] = wordsToDisplay.map((e) => {
-        return {
-          ...e,
-          word: e.otherWord,
-          otherWord: e.word,
-          iconNative: env.NEXT_PUBLIC_TRANSLATION_ICON,
-          iconTranslation: env.NEXT_PUBLIC_NATIVE_ICON,
-        };
-      });
-      setWordsToDisplay(transformed);
+      return {
+        ...e,
+        word: e.otherWord,
+        otherWord: e.word,
+        iconNative: env.NEXT_PUBLIC_TRANSLATION_ICON,
+        iconTranslation: env.NEXT_PUBLIC_NATIVE_ICON,
+      };
     } else {
       // show english
-      const transformed: ListElement[] = wordsToDisplay.map((e) => {
-        return {
-          ...e,
-          word: e.otherWord,
-          otherWord: e.word,
-          iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
-          iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
-        };
-      });
-      setWordsToDisplay(transformed);
+      return {
+        ...e,
+        word: e.otherWord,
+        otherWord: e.word,
+        iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
+        iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
+      };
     }
   }
 
@@ -154,16 +149,7 @@ export default function List(props: Props) {
   return (
     <>
       <div className="flex w-full">
-        <div className="mx-4 flex w-full flex-wrap items-center justify-between">
-          <label className="label mr-4 flex cursor-pointer space-x-2">
-            <input
-              type="checkbox"
-              checked={switchChecked}
-              className="checkbox"
-              onChange={handleSwitchChange}
-            />
-            <span className="label-text">Show native</span>
-          </label>
+        <div className="flex w-full flex-wrap items-center justify-between">
           <div className="flex rounded-lg border border-secondary bg-neutral-focus">
             <input
               type="text"

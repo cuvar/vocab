@@ -5,6 +5,7 @@ import { type ActionData, type InteractionEvent } from "swiper-action";
 import { type FilterProps, type FilterState } from "../comp/Filter";
 import FilterBar from "../comp/FilterBar";
 import List from "../comp/List";
+import Mutator from "../comp/Mutator";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -26,6 +27,7 @@ export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
     getAllWords()
   );
+  const [showNative, setShowNative] = useState<boolean>(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [refetchWords, setRefetchWords] = useAtom(refetchWordsAtom);
@@ -161,6 +163,11 @@ export default function AllWords() {
     }
   }
 
+  function handleShowNativeChanged() {
+    const newShowNative = !showNative;
+    setShowNative(newShowNative);
+  }
+
   useEffect(() => {
     if (refetchWords) {
       setRefetchWords(false);
@@ -183,12 +190,23 @@ export default function AllWords() {
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
         {wordsToDisplay.length} words
       </h1>
-      <FilterBar filter={filter} onChange={handleFilterChanged} />
+      <div className="flex w-full flex-col space-y-4">
+        <FilterBar filter={filter} onChange={handleFilterChanged} />
+        <div className="flex w-full space-x-4 overflow-y-scroll">
+          <Mutator
+            id={"showNative"}
+            text={"Show Native"}
+            onclick={handleShowNativeChanged}
+            active={showNative}
+          />
+        </div>
+      </div>
       <List
         words={wordsToDisplay}
         actions={actions}
         markLearned={false}
         enableClickingItems={false}
+        showNative={showNative}
       />
     </div>
   );
