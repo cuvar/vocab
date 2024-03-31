@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
-  archiveIcon,
   boltIcon,
   calendarIcon,
   cogIcon,
@@ -43,11 +42,6 @@ export default function Drawer(props: Props) {
       href: "/tags",
       displayName: "Tags",
       icon: tagIcon,
-    },
-    {
-      href: "/archive",
-      displayName: "Archive",
-      icon: archiveIcon,
     },
     {
       href: "/wotd",
