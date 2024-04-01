@@ -79,7 +79,6 @@ export default function List(props: Props) {
 
   function transformForShowNative(showNative: boolean, e: ListElement) {
     if (showNative) {
-      // show german
       return {
         ...e,
         word: e.otherWord,
@@ -87,16 +86,8 @@ export default function List(props: Props) {
         iconNative: env.NEXT_PUBLIC_TRANSLATION_ICON,
         iconTranslation: env.NEXT_PUBLIC_NATIVE_ICON,
       };
-    } else {
-      // show english
-      return {
-        ...e,
-        word: e.otherWord,
-        otherWord: e.word,
-        iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
-        iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
-      };
     }
+    return e;
   }
 
   function handlePrevPage() {
