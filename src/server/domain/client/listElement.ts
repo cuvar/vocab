@@ -1,7 +1,8 @@
-import type LearnMode from "./learnMode";
-import type Tag from "./tag";
+import type LearnMode from "../server/learnMode";
+import type Tag from "../server/tag";
+import type VocabularyWord from "./vocabularyWord";
 
-export default class VocabularyWord {
+export default class ListElement implements VocabularyWord {
   id: string;
   translation: string;
   native: string;
@@ -10,6 +11,8 @@ export default class VocabularyWord {
   iconTranslation: string;
   iconNative: string;
   tags: Tag[];
+  word: string;
+  otherWord: string;
 
   constructor(
     id: string,
@@ -19,7 +22,9 @@ export default class VocabularyWord {
     mode: LearnMode,
     iconTranslation: string,
     iconNative: string,
-    tags: Tag[]
+    tags: Tag[],
+    word: string,
+    otherWord: string
   ) {
     this.id = id;
     this.translation = translation;
@@ -29,5 +34,7 @@ export default class VocabularyWord {
     this.iconTranslation = iconTranslation;
     this.iconNative = iconNative;
     this.tags = tags;
+    this.word = word;
+    this.otherWord = otherWord;
   }
 }

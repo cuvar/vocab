@@ -1,6 +1,6 @@
 import AppError from "../../lib/error/error";
 import { prisma } from "../db";
-import Tag from "../domain/tag";
+import Tag from "../domain/server/tag";
 import { type TagRepository } from "./TagRepository";
 
 export class TagSupabaseRepository implements TagRepository {

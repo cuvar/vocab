@@ -1,7 +1,7 @@
-import type JsonImportWord from "../domain/jsonImportWord";
-import type LearnMode from "../domain/learnMode";
-import type StrippedVocabularyWord from "../domain/strippedVocabularyWord";
-import type VocabularyWord from "../domain/vocabularyWord";
+import type JsonImportWord from "../domain/client/jsonImportWord";
+import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";
+import type VocabularyWord from "../domain/client/vocabularyWord";
+import type LearnMode from "../domain/server/learnMode";
 
 export interface WordRepository {
   getWords: () => Promise<VocabularyWord[]>;

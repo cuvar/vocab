@@ -1,5 +1,5 @@
-import type LearnMode from "./learnMode";
-import type Tag from "./tag";
+import type LearnMode from "../server/learnMode";
+import type Tag from "../server/tag";
 
 export default class StrippedVocabularyWord {
   translation: string;

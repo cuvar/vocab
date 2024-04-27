@@ -6,11 +6,11 @@ import {
 import AppError from "../../lib/error/error";
 import { addIcons } from "../../lib/helper";
 import { prisma } from "../db";
-import type JsonImportWord from "../domain/jsonImportWord";
-import LearnMode from "../domain/learnMode";
-import type StrippedVocabularyWord from "../domain/strippedVocabularyWord";
-import Tag from "../domain/tag";
-import VocabularyWord from "../domain/vocabularyWord";
+import type JsonImportWord from "../domain/client/jsonImportWord";
+import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";
+import VocabularyWord from "../domain/client/vocabularyWord";
+import LearnMode from "../domain/server/learnMode";
+import Tag from "../domain/server/tag";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
 const tagRepo = new TagSupabaseRepository();

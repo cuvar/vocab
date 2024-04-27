@@ -1,37 +1,33 @@
-import type LearnMode from "./learnMode";
-import Word from "./word";
+import type LearnMode from "../server/learnMode";
+import type Tag from "../server/tag";
 
-export default class JsonImportWord {
+export default class VocabularyWord {
+  id: string;
   translation: string;
   native: string;
   notes: string;
   mode: LearnMode;
-  iconNative: string;
   iconTranslation: string;
+  iconNative: string;
+  tags: Tag[];
 
   constructor(
+    id: string,
     translation: string,
     native: string,
     notes: string,
     mode: LearnMode,
+    iconTranslation: string,
     iconNative: string,
-    iconTranslation: string
+    tags: Tag[]
   ) {
+    this.id = id;
     this.translation = translation;
     this.native = native;
     this.notes = notes;
     this.mode = mode;
-    this.iconNative = iconNative;
     this.iconTranslation = iconTranslation;
-  }
-
-  toWord(): Word {
-    return new Word(
-      "",
-      this.translation,
-      this.native,
-      this.notes,
-      this.mode.toPrisma()
-    );
+    this.iconNative = iconNative;
+    this.tags = tags;
   }
 }

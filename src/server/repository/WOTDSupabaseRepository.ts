@@ -1,11 +1,11 @@
 import { type Tag as PrismaTag, type Word as PrismaWord } from "@prisma/client";
 import { addIcons } from "../../lib/helper";
 import { prisma as db } from "../db";
-import FEWOTD from "../domain/feWotd";
-import LearnMode from "../domain/learnMode";
-import Tag from "../domain/tag";
-import VocabularyWord from "../domain/vocabularyWord";
-import type Word from "../domain/word";
+import FEWOTD from "../domain/client/feWotd";
+import VocabularyWord from "../domain/client/vocabularyWord";
+import LearnMode from "../domain/server/learnMode";
+import Tag from "../domain/server/tag";
+import type Word from "../domain/server/word";
 import { getTodayMorning } from "../service/getDate.service";
 import { type WOTDRepository } from "./WOTDRepository";
 

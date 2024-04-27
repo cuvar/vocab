@@ -1,5 +1,5 @@
-import type LearnMode from "./learnMode";
-import type Tag from "./tag";
+import type LearnMode from "../server/learnMode";
+import type Tag from "../server/tag";
 import type VocabularyWord from "./vocabularyWord";
 
 export type FlashCardMode = "good" | "bad" | "none";

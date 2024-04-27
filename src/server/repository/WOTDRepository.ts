@@ -1,5 +1,5 @@
-import type FEWOTD from "../domain/feWotd";
-import type Word from "../domain/word";
+import type FEWOTD from "../domain/client/feWotd";
+import type Word from "../domain/server/word";
 
 export interface WOTDRepository {
   getToday: () => Promise<FEWOTD | null>;
