@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { api } from "../lib/api";
+import { DEFAULT_SETTINGS } from "../lib/const";
+import { getSettings } from "../lib/store/settings";
+import { useToast } from "../lib/ui/hooks";
 import { sendServiceWorkerWordOfTheDay } from "../server/service/serviceWorker.service";
 import type { VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
-import { DEFAULT_SETTINGS } from "../utils/const";
-import { useToast } from "../utils/hooks";
-import { getSettings } from "../utils/store/settings";
 
 export default function WordOfTheDay() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(

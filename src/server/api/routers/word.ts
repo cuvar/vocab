@@ -1,8 +1,8 @@
 import { LearnMode } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import AppError from "../../../utils/error";
-import { isJsonImportWordArray } from "../../../utils/guards/words";
+import AppError from "../../../lib/error/error";
+import { isJsonImportWordArray } from "../../../lib/guards/words";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { searchWord } from "../../service/search.service";
 import { getWOTD } from "../../service/wotd.service";

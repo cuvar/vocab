@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { api } from "../utils/api";
-import { useToast } from "../utils/hooks";
+import { api } from "../lib/api";
+import { useToast } from "../lib/ui/hooks";
 
 export default function JsonImport() {
   const [jsonInput, setJsonInput] = useState("");

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { type ActionData } from "swiper-action";
 import { env } from "../env/client.mjs";
-import { searchWord } from "../server/service/search.service";
-import Error from "../sites/Error";
-import { type ListElement } from "../types/types";
-import { AMOUNT_OF_WORDS_PER_PAGE } from "../utils/const";
+import { AMOUNT_OF_WORDS_PER_PAGE } from "../lib/const";
 import {
   chevronLeft,
   chevronRight,
   doubleChevronLeft,
   doubleChevronRight,
-} from "../utils/icons";
+} from "../lib/ui/icons";
+import { searchWord } from "../server/service/search.service";
+import Error from "../sites/Error";
+import { type ListElement } from "../types/types";
 import ListItem from "./ListItem";
 
 type Props = {

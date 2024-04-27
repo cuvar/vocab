@@ -7,7 +7,7 @@ import {
   listIcon,
   sparklesIcon,
   tagIcon,
-} from "../utils/icons";
+} from "../lib/ui/icons";
 
 type Props = {
   children: React.ReactNode;

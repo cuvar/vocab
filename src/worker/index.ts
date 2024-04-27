@@ -1,7 +1,7 @@
+import { isObject, isString } from "../lib/guards/base";
+import { isWOTD } from "../lib/guards/words";
 import { getWotdNotificationData } from "../server/service/notification.service";
 import type { WOTD } from "../types/types";
-import { isObject, isString } from "../utils/guards/base";
-import { isWOTD } from "../utils/guards/words";
 
 declare let self: ServiceWorkerGlobalScope;
 

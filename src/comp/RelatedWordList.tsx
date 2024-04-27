@@ -1,8 +1,8 @@
-import { api } from "../utils/api";
+import { api } from "../lib/api";
 
 type Props = {
   word: string;
-}
+};
 
 export default function RelatedWordList(props: Props) {
   const searchWordQuery = api.word.searchWord.useQuery({ word: props.word });

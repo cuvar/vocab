@@ -1,5 +1,5 @@
+import AppError from "../../lib/error/error";
 import { type Tag } from "../../types/types";
-import AppError from "../../utils/error";
 import { prisma } from "../db";
 import { type TagRepository } from "./TagRepository";
 

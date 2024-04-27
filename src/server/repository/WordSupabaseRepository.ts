@@ -1,12 +1,12 @@
 import { LearnMode } from "@prisma/client";
+import AppError from "../../lib/error/error";
+import { addIcons } from "../../lib/helper";
 import {
   type JsonImportWord,
   type SimpleWordInput,
   type Tag,
   type VocabularyWord,
 } from "../../types/types";
-import AppError from "../../utils/error";
-import { addIcons } from "../../utils/helper";
 import { prisma } from "../db";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import TagItem from "../comp/TagItem";
+import { api } from "../lib/api";
+import { plusIcon } from "../lib/ui/icons";
 import { type Tag } from "../types/types";
-import { api } from "../utils/api";
-import { plusIcon } from "../utils/icons";
 
 export default function Tags() {
   const [tags, setTags] = useState<Tag[]>([]);

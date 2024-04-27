@@ -1,6 +1,6 @@
 import type { Word } from "@prisma/client";
+import { addIcons } from "../../lib/helper";
 import { type Tag, type VocabularyWord, type WOTD } from "../../types/types";
-import { addIcons } from "../../utils/helper";
 import { prisma } from "../db";
 import { getTodayMorning } from "../service/getDate.service";
 import { type WOTDRepository } from "./WOTDRepository";

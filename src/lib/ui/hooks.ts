@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
-import { toastTextAtom, toastTypeAtom } from "../server/store";
-import { type ToastType } from "../types/types";
+import { toastTextAtom, toastTypeAtom } from "../../server/store";
+import { type ToastType } from "../../types/types";
 
 /**
  * Hook for displaying a toast if the toast is available on the UI

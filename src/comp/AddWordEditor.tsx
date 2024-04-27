@@ -1,13 +1,13 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { api } from "../lib/api";
+import { useToast } from "../lib/ui/hooks";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
   wordToEditAtom,
 } from "../server/store";
 import { type TagData } from "../types/types";
-import { api } from "../utils/api";
-import { useToast } from "../utils/hooks";
 import RelatedWordList from "./RelatedWordList";
 import TagSelect from "./TagSelect";
 

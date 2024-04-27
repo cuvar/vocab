@@ -1,11 +1,11 @@
+import { checkedIcon, crossRoundIcon } from "../lib/ui/icons";
 import { type ToastType } from "../types/types";
-import { checkedIcon, crossRoundIcon } from "../utils/icons";
 
 type Props = {
   msg: string;
   mode: ToastType;
   visible?: boolean;
-}
+};
 export default function Toast(props: Props) {
   const icon = props.mode == "success" ? checkedIcon : crossRoundIcon;
   const visibleClass = props.visible ? "visible" : "invisible";

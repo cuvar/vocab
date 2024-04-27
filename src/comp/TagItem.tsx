@@ -1,13 +1,13 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { api } from "../lib/api";
+import { useToast } from "../lib/ui/hooks";
+import { checkedIcon, crossIcon, penIcon } from "../lib/ui/icons";
 import {
   deleteTagConfirmedAtom,
   showMessageModalAtom,
   tagToDeleteAtom,
 } from "../server/store";
-import { api } from "../utils/api";
-import { useToast } from "../utils/hooks";
-import { checkedIcon, crossIcon, penIcon } from "../utils/icons";
 
 type Props = {
   id?: string;
