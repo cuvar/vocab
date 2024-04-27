@@ -1,12 +1,12 @@
-import AppError from "../../lib/error/error";
-import { prisma } from "../db";
+import AppError from "~/lib/error/error";
+import { db } from "../db";
 import Tag from "../domain/server/tag";
 import { type TagRepository } from "./TagRepository";
 
 export class TagSupabaseRepository implements TagRepository {
   getTags = async () => {
     try {
-      const data = await prisma.tag.findMany();
+      const data = await db.tag.findMany();
       const tags = data.map((e) => Tag.fromPrisma(e));
       return tags;
     } catch (error) {
@@ -16,7 +16,7 @@ export class TagSupabaseRepository implements TagRepository {
 
   getTag = async (tagName: string) => {
     try {
-      const data = await prisma.tag.findUnique({
+      const data = await db.tag.findUnique({
         where: {
           name: tagName,
         },
@@ -34,7 +34,7 @@ export class TagSupabaseRepository implements TagRepository {
 
   getTagsForWord = async (wordId: string) => {
     try {
-      const data = await prisma.word.findUnique({
+      const data = await db.word.findUnique({
         where: {
           id: wordId,
         },
@@ -68,13 +68,13 @@ export class TagSupabaseRepository implements TagRepository {
     });
 
     try {
-      await prisma.wordTags.deleteMany({
+      await db.wordTags.deleteMany({
         where: {
           wordId: wordId,
         },
       });
 
-      const createRes = await prisma.wordTags.createMany({
+      const createRes = await db.wordTags.createMany({
         data: createData,
       });
 
@@ -90,7 +90,7 @@ export class TagSupabaseRepository implements TagRepository {
 
   updateTag = async (tagId: string, name: string, description: string) => {
     try {
-      const data = await prisma.tag.update({
+      const data = await db.tag.update({
         where: {
           id: tagId,
         },
@@ -108,7 +108,7 @@ export class TagSupabaseRepository implements TagRepository {
 
   addTag = async (name: string, description: string) => {
     try {
-      const data = await prisma.tag.create({
+      const data = await db.tag.create({
         data: {
           name: name,
           description: description,
@@ -123,7 +123,7 @@ export class TagSupabaseRepository implements TagRepository {
 
   deleteTag = async (tagId: string) => {
     try {
-      const data = await prisma.tag.delete({
+      const data = await db.tag.delete({
         where: {
           id: tagId,
         },

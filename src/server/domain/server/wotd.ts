@@ -1,4 +1,6 @@
 import type prisma from "@prisma/client";
+import { isDate, isObject, isString } from "~/lib/guards/base";
+import VocabularyWord from "../client/vocabularyWord";
 
 export default class Wotd implements prisma.Wotd {
   id: string;
@@ -21,5 +23,21 @@ export default class Wotd implements prisma.Wotd {
       wordId: this.wordId,
       date: this.date,
     };
+  }
+
+  static validate(data: unknown): data is Wotd {
+    if (!isObject(data)) {
+      return false;
+    }
+    if (!isString(data.id)) {
+      return false;
+    }
+    if (!isDate(data.date)) {
+      return false;
+    }
+    if (!VocabularyWord.validate(data.word)) {
+      return false;
+    }
+    return true;
   }
 }

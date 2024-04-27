@@ -1,4 +1,5 @@
-import type LearnMode from "../server/learnMode";
+import { isObject, isString } from "~/lib/guards/base";
+import LearnMode from "../server/learnMode";
 import Word from "../server/word";
 
 export default class JsonImportWord {
@@ -33,5 +34,34 @@ export default class JsonImportWord {
       this.notes,
       this.mode.toPrisma()
     );
+  }
+
+  static validate(data: unknown): data is JsonImportWord {
+    if (!isObject(data)) {
+      return false;
+    }
+    if (!isString(data.translation)) {
+      return false;
+    }
+    if (!isString(data.native)) {
+      return false;
+    }
+    if (!isString(data.notes)) {
+      return false;
+    }
+    if (!LearnMode.validate(data.mode)) {
+      return false;
+    }
+    if (!isString(data.iconTranslation)) {
+      return false;
+    }
+    if (!isString(data.iconNative)) {
+      return false;
+    }
+    return true;
+  }
+
+  static validateArray(data: unknown): data is JsonImportWord[] {
+    return Array.isArray(data) && data.every((d) => JsonImportWord.validate(d));
   }
 }

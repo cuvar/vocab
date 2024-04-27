@@ -3,9 +3,9 @@ import {
   type Tag as PrismaTag,
   type Word as PrismaWord,
 } from "@prisma/client";
-import AppError from "../../lib/error/error";
-import { addIcons } from "../../lib/helper";
-import { prisma } from "../db";
+import AppError from "~/lib/error/error";
+import { addIcons } from "~/lib/helper";
+import { db } from "../db";
 import type JsonImportWord from "../domain/client/jsonImportWord";
 import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";
 import VocabularyWord from "../domain/client/vocabularyWord";
@@ -18,7 +18,7 @@ const tagRepo = new TagSupabaseRepository();
 export class WordSupabaseRepository implements WordRepository {
   getWords = async () => {
     try {
-      const data = await prisma.word.findMany({
+      const data = await db.word.findMany({
         include: {
           tags: {
             select: {
@@ -47,7 +47,7 @@ export class WordSupabaseRepository implements WordRepository {
   };
 
   getWord = async (word: string) => {
-    const data = await prisma.word.findUnique({
+    const data = await db.word.findUnique({
       where: {
         translation: word,
       },
@@ -77,7 +77,7 @@ export class WordSupabaseRepository implements WordRepository {
   };
 
   getWordsByFilter = async (filter: object) => {
-    const filtered = await prisma.word.findMany({
+    const filtered = await db.word.findMany({
       where: {
         ...filter,
       },
@@ -110,7 +110,7 @@ export class WordSupabaseRepository implements WordRepository {
   };
 
   getCountByFilter = async (filter: object) => {
-    const count = await prisma.word.count({
+    const count = await db.word.count({
       where: {
         ...filter,
       },
@@ -120,7 +120,7 @@ export class WordSupabaseRepository implements WordRepository {
 
   updateWord = async (wordId: string, newWord: StrippedVocabularyWord) => {
     try {
-      const res = await prisma.word.update({
+      const res = await db.word.update({
         where: {
           id: wordId,
         },
@@ -157,7 +157,7 @@ export class WordSupabaseRepository implements WordRepository {
 
   deleteWord = async (id: string) => {
     try {
-      const res = await prisma.word.delete({
+      const res = await db.word.delete({
         where: {
           id: id,
         },
@@ -193,7 +193,7 @@ export class WordSupabaseRepository implements WordRepository {
       throw new AppError("Word too long");
     }
     try {
-      const res = await prisma.word.create({
+      const res = await db.word.create({
         data: {
           translation: word.translation,
           native: word.native,
@@ -227,7 +227,7 @@ export class WordSupabaseRepository implements WordRepository {
 
   updateMode = async (id: string, mode: LearnMode) => {
     try {
-      const word = await prisma.word.findUnique({
+      const word = await db.word.findUnique({
         where: {
           id: id,
         },
@@ -237,7 +237,7 @@ export class WordSupabaseRepository implements WordRepository {
         throw new AppError("Word not found");
       }
 
-      const res = await prisma.word.update({
+      const res = await db.word.update({
         where: {
           translation: word.translation,
         },
@@ -271,7 +271,7 @@ export class WordSupabaseRepository implements WordRepository {
   importWords = async (words: JsonImportWord[]) => {
     try {
       const transformed = words.map((w) => w.toWord().toPrisma());
-      const data = await prisma.word.createMany({
+      const data = await db.word.createMany({
         data: transformed,
         skipDuplicates: true,
       });

@@ -1,19 +1,20 @@
 import { LearnMode } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
-import Card from "../comp/Card";
-import ProgressBar from "../comp/ProgressBar";
-import { api } from "../lib/api";
-import { addCard, clearCards, getCardsIds } from "../lib/store/flashcard";
-import { getLearnedWords } from "../lib/store/learned";
-import { getSettings } from "../lib/store/settings";
-import { useToast } from "../lib/ui/hooks";
+import { api } from "~/lib/api";
+import { addCard, clearCards, getCardsIds } from "~/lib/store/flashcard";
+import { getLearnedWords } from "~/lib/store/learned";
+import { getSettings } from "~/lib/store/settings";
+import { useToast } from "~/lib/ui/hooks";
 import {
   archiveIcon,
   arrowRoundIcon,
   thumbsDownIcon,
   thumbsUpIcon,
-} from "../lib/ui/icons";
-import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
+} from "~/lib/ui/icons";
+import type VocabularyFlashCard from "~/server/domain/client/vocabularyFlashCard";
+import type VocabularyWord from "~/server/domain/client/vocabularyWord";
+import Card from "../comp/Card";
+import ProgressBar from "../comp/ProgressBar";
 import Error from "./Error";
 import Loading from "./Loading";
 

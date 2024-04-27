@@ -7,7 +7,7 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-export const prisma =
+export const db =
   global.prisma ??
   new PrismaClient({
     log:

@@ -1,15 +1,16 @@
 import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useState, type ChangeEvent } from "react";
-import { api } from "../lib/api";
-import { isLearnMode } from "../lib/guards/words";
-import { useToast } from "../lib/ui/hooks";
+import { api } from "~/lib/api";
+import { isLearnMode } from "~/lib/guards/words";
+import { useToast } from "~/lib/ui/hooks";
+import type TagData from "../server/domain/client/tagData";
+import type VocabularyWord from "../server/domain/client/vocabularyWord";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
   wordToEditAtom,
 } from "../server/store";
-import { type TagData, type VocabularyWord } from "../types/types";
 import TagSelect from "./TagSelect";
 
 type Props = {

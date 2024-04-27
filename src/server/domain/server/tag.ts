@@ -1,4 +1,5 @@
 import type prisma from "@prisma/client";
+import { isObject, isString } from "~/lib/guards/base";
 
 export default class Tag implements prisma.Tag {
   id: string;
@@ -21,5 +22,25 @@ export default class Tag implements prisma.Tag {
       name: this.name,
       description: this.description,
     };
+  }
+
+  static validate(data: unknown): data is Tag {
+    if (!isObject(data)) {
+      return false;
+    }
+    if (!isString(data.id)) {
+      return false;
+    }
+    if (!isString(data.name)) {
+      return false;
+    }
+    if (!isString(data.description)) {
+      return false;
+    }
+    return true;
+  }
+
+  static validateArray(data: unknown): data is Tag[] {
+    return Array.isArray(data) && data.every((d) => Tag.validate(d));
   }
 }

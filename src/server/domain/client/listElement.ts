@@ -1,6 +1,7 @@
+import { isString } from "~/lib/guards/base";
 import type LearnMode from "../server/learnMode";
 import type Tag from "../server/tag";
-import type VocabularyWord from "./vocabularyWord";
+import VocabularyWord from "./vocabularyWord";
 
 export default class ListElement implements VocabularyWord {
   id: string;
@@ -36,5 +37,23 @@ export default class ListElement implements VocabularyWord {
     this.tags = tags;
     this.word = word;
     this.otherWord = otherWord;
+  }
+
+  static validate(data: unknown): data is ListElement {
+    if (!VocabularyWord.validate(data)) {
+      return false;
+    }
+    if (!("word" in data) || !isString(data.word)) {
+      return false;
+    }
+    if (!("otherword" in data) || !isString(data.otherword)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  static validateArray(data: unknown): data is ListElement[] {
+    return Array.isArray(data) && data.every((d) => ListElement.validate(d));
   }
 }

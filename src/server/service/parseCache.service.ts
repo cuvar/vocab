@@ -1,7 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import { isVocabSettings } from "../../lib/guards/other";
-import { isListElement } from "../../lib/guards/words";
-import type { ListElement, Settings } from "../../types/types";
+import ListElement from "../domain/client/listElement";
+import Settings from "../domain/client/settings";
 
 export function parseListElements(input: string): ListElement[] {
   const parsed = JSON.parse(input) as unknown;
@@ -9,7 +8,7 @@ export function parseListElements(input: string): ListElement[] {
     return [];
   }
   const validOutput = parsed.every((item) => {
-    isListElement(item);
+    ListElement.validate(item);
   });
 
   if (!validOutput) {
@@ -20,7 +19,7 @@ export function parseListElements(input: string): ListElement[] {
 
 export function parseSettings(input: string): Settings | null {
   const parsed = JSON.parse(input) as unknown;
-  if (!isVocabSettings(parsed)) {
+  if (!Settings.validate(parsed)) {
     return null;
   }
 

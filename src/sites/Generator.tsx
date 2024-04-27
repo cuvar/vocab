@@ -1,8 +1,8 @@
 import { LearnMode } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { api } from "../lib/api";
-import { useToast } from "../lib/ui/hooks";
-import { type VocabularyWord } from "../types/types";
+import { api } from "~/lib/api";
+import { useToast } from "~/lib/ui/hooks";
+import VocabularyWord from "~/server/domain/client/vocabularyWord";
 
 export default function Generator() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
@@ -25,7 +25,18 @@ export default function Generator() {
       return;
     }
 
-    setWordToDisplay({ ...randomWord.data });
+    setWordToDisplay(
+      new VocabularyWord(
+        "",
+        randomWord.data.translation,
+        randomWord.data.native,
+        randomWord.data.notes,
+        randomWord.data.mode,
+        randomWord.data.iconTranslation,
+        randomWord.data.iconNative,
+        randomWord.data.tags
+      )
+    );
   }, [randomWord.data]);
 
   function handleClick() {

@@ -1,8 +1,8 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { api } from "../lib/api";
-import { useToast } from "../lib/ui/hooks";
-import { checkedIcon, crossIcon, penIcon } from "../lib/ui/icons";
+import { api } from "~/lib/api";
+import { useToast } from "~/lib/ui/hooks";
+import { checkedIcon, crossIcon, penIcon } from "~/lib/ui/icons";
 import {
   deleteTagConfirmedAtom,
   showMessageModalAtom,

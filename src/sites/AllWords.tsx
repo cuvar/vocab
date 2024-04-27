@@ -2,23 +2,24 @@ import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
+import { api } from "~/lib/api";
+import { toListElement } from "~/lib/helper";
+import { getAllWords, setAllWords } from "~/lib/store/allwords";
+import { getArchivedWords, setArchivedWords } from "~/lib/store/archived";
+import { getLearnedWords, setLearnedWords } from "~/lib/store/learned";
+import { useToast } from "~/lib/ui/hooks";
+import { archiveIcon, penIcon, resetIcon, switchIcon } from "~/lib/ui/icons";
+import type ListElement from "~/server/domain/client/listElement";
+import type VocabularyWord from "~/server/domain/client/vocabularyWord";
 import { type FilterProps, type FilterState } from "../comp/Filter";
 import FilterBar from "../comp/FilterBar";
 import List from "../comp/List";
 import Mutator from "../comp/Mutator";
-import { api } from "../lib/api";
-import { toListElement } from "../lib/helper";
-import { getAllWords, setAllWords } from "../lib/store/allwords";
-import { getArchivedWords, setArchivedWords } from "../lib/store/archived";
-import { getLearnedWords, setLearnedWords } from "../lib/store/learned";
-import { useToast } from "../lib/ui/hooks";
-import { archiveIcon, penIcon, resetIcon, switchIcon } from "../lib/ui/icons";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
   wordToEditAtom,
 } from "../server/store";
-import { type ListElement, type VocabularyWord } from "../types/types";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -93,7 +94,7 @@ export default function AllWords() {
     updateModeMutation.mutate({
       id: arg.id,
       mode:
-        arg.mode === LearnMode.LEARNED
+        arg.mode.value === LearnMode.LEARNED
           ? LearnMode.UNLEARNED
           : LearnMode.LEARNED,
     });

@@ -1,4 +1,5 @@
 import { LearnMode as PrismaLearnMode } from "@prisma/client";
+import { isString } from "~/lib/guards/base";
 
 export default class LearnMode {
   value: PrismaLearnMode;
@@ -13,6 +14,18 @@ export default class LearnMode {
 
   toPrisma(): PrismaLearnMode {
     return this.value;
+  }
+
+  static validate(data: unknown): data is LearnMode {
+    if (!isString(data)) {
+      return false;
+    }
+
+    if (data !== "UNLEARNED" && data !== "LEARNED" && data !== "ARCHIVED") {
+      return false;
+    }
+
+    return true;
   }
 }
 
