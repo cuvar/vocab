@@ -1,19 +1,13 @@
 import AppError from "../../lib/error/error";
-import { type Tag } from "../../types/types";
 import { prisma } from "../db";
+import Tag from "../domain/tag";
 import { type TagRepository } from "./TagRepository";
 
 export class TagSupabaseRepository implements TagRepository {
   getTags = async () => {
     try {
       const data = await prisma.tag.findMany();
-      const tags = data.map((e) => {
-        return {
-          id: e.id,
-          name: e.name,
-          description: e.description,
-        } satisfies Tag;
-      });
+      const tags = data.map((e) => Tag.fromPrisma(e));
       return tags;
     } catch (error) {
       throw error;
@@ -32,11 +26,7 @@ export class TagSupabaseRepository implements TagRepository {
         throw new AppError("Cannot find tag " + tagName);
       }
 
-      return {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-      } satisfies Tag;
+      return Tag.fromPrisma(data);
     } catch (error) {
       throw error;
     }
@@ -51,13 +41,7 @@ export class TagSupabaseRepository implements TagRepository {
         select: {
           tags: {
             include: {
-              tag: {
-                select: {
-                  id: true,
-                  name: true,
-                  description: true,
-                },
-              },
+              tag: {},
             },
           },
         },
@@ -67,13 +51,7 @@ export class TagSupabaseRepository implements TagRepository {
         throw new AppError("Cannot find word with id " + wordId);
       }
 
-      const tags = data.tags.map((t) => {
-        return {
-          id: t.tag.id,
-          name: t.tag.name,
-          description: t.tag.description,
-        } satisfies Tag;
-      });
+      const tags = data.tags.map((e) => Tag.fromPrisma(e.tag));
 
       return tags;
     } catch (error) {
@@ -122,11 +100,7 @@ export class TagSupabaseRepository implements TagRepository {
         },
       });
 
-      return {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-      } satisfies Tag;
+      return Tag.fromPrisma(data);
     } catch (error) {
       throw error;
     }
@@ -141,11 +115,7 @@ export class TagSupabaseRepository implements TagRepository {
         },
       });
 
-      return {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-      } satisfies Tag;
+      return Tag.fromPrisma(data);
     } catch (error) {
       throw error;
     }
@@ -159,11 +129,7 @@ export class TagSupabaseRepository implements TagRepository {
         },
       });
 
-      return {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-      } satisfies Tag;
+      return Tag.fromPrisma(data);
     } catch (error) {
       throw error;
     }

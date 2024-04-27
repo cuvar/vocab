@@ -1,8 +1,8 @@
-import type { Word } from "@prisma/client";
-import type { WOTD } from "../../types/types";
+import type FEWOTD from "../domain/feWotd";
+import type Word from "../domain/word";
 
 export interface WOTDRepository {
-  getToday: () => Promise<WOTD | null>;
-  getLastWords: (limit: number) => Promise<WOTD[]>;
-  add: (word: Word, date: Date) => Promise<WOTD>;
+  getToday: () => Promise<FEWOTD | null>;
+  getLastWords: (limit: number) => Promise<FEWOTD[]>;
+  add: (word: Word, date: Date) => Promise<FEWOTD>;
 }

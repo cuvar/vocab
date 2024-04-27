@@ -1,6 +1,7 @@
 import type { Word } from "@prisma/client";
 import { env } from "../env/client.mjs";
-import { type ListElement, type VocabularyWord } from "../types/types";
+import type ListElement from "../server/domain/listElement";
+import type VocabularyWord from "../server/domain/vocabularyWord";
 /**
  * Adds emoji icons to word object
  * @param {Word} word Word object

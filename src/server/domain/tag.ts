@@ -4,31 +4,15 @@ export default class Tag implements prisma.Tag {
   id: string;
   name: string;
   description: string;
-  createdAt: Date;
-  updatedAt: Date;
 
-  constructor(
-    id: string,
-    name: string,
-    description: string,
-    createdAt: Date | null,
-    updatedAt: Date | null
-  ) {
+  constructor(id: string, name: string, description: string) {
     this.id = id;
     this.name = name;
     this.description = description;
-    this.createdAt = createdAt ?? new Date();
-    this.updatedAt = updatedAt ?? new Date();
   }
 
   static fromPrisma(tag: prisma.Tag): Tag {
-    return new Tag(
-      tag.id,
-      tag.name,
-      tag.description,
-      tag.createdAt,
-      tag.updatedAt
-    );
+    return new Tag(tag.id, tag.name, tag.description);
   }
 
   toPrisma(): prisma.Tag {
@@ -36,8 +20,6 @@ export default class Tag implements prisma.Tag {
       id: this.id,
       name: this.name,
       description: this.description,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt,
     };
   }
 }
