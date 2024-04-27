@@ -1,5 +1,5 @@
 import AppError from "~/lib/error/error";
-import type Wotd from "../domain/server/wotd";
+import type Wotd from "../../domain/server/wotd";
 
 /**
  * Sends notification to service worker for WOTD notification

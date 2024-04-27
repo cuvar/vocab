@@ -6,7 +6,7 @@ import VocabularyWord from "../domain/client/vocabularyWord";
 import LearnMode from "../domain/server/learnMode";
 import Tag from "../domain/server/tag";
 import type Word from "../domain/server/word";
-import { getTodayMorning } from "../service/getDate.service";
+import { getTodayMorning } from "../service/server/getDate.service";
 import { type WOTDRepository } from "./WOTDRepository";
 
 export class WOTDSupabaseRepository implements WOTDRepository {

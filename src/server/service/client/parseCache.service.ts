@@ -1,6 +1,6 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import ListElement from "../domain/client/listElement";
-import Settings from "../domain/client/settings";
+import ListElement from "../../domain/client/listElement";
+import Settings from "../../domain/client/settings";
 
 export function parseListElements(input: string): ListElement[] {
   const parsed = JSON.parse(input) as unknown;

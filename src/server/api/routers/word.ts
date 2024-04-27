@@ -6,8 +6,8 @@ import JsonImportWord from "~/server/domain/client/jsonImportWord";
 import StrippedVocabularyWord from "~/server/domain/client/strippedVocabularyWord";
 import LearnMode from "~/server/domain/server/learnMode";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
-import { searchWord } from "../../service/search.service";
-import { getWOTD } from "../../service/wotd.service";
+import { searchWord } from "../../service/client/search.service";
+import { getWOTD } from "../../service/server/wotd.service";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 const repo = new WordSupabaseRepository();

@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
-import ListElement from "../domain/client/listElement";
-import type VocabularyWord from "../domain/client/vocabularyWord";
+import ListElement from "../../domain/client/listElement";
+import type VocabularyWord from "../../domain/client/vocabularyWord";
 
 /**
  *

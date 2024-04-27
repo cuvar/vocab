@@ -1,4 +1,4 @@
-import { parseListElements } from "../../server/service/parseCache.service";
+import { parseListElements } from "../../server/service/client/parseCache.service";
 import type { ListElement } from "../../types/types";
 import { KEY_ARCHIVED_WORDS } from "./keys";
 
