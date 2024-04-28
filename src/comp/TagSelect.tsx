@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { type TagDataData } from "../server/domain/client/tagData";
+import { type TagData } from "../server/domain/client/tagData";
 
 type Props = {
-  tags: TagDataData[];
-  handler: (td: TagDataData[]) => void;
+  tags: TagData[];
+  handler: (td: TagData[]) => void;
 };
 
 export default function TagSelect(props: Props) {
-  const [tagData, setTagData] = useState<TagDataData[]>(props.tags);
+  const [TagData, setTagData] = useState<TagData[]>(props.tags);
 
-  function handleSwitchChange(_tagData: TagDataData) {
-    const newChecked = !_tagData.checked;
+  function handleSwitchChange(_TagData: TagData) {
+    const newChecked = !_TagData.checked;
 
-    const editIndex = tagData.findIndex((t) => t.id === _tagData.id);
+    const editIndex = TagData.findIndex((t) => t.id === _TagData.id);
     if (editIndex !== -1) {
-      const updatedTagData = [...tagData]; // Create a copy of the array
+      const updatedTagData = [...TagData]; // Create a copy of the array
       updatedTagData[editIndex]!.checked = newChecked;
       setTagData(updatedTagData); // Update the state with the new array
       props.handler(updatedTagData); // Notify the parent component with the updated data
@@ -26,7 +26,7 @@ export default function TagSelect(props: Props) {
       <input type="checkbox" />
       <div className="collapse-title text-lg font-medium">Tags</div>
       <div className="collapse-content">
-        {tagData.map((t) => (
+        {TagData.map((t) => (
           <label
             key={t.name}
             className="label mr-4 flex cursor-pointer justify-start space-x-2"

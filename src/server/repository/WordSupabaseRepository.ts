@@ -9,7 +9,7 @@ import { db } from "../db";
 import JsonImportWord, {
   type JsonImportWordData,
 } from "../domain/client/jsonImportWord";
-import { type StrippedVocabularyWordData } from "../domain/client/strippedVocabularyWord";
+import { type StrippedVocabularyWord } from "../domain/client/strippedVocabularyWord";
 import { type VocabularyWordData } from "../domain/client/vocabularyWord";
 import Tag from "../domain/server/tag";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
@@ -131,7 +131,7 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  updateWord = async (wordId: string, newWord: StrippedVocabularyWordData) => {
+  updateWord = async (wordId: string, newWord: StrippedVocabularyWord) => {
     try {
       const res = await db.word.update({
         where: {
@@ -198,7 +198,7 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  addWord = async (word: StrippedVocabularyWordData) => {
+  addWord = async (word: StrippedVocabularyWord) => {
     if (word.translation === "" || word.native === "") {
       throw new AppError("Word cannot be empty");
     }

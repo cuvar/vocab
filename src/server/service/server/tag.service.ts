@@ -1,4 +1,4 @@
-import { type TagDataData } from "../../domain/client/tagData";
+import { type TagData } from "../../domain/client/tagData";
 import { TagSupabaseRepository } from "../../repository/TagSupabaseRepository";
 
 const repo = new TagSupabaseRepository();
@@ -19,7 +19,7 @@ export async function getTagsForWord(wordId: string) {
   const allTags = await repo.getTags();
   const tagsForWord = await repo.getTagsForWord(wordId);
 
-  const combinedTags: TagDataData[] = allTags.map((t) => {
+  const combinedTags: TagData[] = allTags.map((t) => {
     const index = tagsForWord.findIndex((e) => e.id === t.id);
     return {
       ...t,

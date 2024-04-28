@@ -1,5 +1,5 @@
 import { LearnMode as PrismaLearnMode } from "@prisma/client";
-import { type StrippedVocabularyWordData } from "~/server/domain/client/strippedVocabularyWord";
+import { type StrippedVocabularyWord } from "~/server/domain/client/strippedVocabularyWord";
 import AppError from "../../../lib/error/error";
 import JsonImportWord from "../../domain/client/jsonImportWord";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
@@ -38,7 +38,7 @@ export async function updateWord(
   mode: string,
   tagIds: string[]
 ) {
-  const newWord: StrippedVocabularyWordData = {
+  const newWord: StrippedVocabularyWord = {
     translation: translation,
     native: native,
     notes: notes,
@@ -74,7 +74,7 @@ export async function addWord(
   tagIds: string[]
 ) {
   // TODO: what about tagIds?
-  const newWord: StrippedVocabularyWordData = {
+  const newWord: StrippedVocabularyWord = {
     translation: translation,
     native: native,
     notes: notes,

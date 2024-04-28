@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
-import { type TagDataData } from "../server/domain/client/tagData";
+import { type TagData } from "../server/domain/client/tagData";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -15,7 +15,7 @@ export default function Editor() {
   const [englishInput, setEnglishInput] = useState("");
   const [germanInput, setGermanInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
-  const [tagData, setTagData] = useState<TagDataData[]>([]);
+  const [TagData, setTagData] = useState<TagData[]>([]);
   const [showExistingWords, setShowExistingWords] = useState(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
@@ -25,15 +25,15 @@ export default function Editor() {
 
   api.tag.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      const _tagData = data.map((d) => {
+      const _TagData = data.map((d) => {
         return {
           id: d.id,
           name: d.name,
           description: d.description,
           checked: false,
-        } as TagDataData;
+        } as TagData;
       });
-      setTagData(_tagData);
+      setTagData(_TagData);
     },
   });
 
@@ -46,7 +46,7 @@ export default function Editor() {
   });
 
   function addWord() {
-    const tags: string[] = tagData.filter((t) => t.checked).map((t) => t.id);
+    const tags: string[] = TagData.filter((t) => t.checked).map((t) => t.id);
     addWordMutation.mutate({
       translation: englishInput,
       native: germanInput,
@@ -70,8 +70,8 @@ export default function Editor() {
     setShowEditorModal(false);
   }
 
-  function onTagsSelectChange(_tagData: TagDataData[]) {
-    setTagData(_tagData);
+  function onTagsSelectChange(_TagData: TagData[]) {
+    setTagData(_TagData);
   }
 
   return (
@@ -121,8 +121,8 @@ export default function Editor() {
           />
         </div>
         <div className="form-control">
-          {tagData.length > 0 && (
-            <TagSelect tags={tagData} handler={onTagsSelectChange} />
+          {TagData.length > 0 && (
+            <TagSelect tags={TagData} handler={onTagsSelectChange} />
           )}
         </div>
         <div className="collapse bg-base-200">
