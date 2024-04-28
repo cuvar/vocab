@@ -1,12 +1,20 @@
-import { LearnMode as PrismaLearnMode } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import AppError from "~/lib/error/error";
-import JsonImportWord from "~/server/domain/client/jsonImportWord";
-import StrippedVocabularyWord from "~/server/domain/client/strippedVocabularyWord";
-import LearnMode from "~/server/domain/server/learnMode";
+import {
+  addWord,
+  deleteWord,
+  getAllWords,
+  getArchived,
+  getCountUnlearnedWords,
+  getLearned,
+  getRandomUnlearnedWord,
+  getWord,
+  importWords,
+  searchInWords,
+  updateMode,
+  updateWord,
+} from "~/server/service/server/word.service";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
-import { searchWord } from "../../service/client/search.service";
 import { getWOTD } from "../../service/server/wotd.service";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -67,8 +75,7 @@ export const wordRouter = createTRPCRouter({
   // }),
   getAll: protectedProcedure.query(async () => {
     try {
-      const res = await repo.getWords();
-      return res;
+      return await getAllWords();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -81,8 +88,7 @@ export const wordRouter = createTRPCRouter({
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {
       try {
-        const res = await repo.getWord(input.word);
-        return res;
+        return await getWord(input.word);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -93,10 +99,7 @@ export const wordRouter = createTRPCRouter({
     }),
   getLearned: protectedProcedure.query(async () => {
     try {
-      const learned = await repo.getWordsByFilter({
-        mode: PrismaLearnMode.LEARNED,
-      });
-      return learned;
+      return await getLearned();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -107,10 +110,7 @@ export const wordRouter = createTRPCRouter({
   }),
   getArchived: protectedProcedure.query(async () => {
     try {
-      const learned = await repo.getWordsByFilter({
-        mode: PrismaLearnMode.ARCHIVED,
-      });
-      return learned;
+      return await getArchived();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -123,8 +123,7 @@ export const wordRouter = createTRPCRouter({
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {
       try {
-        const res = await repo.getWords();
-        return searchWord(res, input.word);
+        return await searchInWords(input.word);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -135,10 +134,7 @@ export const wordRouter = createTRPCRouter({
     }),
   getAmountOfUnlearnedWords: protectedProcedure.query(async () => {
     try {
-      const res = await repo.getCountByFilter({
-        mode: PrismaLearnMode.UNLEARNED,
-      });
-      return res;
+      return await getCountUnlearnedWords();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -149,12 +145,7 @@ export const wordRouter = createTRPCRouter({
   }),
   getRandomUnlearnedWord: protectedProcedure.query(async () => {
     try {
-      const unlearned = await repo.getWordsByFilter({
-        mode: PrismaLearnMode.UNLEARNED,
-      });
-      const randomWord =
-        unlearned[Math.floor(Math.random() * unlearned.length)];
-      return randomWord;
+      return await getRandomUnlearnedWord();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -184,8 +175,7 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const res = await repo.updateMode(input.id, new LearnMode(input.mode));
-        return res;
+        return await updateMode(input.id, input.mode);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -204,16 +194,13 @@ export const wordRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const newWord = new StrippedVocabularyWord(
-        input.translation,
-        input.native,
-        input.notes,
-        new LearnMode(PrismaLearnMode.UNLEARNED),
-        []
-      );
       try {
-        const res = await repo.addWord(newWord);
-        return res;
+        return addWord(
+          input.translation,
+          input.native,
+          input.notes,
+          input.tagIds
+        );
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -231,8 +218,7 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const res = await repo.deleteWord(input.id);
-        return res;
+        return await deleteWord(input.id);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -253,17 +239,15 @@ export const wordRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const newWord = new StrippedVocabularyWord(
-        input.translation,
-        input.native,
-        input.notes,
-        new LearnMode(PrismaLearnMode.UNLEARNED),
-        []
-      );
-
       try {
-        const res = await repo.updateWord(input.id, newWord);
-        return res;
+        return await updateWord(
+          input.id,
+          input.translation,
+          input.native,
+          input.notes,
+          input.mode,
+          input.tagIds
+        );
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -280,24 +264,7 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const parsed = JSON.parse(input.text) as string;
-        if (!JsonImportWord.validateArray(parsed)) {
-          throw new AppError("Input is in wrong format");
-        }
-
-        const transformed = parsed.map((w) => {
-          return new JsonImportWord(
-            w.translation,
-            w.native,
-            w.notes,
-            w.mode,
-            w.iconNative,
-            w.iconTranslation
-          );
-        });
-
-        const res = await repo.importWords(transformed);
-        return res;
+        return await importWords(input.text);
       } catch (error) {
         console.error(error);
         throw new TRPCError({

@@ -1,0 +1,175 @@
+import { LearnMode as PrismaLearnMode } from "@prisma/client";
+import AppError from "~/lib/error/error";
+import JsonImportWord from "~/server/domain/client/jsonImportWord";
+import StrippedVocabularyWord from "~/server/domain/client/strippedVocabularyWord";
+import LearnMode from "~/server/domain/server/learnMode";
+import { WordSupabaseRepository } from "~/server/repository/WordSupabaseRepository";
+import { searchWord } from "../client/search.service";
+
+const repo = new WordSupabaseRepository();
+
+/**
+ *
+ * @param text
+ */
+export async function importWords(text: string) {
+  const parsed = JSON.parse(text) as string;
+  if (!JsonImportWord.validateArray(parsed)) {
+    throw new AppError("Input is in wrong format");
+  }
+
+  const transformed = parsed.map((w) => {
+    return new JsonImportWord(
+      w.translation,
+      w.native,
+      w.notes,
+      w.mode,
+      w.iconNative,
+      w.iconTranslation
+    );
+  });
+
+  const res = await repo.importWords(transformed);
+  return res;
+}
+
+/**
+ *
+ * @param id
+ * @param translation
+ * @param native
+ * @param notes
+ * @param mode
+ * @param tagIds
+ */
+export async function updateWord(
+  id: string,
+  translation: string,
+  native: string,
+  notes: string,
+  mode: string,
+  tagIds: string[]
+) {
+  const newWord = new StrippedVocabularyWord(
+    translation,
+    native,
+    notes,
+    new LearnMode(PrismaLearnMode.UNLEARNED),
+    []
+  );
+
+  const res = await repo.updateWord(id, newWord);
+  // TODO: what about mode nad tagIds?
+  return res;
+}
+
+/**
+ *
+ * @param id
+ */
+export async function deleteWord(id: string) {
+  const word = await repo.deleteWord(id);
+  return word;
+}
+
+/**
+ *
+ * @param translation
+ * @param native
+ * @param notes
+ * @param tagIds
+ */
+export async function addWord(
+  translation: string,
+  native: string,
+  notes: string,
+  tagIds: string[]
+) {
+  // TODO: what about tagIds?
+  const newWord = new StrippedVocabularyWord(
+    translation,
+    native,
+    notes,
+    new LearnMode(PrismaLearnMode.UNLEARNED),
+    []
+  );
+  const res = await repo.addWord(newWord);
+  return res;
+}
+
+/**
+ *
+ * @param id
+ * @param mode
+ */
+export async function updateMode(id: string, mode: PrismaLearnMode) {
+  const res = await repo.updateMode(id, new LearnMode(mode));
+  return res;
+}
+
+/**
+ *
+ */
+export async function getRandomUnlearnedWord() {
+  const unlearned = await repo.getWordsByFilter({
+    mode: PrismaLearnMode.UNLEARNED,
+  });
+  const randomWord = unlearned[Math.floor(Math.random() * unlearned.length)];
+  return randomWord;
+}
+
+/**
+ *
+ */
+export async function getCountUnlearnedWords() {
+  const res = await repo.getCountByFilter({
+    mode: PrismaLearnMode.UNLEARNED,
+  });
+  return res;
+}
+
+/**
+ *
+ * @param word
+ */
+export async function searchInWords(word: string) {
+  const res = await repo.getWords();
+  return searchWord(res, word);
+}
+
+/**
+ *
+ */
+export async function getArchived() {
+  const words = await repo.getWordsByFilter({
+    mode: PrismaLearnMode.ARCHIVED,
+  });
+  return words;
+}
+
+/**
+ *
+ */
+export async function getLearned() {
+  const words = await repo.getWordsByFilter({
+    mode: PrismaLearnMode.LEARNED,
+  });
+  return words;
+}
+
+/**
+ *
+ * @param word
+ */
+export async function getWord(word: string) {
+  const res = await repo.getWord(word);
+  return res;
+}
+
+/**
+ *
+ */
+export async function getAllWords() {
+  const words = await repo.getWords();
+  return words;
+}
