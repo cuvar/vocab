@@ -7,7 +7,6 @@ import {
   doubleChevronLeft,
   doubleChevronRight,
 } from "~/lib/ui/icons";
-import { env } from "../env/client.mjs";
 import ListElement from "../server/domain/client/listElement";
 import { searchWord } from "../server/service/client/search.service";
 import Error from "../sites/Error";
@@ -83,13 +82,18 @@ export default function List(props: Props) {
 
   function transformForShowNative(showNative: boolean, e: ListElement) {
     if (showNative) {
-      return {
-        ...e,
-        word: e.otherWord,
-        otherWord: e.word,
-        iconNative: env.NEXT_PUBLIC_TRANSLATION_ICON,
-        iconTranslation: env.NEXT_PUBLIC_NATIVE_ICON,
-      };
+      return new ListElement(
+        e.id,
+        e.native,
+        e.translation,
+        e.notes,
+        e.mode,
+        e.iconNative,
+        e.iconTranslation,
+        e.tags,
+        e.otherWord,
+        e.word
+      );
     }
     return e;
   }

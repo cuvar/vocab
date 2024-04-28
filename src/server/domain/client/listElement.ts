@@ -50,7 +50,7 @@ export default class ListElement implements VocabularyWord {
     if (!("word" in data) || !isString(data.word)) {
       return false;
     }
-    if (!("otherword" in data) || !isString(data.otherword)) {
+    if (!("otherWord" in data) || !isString(data.otherWord)) {
       return false;
     }
 
