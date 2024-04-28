@@ -6,23 +6,33 @@ export default class Word implements prisma.Word {
   back: string;
   notes: string;
   mode: prisma.LearnMode;
+  collectionId: string | null;
 
   constructor(
     id: string,
     front: string,
     back: string,
     notes: string,
-    mode: prisma.LearnMode
+    mode: prisma.LearnMode,
+    collectionId: string | null
   ) {
     this.id = id;
     this.front = front;
     this.back = back;
     this.notes = notes;
     this.mode = mode;
+    this.collectionId = collectionId;
   }
 
   static fromPrisma(word: prisma.Word): Word {
-    return new Word(word.id, word.front, word.back, word.notes, word.mode);
+    return new Word(
+      word.id,
+      word.front,
+      word.back,
+      word.notes,
+      word.mode,
+      word.collectionId ?? null
+    );
   }
 
   toPrisma(): prisma.Word {
@@ -32,6 +42,7 @@ export default class Word implements prisma.Word {
       back: this.back,
       notes: this.notes,
       mode: this.mode,
+      collectionId: this.collectionId,
     };
   }
 }
