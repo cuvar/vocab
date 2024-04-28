@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { hamburgerIcon, plusIcon } from "~/lib/ui/icons";
+import { hamburgerIcon, plusIcon } from "../lib/ui/icons";
 import { showEditorModalAtom } from "../server/store";
 import Menu from "./Menu";
 

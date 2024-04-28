@@ -1,8 +1,8 @@
 import { LearnMode } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { api } from "~/lib/api";
-import { useToast } from "~/lib/ui/hooks";
-import VocabularyWord from "~/server/domain/client/vocabularyWord";
+import { api } from "../lib/api";
+import { useToast } from "../lib/ui/hooks";
+import VocabularyWord from "../server/domain/client/vocabularyWord";
 
 export default function Generator() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(

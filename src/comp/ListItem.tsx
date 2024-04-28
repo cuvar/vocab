@@ -5,7 +5,7 @@ import {
   type ActionData,
   type InteractionEvent,
 } from "swiper-action";
-import { checkedIcon, uncheckedIcon } from "~/lib/ui/icons";
+import { checkedIcon, uncheckedIcon } from "../lib/ui/icons";
 import type ListElement from "../server/domain/client/listElement";
 
 type Props = {

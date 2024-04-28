@@ -1,4 +1,4 @@
-import { isDate, isObject, isString } from "~/lib/guards/base";
+import { isDate, isObject, isString } from "../../../lib/guards/base";
 import VocabularyWord from "./vocabularyWord";
 
 export default class FEWotd {

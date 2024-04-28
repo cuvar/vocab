@@ -1,5 +1,5 @@
 import { type Tag as PrismaTag, type Word as PrismaWord } from "@prisma/client";
-import { addIcons } from "~/lib/helper";
+import { addIcons } from "../../lib/helper";
 import { db } from "../db";
 import FEWotd from "../domain/client/feWotd";
 import VocabularyWord from "../domain/client/vocabularyWord";

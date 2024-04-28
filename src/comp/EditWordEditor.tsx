@@ -1,9 +1,9 @@
 import { LearnMode as PrismaLearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useState, type ChangeEvent } from "react";
-import { api } from "~/lib/api";
-import { useToast } from "~/lib/ui/hooks";
-import { LearnMode } from "~/server/domain/server/learnMode";
+import { api } from "../lib/api";
+import { useToast } from "../lib/ui/hooks";
+import { LearnMode } from "../server/domain/server/learnMode";
 import type TagData from "../server/domain/client/tagData";
 import type VocabularyWord from "../server/domain/client/vocabularyWord";
 import {

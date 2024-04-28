@@ -1,4 +1,4 @@
-import { checkedIcon, crossRoundIcon } from "~/lib/ui/icons";
+import { checkedIcon, crossRoundIcon } from "../lib/ui/icons";
 import { type ToastType } from "../types/types";
 
 type Props = {

@@ -1,4 +1,4 @@
-import { env } from "~/env/client.mjs";
+import { env } from "../../env/client.mjs";
 
 type Logtype = "log" | "info" | "warn" | "error";
 

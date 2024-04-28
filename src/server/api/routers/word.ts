@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { NodeLogger } from "~/lib/logging/nodeLogger";
+import { NodeLogger } from "../../../lib/logging/nodeLogger";
 import {
   addWord,
   deleteWord,
@@ -14,12 +14,9 @@ import {
   searchInWords,
   updateMode,
   updateWord,
-} from "~/server/service/server/word.service";
-import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
+} from "../../service/server/word.service";
 import { getWOTD } from "../../service/server/wotd.service";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-
-const repo = new WordSupabaseRepository();
 
 export const wordRouter = createTRPCRouter({
   // initDB: publicProcedure.mutation(async ({ ctx }) => {

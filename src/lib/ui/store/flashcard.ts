@@ -1,5 +1,5 @@
-import VocabularyFlashCard from "~/server/domain/client/vocabularyFlashCard";
-import type VocabularyWord from "~/server/domain/client/vocabularyWord";
+import VocabularyFlashCard from "../../../server/domain/client/vocabularyFlashCard";
+import type VocabularyWord from "../../../server/domain/client/vocabularyWord";
 import { KEY_LEARNED_CARDS } from "./keys";
 
 /**

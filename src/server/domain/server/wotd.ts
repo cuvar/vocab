@@ -1,5 +1,5 @@
 import type prisma from "@prisma/client";
-import { isDate, isObject, isString } from "~/lib/guards/base";
+import { isDate, isObject, isString } from "../../../lib/guards/base";
 import VocabularyWord from "../client/vocabularyWord";
 
 export default class Wotd implements prisma.Wotd {

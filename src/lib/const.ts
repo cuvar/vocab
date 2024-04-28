@@ -1,4 +1,4 @@
-import Settings from "~/server/domain/client/settings";
+import Settings from "../server/domain/client/settings";
 
 export const DEFAULT_SETTINGS = new Settings(true, "09:00", false);
 

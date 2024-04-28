@@ -1,6 +1,6 @@
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { ellipsisIcon, importIcon, signOutIcon } from "~/lib/ui/icons";
+import { ellipsisIcon, importIcon, signOutIcon } from "../lib/ui/icons";
 
 export default function Menu() {
   function handleLogout() {

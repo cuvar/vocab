@@ -1,5 +1,5 @@
 import type prisma from "@prisma/client";
-import { isObject, isString } from "~/lib/guards/base";
+import { isObject, isString } from "../../../lib/guards/base";
 
 export default class Tag implements prisma.Tag {
   id: string;

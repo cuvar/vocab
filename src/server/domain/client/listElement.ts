@@ -1,5 +1,5 @@
 import { type LearnMode as PrismaLearnMode } from "@prisma/client";
-import { isString } from "~/lib/guards/base";
+import { isString } from "../../../lib/guards/base";
 import type Tag from "../server/tag";
 import type Word from "../server/word";
 import VocabularyWord from "./vocabularyWord";

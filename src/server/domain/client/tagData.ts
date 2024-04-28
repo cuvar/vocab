@@ -1,5 +1,5 @@
 import { type Tag as PrismaTag } from "@prisma/client";
-import { isBoolean } from "~/lib/guards/base";
+import { isBoolean } from "../../../lib/guards/base";
 import Tag from "../server/tag";
 
 export default class TagData implements PrismaTag {

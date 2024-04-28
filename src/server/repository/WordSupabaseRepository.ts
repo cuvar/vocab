@@ -3,8 +3,8 @@ import {
   type Tag as PrismaTag,
   type Word as PrismaWord,
 } from "@prisma/client";
-import AppError from "~/lib/error/error";
-import { addIcons } from "~/lib/helper";
+import AppError from "../../lib/error/error";
+import { addIcons } from "../../lib/helper";
 import { db } from "../db";
 import type JsonImportWord from "../domain/client/jsonImportWord";
 import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";

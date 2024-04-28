@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
-import { api } from "~/lib/api";
-import { useToast } from "~/lib/ui/hooks";
+import { api } from "../lib/api";
+import { useToast } from "../lib/ui/hooks";
 import TagData from "../server/domain/client/tagData";
 import {
   refetchWordsAtom,

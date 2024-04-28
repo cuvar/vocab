@@ -1,7 +1,7 @@
 import { type Tag } from "@prisma/client";
 import { useState } from "react";
-import { api } from "~/lib/api";
-import { plusIcon } from "~/lib/ui/icons";
+import { api } from "../lib/api";
+import { plusIcon } from "../lib/ui/icons";
 import TagItem from "../comp/TagItem";
 
 export default function Tags() {

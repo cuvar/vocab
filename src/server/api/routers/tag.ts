@@ -7,7 +7,7 @@ import {
   getTags,
   getTagsForWord,
   updateTag,
-} from "~/server/service/server/tag.service";
+} from "../../../server/service/server/tag.service";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const tagRouter = createTRPCRouter({

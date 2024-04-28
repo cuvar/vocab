@@ -1,4 +1,4 @@
-import { isObject, isString } from "~/lib/guards/base";
+import { isObject, isString } from "../../../lib/guards/base";
 
 export default class NotificationData {
   title: string;

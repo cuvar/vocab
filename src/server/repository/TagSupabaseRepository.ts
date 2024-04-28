@@ -1,4 +1,4 @@
-import AppError from "~/lib/error/error";
+import AppError from "../../lib/error/error";
 import { db } from "../db";
 import Tag from "../domain/server/tag";
 import { type TagRepository } from "./TagRepository";

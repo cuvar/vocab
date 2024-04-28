@@ -1,4 +1,4 @@
-import { isBoolean, isObject, isString } from "~/lib/guards/base";
+import { isBoolean, isObject, isString } from "../../../lib/guards/base";
 
 export default class Settings {
   randomizeCards: boolean;

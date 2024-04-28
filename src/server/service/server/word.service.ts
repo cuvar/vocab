@@ -1,8 +1,8 @@
 import { LearnMode as PrismaLearnMode } from "@prisma/client";
-import AppError from "~/lib/error/error";
-import JsonImportWord from "~/server/domain/client/jsonImportWord";
-import StrippedVocabularyWord from "~/server/domain/client/strippedVocabularyWord";
-import { WordSupabaseRepository } from "~/server/repository/WordSupabaseRepository";
+import AppError from "../../../lib/error/error";
+import JsonImportWord from "../../domain/client/jsonImportWord";
+import StrippedVocabularyWord from "../../domain/client/strippedVocabularyWord";
+import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { searchWord } from "../client/search.service";
 
 const repo = new WordSupabaseRepository();
