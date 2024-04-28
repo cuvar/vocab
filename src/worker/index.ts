@@ -1,12 +1,12 @@
 import { isObject, isString } from "../lib/guards/base";
 import { getWotdNotificationData } from "../lib/ui/notification";
-import FEWotd, { type FEWotdData } from "../server/domain/client/feWotd";
+import { isFEWotd, type FEWotd } from "../server/domain/client/feWotd";
 
 declare let self: ServiceWorkerGlobalScope;
 
 // window.navigator.serviceWorker.controller.postMessage({command: 'log', message: 'hello world'})
-let LAST_WOTD: FEWotdData | null = null;
-let CURRENT_WOTD: FEWotdData | null = null;
+let LAST_WOTD: FEWotd | null = null;
+let CURRENT_WOTD: FEWotd | null = null;
 let REMINDER_TIME = "";
 
 self.addEventListener("message", (event) => {
@@ -61,7 +61,7 @@ async function fetchWOTD() {
     const json = (await res.json()) as unknown;
     if (!isObject(json)) return;
     if (!("wotd" in json) || !isString(json.wotd)) return;
-    const newWotd = JSON.parse(json.wotd) as FEWotdData;
+    const newWotd = JSON.parse(json.wotd) as FEWotd;
     newWotd.date = new Date(newWotd.date);
     updateWOTD(newWotd);
   } catch (error) {
@@ -75,8 +75,8 @@ async function fetchWOTD() {
  * @param {object} word Data from message event
  */
 function updateWOTD(word: unknown) {
-  if (!FEWotd.validate(word)) return;
-  CURRENT_WOTD = word as FEWotdData;
+  if (!isFEWotd(word)) return;
+  CURRENT_WOTD = word as FEWotd;
   console.log("updated wotd");
 }
 
@@ -94,7 +94,7 @@ function updateReminderTime(time: unknown) {
  * Sends actual notification to user
  * @param {WOTD} wotd Data from message event
  */
-async function sendWotdNotification(wotd: FEWotdData) {
+async function sendWotdNotification(wotd: FEWotd) {
   if (!Notification) {
     throw new Error("This browser does not support desktop notification");
   }

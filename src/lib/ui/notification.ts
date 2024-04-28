@@ -1,13 +1,13 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 
-import { type FEWotdData } from "../../server/domain/client/feWotd";
+import { type FEWotd } from "../../server/domain/client/feWotd";
 
 /**
  * Sends a notification with the word of the day
  * @param {WOTD} wotd Word of the day object
  * @returns {{title: string, body: string}} Notification title and body
  */
-export function getWotdNotificationData(wotd: FEWotdData) {
+export function getWotdNotificationData(wotd: FEWotd) {
   const notificationTitle = `WOTD: ${wotd.word.translation}`;
   const notificationBody = `${wotd.word.native}`;
   return {

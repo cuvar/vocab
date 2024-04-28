@@ -1,7 +1,7 @@
 import { type Tag as PrismaTag, type Word as PrismaWord } from "@prisma/client";
 import { addIcons } from "../../lib/helper";
 import { db } from "../db";
-import { type FEWotdData } from "../domain/client/feWotd";
+import { type FEWotd } from "../domain/client/feWotd";
 import { type VocabularyWordData } from "../domain/client/vocabularyWord";
 import Tag from "../domain/server/tag";
 import type Word from "../domain/server/word";
@@ -167,5 +167,5 @@ function toFEWotd(
     tags,
   } satisfies VocabularyWordData;
 
-  return { id: data.id, word: nword, date: data.date } satisfies FEWotdData;
+  return { id: data.id, word: nword, date: data.date } satisfies FEWotd;
 }
