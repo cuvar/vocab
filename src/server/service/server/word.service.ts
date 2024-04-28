@@ -1,7 +1,7 @@
 import { LearnMode as PrismaLearnMode } from "@prisma/client";
+import { type StrippedVocabularyWord } from "~/server/domain/client/strippedVocabularyWord";
 import AppError from "../../../lib/error/error";
-import JsonImportWord from "../../domain/client/jsonImportWord";
-import StrippedVocabularyWord from "../../domain/client/strippedVocabularyWord";
+import { isJsonImportWordArray } from "../../domain/client/jsonImportWord";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { searchWord } from "../client/search.service";
 
@@ -13,22 +13,11 @@ const repo = new WordSupabaseRepository();
  */
 export async function importWords(text: string) {
   const parsed = JSON.parse(text) as string;
-  if (!JsonImportWord.validateArray(parsed)) {
+  if (!isJsonImportWordArray(parsed)) {
     throw new AppError("Input is in wrong format");
   }
 
-  const transformed = parsed.map((w) => {
-    return new JsonImportWord(
-      w.translation,
-      w.native,
-      w.notes,
-      w.mode,
-      w.iconNative,
-      w.iconTranslation
-    );
-  });
-
-  const res = await repo.importWords(transformed);
+  const res = await repo.importWords(parsed);
   return res;
 }
 
@@ -49,13 +38,13 @@ export async function updateWord(
   mode: string,
   tagIds: string[]
 ) {
-  const newWord = new StrippedVocabularyWord(
-    translation,
-    native,
-    notes,
-    PrismaLearnMode.UNLEARNED,
-    []
-  );
+  const newWord: StrippedVocabularyWord = {
+    translation: translation,
+    native: native,
+    notes: notes,
+    mode: PrismaLearnMode.UNLEARNED,
+    tags: [],
+  };
 
   const res = await repo.updateWord(id, newWord);
   // TODO: what about mode nad tagIds?
@@ -85,13 +74,13 @@ export async function addWord(
   tagIds: string[]
 ) {
   // TODO: what about tagIds?
-  const newWord = new StrippedVocabularyWord(
-    translation,
-    native,
-    notes,
-    PrismaLearnMode.UNLEARNED,
-    []
-  );
+  const newWord: StrippedVocabularyWord = {
+    translation: translation,
+    native: native,
+    notes: notes,
+    mode: PrismaLearnMode.UNLEARNED,
+    tags: [],
+  };
   const res = await repo.addWord(newWord);
   return res;
 }

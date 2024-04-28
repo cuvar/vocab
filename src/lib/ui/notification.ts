@@ -1,6 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 
-import type FEWotd from "../../server/domain/client/feWotd";
+import { type FEWotd } from "../../server/domain/client/feWotd";
 
 /**
  * Sends a notification with the word of the day

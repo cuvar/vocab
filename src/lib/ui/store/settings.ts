@@ -1,4 +1,5 @@
-import type Settings from "../../../server/domain/client/settings";
+import { DEFAULT_SETTINGS } from "~/lib/const";
+import { type Settings } from "~/server/domain/client/settings";
 import { parseSettings } from "../../../server/service/client/parseCache.service";
 import { KEY_SETTINGS } from "./keys";
 
@@ -27,11 +28,11 @@ export function updateSettings(newValues: Partial<Settings>) {
  * Returns the learned words
  * @returns {Settings[]} The settings for the app
  */
-export function getSettings(): Settings | null {
+export function getSettings(): Settings {
   const res = localStorage.getItem(KEY_SETTINGS);
   if (!res) {
-    return null;
+    return DEFAULT_SETTINGS;
   }
 
-  return parseSettings(res);
+  return parseSettings(res) ?? DEFAULT_SETTINGS;
 }

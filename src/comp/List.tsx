@@ -7,7 +7,10 @@ import {
   doubleChevronLeft,
   doubleChevronRight,
 } from "../lib/ui/icons";
-import ListElement from "../server/domain/client/listElement";
+import {
+  isListElementArray,
+  type ListElement,
+} from "../server/domain/client/listElement";
 import { searchWord } from "../server/service/client/search.service";
 import Error from "../sites/Error";
 import ListItem from "./ListItem";
@@ -41,7 +44,7 @@ export default function List(props: Props) {
       .sort((a, b) => a.word.localeCompare(b.word))
       .map((e) => transformForShowNative(props.showNative, e));
 
-    if (!ListElement.validateArray(sortedWords)) {
+    if (!isListElementArray(sortedWords)) {
       return;
     }
 
@@ -82,18 +85,18 @@ export default function List(props: Props) {
 
   function transformForShowNative(showNative: boolean, e: ListElement) {
     if (showNative) {
-      return new ListElement(
-        e.id,
-        e.native,
-        e.translation,
-        e.notes,
-        e.mode,
-        e.iconNative,
-        e.iconTranslation,
-        e.tags,
-        e.otherWord,
-        e.word
-      );
+      return {
+        id: e.id,
+        native: e.native,
+        translation: e.translation,
+        notes: e.notes,
+        mode: e.mode,
+        iconTranslation: e.iconNative,
+        iconNative: e.iconTranslation,
+        tags: e.tags,
+        otherWord: e.otherWord,
+        word: e.word,
+      } as ListElement;
     }
     return e;
   }

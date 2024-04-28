@@ -1,4 +1,4 @@
-import type FEWotd from "../domain/client/feWotd";
+import { type FEWotd } from "../domain/client/feWotd";
 import type Word from "../domain/server/word";
 
 export interface WOTDRepository {

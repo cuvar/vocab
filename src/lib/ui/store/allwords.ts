@@ -1,4 +1,4 @@
-import type ListElement from "../../../server/domain/client/listElement";
+import { type ListElement } from "~/server/domain/client/listElement";
 import { parseListElements } from "../../../server/service/client/parseCache.service";
 import { KEY_ALL_WORDS } from "./keys";
 

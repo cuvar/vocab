@@ -1,5 +1,7 @@
 import { LearnMode } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
+import Card from "../comp/Card";
+import ProgressBar from "../comp/ProgressBar";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
 import {
@@ -11,10 +13,8 @@ import {
 import { addCard, clearCards, getCardsIds } from "../lib/ui/store/flashcard";
 import { getLearnedWords } from "../lib/ui/store/learned";
 import { getSettings } from "../lib/ui/store/settings";
-import VocabularyFlashCard from "../server/domain/client/vocabularyFlashCard";
-import type VocabularyWord from "../server/domain/client/vocabularyWord";
-import Card from "../comp/Card";
-import ProgressBar from "../comp/ProgressBar";
+import { type VocabularyFlashCard } from "../server/domain/client/vocabularyFlashCard";
+import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -30,7 +30,7 @@ export default function FlashCards() {
 
   const showToast = useToast();
 
-  const randomizeCards = getSettings()?.randomizeCards ?? false;
+  const randomizeCards = getSettings().randomizeCards;
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
@@ -57,18 +57,18 @@ export default function FlashCards() {
 
   function toFlashCards(data: VocabularyWord[]) {
     const transformed: VocabularyFlashCard[] = data.map((e: VocabularyWord) => {
-      return new VocabularyFlashCard(
-        e.id,
-        e.translation,
-        e.native,
-        e.notes,
-        e.mode,
-        e.iconTranslation,
-        e.iconNative,
-        e.tags,
-        "none",
-        randomizeCards ? Math.random() > 0.5 : false
-      );
+      return {
+        id: e.id,
+        translation: e.translation,
+        native: e.native,
+        notes: e.notes,
+        mode: e.mode,
+        iconTranslation: e.iconTranslation,
+        iconNative: e.iconNative,
+        tags: e.tags,
+        cardMode: "none",
+        switched: randomizeCards ? Math.random() > 0.5 : false,
+      } satisfies VocabularyFlashCard;
     });
     return transformed;
   }

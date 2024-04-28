@@ -1,39 +1,34 @@
 import { useEffect, useState } from "react";
-import { DEFAULT_SETTINGS } from "../lib/const";
-import { useToast } from "../lib/ui/hooks";
-import { getSettings, setSettings } from "../lib/ui/store/settings";
-import type Settings from "../server/domain/client/settings";
+import { type Settings } from "~/server/domain/client/settings";
 import { sendServiceWorkerReminderTime } from "../lib/pwa/serviceWorker.service";
+import { useToast } from "../lib/ui/hooks";
+import { getSettings } from "../lib/ui/store/settings";
 
 export default function SettingsComp() {
-  const [settingsData, setSettingsData] = useState<Settings>(
-    getSettings() ?? DEFAULT_SETTINGS
-  );
+  const [Settings, setSettings] = useState<Settings>(getSettings());
 
   const showToast = useToast();
 
   useEffect(() => {
-    if (!getSettings()) {
-      setSettings(DEFAULT_SETTINGS);
-    }
+    setSettings(getSettings());
   }, []);
 
   function handleChangeReminderTime(e: React.ChangeEvent<HTMLInputElement>) {
-    setSettingsData({ ...settingsData, reminderTime: e.target.value });
+    setSettings({ ...Settings, reminderTime: e.target.value });
   }
 
   function handleChangeFlashCardRandomize(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
-    setSettingsData({ ...settingsData, randomizeCards: e.target.checked });
+    setSettings({ ...Settings, randomizeCards: e.target.checked });
   }
 
   function handleChangeSendNotifications(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
     if (e.target.checked === false) {
-      setSettingsData({
-        ...settingsData,
+      setSettings({
+        ...Settings,
         sendWOTDNotifications: e.target.checked,
       });
       return;
@@ -45,8 +40,8 @@ export default function SettingsComp() {
         if (permitted === false) {
           return;
         }
-        setSettingsData({
-          ...settingsData,
+        setSettings({
+          ...Settings,
           sendWOTDNotifications: true,
         });
       } catch (error) {
@@ -56,9 +51,9 @@ export default function SettingsComp() {
   }
 
   function handleSave() {
-    setSettings(settingsData);
+    setSettings(Settings);
     try {
-      sendServiceWorkerReminderTime(settingsData.reminderTime);
+      sendServiceWorkerReminderTime(Settings.reminderTime);
     } catch (error: unknown) {
       console.error(error);
     }
@@ -100,8 +95,8 @@ export default function SettingsComp() {
     void (async () => {
       try {
         const permitted = await requestPermissions();
-        setSettingsData({
-          ...settingsData,
+        setSettings({
+          ...Settings,
           sendWOTDNotifications: permitted ?? false,
         });
       } catch (error) {
@@ -114,14 +109,15 @@ export default function SettingsComp() {
     <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">Settings</h1>
       <div className="w-full flex-col items-start justify-start space-y-8">
-        <div className="flex w-full flex-col space-y-4">
+        {/* <div className="flex w-full flex-col space-y-4">
           <h2 className="text-xl font-bold">Notifications</h2>
+          <hr />
           <div className="form-control">
             <label className="label w-72 cursor-pointer space-x-2">
               <span className="label-text">Send WOTD Notifications</span>
               <input
                 type="checkbox"
-                checked={settingsData.sendWOTDNotifications}
+                checked={Settings.sendWOTDNotifications}
                 className="checkbox"
                 onChange={handleChangeSendNotifications}
               />
@@ -139,30 +135,33 @@ export default function SettingsComp() {
             </div>
             <input
               type="time"
-              value={settingsData.reminderTime}
+              value={Settings.reminderTime}
               onChange={handleChangeReminderTime}
               className="input-bordered input w-40"
               name="reminder"
             />
           </label>
-        </div>
-        <div className="flex w-full flex-col">
+        </div> */}
+        <div className="flex w-full flex-col space-y-4">
           <h2 className="text-xl font-bold">Flash cards</h2>
+          <hr />
           <div className="form-control">
             <label className="label w-72 cursor-pointer space-x-2">
               <span className="label-text">Randomize flash card words</span>
               <input
                 type="checkbox"
-                checked={settingsData.randomizeCards}
+                checked={Settings.randomizeCards}
                 onChange={handleChangeFlashCardRandomize}
                 className="checkbox"
               />
             </label>
           </div>
         </div>
-        <button className="btn-success btn-outline btn" onClick={handleSave}>
-          Save
-        </button>
+        <div className="flex w-full justify-end">
+          <button className="btn-success btn-outline btn" onClick={handleSave}>
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );

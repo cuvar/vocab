@@ -1,26 +1,25 @@
 import { isObject, isString } from "../../../lib/guards/base";
 
-export default class NotificationData {
+export type NotificationData = {
   title: string;
   message: string;
+};
 
-  constructor(title: string, message: string) {
-    this.title = title;
-    this.message = message;
+/**
+ *
+ * @param data
+ */
+export function isNotificationData(data: unknown): data is NotificationData {
+  if (!isObject(data)) {
+    return false;
   }
 
-  static validate(data: unknown): data is NotificationData {
-    if (!isObject(data)) {
-      return false;
-    }
-
-    if (!isString(data.title)) {
-      return false;
-    }
-
-    if (!isString(data.message)) {
-      return false;
-    }
-    return true;
+  if (!isString(data.title)) {
+    return false;
   }
+
+  if (!isString(data.message)) {
+    return false;
+  }
+  return true;
 }

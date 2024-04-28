@@ -6,9 +6,12 @@ import {
 import AppError from "../../lib/error/error";
 import { addIcons } from "../../lib/helper";
 import { db } from "../db";
-import type JsonImportWord from "../domain/client/jsonImportWord";
-import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";
-import VocabularyWord from "../domain/client/vocabularyWord";
+import {
+  jsonImportWordToWord,
+  type JsonImportWord,
+} from "../domain/client/jsonImportWord";
+import { type StrippedVocabularyWord } from "../domain/client/strippedVocabularyWord";
+import { type VocabularyWord } from "../domain/client/vocabularyWord";
 import Tag from "../domain/server/tag";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
@@ -281,7 +284,7 @@ export class WordSupabaseRepository implements WordRepository {
 
   importWords = async (words: JsonImportWord[]) => {
     try {
-      const transformed = words.map((w) => w.toWord().toPrisma());
+      const transformed = words.map((w) => jsonImportWordToWord(w).toPrisma());
       const data = await db.word.createMany({
         data: transformed,
         skipDuplicates: true,
@@ -302,14 +305,14 @@ export class WordSupabaseRepository implements WordRepository {
 function toVocabularyWord(ptags: PrismaTag[], word: PrismaWord) {
   const tags = ptags.map((t) => Tag.fromPrisma(t));
   const withIcons = addIcons(word);
-  return new VocabularyWord(
-    withIcons.id,
-    withIcons.translation,
-    withIcons.native,
-    withIcons.notes,
-    withIcons.mode,
-    withIcons.iconTranslation,
-    withIcons.iconNative,
-    tags
-  );
+  return {
+    id: withIcons.id,
+    translation: withIcons.translation,
+    native: withIcons.native,
+    notes: withIcons.notes,
+    mode: withIcons.mode,
+    iconTranslation: withIcons.iconTranslation,
+    iconNative: withIcons.iconNative,
+    tags: tags,
+  } satisfies VocabularyWord;
 }

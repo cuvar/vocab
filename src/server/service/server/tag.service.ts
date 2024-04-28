@@ -1,4 +1,4 @@
-import type TagData from "../../domain/client/tagData";
+import { type TagData } from "../../domain/client/tagData";
 import { TagSupabaseRepository } from "../../repository/TagSupabaseRepository";
 
 const repo = new TagSupabaseRepository();

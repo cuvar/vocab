@@ -1,6 +1,6 @@
 import { isObject, isString } from "../lib/guards/base";
 import { getWotdNotificationData } from "../lib/ui/notification";
-import FEWotd from "../server/domain/client/feWotd";
+import { isFEWotd, type FEWotd } from "../server/domain/client/feWotd";
 
 declare let self: ServiceWorkerGlobalScope;
 
@@ -75,7 +75,7 @@ async function fetchWOTD() {
  * @param {object} word Data from message event
  */
 function updateWOTD(word: unknown) {
-  if (!FEWotd.validate(word)) return;
+  if (!isFEWotd(word)) return;
   CURRENT_WOTD = word as FEWotd;
   console.log("updated wotd");
 }

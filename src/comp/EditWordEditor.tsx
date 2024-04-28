@@ -3,9 +3,9 @@ import { useAtom } from "jotai";
 import { useState, type ChangeEvent } from "react";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
+import { type TagData } from "../server/domain/client/tagData";
+import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 import { LearnMode } from "../server/domain/server/learnMode";
-import type TagData from "../server/domain/client/tagData";
-import type VocabularyWord from "../server/domain/client/vocabularyWord";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -26,7 +26,7 @@ export default function Editor(props: Props) {
   const [modeInput, setModeInput] = useState(props.word.mode);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
-  const [tagData, setTagData] = useState<TagData[]>([]);
+  const [TagData, setTagData] = useState<TagData[]>([]);
   const [, setRefetchWords] = useAtom(refetchWordsAtom);
 
   const showToast = useToast();
@@ -51,7 +51,7 @@ export default function Editor(props: Props) {
   });
 
   function editWord() {
-    const tags: string[] = tagData.filter((t) => t.checked).map((t) => t.id);
+    const tags: string[] = TagData.filter((t) => t.checked).map((t) => t.id);
 
     updateWordMutation.mutate({
       id: props.word.id,
@@ -74,8 +74,8 @@ export default function Editor(props: Props) {
     setShowEditorModal(false);
   }
 
-  function onTagsSelectChange(_tagData: TagData[]) {
-    setTagData(_tagData);
+  function onTagsSelectChange(_TagData: TagData[]) {
+    setTagData(_TagData);
   }
 
   function transformMode(mode: PrismaLearnMode) {
@@ -176,8 +176,8 @@ export default function Editor(props: Props) {
           </select>
         </div>
         <div className="form-control">
-          {tagData.length > 0 && (
-            <TagSelect tags={tagData} handler={onTagsSelectChange} />
+          {TagData.length > 0 && (
+            <TagSelect tags={TagData} handler={onTagsSelectChange} />
           )}
         </div>
         <button

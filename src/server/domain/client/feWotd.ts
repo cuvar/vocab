@@ -1,30 +1,28 @@
 import { isDate, isObject, isString } from "../../../lib/guards/base";
-import VocabularyWord from "./vocabularyWord";
+import { isVocabularyWord, type VocabularyWord } from "./vocabularyWord";
 
-export default class FEWotd {
+export type FEWotd = {
   id: string;
   word: VocabularyWord;
   date: Date;
+};
 
-  constructor(id: string, word: VocabularyWord, date: Date) {
-    this.id = id;
-    this.word = word;
-    this.date = date;
+/**
+ *
+ * @param data
+ */
+export function isFEWotd(data: unknown): data is FEWotd {
+  if (!isObject(data)) {
+    return false;
   }
-
-  static validate(data: unknown): data is FEWotd {
-    if (!isObject(data)) {
-      return false;
-    }
-    if (!isString(data.id)) {
-      return false;
-    }
-    if (!isDate(data.date)) {
-      return false;
-    }
-    if (!VocabularyWord.validate(data.word)) {
-      return false;
-    }
-    return true;
+  if (!isString(data.id)) {
+    return false;
   }
+  if (!isDate(data.date)) {
+    return false;
+  }
+  if (!isVocabularyWord(data.word)) {
+    return false;
+  }
+  return true;
 }

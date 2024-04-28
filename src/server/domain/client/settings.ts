@@ -1,33 +1,27 @@
 import { isBoolean, isObject, isString } from "../../../lib/guards/base";
 
-export default class Settings {
+export type Settings = {
   randomizeCards: boolean;
   reminderTime: string;
   sendWOTDNotifications: boolean;
+};
 
-  constructor(
-    randomizeCards: boolean,
-    reminderTime: string,
-    sendWOTDNotifications: boolean
-  ) {
-    this.randomizeCards = randomizeCards;
-    this.reminderTime = reminderTime;
-    this.sendWOTDNotifications = sendWOTDNotifications;
+/**
+ *
+ * @param data
+ */
+export function isSettings(data: unknown): data is Settings {
+  if (!isObject(data)) {
+    return false;
   }
 
-  static validate(data: unknown): data is Settings {
-    if (!isObject(data)) {
-      return false;
-    }
-
-    if (!isBoolean(data.randomizeCards)) {
-      return false;
-    }
-
-    if (!isString(data.reminderTime)) {
-      return false;
-    }
-
-    return true;
+  if (!isBoolean(data.randomizeCards)) {
+    return false;
   }
+
+  if (!isString(data.reminderTime)) {
+    return false;
+  }
+
+  return true;
 }

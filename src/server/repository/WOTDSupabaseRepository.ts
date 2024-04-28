@@ -1,8 +1,8 @@
 import { type Tag as PrismaTag, type Word as PrismaWord } from "@prisma/client";
 import { addIcons } from "../../lib/helper";
 import { db } from "../db";
-import FEWotd from "../domain/client/feWotd";
-import VocabularyWord from "../domain/client/vocabularyWord";
+import { type FEWotd } from "../domain/client/feWotd";
+import { type VocabularyWord } from "../domain/client/vocabularyWord";
 import Tag from "../domain/server/tag";
 import type Word from "../domain/server/word";
 import { getTodayMorning } from "../service/server/getDate.service";
@@ -156,16 +156,16 @@ function toFEWotd(
 ) {
   const tags = ptags.map((t) => Tag.fromPrisma(t));
   const withIcons = addIcons(word);
-  const nword = new VocabularyWord(
-    withIcons.id,
-    withIcons.translation,
-    withIcons.native,
-    withIcons.notes,
-    withIcons.mode,
-    withIcons.iconTranslation,
-    withIcons.iconNative,
-    tags
-  );
+  const nword = {
+    id: withIcons.id,
+    translation: withIcons.translation,
+    native: withIcons.native,
+    notes: withIcons.notes,
+    mode: withIcons.mode,
+    iconTranslation: withIcons.iconTranslation,
+    iconNative: withIcons.iconNative,
+    tags,
+  } satisfies VocabularyWord;
 
-  return new FEWotd(data.id, nword, data.date);
+  return { id: data.id, word: nword, date: data.date } satisfies FEWotd;
 }
