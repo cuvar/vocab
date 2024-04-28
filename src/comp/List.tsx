@@ -7,15 +7,16 @@ import {
   doubleChevronLeft,
   doubleChevronRight,
 } from "../lib/ui/icons";
-import ListElement, {
-  type ListElementData,
+import {
+  isListElementArray,
+  type ListElement,
 } from "../server/domain/client/listElement";
 import { searchWord } from "../server/service/client/search.service";
 import Error from "../sites/Error";
 import ListItem from "./ListItem";
 
 type Props = {
-  words: ListElementData[];
+  words: ListElement[];
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
   markLearned?: boolean;
@@ -26,8 +27,8 @@ type Props = {
 
 export default function List(props: Props) {
   const [currentShown, setCurrentShown] = useState("");
-  const [wordsToDisplay, setWordsToDisplay] = useState<ListElementData[]>([]);
-  const [sorted, setSorted] = useState<ListElementData[]>([]);
+  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
+  const [sorted, setSorted] = useState<ListElement[]>([]);
   const [page, setPage] = useState(0);
   const [pageWords, setPageWords] = useState(
     wordsToDisplay.slice(
@@ -43,7 +44,7 @@ export default function List(props: Props) {
       .sort((a, b) => a.word.localeCompare(b.word))
       .map((e) => transformForShowNative(props.showNative, e));
 
-    if (!ListElement.validateArray(sortedWords)) {
+    if (!isListElementArray(sortedWords)) {
       return;
     }
 
@@ -57,7 +58,7 @@ export default function List(props: Props) {
       return;
     }
     const words = searchWord(sorted, props.searchString);
-    setWordsToDisplay(words.filter((r) => r !== null) as ListElementData[]);
+    setWordsToDisplay(words.filter((r) => r !== null) as ListElement[]);
   }, [props.searchString]);
 
   useEffect(() => {
@@ -82,7 +83,7 @@ export default function List(props: Props) {
     setCurrentShown("");
   }
 
-  function transformForShowNative(showNative: boolean, e: ListElementData) {
+  function transformForShowNative(showNative: boolean, e: ListElement) {
     if (showNative) {
       return {
         id: e.id,
@@ -95,7 +96,7 @@ export default function List(props: Props) {
         tags: e.tags,
         otherWord: e.otherWord,
         word: e.word,
-      } as ListElementData;
+      } as ListElement;
     }
     return e;
   }

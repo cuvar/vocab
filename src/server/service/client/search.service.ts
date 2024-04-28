@@ -1,6 +1,7 @@
 import Fuse from "fuse.js";
-import ListElement, {
-  type ListElementData,
+import {
+  isListElementArray,
+  type ListElement,
 } from "../../domain/client/listElement";
 import { type VocabularyWordData } from "../../domain/client/vocabularyWord";
 
@@ -10,10 +11,10 @@ import { type VocabularyWordData } from "../../domain/client/vocabularyWord";
  * @param searched
  */
 export function searchWord(
-  words: ListElementData[] | VocabularyWordData[],
+  words: ListElement[] | VocabularyWordData[],
   searched: string
 ) {
-  if (ListElement.validateArray(words)) {
+  if (isListElementArray(words)) {
     return searchListLement(words, searched);
   } else {
     return searchVocabularyWord(words, searched);
@@ -25,11 +26,11 @@ export function searchWord(
  * @param words
  * @param searched
  */
-function searchListLement(words: ListElementData[], searched: string) {
+function searchListLement(words: ListElement[], searched: string) {
   const wordsToSearchThrough = words.map((word) => word.word);
   const searchResults = search(wordsToSearchThrough, searched, 5);
 
-  const resultWords: ListElementData[] = [];
+  const resultWords: ListElement[] = [];
   searchResults.forEach((r) => {
     const res = words.find((el) => el.translation == r);
     if (res == undefined) return;

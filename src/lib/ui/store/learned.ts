@@ -1,4 +1,4 @@
-import { type ListElementData } from "../../../server/domain/client/listElement";
+import { type ListElement } from "~/server/domain/client/listElement";
 import { parseListElements } from "../../../server/service/client/parseCache.service";
 import { KEY_LEARNED_WORDS } from "./keys";
 
@@ -6,7 +6,7 @@ import { KEY_LEARNED_WORDS } from "./keys";
  * Sets the learned words in the localStorage
  * @param {ListElement[]} words The words that have been learned
  */
-export function setLearnedWords(words: ListElementData[]) {
+export function setLearnedWords(words: ListElement[]) {
   localStorage.setItem(KEY_LEARNED_WORDS, JSON.stringify(words));
 }
 
@@ -14,7 +14,7 @@ export function setLearnedWords(words: ListElementData[]) {
  * Returns the learned words
  * @returns {ListElement[]} The learned words
  */
-export function getLearnedWords(): ListElementData[] {
+export function getLearnedWords(): ListElement[] {
   const res = localStorage.getItem(KEY_LEARNED_WORDS);
   if (!res) {
     return [];

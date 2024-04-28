@@ -1,22 +1,23 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import ListElement, {
-  type ListElementData,
+import {
+  isListElement,
+  type ListElement,
 } from "../../domain/client/listElement";
 import Settings, { type SettingsData } from "../../domain/client/settings";
 
-export function parseListElements(input: string): ListElementData[] {
+export function parseListElements(input: string): ListElement[] {
   const parsed = JSON.parse(input) as unknown;
   if (!Array.isArray(parsed)) {
     return [];
   }
   const validOutput = parsed.every((item) => {
-    ListElement.validate(item);
+    isListElement(item);
   });
 
   if (!validOutput) {
     return [];
   }
-  return parsed as ListElementData[];
+  return parsed as ListElement[];
 }
 
 export function parseSettings(input: string): SettingsData | null {

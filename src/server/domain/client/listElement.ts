@@ -3,7 +3,7 @@ import { isString } from "../../../lib/guards/base";
 import type Tag from "../server/tag";
 import VocabularyWord from "./vocabularyWord";
 
-export type ListElementData = {
+export type ListElement = {
   id: string;
   translation: string;
   native: string;
@@ -16,22 +16,28 @@ export type ListElementData = {
   otherWord: string;
 };
 
-export default class ListElement {
-  static validate(data: unknown): data is ListElementData {
-    if (!VocabularyWord.validate(data)) {
-      return false;
-    }
-    if (!("word" in data) || !isString(data.word)) {
-      return false;
-    }
-    if (!("otherWord" in data) || !isString(data.otherWord)) {
-      return false;
-    }
-
-    return true;
+/**
+ *
+ * @param data
+ */
+export function isListElement(data: unknown): data is ListElement {
+  if (!VocabularyWord.validate(data)) {
+    return false;
+  }
+  if (!("word" in data) || !isString(data.word)) {
+    return false;
+  }
+  if (!("otherWord" in data) || !isString(data.otherWord)) {
+    return false;
   }
 
-  static validateArray(data: unknown): data is ListElementData[] {
-    return Array.isArray(data) && data.every((d) => ListElement.validate(d));
-  }
+  return true;
+}
+
+/**
+ *
+ * @param data
+ */
+export function isListElementArray(data: unknown): data is ListElement[] {
+  return Array.isArray(data) && data.every((d) => isListElement(d));
 }

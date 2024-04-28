@@ -13,7 +13,7 @@ import { archiveIcon, penIcon, resetIcon, switchIcon } from "../lib/ui/icons";
 import { getAllWords, setAllWords } from "../lib/ui/store/allwords";
 import { getArchivedWords, setArchivedWords } from "../lib/ui/store/archived";
 import { getLearnedWords, setLearnedWords } from "../lib/ui/store/learned";
-import { type ListElementData } from "../server/domain/client/listElement";
+import { type ListElement } from "../server/domain/client/listElement";
 import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
 import {
   refetchWordsAtom,
@@ -25,7 +25,7 @@ import Loading from "./Loading";
 
 export default function AllWords() {
   const [filterState, setFilterState] = useState<FilterState>(null);
-  const [wordsToDisplay, setWordsToDisplay] = useState<ListElementData[]>(
+  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
     getAllWords()
   );
   const [showNative, setShowNative] = useState<boolean>(false);
@@ -57,7 +57,7 @@ export default function AllWords() {
 
   const getAllQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElementData[] = data.map((e: VocabularyWordData) =>
+      const transformed: ListElement[] = data.map((e: VocabularyWordData) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);
@@ -68,7 +68,7 @@ export default function AllWords() {
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElementData[] = data.map((e: VocabularyWordData) =>
+      const transformed: ListElement[] = data.map((e: VocabularyWordData) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);
@@ -80,7 +80,7 @@ export default function AllWords() {
 
   const getArchivedQuery = api.word.getArchived.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElementData[] = data.map((e: VocabularyWordData) =>
+      const transformed: ListElement[] = data.map((e: VocabularyWordData) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);

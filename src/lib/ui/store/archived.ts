@@ -1,5 +1,4 @@
-import type ListElement from "../../../server/domain/client/listElement";
-import { type ListElementData } from "../../../server/domain/client/listElement";
+import { type ListElement } from "~/server/domain/client/listElement";
 import { parseListElements } from "../../../server/service/client/parseCache.service";
 import { KEY_ARCHIVED_WORDS } from "./keys";
 
@@ -7,7 +6,7 @@ import { KEY_ARCHIVED_WORDS } from "./keys";
  * Sets the archived words in the localStorage
  * @param {ListElement[]} words The words that have been archived
  */
-export function setArchivedWords(words: ListElementData[]) {
+export function setArchivedWords(words: ListElement[]) {
   localStorage.setItem(KEY_ARCHIVED_WORDS, JSON.stringify(words));
 }
 
@@ -15,7 +14,7 @@ export function setArchivedWords(words: ListElementData[]) {
  * Returns the archived words
  * @returns {ListElement[]} The archived words
  */
-export function getArchivedWords(): ListElementData[] {
+export function getArchivedWords(): ListElement[] {
   const res = localStorage.getItem(KEY_ARCHIVED_WORDS);
   if (!res) {
     return [];
