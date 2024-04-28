@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { type SettingsData } from "~/server/domain/client/settings";
+import { type Settings } from "~/server/domain/client/settings";
 import { sendServiceWorkerReminderTime } from "../lib/pwa/serviceWorker.service";
 import { useToast } from "../lib/ui/hooks";
-import { getSettings, setSettings } from "../lib/ui/store/settings";
+import { getSettings } from "../lib/ui/store/settings";
 
 export default function SettingsComp() {
-  const [settingsData, setSettingsData] = useState<SettingsData>(getSettings());
+  const [Settings, setSettings] = useState<Settings>(getSettings());
 
   const showToast = useToast();
 
@@ -14,21 +14,21 @@ export default function SettingsComp() {
   }, []);
 
   function handleChangeReminderTime(e: React.ChangeEvent<HTMLInputElement>) {
-    setSettingsData({ ...settingsData, reminderTime: e.target.value });
+    setSettings({ ...Settings, reminderTime: e.target.value });
   }
 
   function handleChangeFlashCardRandomize(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
-    setSettingsData({ ...settingsData, randomizeCards: e.target.checked });
+    setSettings({ ...Settings, randomizeCards: e.target.checked });
   }
 
   function handleChangeSendNotifications(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
     if (e.target.checked === false) {
-      setSettingsData({
-        ...settingsData,
+      setSettings({
+        ...Settings,
         sendWOTDNotifications: e.target.checked,
       });
       return;
@@ -40,8 +40,8 @@ export default function SettingsComp() {
         if (permitted === false) {
           return;
         }
-        setSettingsData({
-          ...settingsData,
+        setSettings({
+          ...Settings,
           sendWOTDNotifications: true,
         });
       } catch (error) {
@@ -51,9 +51,9 @@ export default function SettingsComp() {
   }
 
   function handleSave() {
-    setSettings(settingsData);
+    setSettings(Settings);
     try {
-      sendServiceWorkerReminderTime(settingsData.reminderTime);
+      sendServiceWorkerReminderTime(Settings.reminderTime);
     } catch (error: unknown) {
       console.error(error);
     }
@@ -95,8 +95,8 @@ export default function SettingsComp() {
     void (async () => {
       try {
         const permitted = await requestPermissions();
-        setSettingsData({
-          ...settingsData,
+        setSettings({
+          ...Settings,
           sendWOTDNotifications: permitted ?? false,
         });
       } catch (error) {
@@ -117,7 +117,7 @@ export default function SettingsComp() {
               <span className="label-text">Send WOTD Notifications</span>
               <input
                 type="checkbox"
-                checked={settingsData.sendWOTDNotifications}
+                checked={Settings.sendWOTDNotifications}
                 className="checkbox"
                 onChange={handleChangeSendNotifications}
               />
@@ -135,7 +135,7 @@ export default function SettingsComp() {
             </div>
             <input
               type="time"
-              value={settingsData.reminderTime}
+              value={Settings.reminderTime}
               onChange={handleChangeReminderTime}
               className="input-bordered input w-40"
               name="reminder"
@@ -150,7 +150,7 @@ export default function SettingsComp() {
               <span className="label-text">Randomize flash card words</span>
               <input
                 type="checkbox"
-                checked={settingsData.randomizeCards}
+                checked={Settings.randomizeCards}
                 onChange={handleChangeFlashCardRandomize}
                 className="checkbox"
               />

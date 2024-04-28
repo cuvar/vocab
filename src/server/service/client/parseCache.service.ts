@@ -3,7 +3,7 @@ import {
   isListElement,
   type ListElement,
 } from "../../domain/client/listElement";
-import Settings, { type SettingsData } from "../../domain/client/settings";
+import { isSettings, type Settings } from "../../domain/client/settings";
 
 export function parseListElements(input: string): ListElement[] {
   const parsed = JSON.parse(input) as unknown;
@@ -20,9 +20,9 @@ export function parseListElements(input: string): ListElement[] {
   return parsed as ListElement[];
 }
 
-export function parseSettings(input: string): SettingsData | null {
+export function parseSettings(input: string): Settings | null {
   const parsed = JSON.parse(input) as unknown;
-  if (!Settings.validate(parsed)) {
+  if (!isSettings(parsed)) {
     return null;
   }
 
