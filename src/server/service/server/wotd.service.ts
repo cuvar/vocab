@@ -23,7 +23,6 @@ export async function getWOTD() {
     const newWord = await getNewWOTD();
     return newWord;
   } catch (error) {
-    console.log(error);
     throw new AppError("Cannot get word of the day", error);
   }
 }

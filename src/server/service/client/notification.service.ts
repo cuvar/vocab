@@ -1,5 +1,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 
+import AppError from "~/lib/error/error";
 import type FEWOTD from "../../domain/client/feWotd";
 
 /**
@@ -8,17 +9,12 @@ import type FEWOTD from "../../domain/client/feWotd";
  * @returns {{title: string, body: string}} Notification title and body
  */
 export function getWotdNotificationData(wotd: FEWOTD) {
-  try {
-    const notificationTitle = `WOTD: ${wotd.word.translation}`;
-    const notificationBody = `${wotd.word.native}`;
-    return {
-      title: notificationTitle,
-      body: notificationBody,
-    };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  const notificationTitle = `WOTD: ${wotd.word.translation}`;
+  const notificationBody = `${wotd.word.native}`;
+  return {
+    title: notificationTitle,
+    body: notificationBody,
+  };
 }
 
 /**
@@ -27,16 +23,9 @@ export function getWotdNotificationData(wotd: FEWOTD) {
  * @param {string} body Notification body
  * @returns {undefined} Just for early returns
  */
-export async function sendNotification(title: string, body: string) {
+export function sendNotification(title: string, body: string) {
   if (!("Notification" in window)) {
-    console.log("This browser does not support desktop notification");
-    return;
-  }
-  if (Notification.permission !== "denied") {
-    const permission = await Notification.requestPermission();
-    if (permission !== "granted") {
-      return;
-    }
+    throw new AppError("This browser does not support desktop notification");
   }
 
   new Notification(title, {

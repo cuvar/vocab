@@ -24,7 +24,6 @@ export function searchWord(
  * @param searched
  */
 function searchListLement(words: ListElement[], searched: string) {
-  console.log(words[0]);
   const wordsToSearchThrough = words.map((word) => word.word);
   const searchResults = search(wordsToSearchThrough, searched, 5);
 

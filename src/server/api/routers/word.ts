@@ -1,5 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import { NodeLogger } from "~/lib/logging/nodeLogger";
 import {
   addWord,
   deleteWord,
@@ -147,7 +148,7 @@ export const wordRouter = createTRPCRouter({
     try {
       return await getRandomUnlearnedWord();
     } catch (error) {
-      console.error(error);
+      NodeLogger.getInstance().error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -159,7 +160,7 @@ export const wordRouter = createTRPCRouter({
       const wotd = await getWOTD();
       return wotd;
     } catch (error) {
-      console.error(error);
+      NodeLogger.getInstance().error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -177,7 +178,7 @@ export const wordRouter = createTRPCRouter({
       try {
         return await updateMode(input.id, input.mode);
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -202,7 +203,7 @@ export const wordRouter = createTRPCRouter({
           input.tagIds
         );
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -220,7 +221,7 @@ export const wordRouter = createTRPCRouter({
       try {
         return await deleteWord(input.id);
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -249,7 +250,7 @@ export const wordRouter = createTRPCRouter({
           input.tagIds
         );
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -266,7 +267,7 @@ export const wordRouter = createTRPCRouter({
       try {
         return await importWords(input.text);
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
