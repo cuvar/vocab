@@ -1,6 +1,6 @@
 import { isObject, isString } from "~/lib/guards/base";
 import FEWotd from "~/server/domain/client/feWotd";
-import { getWotdNotificationData } from "../server/service/client/notification.service";
+import { getWotdNotificationData } from "../lib/ui/notification";
 
 declare let self: ServiceWorkerGlobalScope;
 

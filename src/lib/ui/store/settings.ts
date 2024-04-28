@@ -1,5 +1,5 @@
 import type Settings from "~/server/domain/client/settings";
-import { parseSettings } from "../../server/service/client/parseCache.service";
+import { parseSettings } from "../../../server/service/client/parseCache.service";
 import { KEY_SETTINGS } from "./keys";
 
 /**
