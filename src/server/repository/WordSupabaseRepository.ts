@@ -42,80 +42,92 @@ export class WordSupabaseRepository implements WordRepository {
 
       return transformed;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot get words", error);
     }
   };
 
   getWord = async (word: string) => {
-    const data = await db.word.findUnique({
-      where: {
-        translation: word,
-      },
-      include: {
-        tags: {
-          select: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-                description: true,
+    try {
+      const data = await db.word.findUnique({
+        where: {
+          translation: word,
+        },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      });
 
-    if (data == null) {
-      throw new AppError("Word not found");
+      if (data == null) {
+        throw new AppError("Word not found");
+      }
+
+      return toVocabularyWord(
+        data.tags.map((t) => t.tag),
+        data
+      );
+    } catch (error) {
+      throw new AppError("Cannot get word " + word, error);
     }
-
-    return toVocabularyWord(
-      data.tags.map((t) => t.tag),
-      data
-    );
   };
 
   getWordsByFilter = async (filter: object) => {
-    const filtered = await db.word.findMany({
-      where: {
-        ...filter,
-      },
-      include: {
-        tags: {
-          select: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-                description: true,
+    try {
+      const filtered = await db.word.findMany({
+        where: {
+          ...filter,
+        },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      });
 
-    if (filtered == null) {
-      throw new AppError("Word not found");
+      if (filtered == null) {
+        throw new AppError("Word not found");
+      }
+
+      const transformed = filtered.map((e) => {
+        return toVocabularyWord(
+          e.tags.map((t) => t.tag),
+          e
+        );
+      });
+      return transformed satisfies VocabularyWord[];
+    } catch (error) {
+      throw new AppError("Cannot get words by filter", error);
     }
-
-    const transformed = filtered.map((e) => {
-      return toVocabularyWord(
-        e.tags.map((t) => t.tag),
-        e
-      );
-    });
-    return transformed satisfies VocabularyWord[];
   };
 
   getCountByFilter = async (filter: object) => {
-    const count = await db.word.count({
-      where: {
-        ...filter,
-      },
-    });
-    return count;
+    try {
+      const count = await db.word.count({
+        where: {
+          ...filter,
+        },
+      });
+      return count;
+    } catch (error) {
+      throw new AppError("Cannot count words", error);
+    }
   };
 
   updateWord = async (wordId: string, newWord: StrippedVocabularyWord) => {
@@ -151,7 +163,7 @@ export class WordSupabaseRepository implements WordRepository {
       );
       return res.translation;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot update word with id " + wordId, error);
     }
   };
 
@@ -181,7 +193,7 @@ export class WordSupabaseRepository implements WordRepository {
         res
       );
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot delete word with id " + id, error);
     }
   };
 
@@ -221,7 +233,7 @@ export class WordSupabaseRepository implements WordRepository {
       );
       return res.translation;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot add word", error);
     }
   };
 
@@ -264,7 +276,7 @@ export class WordSupabaseRepository implements WordRepository {
         res
       );
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot update mode for word with id " + id, error);
     }
   };
 
@@ -278,7 +290,7 @@ export class WordSupabaseRepository implements WordRepository {
 
       return data.count;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot import words", error);
     }
   };
 }

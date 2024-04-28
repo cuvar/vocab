@@ -61,6 +61,6 @@ async function getNewWOTD() {
     const addedWord = await wotdRepo.add(choice.toWord(), getTodayMorning());
     return addedWord;
   } catch (error) {
-    throw new AppError("Cannot create new word of the day");
+    throw new AppError("Cannot create new word of the day", error);
   }
 }

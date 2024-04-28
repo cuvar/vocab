@@ -10,7 +10,7 @@ export class TagSupabaseRepository implements TagRepository {
       const tags = data.map((e) => Tag.fromPrisma(e));
       return tags;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot get tags", error);
     }
   };
 
@@ -28,7 +28,7 @@ export class TagSupabaseRepository implements TagRepository {
 
       return Tag.fromPrisma(data);
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot get tag with name '" + tagName + "'", error);
     }
   };
 
@@ -55,7 +55,7 @@ export class TagSupabaseRepository implements TagRepository {
 
       return tags;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot get tags for word with id " + wordId, error);
     }
   };
 
@@ -84,7 +84,7 @@ export class TagSupabaseRepository implements TagRepository {
 
       return createRes.count;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot set tags for word with id " + wordId, error);
     }
   };
 
@@ -102,7 +102,7 @@ export class TagSupabaseRepository implements TagRepository {
 
       return Tag.fromPrisma(data);
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot update tag with id " + tagId, error);
     }
   };
 
@@ -117,7 +117,7 @@ export class TagSupabaseRepository implements TagRepository {
 
       return Tag.fromPrisma(data);
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot add tag with name " + name, error);
     }
   };
 
@@ -131,7 +131,7 @@ export class TagSupabaseRepository implements TagRepository {
 
       return Tag.fromPrisma(data);
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot delete tag with id " + tagId, error);
     }
   };
 }
