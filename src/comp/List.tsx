@@ -7,13 +7,15 @@ import {
   doubleChevronLeft,
   doubleChevronRight,
 } from "../lib/ui/icons";
-import ListElement from "../server/domain/client/listElement";
+import ListElement, {
+  type ListElementData,
+} from "../server/domain/client/listElement";
 import { searchWord } from "../server/service/client/search.service";
 import Error from "../sites/Error";
 import ListItem from "./ListItem";
 
 type Props = {
-  words: ListElement[];
+  words: ListElementData[];
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
   markLearned?: boolean;
@@ -24,8 +26,8 @@ type Props = {
 
 export default function List(props: Props) {
   const [currentShown, setCurrentShown] = useState("");
-  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>([]);
-  const [sorted, setSorted] = useState<ListElement[]>([]);
+  const [wordsToDisplay, setWordsToDisplay] = useState<ListElementData[]>([]);
+  const [sorted, setSorted] = useState<ListElementData[]>([]);
   const [page, setPage] = useState(0);
   const [pageWords, setPageWords] = useState(
     wordsToDisplay.slice(
@@ -55,7 +57,7 @@ export default function List(props: Props) {
       return;
     }
     const words = searchWord(sorted, props.searchString);
-    setWordsToDisplay(words.filter((r) => r !== null) as ListElement[]);
+    setWordsToDisplay(words.filter((r) => r !== null) as ListElementData[]);
   }, [props.searchString]);
 
   useEffect(() => {
@@ -80,20 +82,20 @@ export default function List(props: Props) {
     setCurrentShown("");
   }
 
-  function transformForShowNative(showNative: boolean, e: ListElement) {
+  function transformForShowNative(showNative: boolean, e: ListElementData) {
     if (showNative) {
-      return new ListElement(
-        e.id,
-        e.native,
-        e.translation,
-        e.notes,
-        e.mode,
-        e.iconNative,
-        e.iconTranslation,
-        e.tags,
-        e.otherWord,
-        e.word
-      );
+      return {
+        id: e.id,
+        native: e.native,
+        translation: e.translation,
+        notes: e.notes,
+        mode: e.mode,
+        iconTranslation: e.iconNative,
+        iconNative: e.iconTranslation,
+        tags: e.tags,
+        otherWord: e.otherWord,
+        word: e.word,
+      } as ListElementData;
     }
     return e;
   }

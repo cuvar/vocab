@@ -6,10 +6,10 @@ import {
   type InteractionEvent,
 } from "swiper-action";
 import { checkedIcon, uncheckedIcon } from "../lib/ui/icons";
-import type ListElement from "../server/domain/client/listElement";
+import { type ListElementData } from "../server/domain/client/listElement";
 
 type Props = {
-  word: ListElement;
+  word: ListElementData;
   showTranslation: boolean;
   clickHandler?: (eng: string) => void;
   markHandler?: (word: string, mark: boolean) => void;

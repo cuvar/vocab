@@ -1,15 +1,15 @@
 import { useState } from "react";
-import type TagData from "../server/domain/client/tagData";
+import { type TagDataData } from "../server/domain/client/tagData";
 
 type Props = {
-  tags: TagData[];
-  handler: (td: TagData[]) => void;
+  tags: TagDataData[];
+  handler: (td: TagDataData[]) => void;
 };
 
 export default function TagSelect(props: Props) {
-  const [tagData, setTagData] = useState<TagData[]>(props.tags);
+  const [tagData, setTagData] = useState<TagDataData[]>(props.tags);
 
-  function handleSwitchChange(_tagData: TagData) {
+  function handleSwitchChange(_tagData: TagDataData) {
     const newChecked = !_tagData.checked;
 
     const editIndex = tagData.findIndex((t) => t.id === _tagData.id);

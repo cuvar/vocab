@@ -1,6 +1,8 @@
 import Fuse from "fuse.js";
-import ListElement from "../../domain/client/listElement";
-import type VocabularyWord from "../../domain/client/vocabularyWord";
+import ListElement, {
+  type ListElementData,
+} from "../../domain/client/listElement";
+import { type VocabularyWordData } from "../../domain/client/vocabularyWord";
 
 /**
  *
@@ -8,7 +10,7 @@ import type VocabularyWord from "../../domain/client/vocabularyWord";
  * @param searched
  */
 export function searchWord(
-  words: ListElement[] | VocabularyWord[],
+  words: ListElementData[] | VocabularyWordData[],
   searched: string
 ) {
   if (ListElement.validateArray(words)) {
@@ -23,11 +25,11 @@ export function searchWord(
  * @param words
  * @param searched
  */
-function searchListLement(words: ListElement[], searched: string) {
+function searchListLement(words: ListElementData[], searched: string) {
   const wordsToSearchThrough = words.map((word) => word.word);
   const searchResults = search(wordsToSearchThrough, searched, 5);
 
-  const resultWords: ListElement[] = [];
+  const resultWords: ListElementData[] = [];
   searchResults.forEach((r) => {
     const res = words.find((el) => el.translation == r);
     if (res == undefined) return;
@@ -42,11 +44,11 @@ function searchListLement(words: ListElement[], searched: string) {
  * @param words
  * @param searched
  */
-function searchVocabularyWord(words: VocabularyWord[], searched: string) {
+function searchVocabularyWord(words: VocabularyWordData[], searched: string) {
   const wordsToSearchThrough = words.map((word) => word.translation);
   const searchResults = search(wordsToSearchThrough, searched, 3);
 
-  const resultWords: VocabularyWord[] = [];
+  const resultWords: VocabularyWordData[] = [];
   searchResults.forEach((r) => {
     const res = words.find((el) => el.translation == r);
     if (res == undefined) return;

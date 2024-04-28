@@ -1,5 +1,5 @@
 import { DEFAULT_SETTINGS } from "~/lib/const";
-import type Settings from "../../../server/domain/client/settings";
+import { type SettingsData } from "~/server/domain/client/settings";
 import { parseSettings } from "../../../server/service/client/parseCache.service";
 import { KEY_SETTINGS } from "./keys";
 
@@ -7,7 +7,7 @@ import { KEY_SETTINGS } from "./keys";
  * Sets the settings in the localStorage
  * @param {Settings} settings The settings that should be stored
  */
-export function setSettings(settings: Settings) {
+export function setSettings(settings: SettingsData) {
   localStorage.setItem(KEY_SETTINGS, JSON.stringify(settings));
 }
 
@@ -15,7 +15,7 @@ export function setSettings(settings: Settings) {
  * Updates the settings in the localStorage
  * @param {Partial<Settings>} newValues New values that should be updated
  */
-export function updateSettings(newValues: Partial<Settings>) {
+export function updateSettings(newValues: Partial<SettingsData>) {
   const currentSettings = getSettings();
   const newSettings = {
     ...currentSettings,
@@ -28,7 +28,7 @@ export function updateSettings(newValues: Partial<Settings>) {
  * Returns the learned words
  * @returns {Settings[]} The settings for the app
  */
-export function getSettings(): Settings {
+export function getSettings(): SettingsData {
   const res = localStorage.getItem(KEY_SETTINGS);
   if (!res) {
     return DEFAULT_SETTINGS;

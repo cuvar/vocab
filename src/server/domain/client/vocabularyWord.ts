@@ -4,7 +4,7 @@ import { LearnMode } from "../server/learnMode";
 import Tag from "../server/tag";
 import Word from "../server/word";
 
-export default class VocabularyWord {
+export type VocabularyWordData = {
   id: string;
   translation: string;
   native: string;
@@ -13,28 +13,10 @@ export default class VocabularyWord {
   iconTranslation: string;
   iconNative: string;
   tags: Tag[];
+};
 
-  constructor(
-    id: string,
-    translation: string,
-    native: string,
-    notes: string,
-    mode: PrismaLearnMode,
-    iconTranslation: string,
-    iconNative: string,
-    tags: Tag[]
-  ) {
-    this.id = id;
-    this.translation = translation;
-    this.native = native;
-    this.notes = notes;
-    this.mode = mode;
-    this.iconTranslation = iconTranslation;
-    this.iconNative = iconNative;
-    this.tags = tags;
-  }
-
-  static validate(data: unknown): data is VocabularyWord {
+export default class VocabularyWord {
+  static validate(data: unknown): data is VocabularyWordData {
     if (!isObject(data)) {
       return false;
     }
@@ -65,17 +47,17 @@ export default class VocabularyWord {
     return true;
   }
 
-  static validateArray(data: unknown): data is VocabularyWord[] {
+  static validateArray(data: unknown): data is VocabularyWordData[] {
     return Array.isArray(data) && data.every((d) => VocabularyWord.validate(d));
   }
 
-  toWord() {
+  static toWord(data: VocabularyWordData) {
     return new Word(
-      this.id,
-      this.translation,
-      this.native,
-      this.notes,
-      this.mode
+      data.id,
+      data.translation,
+      data.native,
+      data.notes,
+      data.mode
     );
   }
 }

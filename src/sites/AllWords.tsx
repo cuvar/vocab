@@ -2,6 +2,10 @@ import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
+import { type FilterProps, type FilterState } from "../comp/Filter";
+import FilterBar from "../comp/FilterBar";
+import List from "../comp/List";
+import Mutator from "../comp/Mutator";
 import { api } from "../lib/api";
 import { toListElement } from "../lib/helper";
 import { useToast } from "../lib/ui/hooks";
@@ -9,12 +13,8 @@ import { archiveIcon, penIcon, resetIcon, switchIcon } from "../lib/ui/icons";
 import { getAllWords, setAllWords } from "../lib/ui/store/allwords";
 import { getArchivedWords, setArchivedWords } from "../lib/ui/store/archived";
 import { getLearnedWords, setLearnedWords } from "../lib/ui/store/learned";
-import type ListElement from "../server/domain/client/listElement";
-import type VocabularyWord from "../server/domain/client/vocabularyWord";
-import { type FilterProps, type FilterState } from "../comp/Filter";
-import FilterBar from "../comp/FilterBar";
-import List from "../comp/List";
-import Mutator from "../comp/Mutator";
+import { type ListElementData } from "../server/domain/client/listElement";
+import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -25,7 +25,7 @@ import Loading from "./Loading";
 
 export default function AllWords() {
   const [filterState, setFilterState] = useState<FilterState>(null);
-  const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
+  const [wordsToDisplay, setWordsToDisplay] = useState<ListElementData[]>(
     getAllWords()
   );
   const [showNative, setShowNative] = useState<boolean>(false);
@@ -57,7 +57,7 @@ export default function AllWords() {
 
   const getAllQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+      const transformed: ListElementData[] = data.map((e: VocabularyWordData) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);
@@ -68,7 +68,7 @@ export default function AllWords() {
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+      const transformed: ListElementData[] = data.map((e: VocabularyWordData) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);
@@ -80,7 +80,7 @@ export default function AllWords() {
 
   const getArchivedQuery = api.word.getArchived.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+      const transformed: ListElementData[] = data.map((e: VocabularyWordData) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);
@@ -90,7 +90,7 @@ export default function AllWords() {
     enabled: false,
   });
 
-  function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
+  function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWordData) {
     updateModeMutation.mutate({
       id: arg.id,
       mode:
@@ -100,14 +100,14 @@ export default function AllWords() {
     });
   }
 
-  function archiveWord(ev: InteractionEvent, arg: VocabularyWord) {
+  function archiveWord(ev: InteractionEvent, arg: VocabularyWordData) {
     updateModeMutation.mutate({
       id: arg.id,
       mode: LearnMode.ARCHIVED,
     });
   }
 
-  function editWord(ev: InteractionEvent, arg: VocabularyWord) {
+  function editWord(ev: InteractionEvent, arg: VocabularyWordData) {
     setWordToEdit(arg);
     setShowEditorModal(true);
   }

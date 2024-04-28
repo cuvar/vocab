@@ -3,35 +3,21 @@ import { isObject, isString } from "../../../lib/guards/base";
 import { LearnMode } from "../server/learnMode";
 import Word from "../server/word";
 
-export default class JsonImportWord {
+export type JsonImportWordData = {
   translation: string;
   native: string;
   notes: string;
   mode: PrismaLearnMode;
   iconNative: string;
   iconTranslation: string;
+};
 
-  constructor(
-    translation: string,
-    native: string,
-    notes: string,
-    mode: PrismaLearnMode,
-    iconNative: string,
-    iconTranslation: string
-  ) {
-    this.translation = translation;
-    this.native = native;
-    this.notes = notes;
-    this.mode = mode;
-    this.iconNative = iconNative;
-    this.iconTranslation = iconTranslation;
+export default class JsonImportWord {
+  static toWord(data: JsonImportWordData): Word {
+    return new Word("", data.translation, data.native, data.notes, data.mode);
   }
 
-  toWord(): Word {
-    return new Word("", this.translation, this.native, this.notes, this.mode);
-  }
-
-  static validate(data: unknown): data is JsonImportWord {
+  static validate(data: unknown): data is JsonImportWordData {
     if (!isObject(data)) {
       return false;
     }
@@ -56,7 +42,7 @@ export default class JsonImportWord {
     return true;
   }
 
-  static validateArray(data: unknown): data is JsonImportWord[] {
+  static validateArray(data: unknown): data is JsonImportWordData[] {
     return Array.isArray(data) && data.every((d) => JsonImportWord.validate(d));
   }
 }

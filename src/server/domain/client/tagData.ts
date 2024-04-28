@@ -1,21 +1,15 @@
-import { type Tag as PrismaTag } from "@prisma/client";
 import { isBoolean } from "../../../lib/guards/base";
 import Tag from "../server/tag";
 
-export default class TagData implements PrismaTag {
+export type TagDataData = {
   id: string;
   name: string;
   description: string;
   checked: boolean;
+};
 
-  constructor(id: string, name: string, description: string, checked: boolean) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.checked = checked;
-  }
-
-  static validate(data: unknown): data is TagData {
+export default class TagData {
+  static validate(data: unknown): data is TagDataData {
     if (!Tag.validate(data)) {
       return false;
     }
@@ -26,7 +20,7 @@ export default class TagData implements PrismaTag {
     return true;
   }
 
-  static validateArray(data: unknown): data is TagData[] {
+  static validateArray(data: unknown): data is TagDataData[] {
     return Array.isArray(data) && data.every((d) => TagData.validate(d));
   }
 }

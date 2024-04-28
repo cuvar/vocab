@@ -1,8 +1,10 @@
 /* eslint-disable jsdoc/require-jsdoc */
-import ListElement from "../../domain/client/listElement";
-import Settings from "../../domain/client/settings";
+import ListElement, {
+  type ListElementData,
+} from "../../domain/client/listElement";
+import Settings, { type SettingsData } from "../../domain/client/settings";
 
-export function parseListElements(input: string): ListElement[] {
+export function parseListElements(input: string): ListElementData[] {
   const parsed = JSON.parse(input) as unknown;
   if (!Array.isArray(parsed)) {
     return [];
@@ -14,10 +16,10 @@ export function parseListElements(input: string): ListElement[] {
   if (!validOutput) {
     return [];
   }
-  return parsed as ListElement[];
+  return parsed as ListElementData[];
 }
 
-export function parseSettings(input: string): Settings | null {
+export function parseSettings(input: string): SettingsData | null {
   const parsed = JSON.parse(input) as unknown;
   if (!Settings.validate(parsed)) {
     return null;

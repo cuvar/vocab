@@ -3,10 +3,10 @@ import { api } from "../lib/api";
 import { sendServiceWorkerWordOfTheDay } from "../lib/pwa/serviceWorker.service";
 import { useToast } from "../lib/ui/hooks";
 import { getSettings } from "../lib/ui/store/settings";
-import type VocabularyWord from "../server/domain/client/vocabularyWord";
+import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
 
 export default function WordOfTheDay() {
-  const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
+  const [wordToDisplay, setWordToDisplay] = useState<VocabularyWordData | null>(
     null
   );
 

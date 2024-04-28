@@ -3,9 +3,9 @@ import { useAtom } from "jotai";
 import { useState, type ChangeEvent } from "react";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
+import { type TagDataData } from "../server/domain/client/tagData";
+import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
 import { LearnMode } from "../server/domain/server/learnMode";
-import type TagData from "../server/domain/client/tagData";
-import type VocabularyWord from "../server/domain/client/vocabularyWord";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -14,7 +14,7 @@ import {
 import TagSelect from "./TagSelect";
 
 type Props = {
-  word: VocabularyWord;
+  word: VocabularyWordData;
 };
 
 export default function Editor(props: Props) {
@@ -26,7 +26,7 @@ export default function Editor(props: Props) {
   const [modeInput, setModeInput] = useState(props.word.mode);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
-  const [tagData, setTagData] = useState<TagData[]>([]);
+  const [tagData, setTagData] = useState<TagDataData[]>([]);
   const [, setRefetchWords] = useAtom(refetchWordsAtom);
 
   const showToast = useToast();
@@ -74,7 +74,7 @@ export default function Editor(props: Props) {
     setShowEditorModal(false);
   }
 
-  function onTagsSelectChange(_tagData: TagData[]) {
+  function onTagsSelectChange(_tagData: TagDataData[]) {
     setTagData(_tagData);
   }
 

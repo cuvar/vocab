@@ -1,21 +1,13 @@
 import { isBoolean, isObject, isString } from "../../../lib/guards/base";
 
-export default class Settings {
+export type SettingsData = {
   randomizeCards: boolean;
   reminderTime: string;
   sendWOTDNotifications: boolean;
+};
 
-  constructor(
-    randomizeCards: boolean,
-    reminderTime: string,
-    sendWOTDNotifications: boolean
-  ) {
-    this.randomizeCards = randomizeCards;
-    this.reminderTime = reminderTime;
-    this.sendWOTDNotifications = sendWOTDNotifications;
-  }
-
-  static validate(data: unknown): data is Settings {
+export default class Settings {
+  static validate(data: unknown): data is SettingsData {
     if (!isObject(data)) {
       return false;
     }

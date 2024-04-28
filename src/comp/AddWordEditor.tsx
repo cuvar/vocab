@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { useState } from "react";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
-import TagData from "../server/domain/client/tagData";
+import { type TagDataData } from "../server/domain/client/tagData";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -15,7 +15,7 @@ export default function Editor() {
   const [englishInput, setEnglishInput] = useState("");
   const [germanInput, setGermanInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
-  const [tagData, setTagData] = useState<TagData[]>([]);
+  const [tagData, setTagData] = useState<TagDataData[]>([]);
   const [showExistingWords, setShowExistingWords] = useState(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
@@ -25,9 +25,14 @@ export default function Editor() {
 
   api.tag.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      const _tagData = data.map(
-        (d) => new TagData(d.id, d.name, d.description, false)
-      );
+      const _tagData = data.map((d) => {
+        return {
+          id: d.id,
+          name: d.name,
+          description: d.description,
+          checked: false,
+        } as TagDataData;
+      });
       setTagData(_tagData);
     },
   });
@@ -65,7 +70,7 @@ export default function Editor() {
     setShowEditorModal(false);
   }
 
-  function onTagsSelectChange(_tagData: TagData[]) {
+  function onTagsSelectChange(_tagData: TagDataData[]) {
     setTagData(_tagData);
   }
 

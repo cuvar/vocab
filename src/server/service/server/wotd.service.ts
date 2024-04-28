@@ -1,6 +1,8 @@
 import { LearnMode } from "@prisma/client";
 import AppError from "../../../lib/error/error";
-import type VocabularyWord from "../../domain/client/vocabularyWord";
+import VocabularyWord, {
+  type VocabularyWordData,
+} from "../../domain/client/vocabularyWord";
 import { WOTDSupabaseRepository } from "../../repository/WOTDSupabaseRepository";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { getTodayMorning } from "./getDate.service";
@@ -45,7 +47,7 @@ async function getNewWOTD() {
 
     if (learnedWords.length == 0) throw new AppError("No words left");
 
-    let choice: VocabularyWord | null = null;
+    let choice: VocabularyWordData | null = null;
     let i = 0;
     while (choice == null && i < 150) {
       i++;
@@ -58,7 +60,10 @@ async function getNewWOTD() {
     }
 
     if (!choice) throw new AppError("No word of the day could be found.");
-    const addedWord = await wotdRepo.add(choice.toWord(), getTodayMorning());
+    const addedWord = await wotdRepo.add(
+      VocabularyWord.toWord(choice),
+      getTodayMorning()
+    );
     return addedWord;
   } catch (error) {
     throw new AppError("Cannot create new word of the day", error);

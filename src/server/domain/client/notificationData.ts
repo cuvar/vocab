@@ -1,15 +1,12 @@
 import { isObject, isString } from "../../../lib/guards/base";
 
-export default class NotificationData {
+export type NotificationDataData = {
   title: string;
   message: string;
+};
 
-  constructor(title: string, message: string) {
-    this.title = title;
-    this.message = message;
-  }
-
-  static validate(data: unknown): data is NotificationData {
+export default class NotificationData {
+  static validate(data: unknown): data is NotificationDataData {
     if (!isObject(data)) {
       return false;
     }

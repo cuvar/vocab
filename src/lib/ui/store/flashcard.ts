@@ -1,5 +1,6 @@
-import VocabularyFlashCard from "../../../server/domain/client/vocabularyFlashCard";
+import { type VocabularyFlashCard } from "~/server/domain/client/vocabularyFlashCard";
 import type VocabularyWord from "../../../server/domain/client/vocabularyWord";
+import { type VocabularyWordData } from "../../../server/domain/client/vocabularyWord";
 import { KEY_LEARNED_CARDS } from "./keys";
 
 /**
@@ -9,27 +10,26 @@ import { KEY_LEARNED_CARDS } from "./keys";
  * @returns {VocabularyFlashCard[]} The learned cards
  */
 export function getCards(
-  words: VocabularyWord[],
+  words: VocabularyWordData[],
   learned: boolean
 ): VocabularyFlashCard[] {
   const ids = getCardsIds(learned);
   const newWords: VocabularyFlashCard[] = words
     .filter((word) => ids.includes(word.id))
-    .map(
-      (word) =>
-        new VocabularyFlashCard(
-          word.id,
-          word.translation,
-          word.native,
-          word.notes,
-          word.mode,
-          word.iconTranslation,
-          word.iconNative,
-          word.tags,
-          "good",
-          false
-        )
-    );
+    .map((word) => {
+      return {
+        id: word.id,
+        translation: word.translation,
+        native: word.native,
+        notes: word.notes,
+        mode: word.mode,
+        iconTranslation: word.iconTranslation,
+        iconNative: word.iconNative,
+        tags: word.tags,
+        cardMode: "good",
+        switched: false,
+      } as VocabularyFlashCard;
+    });
 
   return newWords;
 }
@@ -51,7 +51,7 @@ export function getCardsIds(learned: boolean) {
  * @param {VocabularyWord} newWord The word that has been learned
  * @param {boolean} learned Whether it should be added to learned or unlearned store
  */
-export function addCard(newWord: VocabularyWord, learned: boolean) {
+export function addCard(newWord: VocabularyWordData, learned: boolean) {
   const learnedWordIds = getCardsIds(learned);
   if (learnedWordIds.includes(newWord.id)) {
     return;

@@ -6,9 +6,11 @@ import {
 import AppError from "../../lib/error/error";
 import { addIcons } from "../../lib/helper";
 import { db } from "../db";
-import type JsonImportWord from "../domain/client/jsonImportWord";
-import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";
-import VocabularyWord from "../domain/client/vocabularyWord";
+import JsonImportWord, {
+  type JsonImportWordData,
+} from "../domain/client/jsonImportWord";
+import { type StrippedVocabularyWordData } from "../domain/client/strippedVocabularyWord";
+import { type VocabularyWordData } from "../domain/client/vocabularyWord";
 import Tag from "../domain/server/tag";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
@@ -110,7 +112,7 @@ export class WordSupabaseRepository implements WordRepository {
           e
         );
       });
-      return transformed satisfies VocabularyWord[];
+      return transformed satisfies VocabularyWordData[];
     } catch (error) {
       throw new AppError("Cannot get words by filter", error);
     }
@@ -129,7 +131,7 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  updateWord = async (wordId: string, newWord: StrippedVocabularyWord) => {
+  updateWord = async (wordId: string, newWord: StrippedVocabularyWordData) => {
     try {
       const res = await db.word.update({
         where: {
@@ -196,7 +198,7 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  addWord = async (word: StrippedVocabularyWord) => {
+  addWord = async (word: StrippedVocabularyWordData) => {
     if (word.translation === "" || word.native === "") {
       throw new AppError("Word cannot be empty");
     }
@@ -279,9 +281,9 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  importWords = async (words: JsonImportWord[]) => {
+  importWords = async (words: JsonImportWordData[]) => {
     try {
-      const transformed = words.map((w) => w.toWord().toPrisma());
+      const transformed = words.map((w) => JsonImportWord.toWord(w).toPrisma());
       const data = await db.word.createMany({
         data: transformed,
         skipDuplicates: true,
@@ -302,14 +304,14 @@ export class WordSupabaseRepository implements WordRepository {
 function toVocabularyWord(ptags: PrismaTag[], word: PrismaWord) {
   const tags = ptags.map((t) => Tag.fromPrisma(t));
   const withIcons = addIcons(word);
-  return new VocabularyWord(
-    withIcons.id,
-    withIcons.translation,
-    withIcons.native,
-    withIcons.notes,
-    withIcons.mode,
-    withIcons.iconTranslation,
-    withIcons.iconNative,
-    tags
-  );
+  return {
+    id: withIcons.id,
+    translation: withIcons.translation,
+    native: withIcons.native,
+    notes: withIcons.notes,
+    mode: withIcons.mode,
+    iconTranslation: withIcons.iconTranslation,
+    iconNative: withIcons.iconNative,
+    tags: tags,
+  } satisfies VocabularyWordData;
 }

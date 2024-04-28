@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { type SettingsData } from "~/server/domain/client/settings";
 import { sendServiceWorkerReminderTime } from "../lib/pwa/serviceWorker.service";
 import { useToast } from "../lib/ui/hooks";
 import { getSettings, setSettings } from "../lib/ui/store/settings";
-import type Settings from "../server/domain/client/settings";
 
 export default function SettingsComp() {
-  const [settingsData, setSettingsData] = useState<Settings>(getSettings());
+  const [settingsData, setSettingsData] = useState<SettingsData>(getSettings());
 
   const showToast = useToast();
 
