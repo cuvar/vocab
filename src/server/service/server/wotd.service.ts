@@ -1,6 +1,7 @@
 import { LearnMode } from "@prisma/client";
 import AppError from "../../../lib/error/error";
-import VocabularyWord, {
+import {
+  vocabularyWordToWord,
   type VocabularyWordData,
 } from "../../domain/client/vocabularyWord";
 import { WOTDSupabaseRepository } from "../../repository/WOTDSupabaseRepository";
@@ -61,7 +62,7 @@ async function getNewWOTD() {
 
     if (!choice) throw new AppError("No word of the day could be found.");
     const addedWord = await wotdRepo.add(
-      VocabularyWord.toWord(choice),
+      vocabularyWordToWord(choice),
       getTodayMorning()
     );
     return addedWord;

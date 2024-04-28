@@ -1,7 +1,7 @@
 import { type LearnMode as PrismaLearnMode } from "@prisma/client";
 import { isString } from "../../../lib/guards/base";
 import type Tag from "../server/tag";
-import VocabularyWord from "./vocabularyWord";
+import { isVocabularyWord } from "./vocabularyWord";
 
 export type ListElement = {
   id: string;
@@ -21,7 +21,7 @@ export type ListElement = {
  * @param data
  */
 export function isListElement(data: unknown): data is ListElement {
-  if (!VocabularyWord.validate(data)) {
+  if (!isVocabularyWord(data)) {
     return false;
   }
   if (!("word" in data) || !isString(data.word)) {

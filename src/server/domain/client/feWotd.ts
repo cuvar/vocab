@@ -1,5 +1,5 @@
 import { isDate, isObject, isString } from "../../../lib/guards/base";
-import VocabularyWord, { type VocabularyWordData } from "./vocabularyWord";
+import { isVocabularyWord, type VocabularyWordData } from "./vocabularyWord";
 
 export type FEWotd = {
   id: string;
@@ -21,7 +21,7 @@ export function isFEWotd(data: unknown): data is FEWotd {
   if (!isDate(data.date)) {
     return false;
   }
-  if (!VocabularyWord.validate(data.word)) {
+  if (!isVocabularyWord(data.word)) {
     return false;
   }
   return true;

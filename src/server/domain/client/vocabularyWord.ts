@@ -15,49 +15,61 @@ export type VocabularyWordData = {
   tags: Tag[];
 };
 
-export default class VocabularyWord {
-  static validate(data: unknown): data is VocabularyWordData {
-    if (!isObject(data)) {
-      return false;
-    }
-    if (!isString(data.id)) {
-      return false;
-    }
-    if (!isString(data.translation)) {
-      return false;
-    }
-    if (!isString(data.native)) {
-      return false;
-    }
-    if (!isString(data.notes)) {
-      return false;
-    }
-    if (!Tag.validateArray(data.tags)) {
-      return false;
-    }
-    if (!LearnMode.validate(data.mode)) {
-      return false;
-    }
-    if (!isString(data.iconTranslation)) {
-      return false;
-    }
-    if (!isString(data.iconNative)) {
-      return false;
-    }
-    return true;
+/**
+ *
+ * @param data
+ */
+export function isVocabularyWord(data: unknown): data is VocabularyWordData {
+  if (!isObject(data)) {
+    return false;
   }
+  if (!isString(data.id)) {
+    return false;
+  }
+  if (!isString(data.translation)) {
+    return false;
+  }
+  if (!isString(data.native)) {
+    return false;
+  }
+  if (!isString(data.notes)) {
+    return false;
+  }
+  if (!Tag.validateArray(data.tags)) {
+    return false;
+  }
+  if (!LearnMode.validate(data.mode)) {
+    return false;
+  }
+  if (!isString(data.iconTranslation)) {
+    return false;
+  }
+  if (!isString(data.iconNative)) {
+    return false;
+  }
+  return true;
+}
 
-  static validateArray(data: unknown): data is VocabularyWordData[] {
-    return Array.isArray(data) && data.every((d) => VocabularyWord.validate(d));
-  }
+/**
+ *
+ * @param data
+ */
+export function isVocabularyWordArray(
+  data: unknown
+): data is VocabularyWordData[] {
+  return Array.isArray(data) && data.every((d) => isVocabularyWord(d));
+}
 
-  static toWord(data: VocabularyWordData) {
-    return new Word(
-      data.id,
-      data.translation,
-      data.native,
-      data.notes,
-      data.mode
-    );
-  }
+/**
+ *
+ * @param data
+ */
+export function vocabularyWordToWord(data: VocabularyWordData) {
+  return new Word(
+    data.id,
+    data.translation,
+    data.native,
+    data.notes,
+    data.mode
+  );
 }
