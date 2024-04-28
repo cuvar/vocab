@@ -1,4 +1,4 @@
-import { type VocabularyFlashCard } from "../types/types";
+import type VocabularyFlashCard from "../server/domain/client/vocabularyFlashCard";
 
 type Props = {
   word: VocabularyFlashCard;

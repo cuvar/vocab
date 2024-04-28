@@ -2,6 +2,15 @@ import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
+import { api } from "../lib/api";
+import { toListElement } from "../lib/helper";
+import { useToast } from "../lib/ui/hooks";
+import { archiveIcon, penIcon, resetIcon, switchIcon } from "../lib/ui/icons";
+import { getAllWords, setAllWords } from "../lib/ui/store/allwords";
+import { getArchivedWords, setArchivedWords } from "../lib/ui/store/archived";
+import { getLearnedWords, setLearnedWords } from "../lib/ui/store/learned";
+import type ListElement from "../server/domain/client/listElement";
+import type VocabularyWord from "../server/domain/client/vocabularyWord";
 import { type FilterProps, type FilterState } from "../comp/Filter";
 import FilterBar from "../comp/FilterBar";
 import List from "../comp/List";
@@ -11,14 +20,6 @@ import {
   showEditorModalAtom,
   wordToEditAtom,
 } from "../server/store";
-import { type ListElement, type VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
-import { toListElement } from "../utils/helper";
-import { useToast } from "../utils/hooks";
-import { archiveIcon, penIcon, resetIcon, switchIcon } from "../utils/icons";
-import { getAllWords, setAllWords } from "../utils/store/allwords";
-import { getArchivedWords, setArchivedWords } from "../utils/store/archived";
-import { getLearnedWords, setLearnedWords } from "../utils/store/learned";
 import Error from "./Error";
 import Loading from "./Loading";
 

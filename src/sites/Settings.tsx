@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { sendServiceWorkerReminderTime } from "../server/service/serviceWorker.service";
-import type { Settings } from "../types/types";
-import { DEFAULT_SETTINGS } from "../utils/const";
-import { useToast } from "../utils/hooks";
-import { getSettings, setSettings } from "../utils/store/settings";
+import { DEFAULT_SETTINGS } from "../lib/const";
+import { useToast } from "../lib/ui/hooks";
+import { getSettings, setSettings } from "../lib/ui/store/settings";
+import type Settings from "../server/domain/client/settings";
+import { sendServiceWorkerReminderTime } from "../lib/pwa/serviceWorker.service";
 
 export default function SettingsComp() {
   const [settingsData, setSettingsData] = useState<Settings>(

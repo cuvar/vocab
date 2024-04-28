@@ -38,8 +38,6 @@ model Tag {
     id          String     @id @default(cuid())
     name        String     @unique
     description String
-    createdAt   DateTime   @default(now())
-    updatedAt   DateTime   @updatedAt
     words       WordTags[]
 }
 

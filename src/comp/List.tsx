@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { type ActionData } from "swiper-action";
-import { env } from "../env/client.mjs";
-import { searchWord } from "../server/service/search.service";
-import Error from "../sites/Error";
-import { type ListElement } from "../types/types";
-import { AMOUNT_OF_WORDS_PER_PAGE } from "../utils/const";
+import { AMOUNT_OF_WORDS_PER_PAGE } from "../lib/const";
 import {
   chevronLeft,
   chevronRight,
   doubleChevronLeft,
   doubleChevronRight,
-} from "../utils/icons";
+} from "../lib/ui/icons";
+import ListElement from "../server/domain/client/listElement";
+import { searchWord } from "../server/service/client/search.service";
+import Error from "../sites/Error";
 import ListItem from "./ListItem";
 
 type Props = {
@@ -41,6 +40,10 @@ export default function List(props: Props) {
     const sortedWords = props.words
       .sort((a, b) => a.word.localeCompare(b.word))
       .map((e) => transformForShowNative(props.showNative, e));
+
+    if (!ListElement.validateArray(sortedWords)) {
+      return;
+    }
 
     setWordsToDisplay(sortedWords);
     setSorted(sortedWords);
@@ -79,13 +82,18 @@ export default function List(props: Props) {
 
   function transformForShowNative(showNative: boolean, e: ListElement) {
     if (showNative) {
-      return {
-        ...e,
-        word: e.otherWord,
-        otherWord: e.word,
-        iconNative: env.NEXT_PUBLIC_TRANSLATION_ICON,
-        iconTranslation: env.NEXT_PUBLIC_NATIVE_ICON,
-      };
+      return new ListElement(
+        e.id,
+        e.native,
+        e.translation,
+        e.notes,
+        e.mode,
+        e.iconNative,
+        e.iconTranslation,
+        e.tags,
+        e.otherWord,
+        e.word
+      );
     }
     return e;
   }

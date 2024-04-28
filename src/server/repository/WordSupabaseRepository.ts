@@ -1,13 +1,15 @@
-import { LearnMode } from "@prisma/client";
 import {
-  type JsonImportWord,
-  type SimpleWordInput,
-  type Tag,
-  type VocabularyWord,
-} from "../../types/types";
-import AppError from "../../utils/error";
-import { addIcons } from "../../utils/helper";
-import { prisma } from "../db";
+  LearnMode as PrismaLearnMode,
+  type Tag as PrismaTag,
+  type Word as PrismaWord,
+} from "@prisma/client";
+import AppError from "../../lib/error/error";
+import { addIcons } from "../../lib/helper";
+import { db } from "../db";
+import type JsonImportWord from "../domain/client/jsonImportWord";
+import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";
+import VocabularyWord from "../domain/client/vocabularyWord";
+import Tag from "../domain/server/tag";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
 const tagRepo = new TagSupabaseRepository();
@@ -15,7 +17,7 @@ const tagRepo = new TagSupabaseRepository();
 export class WordSupabaseRepository implements WordRepository {
   getWords = async () => {
     try {
-      const data = await prisma.word.findMany({
+      const data = await db.word.findMany({
         include: {
           tags: {
             select: {
@@ -31,107 +33,105 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
       const transformed = data.map((e) => {
-        const tags = e.tags.map((t) => {
-          return {
-            id: t.tag.id,
-            name: t.tag.name,
-            description: t.tag.description,
-          } satisfies Tag;
-        });
-        const withIcons = addIcons(e);
-        return { ...withIcons, tags: tags } satisfies VocabularyWord;
+        return toVocabularyWord(
+          e.tags.map((t) => t.tag),
+          e
+        );
       });
-      return transformed satisfies VocabularyWord[];
+
+      return transformed;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot get words", error);
     }
   };
 
   getWord = async (word: string) => {
-    const data = await prisma.word.findUnique({
-      where: {
-        translation: word,
-      },
-      include: {
-        tags: {
-          select: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-                description: true,
+    try {
+      const data = await db.word.findUnique({
+        where: {
+          translation: word,
+        },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
               },
             },
           },
         },
-      },
-    });
+      });
 
-    if (data == null) {
-      throw new AppError("Word not found");
+      if (data == null) {
+        throw new AppError("Word not found");
+      }
+
+      return toVocabularyWord(
+        data.tags.map((t) => t.tag),
+        data
+      );
+    } catch (error) {
+      throw new AppError("Cannot get word " + word, error);
     }
-
-    const tags = data.tags.map((t) => {
-      return {
-        id: t.tag.id,
-        name: t.tag.name,
-        description: t.tag.description,
-      } satisfies Tag;
-    });
-    const withIcons = addIcons(data);
-    return { ...withIcons, tags: tags } satisfies VocabularyWord;
   };
 
   getWordsByFilter = async (filter: object) => {
-    const filtered = await prisma.word.findMany({
-      where: {
-        ...filter,
-      },
-      include: {
-        tags: {
-          select: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
-                description: true,
+    try {
+      const filtered = await db.word.findMany({
+        where: {
+          ...filter,
+        },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
               },
             },
           },
         },
-      },
-    });
-
-    if (filtered == null) {
-      throw new AppError("Word not found");
-    }
-
-    const transformed = filtered.map((e) => {
-      const tags = e.tags.map((t) => {
-        return {
-          id: t.tag.id,
-          name: t.tag.name,
-          description: t.tag.description,
-        } satisfies Tag;
       });
-      const withIcons = addIcons(e);
-      return { ...withIcons, tags: tags } satisfies VocabularyWord;
-    });
-    return transformed satisfies VocabularyWord[];
+
+      if (filtered == null) {
+        throw new AppError("Word not found");
+      }
+
+      const transformed = filtered.map((e) => {
+        return toVocabularyWord(
+          e.tags.map((t) => t.tag),
+          e
+        );
+      });
+      return transformed satisfies VocabularyWord[];
+    } catch (error) {
+      throw new AppError("Cannot get words by filter", error);
+    }
   };
 
   getCountByFilter = async (filter: object) => {
-    const count = await prisma.word.count({
-      where: {
-        ...filter,
-      },
-    });
-    return count;
+    try {
+      const count = await db.word.count({
+        where: {
+          ...filter,
+        },
+      });
+      return count;
+    } catch (error) {
+      throw new AppError("Cannot count words", error);
+    }
   };
 
-  updateWord = async (wordId: string, newWord: SimpleWordInput) => {
+  updateWord = async (wordId: string, newWord: StrippedVocabularyWord) => {
     try {
-      const res = await prisma.word.update({
+      const res = await db.word.update({
         where: {
           id: wordId,
         },
@@ -156,16 +156,19 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
 
-      await tagRepo.setTagsForWord(wordId, newWord.tagIds);
+      await tagRepo.setTagsForWord(
+        wordId,
+        newWord.tags.map((t) => t.id)
+      );
       return res.translation;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot update word with id " + wordId, error);
     }
   };
 
   deleteWord = async (id: string) => {
     try {
-      const res = await prisma.word.delete({
+      const res = await db.word.delete({
         where: {
           id: id,
         },
@@ -184,21 +187,16 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
 
-      const tags = res.tags.map((t) => {
-        return {
-          id: t.tag.id,
-          name: t.tag.name,
-          description: t.tag.description,
-        } satisfies Tag;
-      });
-      const withIcons = addIcons(res);
-      return { ...withIcons, tags: tags } satisfies VocabularyWord;
+      return toVocabularyWord(
+        res.tags.map((t) => t.tag),
+        res
+      );
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot delete word with id " + id, error);
     }
   };
 
-  addWord = async (word: SimpleWordInput) => {
+  addWord = async (word: StrippedVocabularyWord) => {
     if (word.translation === "" || word.native === "") {
       throw new AppError("Word cannot be empty");
     }
@@ -206,12 +204,12 @@ export class WordSupabaseRepository implements WordRepository {
       throw new AppError("Word too long");
     }
     try {
-      const res = await prisma.word.create({
+      const res = await db.word.create({
         data: {
           translation: word.translation,
           native: word.native,
           notes: word.notes,
-          mode: LearnMode.UNLEARNED,
+          mode: PrismaLearnMode.UNLEARNED,
         },
         include: {
           tags: {
@@ -228,16 +226,19 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
 
-      await tagRepo.setTagsForWord(res.id, word.tagIds);
+      await tagRepo.setTagsForWord(
+        res.id,
+        word.tags.map((t) => t.id)
+      );
       return res.translation;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot add word", error);
     }
   };
 
-  updateMode = async (id: string, mode: LearnMode) => {
+  updateMode = async (id: string, mode: PrismaLearnMode) => {
     try {
-      const word = await prisma.word.findUnique({
+      const word = await db.word.findUnique({
         where: {
           id: id,
         },
@@ -247,7 +248,7 @@ export class WordSupabaseRepository implements WordRepository {
         throw new AppError("Word not found");
       }
 
-      const res = await prisma.word.update({
+      const res = await db.word.update({
         where: {
           translation: word.translation,
         },
@@ -269,38 +270,46 @@ export class WordSupabaseRepository implements WordRepository {
         },
       });
 
-      const tags = res.tags.map((t) => {
-        return {
-          id: t.tag.id,
-          name: t.tag.name,
-          description: t.tag.description,
-        } satisfies Tag;
-      });
-      const withIcons = addIcons(res);
-      return { ...withIcons, tags: tags } satisfies VocabularyWord;
+      return toVocabularyWord(
+        res.tags.map((t) => t.tag),
+        res
+      );
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot update mode for word with id " + id, error);
     }
   };
 
   importWords = async (words: JsonImportWord[]) => {
     try {
-      const transformed = words.map((w) => {
-        return {
-          native: w.native,
-          translation: w.translation,
-          mode: w.mode,
-          notes: w.notes,
-        };
-      });
-      const data = await prisma.word.createMany({
+      const transformed = words.map((w) => w.toWord().toPrisma());
+      const data = await db.word.createMany({
         data: transformed,
         skipDuplicates: true,
       });
 
       return data.count;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot import words", error);
     }
   };
+}
+
+/**
+ *
+ * @param ptags
+ * @param word
+ */
+function toVocabularyWord(ptags: PrismaTag[], word: PrismaWord) {
+  const tags = ptags.map((t) => Tag.fromPrisma(t));
+  const withIcons = addIcons(word);
+  return new VocabularyWord(
+    withIcons.id,
+    withIcons.translation,
+    withIcons.native,
+    withIcons.notes,
+    withIcons.mode,
+    withIcons.iconTranslation,
+    withIcons.iconNative,
+    tags
+  );
 }

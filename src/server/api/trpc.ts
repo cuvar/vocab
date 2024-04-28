@@ -20,7 +20,7 @@ import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
 
 import { getServerAuthSession } from "../auth";
-import { prisma } from "../db";
+import { db } from "../db";
 
 type CreateContextOptions = {
   session: Session | null;
@@ -33,18 +33,20 @@ type CreateContextOptions = {
  * Examples of things you may need it for:
  * - testing, so we dont have to mock Next.js' req/res
  * - trpc's `createSSGHelpers` where we don't have req/res
+ * @param opts
  * @see https://create.t3.gg/en/usage/trpc#-servertrpccontextts
  */
 const createInnerTRPCContext = (opts: CreateContextOptions) => {
   return {
     session: opts.session,
-    prisma,
+    db,
   };
 };
 
 /**
  * This is the actual context you'll use in your router. It will be used to
  * process every request that goes through your tRPC endpoint
+ * @param opts
  * @link https://trpc.io/docs/context
  */
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
@@ -118,7 +120,6 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
  * If you want a query or mutation to ONLY be accessible to logged in users, use
  * this. It verifies the session is valid and guarantees ctx.session.user is not
  * null
- *
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);

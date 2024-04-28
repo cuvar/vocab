@@ -1,16 +1,19 @@
 // import * as allWords from "../../../../allwords.json";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { type TagData } from "../../../types/types";
-import { TagSupabaseRepository } from "../../repository/TagSupabaseRepository";
+import {
+  addTag,
+  deleteTag,
+  getTags,
+  getTagsForWord,
+  updateTag,
+} from "../../../server/service/server/tag.service";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-const repo = new TagSupabaseRepository();
 
 export const tagRouter = createTRPCRouter({
   getAll: protectedProcedure.query(async () => {
     try {
-      const res = await repo.getTags();
-      return res;
+      return await getTags();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -23,18 +26,7 @@ export const tagRouter = createTRPCRouter({
     .input(z.object({ wordId: z.string() }))
     .query(async ({ input }) => {
       try {
-        const allTags = await repo.getTags();
-        const tagsForWord = await repo.getTagsForWord(input.wordId);
-
-        const combinedTags: TagData[] = allTags.map((t) => {
-          const index = tagsForWord.findIndex((e) => e.id === t.id);
-          return {
-            ...t,
-            checked: index >= 0,
-          };
-        });
-
-        return combinedTags;
+        return await getTagsForWord(input.wordId);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -49,12 +41,7 @@ export const tagRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const updatedTag = await repo.updateTag(
-          input.id,
-          input.name,
-          input.description
-        );
-        return updatedTag;
+        return await updateTag(input.id, input.name, input.description);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -67,8 +54,7 @@ export const tagRouter = createTRPCRouter({
     .input(z.object({ name: z.string(), description: z.string() }))
     .mutation(async ({ input }) => {
       try {
-        const addedTag = await repo.addTag(input.name, input.description);
-        return addedTag;
+        return await addTag(input.name, input.description);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -81,8 +67,7 @@ export const tagRouter = createTRPCRouter({
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input }) => {
       try {
-        const deletedTag = await repo.deleteTag(input.id);
-        return deletedTag;
+        return await deleteTag(input.id);
       } catch (error) {
         console.error(error);
         throw new TRPCError({

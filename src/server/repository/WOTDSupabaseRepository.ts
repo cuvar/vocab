@@ -1,14 +1,17 @@
-import type { Word } from "@prisma/client";
-import { type Tag, type VocabularyWord, type WOTD } from "../../types/types";
-import { addIcons } from "../../utils/helper";
-import { prisma } from "../db";
-import { getTodayMorning } from "../service/getDate.service";
+import { type Tag as PrismaTag, type Word as PrismaWord } from "@prisma/client";
+import { addIcons } from "../../lib/helper";
+import { db } from "../db";
+import FEWotd from "../domain/client/feWotd";
+import VocabularyWord from "../domain/client/vocabularyWord";
+import Tag from "../domain/server/tag";
+import type Word from "../domain/server/word";
+import { getTodayMorning } from "../service/server/getDate.service";
 import { type WOTDRepository } from "./WOTDRepository";
 
 export class WOTDSupabaseRepository implements WOTDRepository {
   getToday = async () => {
     try {
-      const data = await prisma.wotd.findFirst({
+      const data = await db.wotd.findFirst({
         where: {
           date: {
             gte: getTodayMorning().toISOString(),
@@ -40,29 +43,18 @@ export class WOTDSupabaseRepository implements WOTDRepository {
 
       if (!data) return null;
 
-      const withIcons = addIcons(data.word);
-      const tags = data.word.tags.map((t) => {
-        return {
-          id: t.tag.id,
-          name: t.tag.name,
-          description: t.tag.description,
-        } satisfies Tag;
-      });
-
-      const word = { ...withIcons, tags: tags } satisfies VocabularyWord;
-      const transformed = {
-        id: data.id,
-        word: word satisfies VocabularyWord,
-        date: data.date,
-      };
-      return transformed satisfies WOTD as WOTD;
+      return toFEWotd(
+        data.word.tags.map((t) => t.tag),
+        data.word,
+        data
+      );
     } catch (error) {
       throw error;
     }
   };
   getLastWords = async (limit: number) => {
     try {
-      const data = await prisma.wotd.findMany({
+      const data = await db.wotd.findMany({
         take: limit,
         include: {
           word: {
@@ -89,23 +81,14 @@ export class WOTDSupabaseRepository implements WOTDRepository {
       });
 
       const transformed = data.map((e) => {
-        const withIcons = addIcons(e.word);
-        const tags = e.word.tags.map((t) => {
-          return {
-            id: t.tag.id,
-            name: t.tag.name,
-            description: t.tag.description,
-          } satisfies Tag;
-        });
-
-        const word = { ...withIcons, tags: tags } satisfies VocabularyWord;
-        return {
-          id: e.id,
-          word: word satisfies VocabularyWord,
-          date: e.date,
-        };
+        return toFEWotd(
+          e.word.tags.map((t) => t.tag),
+          e.word,
+          e
+        );
       });
-      return transformed satisfies WOTD[] as WOTD[];
+
+      return transformed;
     } catch (error) {
       throw error;
     }
@@ -113,7 +96,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
 
   add = async (word: Word, date: Date) => {
     try {
-      const data = await prisma.wotd.create({
+      const data = await db.wotd.create({
         data: {
           word: {
             connect: {
@@ -146,24 +129,43 @@ export class WOTDSupabaseRepository implements WOTDRepository {
         },
       });
 
-      const withIcons = addIcons(data.word);
-      const tags = data.word.tags.map((t) => {
-        return {
-          id: t.tag.id,
-          name: t.tag.name,
-          description: t.tag.description,
-        } satisfies Tag;
-      });
-
-      const addedWord = { ...withIcons, tags: tags } satisfies VocabularyWord;
-      const transformed = {
-        id: data.id,
-        word: addedWord satisfies VocabularyWord,
-        date: data.date,
-      };
-      return transformed satisfies WOTD as WOTD;
+      return toFEWotd(
+        data.word.tags.map((t) => t.tag),
+        word,
+        data
+      );
     } catch (error) {
       throw error;
     }
   };
+}
+
+/**
+ *
+ * @param tags
+ * @param ptags
+ * @param word
+ * @param data
+ * @param data.id
+ * @param data.date
+ */
+function toFEWotd(
+  ptags: PrismaTag[],
+  word: PrismaWord,
+  data: { id: string; date: Date }
+) {
+  const tags = ptags.map((t) => Tag.fromPrisma(t));
+  const withIcons = addIcons(word);
+  const nword = new VocabularyWord(
+    withIcons.id,
+    withIcons.translation,
+    withIcons.native,
+    withIcons.notes,
+    withIcons.mode,
+    withIcons.iconTranslation,
+    withIcons.iconNative,
+    tags
+  );
+
+  return new FEWotd(data.id, nword, data.date);
 }

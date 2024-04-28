@@ -1,28 +1,22 @@
-import { type Tag } from "../../types/types";
-import AppError from "../../utils/error";
-import { prisma } from "../db";
+import AppError from "../../lib/error/error";
+import { db } from "../db";
+import Tag from "../domain/server/tag";
 import { type TagRepository } from "./TagRepository";
 
 export class TagSupabaseRepository implements TagRepository {
   getTags = async () => {
     try {
-      const data = await prisma.tag.findMany();
-      const tags = data.map((e) => {
-        return {
-          id: e.id,
-          name: e.name,
-          description: e.description,
-        } satisfies Tag;
-      });
+      const data = await db.tag.findMany();
+      const tags = data.map((e) => Tag.fromPrisma(e));
       return tags;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot get tags", error);
     }
   };
 
   getTag = async (tagName: string) => {
     try {
-      const data = await prisma.tag.findUnique({
+      const data = await db.tag.findUnique({
         where: {
           name: tagName,
         },
@@ -32,32 +26,22 @@ export class TagSupabaseRepository implements TagRepository {
         throw new AppError("Cannot find tag " + tagName);
       }
 
-      return {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-      } satisfies Tag;
+      return Tag.fromPrisma(data);
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot get tag with name '" + tagName + "'", error);
     }
   };
 
   getTagsForWord = async (wordId: string) => {
     try {
-      const data = await prisma.word.findUnique({
+      const data = await db.word.findUnique({
         where: {
           id: wordId,
         },
         select: {
           tags: {
             include: {
-              tag: {
-                select: {
-                  id: true,
-                  name: true,
-                  description: true,
-                },
-              },
+              tag: {},
             },
           },
         },
@@ -67,17 +51,11 @@ export class TagSupabaseRepository implements TagRepository {
         throw new AppError("Cannot find word with id " + wordId);
       }
 
-      const tags = data.tags.map((t) => {
-        return {
-          id: t.tag.id,
-          name: t.tag.name,
-          description: t.tag.description,
-        } satisfies Tag;
-      });
+      const tags = data.tags.map((e) => Tag.fromPrisma(e.tag));
 
       return tags;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot get tags for word with id " + wordId, error);
     }
   };
 
@@ -90,13 +68,13 @@ export class TagSupabaseRepository implements TagRepository {
     });
 
     try {
-      await prisma.wordTags.deleteMany({
+      await db.wordTags.deleteMany({
         where: {
           wordId: wordId,
         },
       });
 
-      const createRes = await prisma.wordTags.createMany({
+      const createRes = await db.wordTags.createMany({
         data: createData,
       });
 
@@ -106,13 +84,13 @@ export class TagSupabaseRepository implements TagRepository {
 
       return createRes.count;
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot set tags for word with id " + wordId, error);
     }
   };
 
   updateTag = async (tagId: string, name: string, description: string) => {
     try {
-      const data = await prisma.tag.update({
+      const data = await db.tag.update({
         where: {
           id: tagId,
         },
@@ -122,50 +100,38 @@ export class TagSupabaseRepository implements TagRepository {
         },
       });
 
-      return {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-      } satisfies Tag;
+      return Tag.fromPrisma(data);
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot update tag with id " + tagId, error);
     }
   };
 
   addTag = async (name: string, description: string) => {
     try {
-      const data = await prisma.tag.create({
+      const data = await db.tag.create({
         data: {
           name: name,
           description: description,
         },
       });
 
-      return {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-      } satisfies Tag;
+      return Tag.fromPrisma(data);
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot add tag with name " + name, error);
     }
   };
 
   deleteTag = async (tagId: string) => {
     try {
-      const data = await prisma.tag.delete({
+      const data = await db.tag.delete({
         where: {
           id: tagId,
         },
       });
 
-      return {
-        id: data.id,
-        name: data.name,
-        description: data.description,
-      } satisfies Tag;
+      return Tag.fromPrisma(data);
     } catch (error) {
-      throw error;
+      throw new AppError("Cannot delete tag with id " + tagId, error);
     }
   };
 }

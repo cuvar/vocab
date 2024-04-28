@@ -1,8 +1,8 @@
 import { LearnMode } from "@prisma/client";
-import type { VocabularyWord, WOTD } from "../../types/types";
-import AppError from "../../utils/error";
-import { WOTDSupabaseRepository } from "../repository/WOTDSupabaseRepository";
-import { WordSupabaseRepository } from "../repository/WordSupabaseRepository";
+import AppError from "../../../lib/error/error";
+import type VocabularyWord from "../../domain/client/vocabularyWord";
+import { WOTDSupabaseRepository } from "../../repository/WOTDSupabaseRepository";
+import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { getTodayMorning } from "./getDate.service";
 
 const wotdRepo = new WOTDSupabaseRepository();
@@ -23,7 +23,6 @@ export async function getWOTD() {
     const newWord = await getNewWOTD();
     return newWord;
   } catch (error) {
-    console.log(error);
     throw new AppError("Cannot get word of the day", error);
   }
 }
@@ -59,9 +58,9 @@ async function getNewWOTD() {
     }
 
     if (!choice) throw new AppError("No word of the day could be found.");
-    const addedWord = await wotdRepo.add(choice, getTodayMorning());
+    const addedWord = await wotdRepo.add(choice.toWord(), getTodayMorning());
     return addedWord;
   } catch (error) {
-    throw new AppError("Cannot create new word of the day");
+    throw new AppError("Cannot create new word of the day", error);
   }
 }

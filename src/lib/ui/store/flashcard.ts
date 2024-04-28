@@ -1,7 +1,5 @@
-import {
-  type VocabularyFlashCard,
-  type VocabularyWord,
-} from "../../types/types";
+import VocabularyFlashCard from "../../../server/domain/client/vocabularyFlashCard";
+import type VocabularyWord from "../../../server/domain/client/vocabularyWord";
 import { KEY_LEARNED_CARDS } from "./keys";
 
 /**
@@ -17,11 +15,21 @@ export function getCards(
   const ids = getCardsIds(learned);
   const newWords: VocabularyFlashCard[] = words
     .filter((word) => ids.includes(word.id))
-    .map((word) => ({
-      ...word,
-      cardMode: "good",
-      switched: false,
-    }));
+    .map(
+      (word) =>
+        new VocabularyFlashCard(
+          word.id,
+          word.translation,
+          word.native,
+          word.notes,
+          word.mode,
+          word.iconTranslation,
+          word.iconNative,
+          word.tags,
+          "good",
+          false
+        )
+    );
 
   return newWords;
 }

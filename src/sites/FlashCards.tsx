@@ -1,19 +1,20 @@
 import { LearnMode } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
-import Card from "../comp/Card";
-import ProgressBar from "../comp/ProgressBar";
-import { type VocabularyFlashCard, type VocabularyWord } from "../types/types";
-import { api } from "../utils/api";
-import { useToast } from "../utils/hooks";
+import { api } from "../lib/api";
+import { useToast } from "../lib/ui/hooks";
 import {
   archiveIcon,
   arrowRoundIcon,
   thumbsDownIcon,
   thumbsUpIcon,
-} from "../utils/icons";
-import { addCard, clearCards, getCardsIds } from "../utils/store/flashcard";
-import { getLearnedWords } from "../utils/store/learned";
-import { getSettings } from "../utils/store/settings";
+} from "../lib/ui/icons";
+import { addCard, clearCards, getCardsIds } from "../lib/ui/store/flashcard";
+import { getLearnedWords } from "../lib/ui/store/learned";
+import { getSettings } from "../lib/ui/store/settings";
+import VocabularyFlashCard from "../server/domain/client/vocabularyFlashCard";
+import type VocabularyWord from "../server/domain/client/vocabularyWord";
+import Card from "../comp/Card";
+import ProgressBar from "../comp/ProgressBar";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -56,11 +57,18 @@ export default function FlashCards() {
 
   function toFlashCards(data: VocabularyWord[]) {
     const transformed: VocabularyFlashCard[] = data.map((e: VocabularyWord) => {
-      return {
-        ...e,
-        cardMode: "none",
-        switched: randomizeCards ? Math.random() > 0.5 : false,
-      };
+      return new VocabularyFlashCard(
+        e.id,
+        e.translation,
+        e.native,
+        e.notes,
+        e.mode,
+        e.iconTranslation,
+        e.iconNative,
+        e.tags,
+        "none",
+        randomizeCards ? Math.random() > 0.5 : false
+      );
     });
     return transformed;
   }

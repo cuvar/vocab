@@ -1,14 +1,22 @@
-import { LearnMode } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import AppError from "../../../utils/error";
-import { isJsonImportWordArray } from "../../../utils/guards/words";
-import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
-import { searchWord } from "../../service/search.service";
-import { getWOTD } from "../../service/wotd.service";
+import { NodeLogger } from "../../../lib/logging/nodeLogger";
+import {
+  addWord,
+  deleteWord,
+  getAllWords,
+  getArchived,
+  getCountUnlearnedWords,
+  getLearned,
+  getRandomUnlearnedWord,
+  getWord,
+  importWords,
+  searchInWords,
+  updateMode,
+  updateWord,
+} from "../../service/server/word.service";
+import { getWOTD } from "../../service/server/wotd.service";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-
-const repo = new WordSupabaseRepository();
 
 export const wordRouter = createTRPCRouter({
   // initDB: publicProcedure.mutation(async ({ ctx }) => {
@@ -65,8 +73,7 @@ export const wordRouter = createTRPCRouter({
   // }),
   getAll: protectedProcedure.query(async () => {
     try {
-      const res = await repo.getWords();
-      return res;
+      return await getAllWords();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -79,8 +86,7 @@ export const wordRouter = createTRPCRouter({
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {
       try {
-        const res = await repo.getWord(input.word);
-        return res;
+        return await getWord(input.word);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -91,10 +97,7 @@ export const wordRouter = createTRPCRouter({
     }),
   getLearned: protectedProcedure.query(async () => {
     try {
-      const learned = await repo.getWordsByFilter({
-        mode: LearnMode.LEARNED,
-      });
-      return learned;
+      return await getLearned();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -105,10 +108,7 @@ export const wordRouter = createTRPCRouter({
   }),
   getArchived: protectedProcedure.query(async () => {
     try {
-      const learned = await repo.getWordsByFilter({
-        mode: LearnMode.ARCHIVED,
-      });
-      return learned;
+      return await getArchived();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -121,8 +121,7 @@ export const wordRouter = createTRPCRouter({
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {
       try {
-        const res = await repo.getWords();
-        return searchWord(res, input.word);
+        return await searchInWords(input.word);
       } catch (error) {
         console.error(error);
         throw new TRPCError({
@@ -133,8 +132,7 @@ export const wordRouter = createTRPCRouter({
     }),
   getAmountOfUnlearnedWords: protectedProcedure.query(async () => {
     try {
-      const res = await repo.getCountByFilter({ mode: LearnMode.UNLEARNED });
-      return res;
+      return await getCountUnlearnedWords();
     } catch (error) {
       console.error(error);
       throw new TRPCError({
@@ -145,14 +143,9 @@ export const wordRouter = createTRPCRouter({
   }),
   getRandomUnlearnedWord: protectedProcedure.query(async () => {
     try {
-      const unlearned = await repo.getWordsByFilter({
-        mode: LearnMode.UNLEARNED,
-      });
-      const randomWord =
-        unlearned[Math.floor(Math.random() * unlearned.length)];
-      return randomWord;
+      return await getRandomUnlearnedWord();
     } catch (error) {
-      console.error(error);
+      NodeLogger.getInstance().error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -164,7 +157,7 @@ export const wordRouter = createTRPCRouter({
       const wotd = await getWOTD();
       return wotd;
     } catch (error) {
-      console.error(error);
+      NodeLogger.getInstance().error(error);
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
         message: "Internal Server Error",
@@ -180,10 +173,9 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const res = await repo.updateMode(input.id, input.mode);
-        return res;
+        return await updateMode(input.id, input.mode);
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -200,16 +192,15 @@ export const wordRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input }) => {
-      const newWord = {
-        ...input,
-        mode: LearnMode.UNLEARNED,
-      };
-
       try {
-        const res = await repo.addWord(newWord);
-        return res;
+        return addWord(
+          input.translation,
+          input.native,
+          input.notes,
+          input.tagIds
+        );
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -225,10 +216,9 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const res = await repo.deleteWord(input.id);
-        return res;
+        return await deleteWord(input.id);
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -248,10 +238,16 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const res = await repo.updateWord(input.id, input);
-        return res;
+        return await updateWord(
+          input.id,
+          input.translation,
+          input.native,
+          input.notes,
+          input.mode,
+          input.tagIds
+        );
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",
@@ -266,15 +262,9 @@ export const wordRouter = createTRPCRouter({
     )
     .mutation(async ({ input }) => {
       try {
-        const parsed = JSON.parse(input.text) as string;
-        if (!isJsonImportWordArray(parsed)) {
-          throw new AppError("Input is in wrong format");
-        }
-
-        const res = await repo.importWords(parsed);
-        return res;
+        return await importWords(input.text);
       } catch (error) {
-        console.error(error);
+        NodeLogger.getInstance().error(error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Internal Server Error",

@@ -1,9 +1,9 @@
 import { type NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { hatIcon, listIcon, sparklesIcon } from "../lib/ui/icons";
 import SiteWrapper from "../comp/SiteWrapper";
 import LogoutScreen from "../sites/LogoutScreen";
-import { hatIcon, listIcon, sparklesIcon } from "../utils/icons";
 
 const Home: NextPage = () => {
   const { data } = useSession();

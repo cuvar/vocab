@@ -1,13 +1,13 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { api } from "../lib/api";
+import { useToast } from "../lib/ui/hooks";
+import TagData from "../server/domain/client/tagData";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
   wordToEditAtom,
 } from "../server/store";
-import { type TagData } from "../types/types";
-import { api } from "../utils/api";
-import { useToast } from "../utils/hooks";
 import RelatedWordList from "./RelatedWordList";
 import TagSelect from "./TagSelect";
 
@@ -25,12 +25,9 @@ export default function Editor() {
 
   api.tag.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      const _tagData = data.map((d) => {
-        return {
-          ...d,
-          checked: false,
-        } satisfies TagData;
-      });
+      const _tagData = data.map(
+        (d) => new TagData(d.id, d.name, d.description, false)
+      );
       setTagData(_tagData);
     },
   });

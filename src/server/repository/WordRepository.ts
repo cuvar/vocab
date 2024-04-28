@@ -1,18 +1,16 @@
-import { type LearnMode } from "@prisma/client";
-import {
-  type JsonImportWord,
-  type SimpleWordInput,
-  type VocabularyWord,
-} from "../../types/types";
+import { type LearnMode as PrismaLearnMode } from "@prisma/client";
+import type JsonImportWord from "../domain/client/jsonImportWord";
+import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";
+import type VocabularyWord from "../domain/client/vocabularyWord";
 
 export interface WordRepository {
   getWords: () => Promise<VocabularyWord[]>;
   getWord: (word: string) => Promise<VocabularyWord>;
   getWordsByFilter: (filter: object) => Promise<VocabularyWord[]>;
   getCountByFilter: (filter: object) => Promise<number>;
-  updateWord: (id: string, newWord: SimpleWordInput) => Promise<string>;
+  updateWord: (id: string, newWord: StrippedVocabularyWord) => Promise<string>;
   deleteWord: (id: string) => Promise<VocabularyWord>;
-  addWord: (word: SimpleWordInput) => Promise<string>;
-  updateMode: (id: string, mode: LearnMode) => Promise<VocabularyWord>;
+  addWord: (word: StrippedVocabularyWord) => Promise<string>;
+  updateMode: (id: string, mode: PrismaLearnMode) => Promise<VocabularyWord>;
   importWords: (words: JsonImportWord[]) => Promise<number>;
 }

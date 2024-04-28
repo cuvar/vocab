@@ -1,6 +1,6 @@
 import Fuse from "fuse.js";
-import type { ListElement, VocabularyWord } from "../../types/types";
-import { isListElementArray } from "../../utils/guards/words";
+import ListElement from "../../domain/client/listElement";
+import type VocabularyWord from "../../domain/client/vocabularyWord";
 
 /**
  *
@@ -11,7 +11,7 @@ export function searchWord(
   words: ListElement[] | VocabularyWord[],
   searched: string
 ) {
-  if (isListElementArray(words)) {
+  if (ListElement.validateArray(words)) {
     return searchListLement(words, searched);
   } else {
     return searchVocabularyWord(words, searched);
@@ -24,7 +24,6 @@ export function searchWord(
  * @param searched
  */
 function searchListLement(words: ListElement[], searched: string) {
-  console.log(words[0]);
   const wordsToSearchThrough = words.map((word) => word.word);
   const searchResults = search(wordsToSearchThrough, searched, 5);
 
