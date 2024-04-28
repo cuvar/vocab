@@ -4,7 +4,7 @@ import { LearnMode } from "../server/learnMode";
 import Tag from "../server/tag";
 import Word from "../server/word";
 
-export type VocabularyWordData = {
+export type VocabularyWord = {
   id: string;
   translation: string;
   native: string;
@@ -19,7 +19,7 @@ export type VocabularyWordData = {
  *
  * @param data
  */
-export function isVocabularyWord(data: unknown): data is VocabularyWordData {
+export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isObject(data)) {
     return false;
   }
@@ -54,9 +54,7 @@ export function isVocabularyWord(data: unknown): data is VocabularyWordData {
  *
  * @param data
  */
-export function isVocabularyWordArray(
-  data: unknown
-): data is VocabularyWordData[] {
+export function isVocabularyWordArray(data: unknown): data is VocabularyWord[] {
   return Array.isArray(data) && data.every((d) => isVocabularyWord(d));
 }
 
@@ -64,7 +62,7 @@ export function isVocabularyWordArray(
  *
  * @param data
  */
-export function vocabularyWordToWord(data: VocabularyWordData) {
+export function vocabularyWordToWord(data: VocabularyWord) {
   return new Word(
     data.id,
     data.translation,

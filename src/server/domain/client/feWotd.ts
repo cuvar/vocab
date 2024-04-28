@@ -1,9 +1,9 @@
 import { isDate, isObject, isString } from "../../../lib/guards/base";
-import { isVocabularyWord, type VocabularyWordData } from "./vocabularyWord";
+import { isVocabularyWord, type VocabularyWord } from "./vocabularyWord";
 
 export type FEWotd = {
   id: string;
-  word: VocabularyWordData;
+  word: VocabularyWord;
   date: Date;
 };
 

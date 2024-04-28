@@ -1,7 +1,7 @@
 import type { Word } from "@prisma/client";
 import { type ListElement } from "~/server/domain/client/listElement";
 import { env } from "../env/client.mjs";
-import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
+import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 /**
  * Adds emoji icons to word object
  * @param {Word} word Word object
@@ -19,7 +19,7 @@ export function addIcons(word: Word) {
  * @param {VocabularyWord} word The word to transform
  * @returns {ListElement} The word to transform
  */
-export function toListElement(word: VocabularyWordData): ListElement {
+export function toListElement(word: VocabularyWord): ListElement {
   return {
     id: word.id,
     translation: word.translation,

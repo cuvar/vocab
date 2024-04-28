@@ -2,7 +2,7 @@ import { type Tag as PrismaTag, type Word as PrismaWord } from "@prisma/client";
 import { addIcons } from "../../lib/helper";
 import { db } from "../db";
 import { type FEWotd } from "../domain/client/feWotd";
-import { type VocabularyWordData } from "../domain/client/vocabularyWord";
+import { type VocabularyWord } from "../domain/client/vocabularyWord";
 import Tag from "../domain/server/tag";
 import type Word from "../domain/server/word";
 import { getTodayMorning } from "../service/server/getDate.service";
@@ -165,7 +165,7 @@ function toFEWotd(
     iconTranslation: withIcons.iconTranslation,
     iconNative: withIcons.iconNative,
     tags,
-  } satisfies VocabularyWordData;
+  } satisfies VocabularyWord;
 
   return { id: data.id, word: nword, date: data.date } satisfies FEWotd;
 }

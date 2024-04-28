@@ -4,7 +4,7 @@ import { useState, type ChangeEvent } from "react";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
 import { type TagData } from "../server/domain/client/tagData";
-import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
+import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 import { LearnMode } from "../server/domain/server/learnMode";
 import {
   refetchWordsAtom,
@@ -14,7 +14,7 @@ import {
 import TagSelect from "./TagSelect";
 
 type Props = {
-  word: VocabularyWordData;
+  word: VocabularyWord;
 };
 
 export default function Editor(props: Props) {

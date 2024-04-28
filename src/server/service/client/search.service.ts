@@ -3,7 +3,7 @@ import {
   isListElementArray,
   type ListElement,
 } from "../../domain/client/listElement";
-import { type VocabularyWordData } from "../../domain/client/vocabularyWord";
+import { type VocabularyWord } from "../../domain/client/vocabularyWord";
 
 /**
  *
@@ -11,7 +11,7 @@ import { type VocabularyWordData } from "../../domain/client/vocabularyWord";
  * @param searched
  */
 export function searchWord(
-  words: ListElement[] | VocabularyWordData[],
+  words: ListElement[] | VocabularyWord[],
   searched: string
 ) {
   if (isListElementArray(words)) {
@@ -45,11 +45,11 @@ function searchListLement(words: ListElement[], searched: string) {
  * @param words
  * @param searched
  */
-function searchVocabularyWord(words: VocabularyWordData[], searched: string) {
+function searchVocabularyWord(words: VocabularyWord[], searched: string) {
   const wordsToSearchThrough = words.map((word) => word.translation);
   const searchResults = search(wordsToSearchThrough, searched, 3);
 
-  const resultWords: VocabularyWordData[] = [];
+  const resultWords: VocabularyWord[] = [];
   searchResults.forEach((r) => {
     const res = words.find((el) => el.translation == r);
     if (res == undefined) return;

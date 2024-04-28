@@ -11,7 +11,7 @@ import {
   type JsonImportWord,
 } from "../domain/client/jsonImportWord";
 import { type StrippedVocabularyWord } from "../domain/client/strippedVocabularyWord";
-import { type VocabularyWordData } from "../domain/client/vocabularyWord";
+import { type VocabularyWord } from "../domain/client/vocabularyWord";
 import Tag from "../domain/server/tag";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
@@ -113,7 +113,7 @@ export class WordSupabaseRepository implements WordRepository {
           e
         );
       });
-      return transformed satisfies VocabularyWordData[];
+      return transformed satisfies VocabularyWord[];
     } catch (error) {
       throw new AppError("Cannot get words by filter", error);
     }
@@ -314,5 +314,5 @@ function toVocabularyWord(ptags: PrismaTag[], word: PrismaWord) {
     iconTranslation: withIcons.iconTranslation,
     iconNative: withIcons.iconNative,
     tags: tags,
-  } satisfies VocabularyWordData;
+  } satisfies VocabularyWord;
 }

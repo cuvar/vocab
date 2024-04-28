@@ -2,10 +2,10 @@ import { LearnMode } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
-import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
+import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 
 export default function Generator() {
-  const [wordToDisplay, setWordToDisplay] = useState<VocabularyWordData | null>(
+  const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
   );
   const showToast = useToast();
@@ -33,7 +33,7 @@ export default function Generator() {
       iconTranslation: randomWord.data.iconTranslation,
       iconNative: randomWord.data.iconNative,
       tags: randomWord.data.tags,
-    } as VocabularyWordData);
+    } as VocabularyWord);
   }, [randomWord.data]);
 
   function handleClick() {

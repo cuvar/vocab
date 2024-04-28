@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 import { type ToastType } from "../types/types";
-import { type VocabularyWordData } from "./domain/client/vocabularyWord";
+import { type VocabularyWord } from "./domain/client/vocabularyWord";
 
 // Toast
 export const toastTextAtom = atom("");
@@ -9,7 +9,7 @@ export const toastTypeAtom = atom<ToastType>("success");
 // Editor Modal
 export const editorModalIdAtom = atom("editorModalId");
 export const showEditorModalAtom = atom(false);
-export const wordToEditAtom = atom<VocabularyWordData | null>(null);
+export const wordToEditAtom = atom<VocabularyWord | null>(null);
 
 // Message Modal
 export const messageModalIdAtom = atom("messageModalId");

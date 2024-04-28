@@ -14,7 +14,7 @@ import { getAllWords, setAllWords } from "../lib/ui/store/allwords";
 import { getArchivedWords, setArchivedWords } from "../lib/ui/store/archived";
 import { getLearnedWords, setLearnedWords } from "../lib/ui/store/learned";
 import { type ListElement } from "../server/domain/client/listElement";
-import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
+import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
@@ -57,7 +57,7 @@ export default function AllWords() {
 
   const getAllQuery = api.word.getAll.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWordData) =>
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);
@@ -68,7 +68,7 @@ export default function AllWords() {
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWordData) =>
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);
@@ -80,7 +80,7 @@ export default function AllWords() {
 
   const getArchivedQuery = api.word.getArchived.useQuery(undefined, {
     onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWordData) =>
+      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
         toListElement(e)
       );
       setWordsToDisplay(transformed);
@@ -90,7 +90,7 @@ export default function AllWords() {
     enabled: false,
   });
 
-  function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWordData) {
+  function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     updateModeMutation.mutate({
       id: arg.id,
       mode:
@@ -100,14 +100,14 @@ export default function AllWords() {
     });
   }
 
-  function archiveWord(ev: InteractionEvent, arg: VocabularyWordData) {
+  function archiveWord(ev: InteractionEvent, arg: VocabularyWord) {
     updateModeMutation.mutate({
       id: arg.id,
       mode: LearnMode.ARCHIVED,
     });
   }
 
-  function editWord(ev: InteractionEvent, arg: VocabularyWordData) {
+  function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
     setShowEditorModal(true);
   }

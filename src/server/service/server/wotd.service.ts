@@ -2,7 +2,7 @@ import { LearnMode } from "@prisma/client";
 import AppError from "../../../lib/error/error";
 import {
   vocabularyWordToWord,
-  type VocabularyWordData,
+  type VocabularyWord,
 } from "../../domain/client/vocabularyWord";
 import { WOTDSupabaseRepository } from "../../repository/WOTDSupabaseRepository";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
@@ -48,7 +48,7 @@ async function getNewWOTD() {
 
     if (learnedWords.length == 0) throw new AppError("No words left");
 
-    let choice: VocabularyWordData | null = null;
+    let choice: VocabularyWord | null = null;
     let i = 0;
     while (choice == null && i < 150) {
       i++;

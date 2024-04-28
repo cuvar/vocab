@@ -14,7 +14,7 @@ import { addCard, clearCards, getCardsIds } from "../lib/ui/store/flashcard";
 import { getLearnedWords } from "../lib/ui/store/learned";
 import { getSettings } from "../lib/ui/store/settings";
 import { type VocabularyFlashCard } from "../server/domain/client/vocabularyFlashCard";
-import { type VocabularyWordData } from "../server/domain/client/vocabularyWord";
+import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 import Error from "./Error";
 import Loading from "./Loading";
 
@@ -55,23 +55,21 @@ export default function FlashCards() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function toFlashCards(data: VocabularyWordData[]) {
-    const transformed: VocabularyFlashCard[] = data.map(
-      (e: VocabularyWordData) => {
-        return {
-          id: e.id,
-          translation: e.translation,
-          native: e.native,
-          notes: e.notes,
-          mode: e.mode,
-          iconTranslation: e.iconTranslation,
-          iconNative: e.iconNative,
-          tags: e.tags,
-          cardMode: "none",
-          switched: randomizeCards ? Math.random() > 0.5 : false,
-        } satisfies VocabularyFlashCard;
-      }
-    );
+  function toFlashCards(data: VocabularyWord[]) {
+    const transformed: VocabularyFlashCard[] = data.map((e: VocabularyWord) => {
+      return {
+        id: e.id,
+        translation: e.translation,
+        native: e.native,
+        notes: e.notes,
+        mode: e.mode,
+        iconTranslation: e.iconTranslation,
+        iconNative: e.iconNative,
+        tags: e.tags,
+        cardMode: "none",
+        switched: randomizeCards ? Math.random() > 0.5 : false,
+      } satisfies VocabularyFlashCard;
+    });
     return transformed;
   }
 
