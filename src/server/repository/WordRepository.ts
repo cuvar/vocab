@@ -1,5 +1,5 @@
 import { type LearnMode as PrismaLearnMode } from "@prisma/client";
-import { type JsonImportWordData } from "../domain/client/jsonImportWord";
+import { type JsonImportWord } from "../domain/client/jsonImportWord";
 import { type StrippedVocabularyWord } from "../domain/client/strippedVocabularyWord";
 import { type VocabularyWordData } from "../domain/client/vocabularyWord";
 
@@ -15,5 +15,5 @@ export interface WordRepository {
     id: string,
     mode: PrismaLearnMode
   ) => Promise<VocabularyWordData>;
-  importWords: (words: JsonImportWordData[]) => Promise<number>;
+  importWords: (words: JsonImportWord[]) => Promise<number>;
 }

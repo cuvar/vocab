@@ -1,7 +1,7 @@
 import { LearnMode as PrismaLearnMode } from "@prisma/client";
 import { type StrippedVocabularyWord } from "~/server/domain/client/strippedVocabularyWord";
 import AppError from "../../../lib/error/error";
-import JsonImportWord from "../../domain/client/jsonImportWord";
+import { isJsonImportWordArray } from "../../domain/client/jsonImportWord";
 import { WordSupabaseRepository } from "../../repository/WordSupabaseRepository";
 import { searchWord } from "../client/search.service";
 
@@ -13,7 +13,7 @@ const repo = new WordSupabaseRepository();
  */
 export async function importWords(text: string) {
   const parsed = JSON.parse(text) as string;
-  if (!JsonImportWord.validateArray(parsed)) {
+  if (!isJsonImportWordArray(parsed)) {
     throw new AppError("Input is in wrong format");
   }
 

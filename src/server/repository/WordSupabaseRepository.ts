@@ -6,8 +6,9 @@ import {
 import AppError from "../../lib/error/error";
 import { addIcons } from "../../lib/helper";
 import { db } from "../db";
-import JsonImportWord, {
-  type JsonImportWordData,
+import {
+  jsonImportWordToWord,
+  type JsonImportWord,
 } from "../domain/client/jsonImportWord";
 import { type StrippedVocabularyWord } from "../domain/client/strippedVocabularyWord";
 import { type VocabularyWordData } from "../domain/client/vocabularyWord";
@@ -281,9 +282,9 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  importWords = async (words: JsonImportWordData[]) => {
+  importWords = async (words: JsonImportWord[]) => {
     try {
-      const transformed = words.map((w) => JsonImportWord.toWord(w).toPrisma());
+      const transformed = words.map((w) => jsonImportWordToWord(w).toPrisma());
       const data = await db.word.createMany({
         data: transformed,
         skipDuplicates: true,
