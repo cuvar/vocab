@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { api } from "../lib/api";
-import { DEFAULT_SETTINGS } from "../lib/const";
+import { sendServiceWorkerWordOfTheDay } from "../lib/pwa/serviceWorker.service";
 import { useToast } from "../lib/ui/hooks";
 import { getSettings } from "../lib/ui/store/settings";
 import type VocabularyWord from "../server/domain/client/vocabularyWord";
-import { sendServiceWorkerWordOfTheDay } from "../lib/pwa/serviceWorker.service";
 
 export default function WordOfTheDay() {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
@@ -13,8 +12,7 @@ export default function WordOfTheDay() {
 
   const showToast = useToast();
 
-  const REMINDER_TIME =
-    getSettings()?.reminderTime ?? DEFAULT_SETTINGS.reminderTime;
+  const REMINDER_TIME = getSettings().reminderTime;
 
   const wotdQuery = api.word.getWordOfTheDay.useQuery(undefined, {
     refetchOnWindowFocus: false,

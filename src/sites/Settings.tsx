@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
-import { DEFAULT_SETTINGS } from "../lib/const";
+import { sendServiceWorkerReminderTime } from "../lib/pwa/serviceWorker.service";
 import { useToast } from "../lib/ui/hooks";
 import { getSettings, setSettings } from "../lib/ui/store/settings";
 import type Settings from "../server/domain/client/settings";
-import { sendServiceWorkerReminderTime } from "../lib/pwa/serviceWorker.service";
 
 export default function SettingsComp() {
-  const [settingsData, setSettingsData] = useState<Settings>(
-    getSettings() ?? DEFAULT_SETTINGS
-  );
+  const [settingsData, setSettingsData] = useState<Settings>(getSettings());
 
   const showToast = useToast();
 
   useEffect(() => {
-    if (!getSettings()) {
-      setSettings(DEFAULT_SETTINGS);
-    }
+    setSettings(getSettings());
   }, []);
 
   function handleChangeReminderTime(e: React.ChangeEvent<HTMLInputElement>) {
