@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { type TagData } from "../types/types";
+import type TagData from "~/server/domain/client/tagData";
 
 type Props = {
   tags: TagData[];

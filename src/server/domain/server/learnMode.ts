@@ -16,7 +16,7 @@ export default class LearnMode {
     return this.value;
   }
 
-  static validate(data: unknown): data is LearnMode {
+  static validate(data: unknown): data is PrismaLearnMode {
     if (!isString(data)) {
       return false;
     }

@@ -1,9 +1,9 @@
-import { LearnMode } from "@prisma/client";
+import { LearnMode as PrismaLearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useState, type ChangeEvent } from "react";
 import { api } from "~/lib/api";
-import { isLearnMode } from "~/lib/guards/words";
 import { useToast } from "~/lib/ui/hooks";
+import LearnMode from "~/server/domain/server/learnMode";
 import type TagData from "../server/domain/client/tagData";
 import type VocabularyWord from "../server/domain/client/vocabularyWord";
 import {
@@ -23,7 +23,7 @@ export default function Editor(props: Props) {
   );
   const [nativeInput, setNativeInput] = useState(props.word.native);
   const [notesInput, setNotesInput] = useState(props.word.notes);
-  const [modeInput, setModeInput] = useState(props.word.mode);
+  const [modeInput, setModeInput] = useState(props.word.mode.value);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [tagData, setTagData] = useState<TagData[]>([]);
@@ -78,7 +78,7 @@ export default function Editor(props: Props) {
     setTagData(_tagData);
   }
 
-  function transformMode(mode: LearnMode) {
+  function transformMode(mode: PrismaLearnMode) {
     const firstLetter = mode.slice(0, 1);
     const lastLetters = mode.slice(1);
     return firstLetter + lastLetters.toLocaleLowerCase();
@@ -86,7 +86,7 @@ export default function Editor(props: Props) {
 
   function handleSelectChange(e: ChangeEvent<HTMLSelectElement>) {
     const value = e.target.value;
-    if (!isLearnMode(value)) {
+    if (!LearnMode.validate(value)) {
       return;
     }
     setModeInput(value);
@@ -156,22 +156,22 @@ export default function Editor(props: Props) {
             onChange={handleSelectChange}
           >
             <option
-              value={LearnMode.LEARNED}
-              selected={modeInput === LearnMode.LEARNED}
+              value={PrismaLearnMode.LEARNED}
+              selected={modeInput === PrismaLearnMode.LEARNED}
             >
-              {transformMode(LearnMode.LEARNED)}
+              {transformMode(PrismaLearnMode.LEARNED)}
             </option>
             <option
-              value={LearnMode.UNLEARNED}
-              selected={modeInput === LearnMode.UNLEARNED}
+              value={PrismaLearnMode.UNLEARNED}
+              selected={modeInput === PrismaLearnMode.UNLEARNED}
             >
-              {transformMode(LearnMode.UNLEARNED)}
+              {transformMode(PrismaLearnMode.UNLEARNED)}
             </option>
             <option
-              value={LearnMode.ARCHIVED}
-              selected={modeInput === LearnMode.ARCHIVED}
+              value={PrismaLearnMode.ARCHIVED}
+              selected={modeInput === PrismaLearnMode.ARCHIVED}
             >
-              {transformMode(LearnMode.ARCHIVED)}
+              {transformMode(PrismaLearnMode.ARCHIVED)}
             </option>
           </select>
         </div>
