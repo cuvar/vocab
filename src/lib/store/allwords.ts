@@ -1,5 +1,5 @@
+import type ListElement from "~/server/domain/client/listElement";
 import { parseListElements } from "../../server/service/client/parseCache.service";
-import type { ListElement } from "../../types/types";
 import { KEY_ALL_WORDS } from "./keys";
 
 /**
