@@ -109,8 +109,9 @@ export default function SettingsComp() {
     <div className="my-20 mx-5 flex min-h-screen w-full flex-col items-center justify-start space-y-20">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">Settings</h1>
       <div className="w-full flex-col items-start justify-start space-y-8">
-        <div className="flex w-full flex-col space-y-4">
+        {/* <div className="flex w-full flex-col space-y-4">
           <h2 className="text-xl font-bold">Notifications</h2>
+          <hr />
           <div className="form-control">
             <label className="label w-72 cursor-pointer space-x-2">
               <span className="label-text">Send WOTD Notifications</span>
@@ -140,9 +141,10 @@ export default function SettingsComp() {
               name="reminder"
             />
           </label>
-        </div>
-        <div className="flex w-full flex-col">
+        </div> */}
+        <div className="flex w-full flex-col space-y-4">
           <h2 className="text-xl font-bold">Flash cards</h2>
+          <hr />
           <div className="form-control">
             <label className="label w-72 cursor-pointer space-x-2">
               <span className="label-text">Randomize flash card words</span>
@@ -155,9 +157,11 @@ export default function SettingsComp() {
             </label>
           </div>
         </div>
-        <button className="btn-success btn-outline btn" onClick={handleSave}>
-          Save
-        </button>
+        <div className="flex w-full justify-end">
+          <button className="btn-success btn-outline btn" onClick={handleSave}>
+            Save
+          </button>
+        </div>
       </div>
     </div>
   );
