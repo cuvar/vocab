@@ -22,9 +22,9 @@ export class WOTDSupabaseRepository implements WOTDRepository {
             select: {
               id: true,
               mode: true,
-              native: true,
+              back: true,
               notes: true,
-              translation: true,
+              front: true,
               tags: {
                 select: {
                   tag: {
@@ -61,9 +61,9 @@ export class WOTDSupabaseRepository implements WOTDRepository {
             select: {
               id: true,
               mode: true,
-              native: true,
+              back: true,
               notes: true,
-              translation: true,
+              front: true,
               tags: {
                 select: {
                   tag: {
@@ -110,9 +110,9 @@ export class WOTDSupabaseRepository implements WOTDRepository {
             select: {
               id: true,
               mode: true,
-              native: true,
+              back: true,
               notes: true,
-              translation: true,
+              front: true,
               tags: {
                 select: {
                   tag: {
@@ -158,12 +158,12 @@ function toFEWotd(
   const withIcons = addIcons(word);
   const nword = {
     id: withIcons.id,
-    translation: withIcons.translation,
-    native: withIcons.native,
+    front: withIcons.front,
+    back: withIcons.back,
     notes: withIcons.notes,
     mode: withIcons.mode,
-    iconTranslation: withIcons.iconTranslation,
-    iconNative: withIcons.iconNative,
+    iconFront: withIcons.iconFront,
+    iconBack: withIcons.iconBack,
     tags,
   } satisfies VocabularyWord;
 

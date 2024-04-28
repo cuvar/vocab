@@ -5,12 +5,12 @@ export type FlashCardMode = "good" | "bad" | "none";
 
 export type VocabularyFlashCard = {
   id: string;
-  translation: string;
-  native: string;
+  front: string;
+  back: string;
   notes: string;
   mode: PrismaLearnMode;
-  iconTranslation: string;
-  iconNative: string;
+  iconFront: string;
+  iconBack: string;
   tags: Tag[];
   cardMode: FlashCardMode;
   switched: boolean;

@@ -8,8 +8,8 @@ import { type FEWotd } from "../../server/domain/client/feWotd";
  * @returns {{title: string, body: string}} Notification title and body
  */
 export function getWotdNotificationData(wotd: FEWotd) {
-  const notificationTitle = `WOTD: ${wotd.word.translation}`;
-  const notificationBody = `${wotd.word.native}`;
+  const notificationTitle = `WOTD: ${wotd.word.front}`;
+  const notificationBody = `${wotd.word.back}`;
   return {
     title: notificationTitle,
     body: notificationBody,

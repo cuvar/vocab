@@ -48,8 +48,8 @@ export default function Editor() {
   function addWord() {
     const tags: string[] = TagData.filter((t) => t.checked).map((t) => t.id);
     addWordMutation.mutate({
-      translation: englishInput,
-      native: germanInput,
+      front: englishInput,
+      back: germanInput,
       notes: notesInput,
       tagIds: tags,
     });

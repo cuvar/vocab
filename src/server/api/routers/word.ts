@@ -185,20 +185,15 @@ export const wordRouter = createTRPCRouter({
   addWord: protectedProcedure
     .input(
       z.object({
-        translation: z.string(),
-        native: z.string(),
+        front: z.string(),
+        back: z.string(),
         notes: z.string(),
         tagIds: z.array(z.string()),
       })
     )
     .mutation(async ({ input }) => {
       try {
-        return addWord(
-          input.translation,
-          input.native,
-          input.notes,
-          input.tagIds
-        );
+        return addWord(input.front, input.back, input.notes, input.tagIds);
       } catch (error) {
         NodeLogger.getInstance().error(error);
         throw new TRPCError({
@@ -229,8 +224,8 @@ export const wordRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string().min(1),
-        translation: z.string(),
-        native: z.string(),
+        front: z.string(),
+        back: z.string(),
         notes: z.string(),
         mode: z.enum(["UNLEARNED", "LEARNED", "ARCHIVED"]),
         tagIds: z.array(z.string()),
@@ -240,8 +235,8 @@ export const wordRouter = createTRPCRouter({
       try {
         return await updateWord(
           input.id,
-          input.translation,
-          input.native,
+          input.front,
+          input.back,
           input.notes,
           input.mode,
           input.tagIds

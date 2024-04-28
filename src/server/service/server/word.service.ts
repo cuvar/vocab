@@ -26,21 +26,23 @@ export async function importWords(text: string) {
  * @param id
  * @param translation
  * @param native
+ * @param front
+ * @param back
  * @param notes
  * @param mode
  * @param tagIds
  */
 export async function updateWord(
   id: string,
-  translation: string,
-  native: string,
+  front: string,
+  back: string,
   notes: string,
   mode: string,
   tagIds: string[]
 ) {
   const newWord: StrippedVocabularyWord = {
-    translation: translation,
-    native: native,
+    front: front,
+    back: back,
     notes: notes,
     mode: PrismaLearnMode.UNLEARNED,
     tags: [],
@@ -64,19 +66,21 @@ export async function deleteWord(id: string) {
  *
  * @param translation
  * @param native
+ * @param front
+ * @param back
  * @param notes
  * @param tagIds
  */
 export async function addWord(
-  translation: string,
-  native: string,
+  front: string,
+  back: string,
   notes: string,
   tagIds: string[]
 ) {
   // TODO: what about tagIds?
   const newWord: StrippedVocabularyWord = {
-    translation: translation,
-    native: native,
+    front: front,
+    back: back,
     notes: notes,
     mode: PrismaLearnMode.UNLEARNED,
     tags: [],

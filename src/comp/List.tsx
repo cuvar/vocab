@@ -21,7 +21,7 @@ type Props = {
   actions?: ActionData[];
   markLearned?: boolean;
   enableClickingItems: boolean;
-  showNative: boolean;
+  showBack: boolean;
   searchString: string;
 };
 
@@ -42,7 +42,7 @@ export default function List(props: Props) {
   useEffect(() => {
     const sortedWords = props.words
       .sort((a, b) => a.word.localeCompare(b.word))
-      .map((e) => transformForShowNative(props.showNative, e));
+      .map((e) => transformForshowBack(props.showBack, e));
 
     if (!isListElementArray(sortedWords)) {
       return;
@@ -50,7 +50,7 @@ export default function List(props: Props) {
 
     setWordsToDisplay(sortedWords);
     setSorted(sortedWords);
-  }, [props.words, props.showNative]);
+  }, [props.words, props.showBack]);
 
   useEffect(() => {
     if (props.searchString.trim() == "") {
@@ -83,16 +83,16 @@ export default function List(props: Props) {
     setCurrentShown("");
   }
 
-  function transformForShowNative(showNative: boolean, e: ListElement) {
-    if (showNative) {
+  function transformForshowBack(showBack: boolean, e: ListElement) {
+    if (showBack) {
       return {
         id: e.id,
-        native: e.native,
-        translation: e.translation,
+        back: e.back,
+        front: e.front,
         notes: e.notes,
         mode: e.mode,
-        iconTranslation: e.iconNative,
-        iconNative: e.iconTranslation,
+        iconFront: e.iconBack,
+        iconBack: e.iconFront,
         tags: e.tags,
         otherWord: e.otherWord,
         word: e.word,
@@ -132,7 +132,7 @@ export default function List(props: Props) {
             <ListItem
               key={e.id}
               word={e}
-              showTranslation={e.word == currentShown}
+              showFront={e.word == currentShown}
               clickHandler={
                 props.enableClickingItems ? toggleCurrentShown : undefined
               }

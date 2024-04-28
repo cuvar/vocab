@@ -5,12 +5,12 @@ import { isVocabularyWord } from "./vocabularyWord";
 
 export type ListElement = {
   id: string;
-  translation: string;
-  native: string;
+  front: string;
+  back: string;
   notes: string;
   mode: PrismaLearnMode;
-  iconTranslation: string;
-  iconNative: string;
+  iconFront: string;
+  iconBack: string;
   tags: Tag[];
   word: string;
   otherWord: string;

@@ -24,7 +24,7 @@ export default function FlashCards() {
   const [topCardWord, setTopCardWord] = useState<VocabularyFlashCard | null>(
     null
   );
-  const [showNative, setShowNative] = useState(false);
+  const [showBack, setshowBack] = useState(false);
   const cardRef = useRef(null);
   const [unlookedWords, setUnlookedWords] = useState<VocabularyFlashCard[]>([]);
 
@@ -42,7 +42,7 @@ export default function FlashCards() {
 
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
-      showToast(`${data.translation} marked as archived`, "success");
+      showToast(`${data.front} marked as archived`, "success");
     },
     onError: (err) => {
       showToast(`${err.message}`, "error");
@@ -59,12 +59,12 @@ export default function FlashCards() {
     const transformed: VocabularyFlashCard[] = data.map((e: VocabularyWord) => {
       return {
         id: e.id,
-        translation: e.translation,
-        native: e.native,
+        front: e.front,
+        back: e.back,
         notes: e.notes,
         mode: e.mode,
-        iconTranslation: e.iconTranslation,
-        iconNative: e.iconNative,
+        iconFront: e.iconFront,
+        iconBack: e.iconBack,
         tags: e.tags,
         cardMode: "none",
         switched: randomizeCards ? Math.random() > 0.5 : false,
@@ -96,8 +96,8 @@ export default function FlashCards() {
     setTopCardWord(unlearned[0] ? unlearned[0] : null);
   }
 
-  function toggleShowNative() {
-    setShowNative(!showNative);
+  function toggleshowBack() {
+    setshowBack(!showBack);
   }
 
   function handleGood() {
@@ -148,7 +148,7 @@ export default function FlashCards() {
         setTopCardWord(null);
       }
     }
-    setShowNative(false);
+    setshowBack(false);
   }
 
   function animate() {
@@ -193,11 +193,11 @@ export default function FlashCards() {
       <div className="flex w-full max-w-[24rem] flex-col items-center space-y-12">
         {topCardWord ? (
           <div
-            onClick={toggleShowNative}
+            onClick={toggleshowBack}
             className="flex h-60 w-full items-center justify-center"
             ref={cardRef}
           >
-            <Card word={topCardWord} showNative={showNative} />
+            <Card word={topCardWord} showBack={showBack} />
           </div>
         ) : (
           <p className="text-lg italic">No more words to learn</p>
@@ -228,7 +228,7 @@ export default function FlashCards() {
                 </button>
                 <button
                   className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
-                  onClick={toggleShowNative}
+                  onClick={toggleshowBack}
                 >
                   {arrowRoundIcon}
                 </button>

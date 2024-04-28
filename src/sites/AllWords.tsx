@@ -28,7 +28,7 @@ export default function AllWords() {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
     getAllWords()
   );
-  const [showNative, setShowNative] = useState<boolean>(false);
+  const [showBack, setshowBack] = useState<boolean>(false);
   const [searchString, setSearchString] = useState("");
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
@@ -51,7 +51,7 @@ export default function AllWords() {
 
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) =>
-      showToast(`"${data.translation}" (un)marked successfully`, "success"),
+      showToast(`"${data.front}" (un)marked successfully`, "success"),
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 
@@ -167,9 +167,9 @@ export default function AllWords() {
     }
   }
 
-  function handleShowNativeChanged() {
-    const newShowNative = !showNative;
-    setShowNative(newShowNative);
+  function handleshowBackChanged() {
+    const newshowBack = !showBack;
+    setshowBack(newshowBack);
   }
 
   function resetSearch() {
@@ -224,10 +224,10 @@ export default function AllWords() {
         <FilterBar filter={filter} onChange={handleFilterChanged} />
         <div className="flex w-full space-x-4 overflow-y-scroll">
           <Mutator
-            id={"showNative"}
+            id={"showBack"}
             text={"Show Native"}
-            onclick={handleShowNativeChanged}
-            active={showNative}
+            onclick={handleshowBackChanged}
+            active={showBack}
           />
         </div>
       </div>
@@ -252,7 +252,7 @@ export default function AllWords() {
         actions={actions}
         markLearned={false}
         enableClickingItems={false}
-        showNative={showNative}
+        showBack={showBack}
         searchString={searchString}
       />
     </div>

@@ -52,7 +52,7 @@ export class WordSupabaseRepository implements WordRepository {
     try {
       const data = await db.word.findUnique({
         where: {
-          translation: word,
+          front: word,
         },
         include: {
           tags: {
@@ -139,8 +139,8 @@ export class WordSupabaseRepository implements WordRepository {
           id: wordId,
         },
         data: {
-          translation: newWord.translation,
-          native: newWord.native,
+          front: newWord.front,
+          back: newWord.back,
           notes: newWord.notes,
           mode: newWord.mode,
         },
@@ -163,7 +163,7 @@ export class WordSupabaseRepository implements WordRepository {
         wordId,
         newWord.tags.map((t) => t.id)
       );
-      return res.translation;
+      return res.front;
     } catch (error) {
       throw new AppError("Cannot update word with id " + wordId, error);
     }
@@ -200,17 +200,17 @@ export class WordSupabaseRepository implements WordRepository {
   };
 
   addWord = async (word: StrippedVocabularyWord) => {
-    if (word.translation === "" || word.native === "") {
+    if (word.front === "" || word.back === "") {
       throw new AppError("Word cannot be empty");
     }
-    if (word.translation.length > 100 || word.native.length > 100) {
+    if (word.front.length > 100 || word.back.length > 100) {
       throw new AppError("Word too long");
     }
     try {
       const res = await db.word.create({
         data: {
-          translation: word.translation,
-          native: word.native,
+          front: word.front,
+          back: word.back,
           notes: word.notes,
           mode: PrismaLearnMode.UNLEARNED,
         },
@@ -233,7 +233,7 @@ export class WordSupabaseRepository implements WordRepository {
         res.id,
         word.tags.map((t) => t.id)
       );
-      return res.translation;
+      return res.front;
     } catch (error) {
       throw new AppError("Cannot add word", error);
     }
@@ -253,7 +253,7 @@ export class WordSupabaseRepository implements WordRepository {
 
       const res = await db.word.update({
         where: {
-          translation: word.translation,
+          front: word.front,
         },
         data: {
           mode: mode,
@@ -307,12 +307,12 @@ function toVocabularyWord(ptags: PrismaTag[], word: PrismaWord) {
   const withIcons = addIcons(word);
   return {
     id: withIcons.id,
-    translation: withIcons.translation,
-    native: withIcons.native,
+    front: withIcons.front,
+    back: withIcons.back,
     notes: withIcons.notes,
     mode: withIcons.mode,
-    iconTranslation: withIcons.iconTranslation,
-    iconNative: withIcons.iconNative,
+    iconFront: withIcons.iconFront,
+    iconBack: withIcons.iconBack,
     tags: tags,
   } satisfies VocabularyWord;
 }

@@ -11,13 +11,13 @@ datasource db {
 }
 
 model Word {
-    id          String     @id @default(cuid())
-    translation String     @unique
-    native      String
-    notes       String     @default("")
-    mode        LearnMode  @default(UNLEARNED)
-    tags        WordTags[]
-    Wotd        Wotd[]
+    id    String     @id @default(cuid())
+    front String     @unique
+    back  String
+    notes String     @default("")
+    mode  LearnMode  @default(UNLEARNED)
+    tags  WordTags[]
+    Wotd  Wotd[]
 }
 
 // word of the day

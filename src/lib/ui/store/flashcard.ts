@@ -18,12 +18,12 @@ export function getCards(
     .map((word) => {
       return {
         id: word.id,
-        translation: word.translation,
-        native: word.native,
+        front: word.front,
+        back: word.back,
         notes: word.notes,
         mode: word.mode,
-        iconTranslation: word.iconTranslation,
-        iconNative: word.iconNative,
+        iconFront: word.iconFront,
+        iconBack: word.iconBack,
         tags: word.tags,
         cardMode: "good",
         switched: false,

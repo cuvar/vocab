@@ -10,8 +10,8 @@ import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 export function addIcons(word: Word) {
   return {
     ...word,
-    iconNative: env.NEXT_PUBLIC_NATIVE_ICON,
-    iconTranslation: env.NEXT_PUBLIC_TRANSLATION_ICON,
+    iconBack: env.NEXT_PUBLIC_NATIVE_ICON,
+    iconFront: env.NEXT_PUBLIC_TRANSLATION_ICON,
   };
 }
 
@@ -22,14 +22,14 @@ export function addIcons(word: Word) {
 export function toListElement(word: VocabularyWord): ListElement {
   return {
     id: word.id,
-    translation: word.translation,
-    native: word.native,
+    front: word.front,
+    back: word.back,
     notes: word.notes,
     mode: word.mode,
-    iconTranslation: word.iconTranslation,
-    iconNative: word.iconNative,
+    iconFront: word.iconFront,
+    iconBack: word.iconBack,
     tags: word.tags,
-    word: word.translation,
-    otherWord: word.native,
+    word: word.front,
+    otherWord: word.back,
   } satisfies ListElement;
 }

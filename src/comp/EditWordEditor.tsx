@@ -18,10 +18,8 @@ type Props = {
 };
 
 export default function Editor(props: Props) {
-  const [translationInput, setTranslationInput] = useState(
-    props.word.translation
-  );
-  const [nativeInput, setNativeInput] = useState(props.word.native);
+  const [translationInput, setTranslationInput] = useState(props.word.front);
+  const [nativeInput, setNativeInput] = useState(props.word.back);
   const [notesInput, setNotesInput] = useState(props.word.notes);
   const [modeInput, setModeInput] = useState(props.word.mode);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
@@ -46,7 +44,7 @@ export default function Editor(props: Props) {
 
   const deleteWordMutation = api.word.deleteWord.useMutation({
     onSuccess: (data) =>
-      showToast(`"${data.translation}" was deleted successfully`, "success"),
+      showToast(`"${data.front}" was deleted successfully`, "success"),
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 
@@ -55,8 +53,8 @@ export default function Editor(props: Props) {
 
     updateWordMutation.mutate({
       id: props.word.id,
-      translation: translationInput,
-      native: nativeInput,
+      front: translationInput,
+      back: nativeInput,
       notes: notesInput,
       mode: modeInput,
       tagIds: tags,
@@ -108,7 +106,7 @@ export default function Editor(props: Props) {
         ✕
       </button>
       <h3 className="mb-4 text-lg font-bold">
-        Edit &quot;{props.word.translation}&quot;
+        Edit &quot;{props.word.front}&quot;
       </h3>
       <div className="flex flex-col space-y-4">
         <div className="form-control w-full max-w-xs">

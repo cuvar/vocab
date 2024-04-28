@@ -48,8 +48,8 @@ export default function WordOfTheDay() {
             <h1 className="mb-20 text-2xl tracking-tight">
               Your Word of the Day
             </h1>
-            <p className="text-3xl font-bold">{wordToDisplay.translation}</p>
-            <p className="text-xl">{wordToDisplay.native}</p>
+            <p className="text-3xl font-bold">{wordToDisplay.front}</p>
+            <p className="text-xl">{wordToDisplay.back}</p>
             <p className="text-xl">{wordToDisplay.notes}</p>
             {wordToDisplay.tags.length > 0 && (
               <p className="text-md">
