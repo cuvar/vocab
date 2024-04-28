@@ -1,7 +1,7 @@
 import { type Tag as PrismaTag, type Word as PrismaWord } from "@prisma/client";
 import { addIcons } from "~/lib/helper";
 import { db } from "../db";
-import FEWOTD from "../domain/client/feWotd";
+import FEWotd from "../domain/client/feWotd";
 import VocabularyWord from "../domain/client/vocabularyWord";
 import LearnMode from "../domain/server/learnMode";
 import Tag from "../domain/server/tag";
@@ -44,7 +44,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
 
       if (!data) return null;
 
-      return toFEWOTD(
+      return toFEWotd(
         data.word.tags.map((t) => t.tag),
         data.word,
         data
@@ -82,7 +82,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
       });
 
       const transformed = data.map((e) => {
-        return toFEWOTD(
+        return toFEWotd(
           e.word.tags.map((t) => t.tag),
           e.word,
           e
@@ -130,7 +130,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
         },
       });
 
-      return toFEWOTD(
+      return toFEWotd(
         data.word.tags.map((t) => t.tag),
         word,
         data
@@ -150,7 +150,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
  * @param data.id
  * @param data.date
  */
-function toFEWOTD(
+function toFEWotd(
   ptags: PrismaTag[],
   word: PrismaWord,
   data: { id: string; date: Date }
@@ -168,5 +168,5 @@ function toFEWOTD(
     tags
   );
 
-  return new FEWOTD(data.id, nword, data.date);
+  return new FEWotd(data.id, nword, data.date);
 }
