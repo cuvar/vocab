@@ -1,4 +1,4 @@
-import { env } from "~/env.mjs";
+import { env } from "~/env/client.mjs";
 
 type Logtype = "log" | "info" | "warn" | "error";
 
@@ -8,10 +8,7 @@ type Logtype = "log" | "info" | "warn" | "error";
  * @param type Type of log
  */
 export default function Log(msg: unknown, type: Logtype = "log") {
-  if (
-    process.env.NODE_ENV !== "production" ||
-    env.NEXT_PUBLIC_DEBUG == "true"
-  ) {
+  if (process.env.NODE_ENV !== "production" || env.NEXT_PUBLIC_DEBUG) {
     switch (type) {
       case "log":
         console.log(msg);
