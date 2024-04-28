@@ -1,6 +1,7 @@
+import { type LearnMode as PrismaLearnMode } from "@prisma/client";
 import { isString } from "~/lib/guards/base";
-import type LearnMode from "../server/learnMode";
 import type Tag from "../server/tag";
+import type Word from "../server/word";
 import VocabularyWord from "./vocabularyWord";
 
 export default class ListElement implements VocabularyWord {
@@ -8,7 +9,7 @@ export default class ListElement implements VocabularyWord {
   translation: string;
   native: string;
   notes: string;
-  mode: LearnMode;
+  mode: PrismaLearnMode;
   iconTranslation: string;
   iconNative: string;
   tags: Tag[];
@@ -20,7 +21,7 @@ export default class ListElement implements VocabularyWord {
     translation: string,
     native: string,
     notes: string,
-    mode: LearnMode,
+    mode: PrismaLearnMode,
     iconTranslation: string,
     iconNative: string,
     tags: Tag[],
@@ -37,6 +38,9 @@ export default class ListElement implements VocabularyWord {
     this.tags = tags;
     this.word = word;
     this.otherWord = otherWord;
+  }
+  toWord(): Word {
+    throw new Error("Method not implemented.");
   }
 
   static validate(data: unknown): data is ListElement {

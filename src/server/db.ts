@@ -15,5 +15,5 @@ export const db =
   });
 
 if (env.NODE_ENV !== "production") {
-  global.prisma = prisma;
+  global.prisma = db;
 }

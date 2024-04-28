@@ -1,5 +1,5 @@
 import AppError from "~/lib/error/error";
-import type Wotd from "../../server/domain/server/wotd";
+import type FEWotd from "~/server/domain/client/feWotd";
 
 /**
  * Sends notification to service worker for WOTD notification
@@ -7,7 +7,7 @@ import type Wotd from "../../server/domain/server/wotd";
  * @param {string} time Time to send notification
  * @returns {void}
  */
-export function sendServiceWorkerWordOfTheDay(word: Wotd, time: string) {
+export function sendServiceWorkerWordOfTheDay(word: FEWotd, time: string) {
   if (typeof window === "undefined") {
     throw new AppError("Window not defined");
   }

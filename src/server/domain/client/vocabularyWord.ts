@@ -1,5 +1,6 @@
+import { type LearnMode as PrismaLearnMode } from "@prisma/client";
 import { isObject, isString } from "~/lib/guards/base";
-import LearnMode from "../server/learnMode";
+import { LearnMode } from "../server/learnMode";
 import Tag from "../server/tag";
 import Word from "../server/word";
 
@@ -8,7 +9,7 @@ export default class VocabularyWord {
   translation: string;
   native: string;
   notes: string;
-  mode: LearnMode;
+  mode: PrismaLearnMode;
   iconTranslation: string;
   iconNative: string;
   tags: Tag[];
@@ -18,7 +19,7 @@ export default class VocabularyWord {
     translation: string,
     native: string,
     notes: string,
-    mode: LearnMode,
+    mode: PrismaLearnMode,
     iconTranslation: string,
     iconNative: string,
     tags: Tag[]
@@ -74,7 +75,7 @@ export default class VocabularyWord {
       this.translation,
       this.native,
       this.notes,
-      this.mode.toPrisma()
+      this.mode
     );
   }
 }

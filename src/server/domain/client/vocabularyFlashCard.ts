@@ -1,5 +1,6 @@
-import type LearnMode from "../server/learnMode";
+import { type LearnMode as PrismaLearnMode } from "@prisma/client";
 import type Tag from "../server/tag";
+import type Word from "../server/word";
 import type VocabularyWord from "./vocabularyWord";
 
 export type FlashCardMode = "good" | "bad" | "none";
@@ -9,7 +10,7 @@ export default class VocabularyFlashCard implements VocabularyWord {
   translation: string;
   native: string;
   notes: string;
-  mode: LearnMode;
+  mode: PrismaLearnMode;
   iconTranslation: string;
   iconNative: string;
   tags: Tag[];
@@ -21,7 +22,7 @@ export default class VocabularyFlashCard implements VocabularyWord {
     translation: string,
     native: string,
     notes: string,
-    mode: LearnMode,
+    mode: PrismaLearnMode,
     iconTranslation: string,
     iconNative: string,
     tags: Tag[],
@@ -38,5 +39,8 @@ export default class VocabularyFlashCard implements VocabularyWord {
     this.tags = tags;
     this.cardMode = cardMode;
     this.switched = switched;
+  }
+  toWord(): Word {
+    throw new Error("Method not implemented.");
   }
 }

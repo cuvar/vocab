@@ -9,7 +9,6 @@ import { db } from "../db";
 import type JsonImportWord from "../domain/client/jsonImportWord";
 import type StrippedVocabularyWord from "../domain/client/strippedVocabularyWord";
 import VocabularyWord from "../domain/client/vocabularyWord";
-import LearnMode from "../domain/server/learnMode";
 import Tag from "../domain/server/tag";
 import { TagSupabaseRepository } from "./TagSupabaseRepository";
 import { type WordRepository } from "./WordRepository";
@@ -140,7 +139,7 @@ export class WordSupabaseRepository implements WordRepository {
           translation: newWord.translation,
           native: newWord.native,
           notes: newWord.notes,
-          mode: newWord.mode.toPrisma(),
+          mode: newWord.mode,
         },
         include: {
           tags: {
@@ -237,7 +236,7 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  updateMode = async (id: string, mode: LearnMode) => {
+  updateMode = async (id: string, mode: PrismaLearnMode) => {
     try {
       const word = await db.word.findUnique({
         where: {
@@ -254,7 +253,7 @@ export class WordSupabaseRepository implements WordRepository {
           translation: word.translation,
         },
         data: {
-          mode: mode.toPrisma(),
+          mode: mode,
         },
         include: {
           tags: {
@@ -308,7 +307,7 @@ function toVocabularyWord(ptags: PrismaTag[], word: PrismaWord) {
     withIcons.translation,
     withIcons.native,
     withIcons.notes,
-    LearnMode.fromPrisma(withIcons.mode),
+    withIcons.mode,
     withIcons.iconTranslation,
     withIcons.iconNative,
     tags

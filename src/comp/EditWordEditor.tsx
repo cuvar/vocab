@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { useState, type ChangeEvent } from "react";
 import { api } from "~/lib/api";
 import { useToast } from "~/lib/ui/hooks";
-import LearnMode from "~/server/domain/server/learnMode";
+import { LearnMode } from "~/server/domain/server/learnMode";
 import type TagData from "../server/domain/client/tagData";
 import type VocabularyWord from "../server/domain/client/vocabularyWord";
 import {
@@ -23,7 +23,7 @@ export default function Editor(props: Props) {
   );
   const [nativeInput, setNativeInput] = useState(props.word.native);
   const [notesInput, setNotesInput] = useState(props.word.notes);
-  const [modeInput, setModeInput] = useState(props.word.mode.value);
+  const [modeInput, setModeInput] = useState(props.word.mode);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [tagData, setTagData] = useState<TagData[]>([]);

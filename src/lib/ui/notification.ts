@@ -1,6 +1,5 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
 
-import AppError from "~/lib/error/error";
 import type FEWotd from "../../server/domain/client/feWotd";
 
 /**
@@ -25,7 +24,7 @@ export function getWotdNotificationData(wotd: FEWotd) {
  */
 export function sendNotification(title: string, body: string) {
   if (!("Notification" in window)) {
-    throw new AppError("This browser does not support desktop notification");
+    throw new Error("This browser does not support desktop notification");
   }
 
   new Notification(title, {

@@ -11,7 +11,7 @@ import {
 import { addCard, clearCards, getCardsIds } from "~/lib/ui/store/flashcard";
 import { getLearnedWords } from "~/lib/ui/store/learned";
 import { getSettings } from "~/lib/ui/store/settings";
-import type VocabularyFlashCard from "~/server/domain/client/vocabularyFlashCard";
+import VocabularyFlashCard from "~/server/domain/client/vocabularyFlashCard";
 import type VocabularyWord from "~/server/domain/client/vocabularyWord";
 import Card from "../comp/Card";
 import ProgressBar from "../comp/ProgressBar";
@@ -57,11 +57,18 @@ export default function FlashCards() {
 
   function toFlashCards(data: VocabularyWord[]) {
     const transformed: VocabularyFlashCard[] = data.map((e: VocabularyWord) => {
-      return {
-        ...e,
-        cardMode: "none",
-        switched: randomizeCards ? Math.random() > 0.5 : false,
-      };
+      return new VocabularyFlashCard(
+        e.id,
+        e.translation,
+        e.native,
+        e.notes,
+        e.mode,
+        e.iconTranslation,
+        e.iconNative,
+        e.tags,
+        "none",
+        randomizeCards ? Math.random() > 0.5 : false
+      );
     });
     return transformed;
   }

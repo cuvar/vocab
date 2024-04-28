@@ -1,18 +1,18 @@
-import type LearnMode from "../server/learnMode";
+import { type LearnMode as PrismaLearnMode } from "@prisma/client";
 import type Tag from "../server/tag";
 
 export default class StrippedVocabularyWord {
   translation: string;
   native: string;
   notes: string;
-  mode: LearnMode;
+  mode: PrismaLearnMode;
   tags: Tag[];
 
   constructor(
     translation: string,
     native: string,
     notes: string,
-    mode: LearnMode,
+    mode: PrismaLearnMode,
     tags: Tag[]
   ) {
     this.translation = translation;

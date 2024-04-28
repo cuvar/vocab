@@ -8,7 +8,7 @@ import {
   doubleChevronRight,
 } from "~/lib/ui/icons";
 import { env } from "../env/client.mjs";
-import type ListElement from "../server/domain/client/listElement";
+import ListElement from "../server/domain/client/listElement";
 import { searchWord } from "../server/service/client/search.service";
 import Error from "../sites/Error";
 import ListItem from "./ListItem";
@@ -41,6 +41,10 @@ export default function List(props: Props) {
     const sortedWords = props.words
       .sort((a, b) => a.word.localeCompare(b.word))
       .map((e) => transformForShowNative(props.showNative, e));
+
+    if (!ListElement.validateArray(sortedWords)) {
+      return;
+    }
 
     setWordsToDisplay(sortedWords);
     setSorted(sortedWords);

@@ -94,7 +94,7 @@ export default function AllWords() {
     updateModeMutation.mutate({
       id: arg.id,
       mode:
-        arg.mode.value === LearnMode.LEARNED
+        arg.mode === LearnMode.LEARNED
           ? LearnMode.UNLEARNED
           : LearnMode.LEARNED,
     });

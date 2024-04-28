@@ -1,12 +1,13 @@
+import { type LearnMode as PrismaLearnMode } from "@prisma/client";
 import { isObject, isString } from "~/lib/guards/base";
-import LearnMode from "../server/learnMode";
+import { LearnMode } from "../server/learnMode";
 import Word from "../server/word";
 
 export default class JsonImportWord {
   translation: string;
   native: string;
   notes: string;
-  mode: LearnMode;
+  mode: PrismaLearnMode;
   iconNative: string;
   iconTranslation: string;
 
@@ -14,7 +15,7 @@ export default class JsonImportWord {
     translation: string,
     native: string,
     notes: string,
-    mode: LearnMode,
+    mode: PrismaLearnMode,
     iconNative: string,
     iconTranslation: string
   ) {
@@ -27,13 +28,7 @@ export default class JsonImportWord {
   }
 
   toWord(): Word {
-    return new Word(
-      "",
-      this.translation,
-      this.native,
-      this.notes,
-      this.mode.toPrisma()
-    );
+    return new Word("", this.translation, this.native, this.notes, this.mode);
   }
 
   static validate(data: unknown): data is JsonImportWord {

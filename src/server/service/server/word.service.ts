@@ -2,7 +2,6 @@ import { LearnMode as PrismaLearnMode } from "@prisma/client";
 import AppError from "~/lib/error/error";
 import JsonImportWord from "~/server/domain/client/jsonImportWord";
 import StrippedVocabularyWord from "~/server/domain/client/strippedVocabularyWord";
-import LearnMode from "~/server/domain/server/learnMode";
 import { WordSupabaseRepository } from "~/server/repository/WordSupabaseRepository";
 import { searchWord } from "../client/search.service";
 
@@ -54,7 +53,7 @@ export async function updateWord(
     translation,
     native,
     notes,
-    new LearnMode(PrismaLearnMode.UNLEARNED),
+    PrismaLearnMode.UNLEARNED,
     []
   );
 
@@ -90,7 +89,7 @@ export async function addWord(
     translation,
     native,
     notes,
-    new LearnMode(PrismaLearnMode.UNLEARNED),
+    PrismaLearnMode.UNLEARNED,
     []
   );
   const res = await repo.addWord(newWord);
@@ -103,7 +102,7 @@ export async function addWord(
  * @param mode
  */
 export async function updateMode(id: string, mode: PrismaLearnMode) {
-  const res = await repo.updateMode(id, new LearnMode(mode));
+  const res = await repo.updateMode(id, mode);
   return res;
 }
 

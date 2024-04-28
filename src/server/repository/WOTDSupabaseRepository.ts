@@ -3,7 +3,6 @@ import { addIcons } from "~/lib/helper";
 import { db } from "../db";
 import FEWotd from "../domain/client/feWotd";
 import VocabularyWord from "../domain/client/vocabularyWord";
-import LearnMode from "../domain/server/learnMode";
 import Tag from "../domain/server/tag";
 import type Word from "../domain/server/word";
 import { getTodayMorning } from "../service/server/getDate.service";
@@ -162,7 +161,7 @@ function toFEWotd(
     withIcons.translation,
     withIcons.native,
     withIcons.notes,
-    LearnMode.fromPrisma(withIcons.mode),
+    withIcons.mode,
     withIcons.iconTranslation,
     withIcons.iconNative,
     tags
