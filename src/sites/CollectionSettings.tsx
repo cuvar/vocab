@@ -34,11 +34,14 @@ export default function CollectionSettings(props: Props) {
   useEffect(() => {
     setSettings(getSettings(props.collectionId));
   }, []);
-
   function handleChangeFlashCardRandomize(
     e: React.ChangeEvent<HTMLInputElement>
   ) {
     setSettings({ ...Settings, randomizeCards: e.target.checked });
+  }
+
+  function handleChangeAllowWOTD(e: React.ChangeEvent<HTMLInputElement>) {
+    setSettings({ ...Settings, allowWOTD: e.target.checked });
   }
 
   function handleSave() {
@@ -77,6 +80,17 @@ export default function CollectionSettings(props: Props) {
                   type="checkbox"
                   checked={Settings.randomizeCards}
                   onChange={handleChangeFlashCardRandomize}
+                  className="checkbox"
+                />
+              </label>
+            </div>
+            <div className="form-control">
+              <label className="label w-72 cursor-pointer space-x-2">
+                <span className="label-text">Allow feature: WOTD</span>
+                <input
+                  type="checkbox"
+                  checked={Settings.allowWOTD}
+                  onChange={handleChangeAllowWOTD}
                   className="checkbox"
                 />
               </label>

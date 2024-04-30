@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { getSettings } from "~/lib/ui/store/settings";
 import {
   boltIcon,
   boxIcon,
@@ -46,17 +47,22 @@ export default function Drawer(props: Props) {
       icon: sparklesIcon,
     },
     {
-      href: prependCorrectly("/wotd"),
-      displayName: "WOTD",
-      icon: calendarIcon,
-    },
-    {
       href: prependCorrectly("/settings"),
       displayName: "Collection Settings",
       icon: cogIcon,
       position: "bottom",
     },
   ];
+
+  if (props.collectionId) {
+    if (getSettings(props.collectionId).allowWOTD) {
+      drawerItems.splice(4, 0, {
+        href: prependCorrectly("/wotd"),
+        displayName: "WOTD",
+        icon: calendarIcon,
+      });
+    }
+  }
 
   function prependCorrectly(href: string) {
     if (props.collectionId) {

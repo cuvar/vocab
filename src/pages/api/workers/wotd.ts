@@ -5,6 +5,10 @@ type ResponseData = {
   wotd: string;
 };
 
+type ERROR = {
+  error: string;
+};
+
 /**
  *
  * @param req
@@ -12,8 +16,12 @@ type ResponseData = {
  */
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ResponseData>
+  res: NextApiResponse<ResponseData | ERROR>
 ) {
-  const wotd = await getWOTD(""); // TODO: must be collectionId
-  res.status(200).json({ wotd: JSON.stringify(wotd) });
+  try {
+    const wotd = await getWOTD(""); // TODO: must be collectionId
+    res.status(200).json({ wotd: JSON.stringify(wotd) });
+  } catch (error) {
+    res.status(500).json({ error: "INTERNAL ISSUE" });
+  }
 }
