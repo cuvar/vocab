@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   boltIcon,
+  boxIcon,
   calendarIcon,
   cogIcon,
   listIcon,
@@ -23,6 +24,11 @@ export default function Drawer(props: Props) {
   const router = useRouter();
   const path = router.pathname.split("/")[1];
   const drawerItems: DrawerItem[] = [
+    {
+      href: "/collections",
+      displayName: "Collections",
+      icon: boxIcon,
+    },
     {
       href: "/cards",
       displayName: "Flash cards",

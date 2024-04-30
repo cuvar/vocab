@@ -48,6 +48,39 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
+  getWordsForCollection = async (collectionId: string) => {
+    try {
+      const data = await db.word.findMany({
+        where: {
+          collectionId: collectionId,
+        },
+        include: {
+          tags: {
+            select: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                  description: true,
+                },
+              },
+            },
+          },
+        },
+      });
+      const transformed = data.map((e) => {
+        return toVocabularyWord(
+          e.tags.map((t) => t.tag),
+          e
+        );
+      });
+
+      return transformed;
+    } catch (error) {
+      throw new AppError("Cannot get words", error);
+    }
+  };
+
   getWord = async (word: string) => {
     try {
       const data = await db.word.findUnique({

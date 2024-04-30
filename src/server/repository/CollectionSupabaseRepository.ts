@@ -6,8 +6,16 @@ import { type CollectionRepository } from "./CollectionRepository";
 export class CollectionSupabaseRepository implements CollectionRepository {
   getCollections = async () => {
     try {
-      const data = await db.collection.findMany();
-      const collections = data.map((e) => Collection.fromPrisma(e));
+      const data = await db.collection.findMany({
+        include: {
+          _count: {
+            select: { words: true },
+          },
+        },
+      });
+      const collections = data.map((e) => {
+        return { collection: Collection.fromPrisma(e), count: e._count.words };
+      });
       return collections;
     } catch (error) {
       throw new AppError("Cannot get collections", error);

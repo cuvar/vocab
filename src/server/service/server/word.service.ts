@@ -160,8 +160,9 @@ export async function getWord(word: string) {
 
 /**
  *
+ * @param collectionId
  */
-export async function getAllWords() {
-  const words = await repo.getWords();
+export async function getWordsForCollection(collectionId: string) {
+  const words = await repo.getWordsForCollection(collectionId);
   return words;
 }

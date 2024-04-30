@@ -23,7 +23,10 @@ import {
 import Error from "./Error";
 import Loading from "./Loading";
 
-export default function AllWords() {
+type Props = {
+  collectionId: string;
+};
+export default function AllWords(props: Props) {
   const [filterState, setFilterState] = useState<FilterState>(null);
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
     getAllWords()
@@ -55,16 +58,19 @@ export default function AllWords() {
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 
-  const getAllQuery = api.word.getAll.useQuery(undefined, {
-    onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
-        toListElement(e)
-      );
-      setWordsToDisplay(transformed);
-      setAllWords(transformed);
-    },
-    refetchOnWindowFocus: false,
-  });
+  const getAllQuery = api.word.getAll.useQuery(
+    { collectionId: props.collectionId },
+    {
+      onSuccess: (data) => {
+        const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+          toListElement(e)
+        );
+        setWordsToDisplay(transformed);
+        setAllWords(transformed);
+      },
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
     onSuccess: (data) => {

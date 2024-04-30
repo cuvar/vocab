@@ -4,12 +4,12 @@ import { NodeLogger } from "../../../lib/logging/nodeLogger";
 import {
   addWord,
   deleteWord,
-  getAllWords,
   getArchived,
   getCountUnlearnedWords,
   getLearned,
   getRandomUnlearnedWord,
   getWord,
+  getWordsForCollection,
   importWords,
   searchInWords,
   updateMode,
@@ -71,17 +71,19 @@ export const wordRouter = createTRPCRouter({
   //     });
   //   }
   // }),
-  getAll: protectedProcedure.query(async () => {
-    try {
-      return await getAllWords();
-    } catch (error) {
-      console.error(error);
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal Server Error",
-      });
-    }
-  }),
+  getAll: protectedProcedure
+    .input(z.object({ collectionId: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        return await getWordsForCollection(input.collectionId);
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
   getWord: protectedProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {

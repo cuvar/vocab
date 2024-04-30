@@ -1,7 +1,7 @@
 import { type Collection } from "@prisma/client";
 
 export interface CollectionRepository {
-  getCollections: () => Promise<Collection[]>;
+  getCollections: () => Promise<{ collection: Collection; count: number }[]>;
   updateCollection: (
     collectionId: string,
     name: string,

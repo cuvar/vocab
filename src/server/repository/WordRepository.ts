@@ -5,6 +5,7 @@ import { type VocabularyWord } from "../domain/client/vocabularyWord";
 
 export interface WordRepository {
   getWords: () => Promise<VocabularyWord[]>;
+  getWordsForCollection: (collectionId: string) => Promise<VocabularyWord[]>;
   getWord: (word: string) => Promise<VocabularyWord>;
   getWordsByFilter: (filter: object) => Promise<VocabularyWord[]>;
   getCountByFilter: (filter: object) => Promise<number>;
