@@ -2,7 +2,11 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { ellipsisIcon, importIcon, signOutIcon } from "../lib/ui/icons";
 
-export default function Menu() {
+type Props = {
+  collectionId: string;
+};
+
+export default function Menu(props: Props) {
   function handleLogout() {
     void (async () => {
       await signOut();
@@ -21,7 +25,7 @@ export default function Menu() {
         >
           <Link
             className="btn-ghost flex items-center space-x-2 rounded-md px-2 py-2 text-left active:text-blue-500"
-            href="/import"
+            href={`/c/${props.collectionId}/import`}
           >
             <span>{importIcon}</span>
             <span>JSON import</span>

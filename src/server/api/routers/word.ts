@@ -272,11 +272,12 @@ export const wordRouter = createTRPCRouter({
     .input(
       z.object({
         text: z.string(),
+        collectionId: z.string(),
       })
     )
     .mutation(async ({ input }) => {
       try {
-        return await importWords(input.text);
+        return await importWords(input.text, input.collectionId);
       } catch (error) {
         NodeLogger.getInstance().error(error);
         throw new TRPCError({

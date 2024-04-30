@@ -13,5 +13,8 @@ export interface WordRepository {
   deleteWord: (id: string) => Promise<VocabularyWord>;
   addWord: (word: StrippedVocabularyWord) => Promise<string>;
   updateMode: (id: string, mode: PrismaLearnMode) => Promise<VocabularyWord>;
-  importWords: (words: JsonImportWord[]) => Promise<number>;
+  importWords: (
+    words: JsonImportWord[],
+    collectionId: string
+  ) => Promise<number>;
 }

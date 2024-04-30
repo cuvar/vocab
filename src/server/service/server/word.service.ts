@@ -10,14 +10,15 @@ const repo = new WordSupabaseRepository();
 /**
  *
  * @param text
+ * @param collectionId
  */
-export async function importWords(text: string) {
+export async function importWords(text: string, collectionId: string) {
   const parsed = JSON.parse(text) as string;
   if (!isJsonImportWordArray(parsed)) {
     throw new AppError("Input is in wrong format");
   }
 
-  const res = await repo.importWords(parsed);
+  const res = await repo.importWords(parsed, collectionId);
   return res;
 }
 

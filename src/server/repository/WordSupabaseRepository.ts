@@ -326,9 +326,13 @@ export class WordSupabaseRepository implements WordRepository {
     }
   };
 
-  importWords = async (words: JsonImportWord[]) => {
+  importWords = async (words: JsonImportWord[], collectionId: string) => {
     try {
-      const transformed = words.map((w) => jsonImportWordToWord(w).toPrisma());
+      const transformed = words.map((w) => {
+        const prismaWord = jsonImportWordToWord(w).toPrisma();
+        prismaWord.collectionId = collectionId;
+        return prismaWord;
+      });
       const data = await db.word.createMany({
         data: transformed,
         skipDuplicates: true,
