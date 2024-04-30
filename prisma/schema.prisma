@@ -18,7 +18,7 @@ model Word {
     mode         LearnMode  @default(UNLEARNED)
     tags         WordTags[]
     Wotd         Wotd[]
-    Collection   Collection @relation(fields: [collectionId], references: [id])
+    Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
     collectionId String
 }
 
@@ -37,7 +37,7 @@ model Wotd {
     word         Word       @relation(fields: [wordId], references: [id])
     wordId       String
     collectionId String
-    Collection   Collection @relation(fields: [collectionId], references: [id])
+    Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
     date         DateTime   @unique @default(now())
 }
 
@@ -52,7 +52,7 @@ model Tag {
     name         String     @unique
     description  String
     collectionId String
-    Collection   Collection @relation(fields: [collectionId], references: [id])
+    Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
     words        WordTags[]
 }
 
