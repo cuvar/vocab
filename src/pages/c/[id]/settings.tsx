@@ -1,11 +1,11 @@
 import { type NextPage } from "next";
-import SiteWrapper from "../comp/SiteWrapper";
-import Settings from "../sites/Settings";
+import Tags from "~/sites/Tags";
+import SiteWrapper from "../../../comp/SiteWrapper";
 
 const SiteLearn: NextPage = () => {
   return (
     <SiteWrapper>
-      <Settings />
+      <Tags />
     </SiteWrapper>
   );
 };

@@ -7,7 +7,6 @@ import {
   cogIcon,
   listIcon,
   sparklesIcon,
-  tagIcon,
 } from "../lib/ui/icons";
 
 type Props = {
@@ -53,14 +52,8 @@ export default function Drawer(props: Props) {
       icon: calendarIcon,
     },
     {
-      href: "/tags",
-      displayName: "Tags",
-      icon: tagIcon,
-      position: "bottom",
-    },
-    {
-      href: "/settings",
-      displayName: "Settings",
+      href: prependCorrectly("/settings"),
+      displayName: "Collection Settings",
       icon: cogIcon,
       position: "bottom",
     },
