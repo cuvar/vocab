@@ -92,7 +92,9 @@ export default function SiteWrapper(props: Props) {
           mode={toastType}
           visible={toastText.length > 0}
         />
-        {showEditorModal && <Editor word={wordToEdit} />}
+        {showEditorModal && props.collectionId && (
+          <Editor word={wordToEdit} collectionId={props.collectionId} />
+        )}
         {showMessageModal && <MessageModal tag={tagToDelete} />}
       </Drawer>
     </>

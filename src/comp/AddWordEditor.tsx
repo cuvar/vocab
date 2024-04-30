@@ -13,7 +13,11 @@ import CollectionSelect from "./CollectionSelect";
 import RelatedWordList from "./RelatedWordList";
 import TagSelect from "./TagSelect";
 
-export default function Editor() {
+type Props = {
+  collectionId: string;
+};
+
+export default function Editor(props: Props) {
   const [englishInput, setEnglishInput] = useState("");
   const [germanInput, setGermanInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
@@ -27,19 +31,24 @@ export default function Editor() {
 
   const showToast = useToast();
 
-  api.tag.getAll.useQuery(undefined, {
-    onSuccess: (data) => {
-      const _TagData = data.map((d) => {
-        return {
-          id: d.id,
-          name: d.name,
-          description: d.description,
-          checked: false,
-        } as TagData;
-      });
-      setTagData(_TagData);
+  api.tag.getAll.useQuery(
+    {
+      collectionId: props.collectionId,
     },
-  });
+    {
+      onSuccess: (data) => {
+        const _TagData = data.map((d) => {
+          return {
+            id: d.id,
+            name: d.name,
+            description: d.description,
+            checked: false,
+          } as TagData;
+        });
+        setTagData(_TagData);
+      },
+    }
+  );
 
   api.collection.getAll.useQuery(undefined, {
     onSuccess: (data) => setCollectionData(data),

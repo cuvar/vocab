@@ -5,6 +5,7 @@ export type TagData = {
   id: string;
   name: string;
   description: string;
+  collectionId: string;
   checked: boolean;
 };
 

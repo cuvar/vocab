@@ -19,10 +19,15 @@ export default function CollectionSettings(props: Props) {
 
   const showToast = useToast();
 
-  const allQuery = api.tag.getAll.useQuery(undefined, {
-    onSuccess: (data) => setTags(data),
-    refetchOnWindowFocus: false,
-  });
+  const allQuery = api.tag.getAll.useQuery(
+    {
+      collectionId: props.collectionId,
+    },
+    {
+      onSuccess: (data) => setTags(data),
+      refetchOnWindowFocus: false,
+    }
+  );
 
   useEffect(() => {
     setSettings(getSettings());
@@ -56,7 +61,7 @@ export default function CollectionSettings(props: Props) {
   }
 
   return (
-    <div>
+    <div className="min-h-screen">
       <div className="my-20 mx-5 flex w-full flex-col items-center justify-start space-y-20">
         <h1 className="mt-5 mb-2 text-2xl tracking-tight">Settings</h1>
         <div className="w-full flex-col items-start justify-start space-y-8">
@@ -86,7 +91,7 @@ export default function CollectionSettings(props: Props) {
         </div>
       </div>
 
-      <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
+      <div className="flex w-full flex-col items-center justify-start gap-12 px-4">
         <h1 className="mt-5 mb-2 text-2xl tracking-tight">
           Tags: {tags.length}
         </h1>
@@ -104,6 +109,7 @@ export default function CollectionSettings(props: Props) {
                 name={tag.name}
                 description={tag.description}
                 doneHandler={() => onDoneEditing()}
+                collectionId={props.collectionId}
               />
             ))}
             {addMode && (
@@ -111,6 +117,7 @@ export default function CollectionSettings(props: Props) {
                 name={""}
                 description={""}
                 doneHandler={() => onDoneEditing()}
+                collectionId={props.collectionId}
               />
             )}
           </div>

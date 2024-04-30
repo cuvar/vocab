@@ -17,6 +17,7 @@ import TagSelect from "./TagSelect";
 
 type Props = {
   word: VocabularyWord;
+  collectionId: string;
 };
 
 export default function Editor(props: Props) {
@@ -36,7 +37,7 @@ export default function Editor(props: Props) {
   const showToast = useToast();
 
   api.tag.getAllForWord.useQuery(
-    { wordId: props.word.id },
+    { wordId: props.word.id, collectionId: props.collectionId },
     { onSuccess: (data) => setTagData(data) }
   );
 

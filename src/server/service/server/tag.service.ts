@@ -5,18 +5,20 @@ const repo = new TagSupabaseRepository();
 
 /**
  *
+ * @param collectionId
  */
-export async function getTags() {
-  const tags = await repo.getTags();
+export async function getTags(collectionId: string) {
+  const tags = await repo.getTags(collectionId);
   return tags;
 }
 
 /**
  *
  * @param wordId
+ * @param collectionId
  */
-export async function getTagsForWord(wordId: string) {
-  const allTags = await repo.getTags();
+export async function getTagsForWord(wordId: string, collectionId: string) {
+  const allTags = await repo.getTags(collectionId);
   const tagsForWord = await repo.getTagsForWord(wordId);
 
   const combinedTags: TagData[] = allTags.map((t) => {
@@ -44,9 +46,14 @@ export async function updateTag(id: string, name: string, description: string) {
  *
  * @param name
  * @param description
+ * @param collectionId
  */
-export async function addTag(name: string, description: string) {
-  const addedTag = await repo.addTag(name, description);
+export async function addTag(
+  name: string,
+  description: string,
+  collectionId: string
+) {
+  const addedTag = await repo.addTag(name, description, collectionId);
   return addedTag;
 }
 
