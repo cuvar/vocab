@@ -36,6 +36,8 @@ export default function SiteWrapper(props: Props) {
   const [showMessageModal, setShowMessageModal] = useAtom(showMessageModalAtom);
 
   useEffect(() => {
+    if (!props.collectionId) return;
+
     if (showEditorModal && !showMessageModal) {
       // eslint-disable-next-line
       // @ts-ignore
