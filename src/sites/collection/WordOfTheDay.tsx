@@ -18,17 +18,22 @@ export default function WordOfTheDay(props: Props) {
 
   const REMINDER_TIME = getSettings(props.collectionId).reminderTime;
 
-  const wotdQuery = api.word.getWordOfTheDay.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-    onSuccess: (data) => {
-      try {
-        sendServiceWorkerWordOfTheDay(data, REMINDER_TIME);
-      } catch (error: unknown) {
-        console.error(error);
-      }
+  const wotdQuery = api.word.getWordOfTheDay.useQuery(
+    {
+      collectionId: props.collectionId,
     },
-    onError: (err) => showToast(`${err.message}`, "error"),
-  });
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        try {
+          sendServiceWorkerWordOfTheDay(data, REMINDER_TIME);
+        } catch (error: unknown) {
+          console.error(error);
+        }
+      },
+      onError: (err) => showToast(`${err.message}`, "error"),
+    }
+  );
 
   useEffect(() => {
     if (!wotdQuery.data) {

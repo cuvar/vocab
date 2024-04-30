@@ -6,15 +6,17 @@ export default class Wotd implements prisma.Wotd {
   id: string;
   wordId: string;
   date: Date;
+  collectionId: string;
 
-  constructor(id: string, wordId: string, date: Date) {
+  constructor(id: string, wordId: string, date: Date, collectionId: string) {
     this.id = id;
     this.wordId = wordId;
     this.date = date;
+    this.collectionId = collectionId;
   }
 
   static fromPrisma(wotd: prisma.Wotd): Wotd {
-    return new Wotd(wotd.id, wotd.wordId, wotd.date);
+    return new Wotd(wotd.id, wotd.wordId, wotd.date, wotd.collectionId);
   }
 
   toPrisma(): prisma.Wotd {
@@ -22,6 +24,7 @@ export default class Wotd implements prisma.Wotd {
       id: this.id,
       wordId: this.wordId,
       date: this.date,
+      collectionId: this.collectionId,
     };
   }
 
@@ -33,6 +36,9 @@ export default class Wotd implements prisma.Wotd {
       return false;
     }
     if (!isDate(data.date)) {
+      return false;
+    }
+    if (!isString(data.collectionId)) {
       return false;
     }
     if (!isVocabularyWord(data.word)) {

@@ -162,18 +162,20 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  getWordOfTheDay: protectedProcedure.query(async () => {
-    try {
-      const wotd = await getWOTD();
-      return wotd;
-    } catch (error) {
-      NodeLogger.getInstance().error(error);
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal Server Error",
-      });
-    }
-  }),
+  getWordOfTheDay: protectedProcedure
+    .input(z.object({ collectionId: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        const wotd = await getWOTD(input.collectionId);
+        return wotd;
+      } catch (error) {
+        NodeLogger.getInstance().error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
   updateMode: protectedProcedure
     .input(
       z.object({
