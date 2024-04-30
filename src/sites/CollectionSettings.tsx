@@ -8,7 +8,11 @@ import { useToast } from "../lib/ui/hooks";
 import { plusIcon } from "../lib/ui/icons";
 import { getSettings } from "../lib/ui/store/settings";
 
-export default function Tags() {
+type Props = {
+  collectionId: string;
+};
+
+export default function CollectionSettings(props: Props) {
   const [Settings, setSettings] = useState<Settings>(getSettings());
   const [tags, setTags] = useState<Tag[]>([]);
   const [addMode, setAddMode] = useState(false);
