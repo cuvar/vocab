@@ -21,6 +21,7 @@ import Toast from "./Toast";
 
 type Props = {
   children: React.ReactNode;
+  disableDrawer?: boolean;
 };
 
 export default function SiteWrapper(props: Props) {
@@ -72,7 +73,7 @@ export default function SiteWrapper(props: Props) {
         <link rel="icon" href="/icon-192x192.png" />
       </Head>
 
-      <Drawer>
+      <Drawer disableDrawer={props.disableDrawer}>
         <Navbar />
 
         <div className="flex w-full flex-col items-center justify-start">

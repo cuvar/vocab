@@ -39,7 +39,7 @@ export default function Collections() {
             <a
               key={collection.id}
               className="flex flex-col rounded-lg border border-gray-400 p-6 shadow-md transition duration-300 ease-in-out hover:bg-slate-700"
-              href={`/collections/${collection.id}`}
+              href={`/c/${collection.id}`}
             >
               <h2 className="text-xl font-bold">{collection.name}</h2>
               <p>{collection.description}</p>

@@ -1,17 +1,18 @@
 import { type NextPage } from "next";
 import { useRouter } from "next/router";
-import SiteWrapper from "~/comp/SiteWrapper";
-import AllWords from "~/sites/AllWords";
+import SiteWrapper from "../../../comp/SiteWrapper";
+import Generator from "../../../sites/collection/Generator";
 
-const SiteCollections: NextPage = () => {
+const SiteLearn: NextPage = () => {
   const router = useRouter();
   const collectionId =
     typeof router.query.id === "string" ? router.query.id : "";
+
   return (
     <SiteWrapper>
-      <AllWords collectionId={collectionId} />
+      <Generator collectionId={collectionId} />
     </SiteWrapper>
   );
 };
 
-export default SiteCollections;
+export default SiteLearn;

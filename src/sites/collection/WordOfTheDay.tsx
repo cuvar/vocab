@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { api } from "../lib/api";
-import { sendServiceWorkerWordOfTheDay } from "../lib/pwa/serviceWorker.service";
-import { useToast } from "../lib/ui/hooks";
-import { getSettings } from "../lib/ui/store/settings";
-import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
+import { api } from "../../lib/api";
+import { sendServiceWorkerWordOfTheDay } from "../../lib/pwa/serviceWorker.service";
+import { useToast } from "../../lib/ui/hooks";
+import { getSettings } from "../../lib/ui/store/settings";
+import { type VocabularyWord } from "../../server/domain/client/vocabularyWord";
 
-export default function WordOfTheDay() {
+type Props = {
+  collectionId: string;
+};
+
+export default function WordOfTheDay(props: Props) {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
   );

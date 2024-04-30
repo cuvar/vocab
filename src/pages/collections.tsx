@@ -4,7 +4,7 @@ import Collections from "../sites/Collections";
 
 const SiteCollections: NextPage = () => {
   return (
-    <SiteWrapper>
+    <SiteWrapper disableDrawer>
       <Collections />
     </SiteWrapper>
   );

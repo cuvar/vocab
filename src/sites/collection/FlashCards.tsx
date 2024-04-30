@@ -1,24 +1,28 @@
 import { LearnMode } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
-import Card from "../comp/Card";
-import ProgressBar from "../comp/ProgressBar";
-import { api } from "../lib/api";
-import { useToast } from "../lib/ui/hooks";
+import Card from "../../comp/Card";
+import ProgressBar from "../../comp/ProgressBar";
+import { api } from "../../lib/api";
+import { useToast } from "../../lib/ui/hooks";
 import {
   archiveIcon,
   arrowRoundIcon,
   thumbsDownIcon,
   thumbsUpIcon,
-} from "../lib/ui/icons";
-import { addCard, clearCards, getCardsIds } from "../lib/ui/store/flashcard";
-import { getLearnedWords } from "../lib/ui/store/learned";
-import { getSettings } from "../lib/ui/store/settings";
-import { type VocabularyFlashCard } from "../server/domain/client/vocabularyFlashCard";
-import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
-import Error from "./Error";
-import Loading from "./Loading";
+} from "../../lib/ui/icons";
+import { addCard, clearCards, getCardsIds } from "../../lib/ui/store/flashcard";
+import { getLearnedWords } from "../../lib/ui/store/learned";
+import { getSettings } from "../../lib/ui/store/settings";
+import { type VocabularyFlashCard } from "../../server/domain/client/vocabularyFlashCard";
+import { type VocabularyWord } from "../../server/domain/client/vocabularyWord";
+import Error from "../Error";
+import Loading from "../Loading";
 
-export default function FlashCards() {
+type Props = {
+  collectionId: string;
+};
+
+export default function FlashCards(props: Props) {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(-1);
   const [topCardWord, setTopCardWord] = useState<VocabularyFlashCard | null>(

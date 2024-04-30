@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { api } from "../lib/api";
-import { useToast } from "../lib/ui/hooks";
+import { api } from "../../lib/api";
+import { useToast } from "../../lib/ui/hooks";
 
-export default function JsonImport() {
+type Props = {
+  collectionId: string;
+};
+
+export default function JsonImport(props: Props) {
   const [jsonInput, setJsonInput] = useState("");
 
   const showToast = useToast();

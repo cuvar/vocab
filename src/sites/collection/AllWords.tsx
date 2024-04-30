@@ -2,30 +2,39 @@ import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
-import { type FilterProps, type FilterState } from "../comp/Filter";
-import FilterBar from "../comp/FilterBar";
-import List from "../comp/List";
-import Mutator from "../comp/Mutator";
-import { api } from "../lib/api";
-import { toListElement } from "../lib/helper";
-import { useToast } from "../lib/ui/hooks";
-import { archiveIcon, penIcon, resetIcon, switchIcon } from "../lib/ui/icons";
-import { getAllWords, setAllWords } from "../lib/ui/store/allwords";
-import { getArchivedWords, setArchivedWords } from "../lib/ui/store/archived";
-import { getLearnedWords, setLearnedWords } from "../lib/ui/store/learned";
-import { type ListElement } from "../server/domain/client/listElement";
-import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
+import { type FilterProps, type FilterState } from "../../comp/Filter";
+import FilterBar from "../../comp/FilterBar";
+import List from "../../comp/List";
+import Mutator from "../../comp/Mutator";
+import { api } from "../../lib/api";
+import { toListElement } from "../../lib/helper";
+import { useToast } from "../../lib/ui/hooks";
+import {
+  archiveIcon,
+  penIcon,
+  resetIcon,
+  switchIcon,
+} from "../../lib/ui/icons";
+import { getAllWords, setAllWords } from "../../lib/ui/store/allwords";
+import {
+  getArchivedWords,
+  setArchivedWords,
+} from "../../lib/ui/store/archived";
+import { getLearnedWords, setLearnedWords } from "../../lib/ui/store/learned";
+import { type ListElement } from "../../server/domain/client/listElement";
+import { type VocabularyWord } from "../../server/domain/client/vocabularyWord";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
   wordToEditAtom,
-} from "../server/store";
-import Error from "./Error";
-import Loading from "./Loading";
+} from "../../server/store";
+import Error from "../Error";
+import Loading from "../Loading";
 
 type Props = {
   collectionId: string;
 };
+
 export default function AllWords(props: Props) {
   const [filterState, setFilterState] = useState<FilterState>(null);
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(

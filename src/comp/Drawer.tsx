@@ -12,6 +12,7 @@ import {
 
 type Props = {
   children: React.ReactNode;
+  disableDrawer?: boolean;
 };
 
 type DrawerItem = {
@@ -20,6 +21,7 @@ type DrawerItem = {
   icon: React.ReactNode;
   position?: "top" | "bottom";
 };
+
 export default function Drawer(props: Props) {
   const router = useRouter();
   const path = router.pathname.split("/")[1];
@@ -68,45 +70,47 @@ export default function Drawer(props: Props) {
       <div className="drawer-content flex w-full flex-col items-center">
         {props.children}
       </div>
-      <div className="drawer-side">
-        <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <div className="flex min-h-full flex-col justify-between bg-base-100 text-base-content">
-          <ul className="menu w-80 space-y-2 p-4">
-            {drawerItems
-              .filter((d) => d.position !== "bottom")
-              .map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
-                      path == item.href.slice(1) ? `active` : ""
-                    }`}
-                  >
-                    <span>{item.icon}</span>
-                    <span>{item.displayName}</span>
-                  </Link>
-                </li>
-              ))}
-          </ul>
-          <ul className="menu w-80 space-y-2 p-4">
-            {drawerItems
-              .filter((d) => d.position === "bottom")
-              .map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
-                      path == item.href.slice(1) ? `active` : ""
-                    }`}
-                  >
-                    <span>{item.icon}</span>
-                    <span>{item.displayName}</span>
-                  </Link>
-                </li>
-              ))}
-          </ul>
+      {!props.disableDrawer && (
+        <div className="drawer-side">
+          <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+          <div className="flex min-h-full flex-col justify-between bg-base-100 text-base-content">
+            <ul className="menu w-80 space-y-2 p-4">
+              {drawerItems
+                .filter((d) => d.position !== "bottom")
+                .map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
+                        path == item.href.slice(1) ? `active` : ""
+                      }`}
+                    >
+                      <span>{item.icon}</span>
+                      <span>{item.displayName}</span>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+            <ul className="menu w-80 space-y-2 p-4">
+              {drawerItems
+                .filter((d) => d.position === "bottom")
+                .map((item) => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
+                        path == item.href.slice(1) ? `active` : ""
+                      }`}
+                    >
+                      <span>{item.icon}</span>
+                      <span>{item.displayName}</span>
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
