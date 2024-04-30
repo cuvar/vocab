@@ -17,7 +17,7 @@ export type JsonImportWord = {
  * @param data
  */
 export function jsonImportWordToWord(data: JsonImportWord): Word {
-  return new Word("", data.front, data.back, data.notes, data.mode);
+  return new Word("", data.front, data.back, data.notes, data.mode, "");
 }
 
 /**
