@@ -4,6 +4,7 @@ import {
   addCollection,
   deleteCollection,
   getAllCollections,
+  updateCollection,
 } from "~/server/service/server/collection.service";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 
@@ -30,6 +31,35 @@ export const collectionRouter = createTRPCRouter({
           });
         }
         return await addCollection(input.name.trim(), input.description.trim());
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
+  update: protectedProcedure
+    .input(
+      z.object({
+        name: z.string(),
+        description: z.string(),
+        collectionId: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      try {
+        if (!input.name.trim().length) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Name and description are required",
+          });
+        }
+        return await updateCollection(
+          input.collectionId,
+          input.name.trim(),
+          input.description.trim()
+        );
       } catch (error) {
         console.error(error);
         throw new TRPCError({
