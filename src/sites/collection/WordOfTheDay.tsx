@@ -16,7 +16,7 @@ export default function WordOfTheDay(props: Props) {
 
   const showToast = useToast();
 
-  const REMINDER_TIME = getSettings().reminderTime;
+  const REMINDER_TIME = getSettings(props.collectionId).reminderTime;
 
   const wotdQuery = api.word.getWordOfTheDay.useQuery(undefined, {
     refetchOnWindowFocus: false,

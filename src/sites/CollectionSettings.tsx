@@ -6,14 +6,16 @@ import { api } from "../lib/api";
 import { sendServiceWorkerReminderTime } from "../lib/pwa/serviceWorker.service";
 import { useToast } from "../lib/ui/hooks";
 import { plusIcon } from "../lib/ui/icons";
-import { getSettings } from "../lib/ui/store/settings";
+import { getSettings, storeSettings } from "../lib/ui/store/settings";
 
 type Props = {
   collectionId: string;
 };
 
 export default function CollectionSettings(props: Props) {
-  const [Settings, setSettings] = useState<Settings>(getSettings());
+  const [Settings, setSettings] = useState<Settings>(
+    getSettings(props.collectionId)
+  );
   const [tags, setTags] = useState<Tag[]>([]);
   const [addMode, setAddMode] = useState(false);
 
@@ -30,7 +32,7 @@ export default function CollectionSettings(props: Props) {
   );
 
   useEffect(() => {
-    setSettings(getSettings());
+    setSettings(getSettings(props.collectionId));
   }, []);
 
   function handleChangeFlashCardRandomize(
@@ -40,7 +42,7 @@ export default function CollectionSettings(props: Props) {
   }
 
   function handleSave() {
-    setSettings(Settings);
+    storeSettings(Settings, props.collectionId);
     try {
       sendServiceWorkerReminderTime(Settings.reminderTime);
     } catch (error: unknown) {

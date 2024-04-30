@@ -9,13 +9,14 @@ import { getTodayMorning } from "../service/server/getDate.service";
 import { type WOTDRepository } from "./WOTDRepository";
 
 export class WOTDSupabaseRepository implements WOTDRepository {
-  getToday = async () => {
+  getToday = async (collectionId: string) => {
     try {
       const data = await db.wotd.findFirst({
         where: {
           date: {
             gte: getTodayMorning().toISOString(),
           },
+          collectionId: collectionId,
         },
         include: {
           word: {
@@ -25,6 +26,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
               back: true,
               notes: true,
               front: true,
+              collectionId: true,
               tags: {
                 select: {
                   tag: {
@@ -32,6 +34,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
                       id: true,
                       name: true,
                       description: true,
+                      collectionId: true,
                     },
                   },
                 },
@@ -52,7 +55,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
       throw error;
     }
   };
-  getLastWords = async (limit: number) => {
+  getLastWords = async (limit: number, collectionId: string) => {
     try {
       const data = await db.wotd.findMany({
         take: limit,
@@ -64,6 +67,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
               back: true,
               notes: true,
               front: true,
+              collectionId: true,
               tags: {
                 select: {
                   tag: {
@@ -71,12 +75,16 @@ export class WOTDSupabaseRepository implements WOTDRepository {
                       id: true,
                       name: true,
                       description: true,
+                      collectionId: true,
                     },
                   },
                 },
               },
             },
           },
+        },
+        where: {
+          collectionId: collectionId,
         },
       });
 
@@ -103,6 +111,11 @@ export class WOTDSupabaseRepository implements WOTDRepository {
               id: word.id,
             },
           },
+          Collection: {
+            connect: {
+              id: word.collectionId,
+            },
+          },
           date: date,
         },
         include: {
@@ -113,6 +126,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
               back: true,
               notes: true,
               front: true,
+              collectionId: true,
               tags: {
                 select: {
                   tag: {
@@ -120,6 +134,7 @@ export class WOTDSupabaseRepository implements WOTDRepository {
                       id: true,
                       name: true,
                       description: true,
+                      collectionId: true,
                     },
                   },
                 },
@@ -163,6 +178,7 @@ function toFEWotd(
     notes: withIcons.notes,
     mode: withIcons.mode,
     iconFront: withIcons.iconFront,
+    collectionId: word.collectionId,
     iconBack: withIcons.iconBack,
     tags,
   } satisfies VocabularyWord;

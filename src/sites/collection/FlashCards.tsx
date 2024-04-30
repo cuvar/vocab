@@ -34,7 +34,7 @@ export default function FlashCards(props: Props) {
 
   const showToast = useToast();
 
-  const randomizeCards = getSettings().randomizeCards;
+  const randomizeCards = getSettings(props.collectionId).randomizeCards;
 
   const getLearnedQuery = api.word.getLearned.useQuery(
     { collectionId: props.collectionId },
@@ -57,7 +57,7 @@ export default function FlashCards(props: Props) {
   });
 
   useEffect(() => {
-    const transformed = toFlashCards(getLearnedWords());
+    const transformed = toFlashCards(getLearnedWords(props.collectionId));
     initState(transformed);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -82,7 +82,7 @@ export default function FlashCards(props: Props) {
   }
 
   function init(_words: VocabularyFlashCard[]) {
-    const learnedIds = getCardsIds(true);
+    const learnedIds = getCardsIds(true, props.collectionId);
 
     _words.forEach((e) => {
       const found = learnedIds.find((l) => l === e.id);
@@ -112,7 +112,7 @@ export default function FlashCards(props: Props) {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
       word.cardMode = "good";
-      addCard(word, true);
+      addCard(word, true, props.collectionId);
     }
     nextWord();
   }
@@ -121,7 +121,7 @@ export default function FlashCards(props: Props) {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
       word.cardMode = "bad";
-      addCard(word, false);
+      addCard(word, false, props.collectionId);
     }
     nextWord();
   }
@@ -132,7 +132,7 @@ export default function FlashCards(props: Props) {
     );
     if (!confirmed) return;
 
-    clearCards(true);
+    clearCards(true, props.collectionId);
     words.forEach((e) => {
       e.cardMode = "none";
     });

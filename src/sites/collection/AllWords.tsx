@@ -38,7 +38,7 @@ type Props = {
 export default function AllWords(props: Props) {
   const [filterState, setFilterState] = useState<FilterState>(null);
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
-    getAllWords()
+    getAllWords(props.collectionId)
   );
   const [showBack, setshowBack] = useState<boolean>(false);
   const [searchString, setSearchString] = useState("");
@@ -75,7 +75,7 @@ export default function AllWords(props: Props) {
           toListElement(e)
         );
         setWordsToDisplay(transformed);
-        setAllWords(transformed);
+        setAllWords(transformed, props.collectionId);
       },
       refetchOnWindowFocus: false,
     }
@@ -91,7 +91,7 @@ export default function AllWords(props: Props) {
           toListElement(e)
         );
         setWordsToDisplay(transformed);
-        setLearnedWords(transformed);
+        setLearnedWords(transformed, props.collectionId);
       },
       refetchOnWindowFocus: false,
       enabled: false,
@@ -108,7 +108,7 @@ export default function AllWords(props: Props) {
           toListElement(e)
         );
         setWordsToDisplay(transformed);
-        setArchivedWords(transformed);
+        setArchivedWords(transformed, props.collectionId);
       },
       refetchOnWindowFocus: false,
       enabled: false,
@@ -170,21 +170,21 @@ export default function AllWords(props: Props) {
     setFilterState(newFilterState);
 
     if (newFilterState === "learned") {
-      const words = getLearnedWords();
+      const words = getLearnedWords(props.collectionId);
       if (words.length === 0) {
         void getLearnedQuery.refetch();
         return;
       }
       setWordsToDisplay(words);
     } else if (newFilterState === "archived") {
-      const words = getArchivedWords();
+      const words = getArchivedWords(props.collectionId);
       if (words.length === 0) {
         void getArchivedQuery.refetch();
         return;
       }
       setWordsToDisplay(words);
     } else {
-      const words = getAllWords();
+      const words = getAllWords(props.collectionId);
       if (words.length === 0) {
         void getAllQuery.refetch();
         return;
