@@ -11,21 +11,34 @@ datasource db {
 }
 
 model Word {
-    id          String     @id @default(cuid())
-    translation String     @unique
-    native      String
-    notes       String     @default("")
-    mode        LearnMode  @default(UNLEARNED)
-    tags        WordTags[]
+    id           String     @id @default(cuid())
+    front        String     @unique
+    back         String
+    notes        String     @default("")
+    mode         LearnMode  @default(UNLEARNED)
+    tags         WordTags[]
+    Wotd         Wotd[]
+    Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+    collectionId String
+}
+
+model Collection {
+    id          String  @id @default(cuid())
+    name        String  @unique
+    description String?
+    words       Word[]
+    Tag         Tag[]
     Wotd        Wotd[]
 }
 
 // word of the day
 model Wotd {
-    id     String   @id @default(cuid())
-    word   Word     @relation(fields: [wordId], references: [id])
-    wordId String
-    date   DateTime @unique @default(now())
+    id           String     @id @default(cuid())
+    word         Word       @relation(fields: [wordId], references: [id])
+    wordId       String
+    collectionId String
+    Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+    date         DateTime   @unique @default(now())
 }
 
 enum LearnMode {
@@ -35,10 +48,12 @@ enum LearnMode {
 }
 
 model Tag {
-    id          String     @id @default(cuid())
-    name        String     @unique
-    description String
-    words       WordTags[]
+    id           String     @id @default(cuid())
+    name         String     @unique
+    description  String
+    collectionId String
+    Collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+    words        WordTags[]
 }
 
 model WordTags {

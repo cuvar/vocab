@@ -10,14 +10,15 @@ const repo = new WordSupabaseRepository();
 /**
  *
  * @param text
+ * @param collectionId
  */
-export async function importWords(text: string) {
+export async function importWords(text: string, collectionId: string) {
   const parsed = JSON.parse(text) as string;
   if (!isJsonImportWordArray(parsed)) {
     throw new AppError("Input is in wrong format");
   }
 
-  const res = await repo.importWords(parsed);
+  const res = await repo.importWords(parsed, collectionId);
   return res;
 }
 
@@ -26,23 +27,28 @@ export async function importWords(text: string) {
  * @param id
  * @param translation
  * @param native
+ * @param front
+ * @param back
  * @param notes
+ * @param collectionId
  * @param mode
  * @param tagIds
  */
 export async function updateWord(
   id: string,
-  translation: string,
-  native: string,
+  front: string,
+  back: string,
   notes: string,
+  collectionId: string,
   mode: string,
   tagIds: string[]
 ) {
   const newWord: StrippedVocabularyWord = {
-    translation: translation,
-    native: native,
+    front: front,
+    back: back,
     notes: notes,
     mode: PrismaLearnMode.UNLEARNED,
+    collectionId: collectionId,
     tags: [],
   };
 
@@ -64,21 +70,26 @@ export async function deleteWord(id: string) {
  *
  * @param translation
  * @param native
+ * @param front
+ * @param back
  * @param notes
+ * @param collectionId
  * @param tagIds
  */
 export async function addWord(
-  translation: string,
-  native: string,
+  front: string,
+  back: string,
   notes: string,
+  collectionId: string,
   tagIds: string[]
 ) {
   // TODO: what about tagIds?
   const newWord: StrippedVocabularyWord = {
-    translation: translation,
-    native: native,
+    front: front,
+    back: back,
     notes: notes,
     mode: PrismaLearnMode.UNLEARNED,
+    collectionId: collectionId,
     tags: [],
   };
   const res = await repo.addWord(newWord);
@@ -97,10 +108,12 @@ export async function updateMode(id: string, mode: PrismaLearnMode) {
 
 /**
  *
+ * @param collectionId
  */
-export async function getRandomUnlearnedWord() {
+export async function getRandomUnlearnedWord(collectionId: string) {
   const unlearned = await repo.getWordsByFilter({
     mode: PrismaLearnMode.UNLEARNED,
+    collectionId: collectionId,
   });
   const randomWord = unlearned[Math.floor(Math.random() * unlearned.length)];
   return randomWord;
@@ -108,10 +121,12 @@ export async function getRandomUnlearnedWord() {
 
 /**
  *
+ * @param collectionId
  */
-export async function getCountUnlearnedWords() {
+export async function getCountUnlearnedWords(collectionId: string) {
   const res = await repo.getCountByFilter({
     mode: PrismaLearnMode.UNLEARNED,
+    collectionId: collectionId,
   });
   return res;
 }
@@ -127,20 +142,24 @@ export async function searchInWords(word: string) {
 
 /**
  *
+ * @param collectionId
  */
-export async function getArchived() {
+export async function getArchived(collectionId: string) {
   const words = await repo.getWordsByFilter({
     mode: PrismaLearnMode.ARCHIVED,
+    collectionId: collectionId,
   });
   return words;
 }
 
 /**
  *
+ * @param collectionId
  */
-export async function getLearned() {
+export async function getLearned(collectionId: string) {
   const words = await repo.getWordsByFilter({
     mode: PrismaLearnMode.LEARNED,
+    collectionId: collectionId,
   });
   return words;
 }
@@ -156,8 +175,9 @@ export async function getWord(word: string) {
 
 /**
  *
+ * @param collectionId
  */
-export async function getAllWords() {
-  const words = await repo.getWords();
+export async function getWordsForCollection(collectionId: string) {
+  const words = await repo.getWordsForCollection(collectionId);
   return words;
 }

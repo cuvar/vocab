@@ -1,10 +1,14 @@
 import { LearnMode } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { api } from "../lib/api";
-import { useToast } from "../lib/ui/hooks";
-import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
+import { api } from "../../lib/api";
+import { useToast } from "../../lib/ui/hooks";
+import { type VocabularyWord } from "../../server/domain/client/vocabularyWord";
 
-export default function Generator() {
+type Props = {
+  collectionId: string;
+};
+
+export default function Generator(props: Props) {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
   );
@@ -12,13 +16,16 @@ export default function Generator() {
   // const initDB = api.word.initDB.useMutation();
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) =>
-      showToast(`${data.translation} marked as learned`, "success"),
+      showToast(`${data.front} marked as learned`, "success"),
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 
-  const randomWord = api.word.getRandomUnlearnedWord.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-  });
+  const randomWord = api.word.getRandomUnlearnedWord.useQuery(
+    { collectionId: props.collectionId },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   useEffect(() => {
     if (!randomWord.data) {
@@ -26,18 +33,18 @@ export default function Generator() {
     }
     setWordToDisplay({
       id: "",
-      translation: randomWord.data.translation,
-      native: randomWord.data.native,
+      front: randomWord.data.front,
+      back: randomWord.data.back,
       notes: randomWord.data.notes,
       mode: randomWord.data.mode,
-      iconTranslation: randomWord.data.iconTranslation,
-      iconNative: randomWord.data.iconNative,
+      iconFront: randomWord.data.iconFront,
+      iconBack: randomWord.data.iconBack,
       tags: randomWord.data.tags,
     } as VocabularyWord);
   }, [randomWord.data]);
 
   function handleClick() {
-    if (!randomWord.data?.translation) {
+    if (!randomWord.data?.front) {
       showToast("no word, try refreshing.", "error");
       return;
     }
@@ -65,8 +72,8 @@ export default function Generator() {
           )
         ) : (
           <div className="flex h-60 w-full flex-col justify-center">
-            <p className="text-3xl font-bold">{wordToDisplay.translation}</p>
-            <p className="text-xl">{wordToDisplay.native}</p>
+            <p className="text-3xl font-bold">{wordToDisplay.front}</p>
+            <p className="text-xl">{wordToDisplay.back}</p>
             <p className="text-xl">{wordToDisplay.notes}</p>
             {wordToDisplay.tags.length > 0 && (
               <p className="text-md">
@@ -84,7 +91,7 @@ export default function Generator() {
         >
           Next
         </button>
-        {randomWord.data?.translation != null && (
+        {randomWord.data?.front != null && (
           <button
             className="btn-accent btn-outline btn-md btn text-xl"
             onClick={handleClick}

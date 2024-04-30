@@ -4,12 +4,12 @@ import { LearnMode } from "../server/learnMode";
 import Word from "../server/word";
 
 export type JsonImportWord = {
-  translation: string;
-  native: string;
+  front: string;
+  back: string;
   notes: string;
   mode: PrismaLearnMode;
-  iconNative: string;
-  iconTranslation: string;
+  iconBack: string;
+  iconFront: string;
 };
 
 /**
@@ -17,7 +17,7 @@ export type JsonImportWord = {
  * @param data
  */
 export function jsonImportWordToWord(data: JsonImportWord): Word {
-  return new Word("", data.translation, data.native, data.notes, data.mode);
+  return new Word("", data.front, data.back, data.notes, data.mode, "");
 }
 
 /**
@@ -28,10 +28,10 @@ export function isJsonImportWord(data: unknown): data is JsonImportWord {
   if (!isObject(data)) {
     return false;
   }
-  if (!isString(data.translation)) {
+  if (!isString(data.front)) {
     return false;
   }
-  if (!isString(data.native)) {
+  if (!isString(data.back)) {
     return false;
   }
   if (!isString(data.notes)) {
@@ -40,10 +40,10 @@ export function isJsonImportWord(data: unknown): data is JsonImportWord {
   if (!LearnMode.validate(data.mode)) {
     return false;
   }
-  if (!isString(data.iconTranslation)) {
+  if (!isString(data.iconFront)) {
     return false;
   }
-  if (!isString(data.iconNative)) {
+  if (!isString(data.iconBack)) {
     return false;
   }
   return true;

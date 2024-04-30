@@ -6,12 +6,13 @@ import Word from "../server/word";
 
 export type VocabularyWord = {
   id: string;
-  translation: string;
-  native: string;
+  front: string;
+  back: string;
   notes: string;
   mode: PrismaLearnMode;
-  iconTranslation: string;
-  iconNative: string;
+  collectionId: string;
+  iconFront: string;
+  iconBack: string;
   tags: Tag[];
 };
 
@@ -26,10 +27,10 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!isString(data.id)) {
     return false;
   }
-  if (!isString(data.translation)) {
+  if (!isString(data.front)) {
     return false;
   }
-  if (!isString(data.native)) {
+  if (!isString(data.back)) {
     return false;
   }
   if (!isString(data.notes)) {
@@ -41,10 +42,10 @@ export function isVocabularyWord(data: unknown): data is VocabularyWord {
   if (!LearnMode.validate(data.mode)) {
     return false;
   }
-  if (!isString(data.iconTranslation)) {
+  if (!isString(data.iconFront)) {
     return false;
   }
-  if (!isString(data.iconNative)) {
+  if (!isString(data.iconBack)) {
     return false;
   }
   return true;
@@ -65,9 +66,10 @@ export function isVocabularyWordArray(data: unknown): data is VocabularyWord[] {
 export function vocabularyWordToWord(data: VocabularyWord) {
   return new Word(
     data.id,
-    data.translation,
-    data.native,
+    data.front,
+    data.back,
     data.notes,
-    data.mode
+    data.mode,
+    data.collectionId
   );
 }

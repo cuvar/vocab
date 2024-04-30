@@ -21,6 +21,8 @@ import Toast from "./Toast";
 
 type Props = {
   children: React.ReactNode;
+  disableDrawer?: boolean;
+  collectionId?: string;
 };
 
 export default function SiteWrapper(props: Props) {
@@ -34,6 +36,8 @@ export default function SiteWrapper(props: Props) {
   const [showMessageModal, setShowMessageModal] = useAtom(showMessageModalAtom);
 
   useEffect(() => {
+    if (!props.collectionId) return;
+
     if (showEditorModal && !showMessageModal) {
       // eslint-disable-next-line
       // @ts-ignore
@@ -72,8 +76,11 @@ export default function SiteWrapper(props: Props) {
         <link rel="icon" href="/icon-192x192.png" />
       </Head>
 
-      <Drawer>
-        <Navbar />
+      <Drawer
+        disableDrawer={props.disableDrawer}
+        collectionId={props.collectionId}
+      >
+        <Navbar collectionId={props.collectionId} />
 
         <div className="flex w-full flex-col items-center justify-start">
           <main className="flex min-h-screen w-full flex-col items-center justify-center sm:w-5/6 md:w-3/4 lg:w-5/6 xl:w-3/4">
@@ -87,7 +94,9 @@ export default function SiteWrapper(props: Props) {
           mode={toastType}
           visible={toastText.length > 0}
         />
-        {showEditorModal && <Editor word={wordToEdit} />}
+        {showEditorModal && props.collectionId && (
+          <Editor word={wordToEdit} collectionId={props.collectionId} />
+        )}
         {showMessageModal && <MessageModal tag={tagToDelete} />}
       </Drawer>
     </>

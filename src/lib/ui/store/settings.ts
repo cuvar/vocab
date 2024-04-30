@@ -6,30 +6,42 @@ import { KEY_SETTINGS } from "./keys";
 /**
  * Sets the settings in the localStorage
  * @param {Settings} settings The settings that should be stored
+ * @param collectionId
  */
-export function setSettings(settings: Settings) {
-  localStorage.setItem(KEY_SETTINGS, JSON.stringify(settings));
+export function storeSettings(settings: Settings, collectionId: string) {
+  localStorage.setItem(
+    collectionId + "-" + KEY_SETTINGS,
+    JSON.stringify(settings)
+  );
 }
 
 /**
  * Updates the settings in the localStorage
  * @param {Partial<Settings>} newValues New values that should be updated
+ * @param collectionId
  */
-export function updateSettings(newValues: Partial<Settings>) {
-  const currentSettings = getSettings();
+export function updateSettings(
+  newValues: Partial<Settings>,
+  collectionId: string
+) {
+  const currentSettings = getSettings(collectionId);
   const newSettings = {
     ...currentSettings,
     ...newValues,
   };
-  localStorage.setItem(KEY_SETTINGS, JSON.stringify(newSettings));
+  localStorage.setItem(
+    collectionId + "-" + KEY_SETTINGS,
+    JSON.stringify(newSettings)
+  );
 }
 
 /**
  * Returns the learned words
+ * @param collectionId
  * @returns {Settings[]} The settings for the app
  */
-export function getSettings(): Settings {
-  const res = localStorage.getItem(KEY_SETTINGS);
+export function getSettings(collectionId: string): Settings {
+  const res = localStorage.getItem(collectionId + "-" + KEY_SETTINGS);
   if (!res) {
     return DEFAULT_SETTINGS;
   }

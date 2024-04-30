@@ -1,3 +1,4 @@
+import { collectionRouter } from "./routers/collection";
 import { tagRouter } from "./routers/tag";
 import { wordRouter } from "./routers/word";
 import { createTRPCRouter } from "./trpc";
@@ -10,6 +11,7 @@ import { createTRPCRouter } from "./trpc";
 export const appRouter = createTRPCRouter({
   word: wordRouter,
   tag: tagRouter,
+  collection: collectionRouter,
 });
 
 // export type definition of API

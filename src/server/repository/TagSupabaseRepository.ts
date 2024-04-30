@@ -4,9 +4,13 @@ import Tag from "../domain/server/tag";
 import { type TagRepository } from "./TagRepository";
 
 export class TagSupabaseRepository implements TagRepository {
-  getTags = async () => {
+  getTags = async (collectionId: string) => {
     try {
-      const data = await db.tag.findMany();
+      const data = await db.tag.findMany({
+        where: {
+          collectionId: collectionId,
+        },
+      });
       const tags = data.map((e) => Tag.fromPrisma(e));
       return tags;
     } catch (error) {
@@ -106,12 +110,13 @@ export class TagSupabaseRepository implements TagRepository {
     }
   };
 
-  addTag = async (name: string, description: string) => {
+  addTag = async (name: string, description: string, collectionId: string) => {
     try {
       const data = await db.tag.create({
         data: {
           name: name,
           description: description,
+          collectionId: collectionId,
         },
       });
 

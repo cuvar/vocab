@@ -14,6 +14,7 @@ type Props = {
   name: string;
   description: string;
   doneHandler: () => void;
+  collectionId: string;
 };
 
 export default function TagItem(props: Props) {
@@ -68,6 +69,7 @@ export default function TagItem(props: Props) {
       addTagMutation.mutate({
         name: nameInput,
         description: descInput,
+        collectionId: props.collectionId,
       });
     }
   }

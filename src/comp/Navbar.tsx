@@ -3,7 +3,11 @@ import { hamburgerIcon, plusIcon } from "../lib/ui/icons";
 import { showEditorModalAtom } from "../server/store";
 import Menu from "./Menu";
 
-export default function Navbar() {
+type Props = {
+  collectionId?: string;
+};
+
+export default function Navbar(props: Props) {
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
 
   function handleAdd() {
@@ -25,7 +29,7 @@ export default function Navbar() {
         <button className="btn-ghost btn" onClick={handleAdd}>
           {plusIcon}
         </button>
-        <Menu />
+        {props.collectionId && <Menu collectionId={props.collectionId} />}
       </div>
     </div>
   );

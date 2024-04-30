@@ -2,33 +2,45 @@ import { LearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import { type ActionData, type InteractionEvent } from "swiper-action";
-import { type FilterProps, type FilterState } from "../comp/Filter";
-import FilterBar from "../comp/FilterBar";
-import List from "../comp/List";
-import Mutator from "../comp/Mutator";
-import { api } from "../lib/api";
-import { toListElement } from "../lib/helper";
-import { useToast } from "../lib/ui/hooks";
-import { archiveIcon, penIcon, resetIcon, switchIcon } from "../lib/ui/icons";
-import { getAllWords, setAllWords } from "../lib/ui/store/allwords";
-import { getArchivedWords, setArchivedWords } from "../lib/ui/store/archived";
-import { getLearnedWords, setLearnedWords } from "../lib/ui/store/learned";
-import { type ListElement } from "../server/domain/client/listElement";
-import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
+import { type FilterProps, type FilterState } from "../../comp/Filter";
+import FilterBar from "../../comp/FilterBar";
+import List from "../../comp/List";
+import Mutator from "../../comp/Mutator";
+import { api } from "../../lib/api";
+import { toListElement } from "../../lib/helper";
+import { useToast } from "../../lib/ui/hooks";
+import {
+  archiveIcon,
+  penIcon,
+  resetIcon,
+  switchIcon,
+} from "../../lib/ui/icons";
+import { getAllWords, setAllWords } from "../../lib/ui/store/allwords";
+import {
+  getArchivedWords,
+  setArchivedWords,
+} from "../../lib/ui/store/archived";
+import { getLearnedWords, setLearnedWords } from "../../lib/ui/store/learned";
+import { type ListElement } from "../../server/domain/client/listElement";
+import { type VocabularyWord } from "../../server/domain/client/vocabularyWord";
 import {
   refetchWordsAtom,
   showEditorModalAtom,
   wordToEditAtom,
-} from "../server/store";
-import Error from "./Error";
-import Loading from "./Loading";
+} from "../../server/store";
+import Error from "../Error";
+import Loading from "../Loading";
 
-export default function AllWords() {
+type Props = {
+  collectionId: string;
+};
+
+export default function AllWords(props: Props) {
   const [filterState, setFilterState] = useState<FilterState>(null);
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
-    getAllWords()
+    getAllWords(props.collectionId)
   );
-  const [showNative, setShowNative] = useState<boolean>(false);
+  const [showBack, setshowBack] = useState<boolean>(false);
   const [searchString, setSearchString] = useState("");
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
@@ -51,44 +63,57 @@ export default function AllWords() {
 
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) =>
-      showToast(`"${data.translation}" (un)marked successfully`, "success"),
+      showToast(`"${data.front}" (un)marked successfully`, "success"),
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 
-  const getAllQuery = api.word.getAll.useQuery(undefined, {
-    onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
-        toListElement(e)
-      );
-      setWordsToDisplay(transformed);
-      setAllWords(transformed);
-    },
-    refetchOnWindowFocus: false,
-  });
+  const getAllQuery = api.word.getAll.useQuery(
+    { collectionId: props.collectionId },
+    {
+      onSuccess: (data) => {
+        const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+          toListElement(e)
+        );
+        setWordsToDisplay(transformed);
+        setAllWords(transformed, props.collectionId);
+      },
+      refetchOnWindowFocus: false,
+    }
+  );
 
-  const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
-    onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
-        toListElement(e)
-      );
-      setWordsToDisplay(transformed);
-      setLearnedWords(transformed);
+  const getLearnedQuery = api.word.getLearned.useQuery(
+    {
+      collectionId: props.collectionId,
     },
-    refetchOnWindowFocus: false,
-    enabled: false,
-  });
+    {
+      onSuccess: (data) => {
+        const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+          toListElement(e)
+        );
+        setWordsToDisplay(transformed);
+        setLearnedWords(transformed, props.collectionId);
+      },
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
 
-  const getArchivedQuery = api.word.getArchived.useQuery(undefined, {
-    onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
-        toListElement(e)
-      );
-      setWordsToDisplay(transformed);
-      setArchivedWords(transformed);
+  const getArchivedQuery = api.word.getArchived.useQuery(
+    {
+      collectionId: props.collectionId,
     },
-    refetchOnWindowFocus: false,
-    enabled: false,
-  });
+    {
+      onSuccess: (data) => {
+        const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+          toListElement(e)
+        );
+        setWordsToDisplay(transformed);
+        setArchivedWords(transformed, props.collectionId);
+      },
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     updateModeMutation.mutate({
@@ -109,6 +134,7 @@ export default function AllWords() {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
+    console.log(arg);
     setShowEditorModal(true);
   }
 
@@ -144,21 +170,21 @@ export default function AllWords() {
     setFilterState(newFilterState);
 
     if (newFilterState === "learned") {
-      const words = getLearnedWords();
+      const words = getLearnedWords(props.collectionId);
       if (words.length === 0) {
         void getLearnedQuery.refetch();
         return;
       }
       setWordsToDisplay(words);
     } else if (newFilterState === "archived") {
-      const words = getArchivedWords();
+      const words = getArchivedWords(props.collectionId);
       if (words.length === 0) {
         void getArchivedQuery.refetch();
         return;
       }
       setWordsToDisplay(words);
     } else {
-      const words = getAllWords();
+      const words = getAllWords(props.collectionId);
       if (words.length === 0) {
         void getAllQuery.refetch();
         return;
@@ -167,9 +193,9 @@ export default function AllWords() {
     }
   }
 
-  function handleShowNativeChanged() {
-    const newShowNative = !showNative;
-    setShowNative(newShowNative);
+  function handleshowBackChanged() {
+    const newshowBack = !showBack;
+    setshowBack(newshowBack);
   }
 
   function resetSearch() {
@@ -224,10 +250,10 @@ export default function AllWords() {
         <FilterBar filter={filter} onChange={handleFilterChanged} />
         <div className="flex w-full space-x-4 overflow-y-scroll">
           <Mutator
-            id={"showNative"}
+            id={"showBack"}
             text={"Show Native"}
-            onclick={handleShowNativeChanged}
-            active={showNative}
+            onclick={handleshowBackChanged}
+            active={showBack}
           />
         </div>
       </div>
@@ -252,7 +278,7 @@ export default function AllWords() {
         actions={actions}
         markLearned={false}
         enableClickingItems={false}
-        showNative={showNative}
+        showBack={showBack}
         searchString={searchString}
       />
     </div>

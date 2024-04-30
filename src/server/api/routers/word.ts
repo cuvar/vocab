@@ -4,12 +4,12 @@ import { NodeLogger } from "../../../lib/logging/nodeLogger";
 import {
   addWord,
   deleteWord,
-  getAllWords,
   getArchived,
   getCountUnlearnedWords,
   getLearned,
   getRandomUnlearnedWord,
   getWord,
+  getWordsForCollection,
   importWords,
   searchInWords,
   updateMode,
@@ -71,17 +71,19 @@ export const wordRouter = createTRPCRouter({
   //     });
   //   }
   // }),
-  getAll: protectedProcedure.query(async () => {
-    try {
-      return await getAllWords();
-    } catch (error) {
-      console.error(error);
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal Server Error",
-      });
-    }
-  }),
+  getAll: protectedProcedure
+    .input(z.object({ collectionId: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        return await getWordsForCollection(input.collectionId);
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
   getWord: protectedProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {
@@ -95,28 +97,32 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  getLearned: protectedProcedure.query(async () => {
-    try {
-      return await getLearned();
-    } catch (error) {
-      console.error(error);
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal Server Error",
-      });
-    }
-  }),
-  getArchived: protectedProcedure.query(async () => {
-    try {
-      return await getArchived();
-    } catch (error) {
-      console.error(error);
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal Server Error",
-      });
-    }
-  }),
+  getLearned: protectedProcedure
+    .input(z.object({ collectionId: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        return await getLearned(input.collectionId);
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
+  getArchived: protectedProcedure
+    .input(z.object({ collectionId: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        return await getArchived(input.collectionId);
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
   searchWord: protectedProcedure
     .input(z.object({ word: z.string() }))
     .query(async ({ input }) => {
@@ -130,40 +136,46 @@ export const wordRouter = createTRPCRouter({
         });
       }
     }),
-  getAmountOfUnlearnedWords: protectedProcedure.query(async () => {
-    try {
-      return await getCountUnlearnedWords();
-    } catch (error) {
-      console.error(error);
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal Server Error",
-      });
-    }
-  }),
-  getRandomUnlearnedWord: protectedProcedure.query(async () => {
-    try {
-      return await getRandomUnlearnedWord();
-    } catch (error) {
-      NodeLogger.getInstance().error(error);
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal Server Error",
-      });
-    }
-  }),
-  getWordOfTheDay: protectedProcedure.query(async () => {
-    try {
-      const wotd = await getWOTD();
-      return wotd;
-    } catch (error) {
-      NodeLogger.getInstance().error(error);
-      throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Internal Server Error",
-      });
-    }
-  }),
+  getAmountOfUnlearnedWords: protectedProcedure
+    .input(z.object({ collectionId: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        return await getCountUnlearnedWords(input.collectionId);
+      } catch (error) {
+        console.error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
+  getRandomUnlearnedWord: protectedProcedure
+    .input(z.object({ collectionId: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        return await getRandomUnlearnedWord(input.collectionId);
+      } catch (error) {
+        NodeLogger.getInstance().error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
+  getWordOfTheDay: protectedProcedure
+    .input(z.object({ collectionId: z.string() }))
+    .query(async ({ input }) => {
+      try {
+        const wotd = await getWOTD(input.collectionId);
+        return wotd;
+      } catch (error) {
+        NodeLogger.getInstance().error(error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error",
+        });
+      }
+    }),
   updateMode: protectedProcedure
     .input(
       z.object({
@@ -185,18 +197,20 @@ export const wordRouter = createTRPCRouter({
   addWord: protectedProcedure
     .input(
       z.object({
-        translation: z.string(),
-        native: z.string(),
+        front: z.string(),
+        back: z.string(),
         notes: z.string(),
         tagIds: z.array(z.string()),
+        collectionId: z.string(),
       })
     )
     .mutation(async ({ input }) => {
       try {
         return addWord(
-          input.translation,
-          input.native,
+          input.front,
+          input.back,
           input.notes,
+          input.collectionId,
           input.tagIds
         );
       } catch (error) {
@@ -229,9 +243,10 @@ export const wordRouter = createTRPCRouter({
     .input(
       z.object({
         id: z.string().min(1),
-        translation: z.string(),
-        native: z.string(),
+        front: z.string(),
+        back: z.string(),
         notes: z.string(),
+        collectionId: z.string(),
         mode: z.enum(["UNLEARNED", "LEARNED", "ARCHIVED"]),
         tagIds: z.array(z.string()),
       })
@@ -240,9 +255,10 @@ export const wordRouter = createTRPCRouter({
       try {
         return await updateWord(
           input.id,
-          input.translation,
-          input.native,
+          input.front,
+          input.back,
           input.notes,
+          input.collectionId,
           input.mode,
           input.tagIds
         );
@@ -258,11 +274,12 @@ export const wordRouter = createTRPCRouter({
     .input(
       z.object({
         text: z.string(),
+        collectionId: z.string(),
       })
     )
     .mutation(async ({ input }) => {
       try {
-        return await importWords(input.text);
+        return await importWords(input.text, input.collectionId);
       } catch (error) {
         NodeLogger.getInstance().error(error);
         throw new TRPCError({

@@ -2,7 +2,7 @@ import { type VocabularyFlashCard } from "~/server/domain/client/vocabularyFlash
 
 type Props = {
   word: VocabularyFlashCard;
-  showNative: boolean;
+  showBack: boolean;
   className?: string;
 };
 
@@ -10,15 +10,15 @@ export default function Card(props: Props) {
   return (
     <div
       className={`flex h-full w-full flex-col items-center justify-center rounded-lg border-2 border-black p-4 text-2xl text-base-100 ${
-        !props.showNative ? "bg-white" : "bg-violet-200"
+        !props.showBack ? "bg-white" : "bg-violet-200"
       } ${props.className ?? ""}`}
     >
-      {(props.showNative && !props.word.switched) ||
-      (props.word.switched && !props.showNative) ? (
+      {(props.showBack && !props.word.switched) ||
+      (props.word.switched && !props.showBack) ? (
         <div className="overflow- flex flex-col items-center overflow-hidden">
           <div className="flex justify-center space-x-4">
-            <div className="flex items-center">{props.word.iconNative}</div>
-            <div>{props.word.native}</div>
+            <div className="flex items-center">{props.word.iconBack}</div>
+            <div>{props.word.back}</div>
           </div>
           <div className="flex flex-col space-y-2 text-base font-normal">
             <div>{props.word.notes}</div>
@@ -29,8 +29,8 @@ export default function Card(props: Props) {
         </div>
       ) : (
         <div className="flex justify-center space-x-2 font-bold">
-          <span>{props.word.iconTranslation}</span>
-          <span>{props.word.translation}</span>
+          <span>{props.word.iconFront}</span>
+          <span>{props.word.front}</span>
         </div>
       )}
     </div>

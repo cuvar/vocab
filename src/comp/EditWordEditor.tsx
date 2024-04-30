@@ -1,6 +1,7 @@
 import { LearnMode as PrismaLearnMode } from "@prisma/client";
 import { useAtom } from "jotai";
 import { useState, type ChangeEvent } from "react";
+import { type FECollection } from "~/server/domain/client/feCollection";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
 import { type TagData } from "../server/domain/client/tagData";
@@ -11,30 +12,38 @@ import {
   showEditorModalAtom,
   wordToEditAtom,
 } from "../server/store";
+import CollectionSelect from "./CollectionSelect";
 import TagSelect from "./TagSelect";
 
 type Props = {
   word: VocabularyWord;
+  collectionId: string;
 };
 
 export default function Editor(props: Props) {
-  const [translationInput, setTranslationInput] = useState(
-    props.word.translation
-  );
-  const [nativeInput, setNativeInput] = useState(props.word.native);
+  const [translationInput, setTranslationInput] = useState(props.word.front);
+  const [nativeInput, setNativeInput] = useState(props.word.back);
   const [notesInput, setNotesInput] = useState(props.word.notes);
   const [modeInput, setModeInput] = useState(props.word.mode);
+  const [collectionIdInput, setCollectionIdInput] = useState(
+    props.word.collectionId
+  );
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
   const [TagData, setTagData] = useState<TagData[]>([]);
+  const [collectionData, setCollectionData] = useState<FECollection[]>([]);
   const [, setRefetchWords] = useAtom(refetchWordsAtom);
 
   const showToast = useToast();
 
   api.tag.getAllForWord.useQuery(
-    { wordId: props.word.id },
+    { wordId: props.word.id, collectionId: props.collectionId },
     { onSuccess: (data) => setTagData(data) }
   );
+
+  api.collection.getAll.useQuery(undefined, {
+    onSuccess: (data) => setCollectionData(data),
+  });
 
   const updateWordMutation = api.word.updateWord.useMutation({
     onSuccess: (word) => {
@@ -46,7 +55,7 @@ export default function Editor(props: Props) {
 
   const deleteWordMutation = api.word.deleteWord.useMutation({
     onSuccess: (data) =>
-      showToast(`"${data.translation}" was deleted successfully`, "success"),
+      showToast(`"${data.front}" was deleted successfully`, "success"),
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 
@@ -55,9 +64,10 @@ export default function Editor(props: Props) {
 
     updateWordMutation.mutate({
       id: props.word.id,
-      translation: translationInput,
-      native: nativeInput,
+      front: translationInput,
+      back: nativeInput,
       notes: notesInput,
+      collectionId: collectionIdInput,
       mode: modeInput,
       tagIds: tags,
     });
@@ -76,6 +86,10 @@ export default function Editor(props: Props) {
 
   function onTagsSelectChange(_TagData: TagData[]) {
     setTagData(_TagData);
+  }
+
+  function onCollectionSelectChange(_collectionData: FECollection) {
+    setCollectionIdInput(_collectionData.id);
   }
 
   function transformMode(mode: PrismaLearnMode) {
@@ -108,7 +122,7 @@ export default function Editor(props: Props) {
         ✕
       </button>
       <h3 className="mb-4 text-lg font-bold">
-        Edit &quot;{props.word.translation}&quot;
+        Edit &quot;{props.word.front}&quot;
       </h3>
       <div className="flex flex-col space-y-4">
         <div className="form-control w-full max-w-xs">
@@ -178,6 +192,17 @@ export default function Editor(props: Props) {
         <div className="form-control">
           {TagData.length > 0 && (
             <TagSelect tags={TagData} handler={onTagsSelectChange} />
+          )}
+        </div>
+        <div className="form-control">
+          {collectionData.length > 0 && (
+            <CollectionSelect
+              preselected={collectionData.find(
+                (c) => c.id === collectionIdInput
+              )}
+              collections={collectionData}
+              handler={onCollectionSelectChange}
+            />
           )}
         </div>
         <button

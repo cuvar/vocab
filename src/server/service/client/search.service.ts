@@ -32,7 +32,7 @@ function searchListLement(words: ListElement[], searched: string) {
 
   const resultWords: ListElement[] = [];
   searchResults.forEach((r) => {
-    const res = words.find((el) => el.translation == r);
+    const res = words.find((el) => el.front == r);
     if (res == undefined) return;
     resultWords.push(res);
   });
@@ -46,12 +46,12 @@ function searchListLement(words: ListElement[], searched: string) {
  * @param searched
  */
 function searchVocabularyWord(words: VocabularyWord[], searched: string) {
-  const wordsToSearchThrough = words.map((word) => word.translation);
+  const wordsToSearchThrough = words.map((word) => word.front);
   const searchResults = search(wordsToSearchThrough, searched, 3);
 
   const resultWords: VocabularyWord[] = [];
   searchResults.forEach((r) => {
-    const res = words.find((el) => el.translation == r);
+    const res = words.find((el) => el.front == r);
     if (res == undefined) return;
     resultWords.push(res);
   });

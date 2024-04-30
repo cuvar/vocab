@@ -5,17 +5,22 @@ import { KEY_ALL_WORDS } from "./keys";
 /**
  * Sets the learned words in the localStorage
  * @param {ListElement[]} words The words that have been learned
+ * @param collectionId
  */
-export function setAllWords(words: ListElement[]) {
-  localStorage.setItem(KEY_ALL_WORDS, JSON.stringify(words));
+export function setAllWords(words: ListElement[], collectionId: string) {
+  localStorage.setItem(
+    collectionId + "-" + KEY_ALL_WORDS,
+    JSON.stringify(words)
+  );
 }
 
 /**
  * Returns the learned words
+ * @param collectionId
  * @returns {ListElement[]} The learned words
  */
-export function getAllWords(): ListElement[] {
-  const res = localStorage.getItem(KEY_ALL_WORDS);
+export function getAllWords(collectionId: string): ListElement[] {
+  const res = localStorage.getItem(collectionId + "-" + KEY_ALL_WORDS);
   if (!res) {
     return [];
   }

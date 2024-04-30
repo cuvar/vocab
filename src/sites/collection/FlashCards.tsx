@@ -1,48 +1,55 @@
 import { LearnMode } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
-import Card from "../comp/Card";
-import ProgressBar from "../comp/ProgressBar";
-import { api } from "../lib/api";
-import { useToast } from "../lib/ui/hooks";
+import Card from "../../comp/Card";
+import ProgressBar from "../../comp/ProgressBar";
+import { api } from "../../lib/api";
+import { useToast } from "../../lib/ui/hooks";
 import {
   archiveIcon,
   arrowRoundIcon,
   thumbsDownIcon,
   thumbsUpIcon,
-} from "../lib/ui/icons";
-import { addCard, clearCards, getCardsIds } from "../lib/ui/store/flashcard";
-import { getLearnedWords } from "../lib/ui/store/learned";
-import { getSettings } from "../lib/ui/store/settings";
-import { type VocabularyFlashCard } from "../server/domain/client/vocabularyFlashCard";
-import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
-import Error from "./Error";
-import Loading from "./Loading";
+} from "../../lib/ui/icons";
+import { addCard, clearCards, getCardsIds } from "../../lib/ui/store/flashcard";
+import { getLearnedWords } from "../../lib/ui/store/learned";
+import { getSettings } from "../../lib/ui/store/settings";
+import { type VocabularyFlashCard } from "../../server/domain/client/vocabularyFlashCard";
+import { type VocabularyWord } from "../../server/domain/client/vocabularyWord";
+import Error from "../Error";
+import Loading from "../Loading";
 
-export default function FlashCards() {
+type Props = {
+  collectionId: string;
+};
+
+export default function FlashCards(props: Props) {
   const [words, setWords] = useState<VocabularyFlashCard[]>([]);
   const [topCardIndex, setTopCardIndex] = useState<number>(-1);
   const [topCardWord, setTopCardWord] = useState<VocabularyFlashCard | null>(
     null
   );
-  const [showNative, setShowNative] = useState(false);
+  const [showBack, setshowBack] = useState(false);
   const cardRef = useRef(null);
   const [unlookedWords, setUnlookedWords] = useState<VocabularyFlashCard[]>([]);
 
   const showToast = useToast();
 
-  const randomizeCards = getSettings().randomizeCards;
+  const randomizeCards = getSettings(props.collectionId).randomizeCards;
 
-  const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
-    onSuccess: (data) => {
-      const transformed = toFlashCards(data);
-      init(transformed);
-    },
-    refetchOnWindowFocus: false,
-  });
+  const getLearnedQuery = api.word.getLearned.useQuery(
+    { collectionId: props.collectionId },
+    {
+      onSuccess: (data) => {
+        const transformed = toFlashCards(data);
+        init(transformed);
+      },
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
-      showToast(`${data.translation} marked as archived`, "success");
+      showToast(`${data.front} marked as archived`, "success");
     },
     onError: (err) => {
       showToast(`${err.message}`, "error");
@@ -50,7 +57,7 @@ export default function FlashCards() {
   });
 
   useEffect(() => {
-    const transformed = toFlashCards(getLearnedWords());
+    const transformed = toFlashCards(getLearnedWords(props.collectionId));
     initState(transformed);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -59,12 +66,13 @@ export default function FlashCards() {
     const transformed: VocabularyFlashCard[] = data.map((e: VocabularyWord) => {
       return {
         id: e.id,
-        translation: e.translation,
-        native: e.native,
+        front: e.front,
+        back: e.back,
         notes: e.notes,
         mode: e.mode,
-        iconTranslation: e.iconTranslation,
-        iconNative: e.iconNative,
+        iconFront: e.iconFront,
+        iconBack: e.iconBack,
+        collectionId: e.collectionId,
         tags: e.tags,
         cardMode: "none",
         switched: randomizeCards ? Math.random() > 0.5 : false,
@@ -74,7 +82,7 @@ export default function FlashCards() {
   }
 
   function init(_words: VocabularyFlashCard[]) {
-    const learnedIds = getCardsIds(true);
+    const learnedIds = getCardsIds(true, props.collectionId);
 
     _words.forEach((e) => {
       const found = learnedIds.find((l) => l === e.id);
@@ -96,15 +104,15 @@ export default function FlashCards() {
     setTopCardWord(unlearned[0] ? unlearned[0] : null);
   }
 
-  function toggleShowNative() {
-    setShowNative(!showNative);
+  function toggleshowBack() {
+    setshowBack(!showBack);
   }
 
   function handleGood() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
       word.cardMode = "good";
-      addCard(word, true);
+      addCard(word, true, props.collectionId);
     }
     nextWord();
   }
@@ -113,7 +121,7 @@ export default function FlashCards() {
     const word = words.find((e) => e.id === topCardWord?.id);
     if (word) {
       word.cardMode = "bad";
-      addCard(word, false);
+      addCard(word, false, props.collectionId);
     }
     nextWord();
   }
@@ -124,7 +132,7 @@ export default function FlashCards() {
     );
     if (!confirmed) return;
 
-    clearCards(true);
+    clearCards(true, props.collectionId);
     words.forEach((e) => {
       e.cardMode = "none";
     });
@@ -148,7 +156,7 @@ export default function FlashCards() {
         setTopCardWord(null);
       }
     }
-    setShowNative(false);
+    setshowBack(false);
   }
 
   function animate() {
@@ -187,17 +195,17 @@ export default function FlashCards() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 text-2xl tracking-tight">
-        Flash card mode: {unlookedWords.length} words
+        Flash Cards: {unlookedWords.length}
       </h1>
       <ProgressBar max={unlookedWords.length} current={topCardIndex + 1} />
       <div className="flex w-full max-w-[24rem] flex-col items-center space-y-12">
         {topCardWord ? (
           <div
-            onClick={toggleShowNative}
+            onClick={toggleshowBack}
             className="flex h-60 w-full items-center justify-center"
             ref={cardRef}
           >
-            <Card word={topCardWord} showNative={showNative} />
+            <Card word={topCardWord} showBack={showBack} />
           </div>
         ) : (
           <p className="text-lg italic">No more words to learn</p>
@@ -228,7 +236,7 @@ export default function FlashCards() {
                 </button>
                 <button
                   className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
-                  onClick={toggleShowNative}
+                  onClick={toggleshowBack}
                 >
                   {arrowRoundIcon}
                 </button>

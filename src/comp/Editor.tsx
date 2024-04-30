@@ -7,13 +7,18 @@ import Modal from "./Modal";
 
 type Props = {
   word: VocabularyWord | null;
+  collectionId: string;
 };
 
 export default function Editor(props: Props) {
   const [editorModalId] = useAtom(editorModalIdAtom);
   return (
     <Modal id={editorModalId}>
-      {props.word ? <EditWordEditor word={props.word} /> : <AddWordEditor />}
+      {props.word ? (
+        <EditWordEditor word={props.word} collectionId={props.collectionId} />
+      ) : (
+        <AddWordEditor collectionId={props.collectionId} />
+      )}
     </Modal>
   );
 }

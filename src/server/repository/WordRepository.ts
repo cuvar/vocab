@@ -5,6 +5,7 @@ import { type VocabularyWord } from "../domain/client/vocabularyWord";
 
 export interface WordRepository {
   getWords: () => Promise<VocabularyWord[]>;
+  getWordsForCollection: (collectionId: string) => Promise<VocabularyWord[]>;
   getWord: (word: string) => Promise<VocabularyWord>;
   getWordsByFilter: (filter: object) => Promise<VocabularyWord[]>;
   getCountByFilter: (filter: object) => Promise<number>;
@@ -12,5 +13,8 @@ export interface WordRepository {
   deleteWord: (id: string) => Promise<VocabularyWord>;
   addWord: (word: StrippedVocabularyWord) => Promise<string>;
   updateMode: (id: string, mode: PrismaLearnMode) => Promise<VocabularyWord>;
-  importWords: (words: JsonImportWord[]) => Promise<number>;
+  importWords: (
+    words: JsonImportWord[],
+    collectionId: string
+  ) => Promise<number>;
 }

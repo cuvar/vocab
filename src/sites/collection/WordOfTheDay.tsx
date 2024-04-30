@@ -1,30 +1,39 @@
 import { useEffect, useState } from "react";
-import { api } from "../lib/api";
-import { sendServiceWorkerWordOfTheDay } from "../lib/pwa/serviceWorker.service";
-import { useToast } from "../lib/ui/hooks";
-import { getSettings } from "../lib/ui/store/settings";
-import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
+import { api } from "../../lib/api";
+import { sendServiceWorkerWordOfTheDay } from "../../lib/pwa/serviceWorker.service";
+import { useToast } from "../../lib/ui/hooks";
+import { getSettings } from "../../lib/ui/store/settings";
+import { type VocabularyWord } from "../../server/domain/client/vocabularyWord";
 
-export default function WordOfTheDay() {
+type Props = {
+  collectionId: string;
+};
+
+export default function WordOfTheDay(props: Props) {
   const [wordToDisplay, setWordToDisplay] = useState<VocabularyWord | null>(
     null
   );
 
   const showToast = useToast();
 
-  const REMINDER_TIME = getSettings().reminderTime;
+  const REMINDER_TIME = getSettings(props.collectionId).reminderTime;
 
-  const wotdQuery = api.word.getWordOfTheDay.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-    onSuccess: (data) => {
-      try {
-        sendServiceWorkerWordOfTheDay(data, REMINDER_TIME);
-      } catch (error: unknown) {
-        console.error(error);
-      }
+  const wotdQuery = api.word.getWordOfTheDay.useQuery(
+    {
+      collectionId: props.collectionId,
     },
-    onError: (err) => showToast(`${err.message}`, "error"),
-  });
+    {
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        try {
+          sendServiceWorkerWordOfTheDay(data, REMINDER_TIME);
+        } catch (error: unknown) {
+          console.error(error);
+        }
+      },
+      onError: (err) => showToast(`${err.message}`, "error"),
+    }
+  );
 
   useEffect(() => {
     if (!wotdQuery.data) {
@@ -48,8 +57,8 @@ export default function WordOfTheDay() {
             <h1 className="mb-20 text-2xl tracking-tight">
               Your Word of the Day
             </h1>
-            <p className="text-3xl font-bold">{wordToDisplay.translation}</p>
-            <p className="text-xl">{wordToDisplay.native}</p>
+            <p className="text-3xl font-bold">{wordToDisplay.front}</p>
+            <p className="text-xl">{wordToDisplay.back}</p>
             <p className="text-xl">{wordToDisplay.notes}</p>
             {wordToDisplay.tags.length > 0 && (
               <p className="text-md">

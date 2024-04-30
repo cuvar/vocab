@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { api } from "../lib/api";
-import { useToast } from "../lib/ui/hooks";
+import { api } from "../../lib/api";
+import { useToast } from "../../lib/ui/hooks";
 
-export default function JsonImport() {
+type Props = {
+  collectionId: string;
+};
+
+export default function JsonImport(props: Props) {
   const [jsonInput, setJsonInput] = useState("");
 
   const showToast = useToast();
@@ -16,6 +20,7 @@ export default function JsonImport() {
   function handleImport() {
     importWordsMutation.mutate({
       text: jsonInput,
+      collectionId: props.collectionId,
     });
   }
   return (
@@ -31,13 +36,19 @@ export default function JsonImport() {
             <code>
               [&#123;
               <br />
-              &quot;translation&quot;: &quot;abundant&quot;,
+              &nbsp;&nbsp;&quot;front&quot;: &quot;abundant&quot;,
               <br />
-              &quot;native&quot;: &quot;reichlich&quot;,
+              &nbsp;&nbsp;&quot;back&quot;: &quot;reichlich&quot;,
               <br />
-              &quot;notes&quot;: &quot;&quot;,
+              &nbsp;&nbsp;&quot;iconFront&quot;:&quot;🏴󠁧󠁢󠁥󠁮󠁧󠁿&quot;,
               <br />
-              &quot;mode&quot;: &quot;UNLEARNED&quot;,
+              &nbsp;&nbsp;&quot;iconBack&quot;: &quot;🇩🇪&quot;,
+              <br />
+              &nbsp;&nbsp;&quot;notes&quot;: &quot;any notes you want to have
+              for your entry&quot;,
+              <br />
+              &nbsp;&nbsp;&quot;mode&quot;:
+              &quot;LEARNED&quot;|&quot;UNLEARNED&quot;|&quot;ARCHIVED&quot;,
               <br />
               &#125;]
             </code>

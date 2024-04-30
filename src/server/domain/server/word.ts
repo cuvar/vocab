@@ -2,42 +2,47 @@ import type prisma from "@prisma/client";
 
 export default class Word implements prisma.Word {
   id: string;
-  translation: string;
-  native: string;
+  front: string;
+  back: string;
   notes: string;
   mode: prisma.LearnMode;
+  collectionId: string;
 
   constructor(
     id: string,
-    translation: string,
-    native: string,
+    front: string,
+    back: string,
     notes: string,
-    mode: prisma.LearnMode
+    mode: prisma.LearnMode,
+    collectionId: string
   ) {
     this.id = id;
-    this.translation = translation;
-    this.native = native;
+    this.front = front;
+    this.back = back;
     this.notes = notes;
     this.mode = mode;
+    this.collectionId = collectionId;
   }
 
   static fromPrisma(word: prisma.Word): Word {
     return new Word(
       word.id,
-      word.translation,
-      word.native,
+      word.front,
+      word.back,
       word.notes,
-      word.mode
+      word.mode,
+      word.collectionId
     );
   }
 
   toPrisma(): prisma.Word {
     return {
       id: this.id,
-      translation: this.translation,
-      native: this.native,
+      front: this.front,
+      back: this.back,
       notes: this.notes,
       mode: this.mode,
+      collectionId: this.collectionId,
     };
   }
 }

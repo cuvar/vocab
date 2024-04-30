@@ -10,7 +10,7 @@ import { type ListElement } from "../server/domain/client/listElement";
 
 type Props = {
   word: ListElement;
-  showTranslation: boolean;
+  showFront: boolean;
   clickHandler?: (eng: string) => void;
   markHandler?: (word: string, mark: boolean) => void;
   actions?: ActionData[];
@@ -25,9 +25,7 @@ export default function ListItem(props: Props) {
   const [markIcon, setMarkIcon] = useState<React.ReactNode>(
     props.word.mode == LearnMode.LEARNED ? checkedIcon : uncheckedIcon
   );
-  const showTranslationClass = !props.showTranslation
-    ? "bg-white"
-    : "bg-violet-200";
+  const showTranslationClass = !props.showFront ? "bg-white" : "bg-violet-200";
   const learnedClass =
     props.word.mode == LearnMode.LEARNED && props.markLearned
       ? "border border-4 border-secondary"
@@ -93,16 +91,16 @@ export default function ListItem(props: Props) {
             onClick={(e) => handleClick(e)}
             className="w-full rounded-lg py-4 px-4 text-left"
           >
-            {!props.showTranslation && (
+            {!props.showFront && (
               <p className="flex items-center space-x-2">
-                <span>{props.word.iconTranslation}</span>
+                <span>{props.word.iconFront}</span>
                 <span>{props.word.word}</span>
               </p>
             )}
-            {props.showTranslation && (
+            {props.showFront && (
               <div className="flex flex-col text-left">
                 <p className="flex items-center space-x-2">
-                  <span>{props.word.iconNative}</span>
+                  <span>{props.word.iconBack}</span>
                   <span>
                     {props.word.otherWord}
                     <br />

@@ -4,6 +4,7 @@ export const DEFAULT_SETTINGS: Settings = {
   randomizeCards: true,
   reminderTime: "9:00",
   sendWOTDNotifications: false,
+  allowWOTD: true,
 };
 
 export const AMOUNT_OF_WORDS_PER_PAGE = 10;
