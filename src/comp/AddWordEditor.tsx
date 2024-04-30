@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { type FECollection } from "~/server/domain/client/feCollection";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
 import { type TagData } from "../server/domain/client/tagData";
@@ -8,6 +9,7 @@ import {
   showEditorModalAtom,
   wordToEditAtom,
 } from "../server/store";
+import CollectionSelect from "./CollectionSelect";
 import RelatedWordList from "./RelatedWordList";
 import TagSelect from "./TagSelect";
 
@@ -15,7 +17,9 @@ export default function Editor() {
   const [englishInput, setEnglishInput] = useState("");
   const [germanInput, setGermanInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
+  const [collectionIdInput, setCollectionIdInput] = useState("");
   const [TagData, setTagData] = useState<TagData[]>([]);
+  const [collectionData, setCollectionData] = useState<FECollection[]>([]);
   const [showExistingWords, setShowExistingWords] = useState(false);
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
@@ -37,6 +41,10 @@ export default function Editor() {
     },
   });
 
+  api.collection.getAll.useQuery(undefined, {
+    onSuccess: (data) => setCollectionData(data),
+  });
+
   const addWordMutation = api.word.addWord.useMutation({
     onSuccess: (word) => {
       showToast(`"${word}" added`, "success");
@@ -51,6 +59,7 @@ export default function Editor() {
       front: englishInput,
       back: germanInput,
       notes: notesInput,
+      collectionId: collectionIdInput,
       tagIds: tags,
     });
     clearEditor();
@@ -72,6 +81,10 @@ export default function Editor() {
 
   function onTagsSelectChange(_TagData: TagData[]) {
     setTagData(_TagData);
+  }
+
+  function onCollectionSelectChange(_collectionData: FECollection) {
+    setCollectionIdInput(_collectionData.id);
   }
 
   return (
@@ -123,6 +136,14 @@ export default function Editor() {
         <div className="form-control">
           {TagData.length > 0 && (
             <TagSelect tags={TagData} handler={onTagsSelectChange} />
+          )}
+        </div>
+        <div className="form-control">
+          {collectionData.length > 0 && (
+            <CollectionSelect
+              collections={collectionData}
+              handler={onCollectionSelectChange}
+            />
           )}
         </div>
         <div className="collapse bg-base-200">

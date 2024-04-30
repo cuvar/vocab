@@ -68,6 +68,7 @@ export class WordSupabaseRepository implements WordRepository {
           },
         },
       });
+
       const transformed = data.map((e) => {
         return toVocabularyWord(
           e.tags.map((t) => t.tag),
@@ -176,6 +177,7 @@ export class WordSupabaseRepository implements WordRepository {
           back: newWord.back,
           notes: newWord.notes,
           mode: newWord.mode,
+          collectionId: newWord.collectionId,
         },
         include: {
           tags: {
@@ -245,6 +247,7 @@ export class WordSupabaseRepository implements WordRepository {
           front: word.front,
           back: word.back,
           notes: word.notes,
+          collectionId: word.collectionId,
           mode: PrismaLearnMode.UNLEARNED,
         },
         include: {
@@ -344,6 +347,7 @@ function toVocabularyWord(ptags: PrismaTag[], word: PrismaWord) {
     back: withIcons.back,
     notes: withIcons.notes,
     mode: withIcons.mode,
+    collectionId: withIcons.collectionId,
     iconFront: withIcons.iconFront,
     iconBack: withIcons.iconBack,
     tags: tags,

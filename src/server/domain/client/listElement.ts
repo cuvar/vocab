@@ -11,6 +11,7 @@ export type ListElement = {
   mode: PrismaLearnMode;
   iconFront: string;
   iconBack: string;
+  collectionId: string;
   tags: Tag[];
   word: string;
   otherWord: string;

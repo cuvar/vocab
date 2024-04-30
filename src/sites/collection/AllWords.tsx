@@ -81,29 +81,39 @@ export default function AllWords(props: Props) {
     }
   );
 
-  const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
-    onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
-        toListElement(e)
-      );
-      setWordsToDisplay(transformed);
-      setLearnedWords(transformed);
+  const getLearnedQuery = api.word.getLearned.useQuery(
+    {
+      collectionId: props.collectionId,
     },
-    refetchOnWindowFocus: false,
-    enabled: false,
-  });
+    {
+      onSuccess: (data) => {
+        const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+          toListElement(e)
+        );
+        setWordsToDisplay(transformed);
+        setLearnedWords(transformed);
+      },
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
 
-  const getArchivedQuery = api.word.getArchived.useQuery(undefined, {
-    onSuccess: (data) => {
-      const transformed: ListElement[] = data.map((e: VocabularyWord) =>
-        toListElement(e)
-      );
-      setWordsToDisplay(transformed);
-      setArchivedWords(transformed);
+  const getArchivedQuery = api.word.getArchived.useQuery(
+    {
+      collectionId: props.collectionId,
     },
-    refetchOnWindowFocus: false,
-    enabled: false,
-  });
+    {
+      onSuccess: (data) => {
+        const transformed: ListElement[] = data.map((e: VocabularyWord) =>
+          toListElement(e)
+        );
+        setWordsToDisplay(transformed);
+        setArchivedWords(transformed);
+      },
+      refetchOnWindowFocus: false,
+      enabled: false,
+    }
+  );
 
   function changeMarkAsLearned(ev: InteractionEvent, arg: VocabularyWord) {
     updateModeMutation.mutate({
@@ -124,6 +134,7 @@ export default function AllWords(props: Props) {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
+    console.log(arg);
     setShowEditorModal(true);
   }
 

@@ -29,6 +29,7 @@ export function toListElement(word: VocabularyWord): ListElement {
     iconFront: word.iconFront,
     iconBack: word.iconBack,
     tags: word.tags,
+    collectionId: word.collectionId,
     word: word.front,
     otherWord: word.back,
   } satisfies ListElement;

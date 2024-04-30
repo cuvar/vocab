@@ -20,9 +20,12 @@ export default function Generator(props: Props) {
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 
-  const randomWord = api.word.getRandomUnlearnedWord.useQuery(undefined, {
-    refetchOnWindowFocus: false,
-  });
+  const randomWord = api.word.getRandomUnlearnedWord.useQuery(
+    { collectionId: props.collectionId },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   useEffect(() => {
     if (!randomWord.data) {

@@ -6,5 +6,6 @@ export type StrippedVocabularyWord = {
   back: string;
   notes: string;
   mode: PrismaLearnMode;
+  collectionId: string;
   tags: Tag[];
 };

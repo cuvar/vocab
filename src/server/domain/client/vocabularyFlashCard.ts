@@ -11,6 +11,7 @@ export type VocabularyFlashCard = {
   mode: PrismaLearnMode;
   iconFront: string;
   iconBack: string;
+  collectionId: string;
   tags: Tag[];
   cardMode: FlashCardMode;
   switched: boolean;

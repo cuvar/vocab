@@ -10,6 +10,7 @@ export type VocabularyWord = {
   back: string;
   notes: string;
   mode: PrismaLearnMode;
+  collectionId: string;
   iconFront: string;
   iconBack: string;
   tags: Tag[];
@@ -63,5 +64,12 @@ export function isVocabularyWordArray(data: unknown): data is VocabularyWord[] {
  * @param data
  */
 export function vocabularyWordToWord(data: VocabularyWord) {
-  return new Word(data.id, data.front, data.back, data.notes, data.mode);
+  return new Word(
+    data.id,
+    data.front,
+    data.back,
+    data.notes,
+    data.mode,
+    data.collectionId
+  );
 }

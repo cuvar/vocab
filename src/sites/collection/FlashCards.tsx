@@ -36,13 +36,16 @@ export default function FlashCards(props: Props) {
 
   const randomizeCards = getSettings().randomizeCards;
 
-  const getLearnedQuery = api.word.getLearned.useQuery(undefined, {
-    onSuccess: (data) => {
-      const transformed = toFlashCards(data);
-      init(transformed);
-    },
-    refetchOnWindowFocus: false,
-  });
+  const getLearnedQuery = api.word.getLearned.useQuery(
+    { collectionId: props.collectionId },
+    {
+      onSuccess: (data) => {
+        const transformed = toFlashCards(data);
+        init(transformed);
+      },
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const updateModeMutation = api.word.updateMode.useMutation({
     onSuccess: (data) => {
@@ -69,6 +72,7 @@ export default function FlashCards(props: Props) {
         mode: e.mode,
         iconFront: e.iconFront,
         iconBack: e.iconBack,
+        collectionId: e.collectionId,
         tags: e.tags,
         cardMode: "none",
         switched: randomizeCards ? Math.random() > 0.5 : false,
@@ -191,7 +195,7 @@ export default function FlashCards(props: Props) {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 text-2xl tracking-tight">
-        Flash card mode: {unlookedWords.length} words
+        Flash Cards: {unlookedWords.length}
       </h1>
       <ProgressBar max={unlookedWords.length} current={topCardIndex + 1} />
       <div className="flex w-full max-w-[24rem] flex-col items-center space-y-12">

@@ -6,7 +6,7 @@ export default class Word implements prisma.Word {
   back: string;
   notes: string;
   mode: prisma.LearnMode;
-  collectionId: string | null;
+  collectionId: string;
 
   constructor(
     id: string,
@@ -14,7 +14,7 @@ export default class Word implements prisma.Word {
     back: string,
     notes: string,
     mode: prisma.LearnMode,
-    collectionId: string | null
+    collectionId: string
   ) {
     this.id = id;
     this.front = front;
@@ -31,7 +31,7 @@ export default class Word implements prisma.Word {
       word.back,
       word.notes,
       word.mode,
-      word.collectionId ?? null
+      word.collectionId
     );
   }
 
