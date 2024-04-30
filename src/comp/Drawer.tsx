@@ -13,6 +13,7 @@ import {
 type Props = {
   children: React.ReactNode;
   disableDrawer?: boolean;
+  collectionId?: string;
 };
 
 type DrawerItem = {
@@ -24,7 +25,6 @@ type DrawerItem = {
 
 export default function Drawer(props: Props) {
   const router = useRouter();
-  const path = router.pathname.split("/")[1];
   const drawerItems: DrawerItem[] = [
     {
       href: "/collections",
@@ -32,29 +32,31 @@ export default function Drawer(props: Props) {
       icon: boxIcon,
     },
     {
-      href: "/cards",
+      href: prependCorrectly("/cards"),
       displayName: "Flash cards",
       icon: boltIcon,
     },
     {
-      href: "/words",
+      href: prependCorrectly("/words"),
+
       displayName: "Words",
       icon: listIcon,
     },
     {
-      href: "/generate",
+      href: prependCorrectly("/generate"),
       displayName: "Generator",
       icon: sparklesIcon,
+    },
+    {
+      href: prependCorrectly("/wotd"),
+      displayName: "WOTD",
+      icon: calendarIcon,
     },
     {
       href: "/tags",
       displayName: "Tags",
       icon: tagIcon,
-    },
-    {
-      href: "/wotd",
-      displayName: "WOTD",
-      icon: calendarIcon,
+      position: "bottom",
     },
     {
       href: "/settings",
@@ -63,6 +65,18 @@ export default function Drawer(props: Props) {
       position: "bottom",
     },
   ];
+
+  function prependCorrectly(href: string) {
+    if (props.collectionId) {
+      return `/c/${props.collectionId}${href}`;
+    }
+    return href;
+  }
+
+  function isActive(item: DrawerItem) {
+    const key = item.href.split("/").pop()!;
+    return router.pathname.endsWith(key);
+  }
 
   return (
     <div className="drawer lg:drawer-open">
@@ -82,7 +96,7 @@ export default function Drawer(props: Props) {
                     <Link
                       href={item.href}
                       className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
-                        path == item.href.slice(1) ? `active` : ""
+                        isActive(item) ? `active` : ""
                       }`}
                     >
                       <span>{item.icon}</span>
@@ -99,7 +113,7 @@ export default function Drawer(props: Props) {
                     <Link
                       href={item.href}
                       className={`flex flex-row items-center space-x-1 rounded-lg py-2 px-4 ${
-                        path == item.href.slice(1) ? `active` : ""
+                        isActive(item) ? `active` : ""
                       }`}
                     >
                       <span>{item.icon}</span>

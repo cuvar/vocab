@@ -9,7 +9,7 @@ const SiteLearn: NextPage = () => {
     typeof router.query.id === "string" ? router.query.id : "";
 
   return (
-    <SiteWrapper>
+    <SiteWrapper collectionId={collectionId}>
       <WordOfTheDay collectionId={collectionId} />
     </SiteWrapper>
   );

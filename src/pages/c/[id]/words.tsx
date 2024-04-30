@@ -9,7 +9,7 @@ const SiteWords: NextPage = () => {
     typeof router.query.id === "string" ? router.query.id : "";
 
   return (
-    <SiteWrapper>
+    <SiteWrapper collectionId={collectionId}>
       <AllWords collectionId={collectionId} />
     </SiteWrapper>
   );
