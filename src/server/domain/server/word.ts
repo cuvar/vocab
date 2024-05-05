@@ -38,11 +38,11 @@ export default class Word implements prisma.Word {
   toPrisma(): prisma.Word {
     return {
       id: this.id,
-      front: this.front,
-      back: this.back,
-      notes: this.notes,
+      front: this.front.trim(),
+      back: this.back.trim(),
+      notes: this.notes.trim(),
       mode: this.mode,
-      collectionId: this.collectionId,
+      collectionId: this.collectionId.trim(),
     };
   }
 }
