@@ -17,7 +17,6 @@ export async function importWords(text: string, collectionId: string) {
   if (!isJsonImportWordArray(parsed)) {
     throw new AppError("Input is in wrong format");
   }
-
   const res = await repo.importWords(parsed, collectionId);
   return res;
 }
