@@ -15,6 +15,5 @@ export default withNextra({
   eslint: { ignoreDuringBuilds: true },
   env: {
     NO_INDEX: process.env.VERCEL_ENV !== "production" ? "true" : "false",
-  },
-  basePath: "/docs"
+  }
 });
