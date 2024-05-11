@@ -134,7 +134,6 @@ export default function AllWords(props: Props) {
 
   function editWord(ev: InteractionEvent, arg: VocabularyWord) {
     setWordToEdit(arg);
-    console.log(arg);
     setShowEditorModal(true);
   }
 

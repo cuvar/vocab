@@ -10,7 +10,6 @@ export default function FilterBar(props: Props) {
   const [activeFilter, setActiveFilter] = useState<FilterState>(null);
 
   function handleFilterClick(newState: FilterState) {
-    console.log("newState", newState);
     if (
       (newState === "learned" || newState === "archived") &&
       newState !== activeFilter
