@@ -2,7 +2,7 @@
 
 vocab is a self-hosted flash cards app for learning new words of a foreign language or any other similar use case. 
 
-For more information, visit the docs [here](https://vocab.dyme.one/docs)!
+For more information, visit the docs [here](https://vocab-docs.vercel.app)!
 
 ### Features
 
