@@ -11,8 +11,14 @@
     "title": "Getting started",
     "theme": {
       "typesetting": "article",
-      "breadcrumb": false,
-      "toc": false
+      "breadcrumb": false
+    }
+  },
+  "features": {
+    "title": "Features",
+    "theme": {
+      "typesetting": "article",
+      "breadcrumb": false
     }
   }
 }
