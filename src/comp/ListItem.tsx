@@ -25,7 +25,7 @@ export default function ListItem(props: Props) {
   const [markIcon, setMarkIcon] = useState<React.ReactNode>(
     props.word.mode == LearnMode.LEARNED ? checkedIcon : uncheckedIcon
   );
-  const showTranslationClass = !props.showFront ? "bg-white" : "bg-violet-200";
+  const showFrontClass = !props.showFront ? "bg-white" : "bg-violet-200";
   const learnedClass =
     props.word.mode == LearnMode.LEARNED && props.markLearned
       ? "border border-4 border-secondary"
@@ -77,7 +77,7 @@ export default function ListItem(props: Props) {
   });
   return (
     <div
-      className={`w-full rounded-lg ${showTranslationClass} ${learnedClass} text-black`}
+      className={`w-full rounded-lg ${showFrontClass} ${learnedClass} text-black`}
     >
       <SwiperAction
         actions={newActions ?? []}

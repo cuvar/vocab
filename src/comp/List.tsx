@@ -42,7 +42,7 @@ export default function List(props: Props) {
   useEffect(() => {
     const sortedWords = props.words
       .sort((a, b) => a.word.localeCompare(b.word))
-      .map((e) => transformForshowBack(props.showBack, e));
+      .map((e) => transformForShowBack(props.showBack, e));
 
     if (!isListElementArray(sortedWords)) {
       return;
@@ -83,19 +83,14 @@ export default function List(props: Props) {
     setCurrentShown("");
   }
 
-  function transformForshowBack(showBack: boolean, e: ListElement) {
+  function transformForShowBack(showBack: boolean, e: ListElement) {
     if (showBack) {
       return {
-        id: e.id,
-        back: e.back,
-        front: e.front,
-        notes: e.notes,
-        mode: e.mode,
+        ...e,
         iconFront: e.iconBack,
         iconBack: e.iconFront,
-        tags: e.tags,
-        otherWord: e.otherWord,
-        word: e.word,
+        otherWord: e.word,
+        word: e.otherWord,
       } as ListElement;
     }
     return e;

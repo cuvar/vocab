@@ -10,8 +10,8 @@ import { type VocabularyWord } from "../server/domain/client/vocabularyWord";
 export function addIcons(word: Word) {
   return {
     ...word,
-    iconBack: env.NEXT_PUBLIC_NATIVE_ICON,
-    iconFront: env.NEXT_PUBLIC_TRANSLATION_ICON,
+    iconFront: env.NEXT_PUBLIC_FRONT_ICON,
+    iconBack: env.NEXT_PUBLIC_BACK_ICON,
   };
 }
 

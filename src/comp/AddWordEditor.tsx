@@ -16,8 +16,8 @@ type Props = {
 };
 
 export default function Editor(props: Props) {
-  const [englishInput, setEnglishInput] = useState("");
-  const [germanInput, setGermanInput] = useState("");
+  const [frontInput, setFrontInput] = useState("");
+  const [backInput, setBackInput] = useState("");
   const [notesInput, setNotesInput] = useState("");
   const [TagData, setTagData] = useState<TagData[]>([]);
   const [showExistingWords, setShowExistingWords] = useState(false);
@@ -57,8 +57,8 @@ export default function Editor(props: Props) {
   function addWord() {
     const tags: string[] = TagData.filter((t) => t.checked).map((t) => t.id);
     addWordMutation.mutate({
-      front: englishInput,
-      back: germanInput,
+      front: frontInput,
+      back: backInput,
       notes: notesInput,
       collectionId: props.collectionId,
       tagIds: tags,
@@ -67,12 +67,12 @@ export default function Editor(props: Props) {
   }
 
   function disableButton() {
-    return englishInput.trim() == "" || germanInput.trim() == "";
+    return frontInput.trim() == "" || backInput.trim() == "";
   }
 
   function clearEditor() {
-    setEnglishInput("");
-    setGermanInput("");
+    setFrontInput("");
+    setBackInput("");
     setNotesInput("");
     setShowExistingWords(false);
     setWordToEdit(null);
@@ -96,26 +96,26 @@ export default function Editor(props: Props) {
       <div className="flex flex-col space-y-4">
         <div className="form-control w-full max-w-xs">
           <label className="label">
-            <span className="label-text">English</span>
+            <span className="label-text">Front</span>
           </label>
           <input
             type="text"
             placeholder="Type here"
             className="input-bordered input w-full max-w-xs"
-            value={englishInput}
-            onChange={(e) => setEnglishInput(e.target.value)}
+            value={frontInput}
+            onChange={(e) => setFrontInput(e.target.value)}
           />
         </div>
         <div className="form-control w-full max-w-xs">
           <label className="label">
-            <span className="label-text">German</span>
+            <span className="label-text">Back</span>
           </label>
           <input
             type="text"
             placeholder="Type here"
             className="input-bordered input w-full max-w-xs"
-            value={germanInput}
-            onChange={(e) => setGermanInput(e.target.value)}
+            value={backInput}
+            onChange={(e) => setBackInput(e.target.value)}
           />
         </div>
         <div className="form-control w-full max-w-xs">
@@ -142,10 +142,10 @@ export default function Editor(props: Props) {
             onChange={() => setShowExistingWords(!showExistingWords)}
           />
           <div className="collapse-title text-lg font-medium">
-            Existing words
+            Existing entries
           </div>
           <div className="collapse-content">
-            <RelatedWordList word={englishInput} />
+            <RelatedWordList word={frontInput} />
           </div>
         </div>
         <button

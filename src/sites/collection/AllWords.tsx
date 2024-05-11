@@ -40,7 +40,7 @@ export default function AllWords(props: Props) {
   const [wordsToDisplay, setWordsToDisplay] = useState<ListElement[]>(
     getAllWords(props.collectionId)
   );
-  const [showBack, setshowBack] = useState<boolean>(false);
+  const [showBack, setShowBack] = useState<boolean>(false);
   const [searchString, setSearchString] = useState("");
   const [, setWordToEdit] = useAtom(wordToEditAtom);
   const [, setShowEditorModal] = useAtom(showEditorModalAtom);
@@ -193,9 +193,9 @@ export default function AllWords(props: Props) {
     }
   }
 
-  function handleshowBackChanged() {
-    const newshowBack = !showBack;
-    setshowBack(newshowBack);
+  function handleShowBackChanged() {
+    const newShowBack = !showBack;
+    setShowBack(newShowBack);
   }
 
   function resetSearch() {
@@ -252,7 +252,7 @@ export default function AllWords(props: Props) {
           <Mutator
             id={"showBack"}
             text={"Show back side"}
-            onclick={handleshowBackChanged}
+            onclick={handleShowBackChanged}
             active={showBack}
           />
         </div>
