@@ -73,7 +73,7 @@ export default function Drawer(props: Props) {
 
   function isActive(item: DrawerItem) {
     const key = item.href.split("/").pop()!;
-    return router.pathname.endsWith(key);
+    return router.pathname.endsWith(key) && key.length > 0;
   }
 
   return (
