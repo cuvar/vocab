@@ -1,5 +1,9 @@
 /* eslint-disable jsdoc/require-jsdoc */
 import {
+  isFECollection,
+  type FECollection,
+} from "~/server/domain/client/feCollection";
+import {
   isListElement,
   type ListElement,
 } from "../../domain/client/listElement";
@@ -27,4 +31,19 @@ export function parseSettings(input: string): Settings | null {
   }
 
   return parsed;
+}
+
+export function parseCollections(input: string): FECollection[] {
+  const parsed = JSON.parse(input) as unknown;
+  if (!Array.isArray(parsed)) {
+    return [];
+  }
+  const validOutput = parsed.every((item) => {
+    return isFECollection(item);
+  });
+
+  if (!validOutput) {
+    return [];
+  }
+  return parsed as FECollection[];
 }

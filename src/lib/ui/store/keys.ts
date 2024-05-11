@@ -1,3 +1,4 @@
+export const KEY_COLLECTIONS = "vocab_all_words";
 export const KEY_ALL_WORDS = "vocab_all_words";
 
 export const KEY_LEARNED_CARDS = "vocab_learned_cards";
