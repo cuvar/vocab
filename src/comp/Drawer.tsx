@@ -27,7 +27,7 @@ export default function Drawer(props: Props) {
   const router = useRouter();
   const drawerItems: DrawerItem[] = [
     {
-      href: "/collections",
+      href: "/",
       displayName: "Collections",
       icon: boxIcon,
     },
