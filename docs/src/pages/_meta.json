@@ -1,0 +1,24 @@
+{
+  "index": {
+    "title": "Introduction",
+    "theme": {
+      "typesetting": "article",
+      "breadcrumb": false,
+      "toc": false
+    }
+  },
+  "getting-started": {
+    "title": "Getting started",
+    "theme": {
+      "typesetting": "article",
+      "breadcrumb": false
+    }
+  },
+  "features": {
+    "title": "Features",
+    "theme": {
+      "typesetting": "article",
+      "breadcrumb": false
+    }
+  }
+}

@@ -1,0 +1,61 @@
+# Getting started
+
+## Prerequisites
+
+In order for this app to work, you need to have a relational database running.
+The app is built and tested on PostgreSQL, but it should work with other relational databases as well.
+I'm using a database hosted at [supabase.com](https://supabase.com) for my own instance of the app. But you can really use any other database provider as well.
+
+### Seeding the database
+
+WIP
+
+## Deployment
+
+Currently, there are two ways to deploy this application:
+
+1. Deploy it on your own server (manually)
+2. Deploy it with Vercel
+
+In the future, I plan to add more deployment options, but feel free to create a pull request if you want to add another deployment option.
+
+### 1. Deploy it on your own server (manually)
+
+You can deploy this application on your own server.
+Just clone this repository and run the following commands:
+
+```bash
+git clone https://github.com/cuvar/vocab &&
+npm install &&
+npm run build &&
+npm start
+```
+
+However, don't forget the [`.env` file](#environment-variables).
+
+### 2. Deploying with Vercel
+
+Just click the button below to deploy the app with Vercel. Be sure to fill in the environment variables as stated in the [`.env` file](#environment-variables).
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcuvar%2Fvocab)
+
+### Environment variables
+
+No matter how you want to deploy this application, you need to specify the environment variables as stated in the `.env.example` file.
+The easiest way to do this is to create a `.env` file in the root of the project and fill in the values. An example `.env` file could look like this:
+
+```bash
+DATABASE_URL="https://your-super-cool-database-url.com/postgres"
+NEXTAUTH_URL="https://yourdomain.com"
+NEXTAUTH_SECRET="zXi5xYQU12qLk1dxA7WSaR5pYIhqKig2c4OsBduVCC0="
+USERNAME="admin"
+PASSWORD="extremlySecretPassword"
+NEXT_PUBLIC_FRONT_ICON="🏴󠁧󠁢󠁥󠁮󠁧󠁿"
+NEXT_PUBLIC_BACK_ICON="🇩🇪"
+```
+
+The `NEXTAUTH_SECRET` can be generated with the following command:
+
+```bash
+openssl rand -base64 32
+```
