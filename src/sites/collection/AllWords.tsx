@@ -251,7 +251,7 @@ export default function AllWords(props: Props) {
         <div className="flex w-full space-x-4 overflow-y-scroll">
           <Mutator
             id={"showBack"}
-            text={"Show Native"}
+            text={"Show back side"}
             onclick={handleshowBackChanged}
             active={showBack}
           />
