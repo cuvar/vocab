@@ -75,7 +75,7 @@ export default function CollectionSettings(props: Props) {
             <hr />
             <div className="form-control">
               <label className="label w-72 cursor-pointer space-x-2">
-                <span className="label-text">Randomize flash card words</span>
+                <span className="label-text">Randomize flash card entries</span>
                 <input
                   type="checkbox"
                   checked={Settings.randomizeCards}

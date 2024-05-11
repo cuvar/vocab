@@ -13,7 +13,7 @@ export default function JsonImport(props: Props) {
 
   const importWordsMutation = api.word.importWords.useMutation({
     onSuccess: (count) =>
-      showToast(`Successfully imported ${count} words`, "success"),
+      showToast(`Successfully imported ${count} entries`, "success"),
     onError: (err) => showToast(`${err.message}`, "error"),
   });
 

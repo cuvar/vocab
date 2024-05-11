@@ -244,7 +244,7 @@ export default function AllWords(props: Props) {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-start gap-12 px-4">
       <h1 className="mt-5 mb-2 text-2xl tracking-tight">
-        {wordsToDisplay.length} words
+        {wordsToDisplay.length} entries
       </h1>
       <div className="flex w-full flex-col space-y-4">
         <FilterBar filter={filter} onChange={handleFilterChanged} />

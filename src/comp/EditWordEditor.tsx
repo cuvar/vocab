@@ -107,7 +107,7 @@ export default function Editor(props: Props) {
   }
 
   function deleteWord() {
-    const confirmed = confirm("Are you sure you want to delete this word?");
+    const confirmed = confirm("Are you sure you want to delete this entry?");
     if (confirmed) {
       deleteWordMutation.mutate({ id: props.word.id });
     }

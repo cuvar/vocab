@@ -38,7 +38,7 @@ export default function Drawer(props: Props) {
     },
     {
       href: prependCorrectly("/words"),
-      displayName: "Words",
+      displayName: "Entries",
       icon: listIcon,
     },
     {

@@ -56,7 +56,7 @@ export default function TagItem(props: Props) {
 
   function handleDelete(collectionId: string) {
     const confirm = window.confirm(
-      "Are you sure you want to delete this collection and all words/data related to it?"
+      "Are you sure you want to delete this collection and all entries/data related to it?"
     );
     if (confirm) {
       deleteCollectionMutation.mutate({
