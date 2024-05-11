@@ -21,8 +21,8 @@ type Props = {
 };
 
 export default function Editor(props: Props) {
-  const [translationInput, setTranslationInput] = useState(props.word.front);
-  const [nativeInput, setNativeInput] = useState(props.word.back);
+  const [frontInput, setFrontInput] = useState(props.word.front);
+  const [backInput, setBackInput] = useState(props.word.back);
   const [notesInput, setNotesInput] = useState(props.word.notes);
   const [modeInput, setModeInput] = useState(props.word.mode);
   const [collectionIdInput, setCollectionIdInput] = useState(
@@ -64,8 +64,8 @@ export default function Editor(props: Props) {
 
     updateWordMutation.mutate({
       id: props.word.id,
-      front: translationInput,
-      back: nativeInput,
+      front: frontInput,
+      back: backInput,
       notes: notesInput,
       collectionId: collectionIdInput,
       mode: modeInput,
@@ -75,7 +75,7 @@ export default function Editor(props: Props) {
   }
 
   function disableButton() {
-    return translationInput.trim() == "" || nativeInput.trim() == "";
+    return frontInput.trim() == "" || backInput.trim() == "";
   }
 
   function clearEditor() {
@@ -107,7 +107,7 @@ export default function Editor(props: Props) {
   }
 
   function deleteWord() {
-    const confirmed = confirm("Are you sure you want to delete this word?");
+    const confirmed = confirm("Are you sure you want to delete this entry?");
     if (confirmed) {
       deleteWordMutation.mutate({ id: props.word.id });
     }
@@ -127,25 +127,25 @@ export default function Editor(props: Props) {
       <div className="flex flex-col space-y-4">
         <div className="form-control w-full max-w-xs">
           <label className="label">
-            <span className="label-text">English</span>
+            <span className="label-text">Front</span>
           </label>
           <input
             type="text"
             placeholder="Type here"
             className="input-bordered input w-full max-w-xs"
-            value={translationInput}
-            onChange={(e) => setTranslationInput(e.target.value)}
+            value={frontInput}
+            onChange={(e) => setFrontInput(e.target.value)}
           />
         </div>
         <div className="form-control w-full max-w-xs">
           <label className="label">
-            <span className="label-text">German</span>
+            <span className="label-text">Back</span>
           </label>
           <textarea
             placeholder="Type here"
             className="textarea-bordered textarea w-full max-w-xs"
-            value={nativeInput}
-            onChange={(e) => setNativeInput(e.target.value)}
+            value={backInput}
+            onChange={(e) => setBackInput(e.target.value)}
           />
         </div>
         <div className="form-control w-full max-w-xs">

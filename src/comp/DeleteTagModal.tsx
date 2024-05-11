@@ -31,7 +31,7 @@ export default function DeleteTagModal(props: Props) {
       >
         ✕
       </button>
-      <h3 className="mb-4 text-lg font-bold">Add a Word</h3>
+      <h3 className="mb-4 text-lg font-bold">Delete Tag</h3>
       <div className="flex flex-col space-y-8">
         <div className="space-y-2">
           <p className="text-center">Do you really want to delete the tag?</p>

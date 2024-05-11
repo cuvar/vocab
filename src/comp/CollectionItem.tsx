@@ -1,9 +1,7 @@
-import { useAtom } from "jotai";
 import { useState } from "react";
 import { api } from "../lib/api";
 import { useToast } from "../lib/ui/hooks";
 import { checkedIcon, trashIcon } from "../lib/ui/icons";
-import { deleteTagConfirmedAtom, tagToDeleteAtom } from "../server/store";
 
 type Props = {
   id?: string;
@@ -15,10 +13,6 @@ type Props = {
 export default function TagItem(props: Props) {
   const [nameInput, setNameInput] = useState(props.name);
   const [descInput, setDescInput] = useState(props.description);
-  const [tagToDelete, setTagToDelete] = useAtom(tagToDeleteAtom);
-  const [deleteTagConfirmed, setDeleteTagConfirmed] = useAtom(
-    deleteTagConfirmedAtom
-  );
 
   const showToast = useToast();
 
@@ -62,7 +56,7 @@ export default function TagItem(props: Props) {
 
   function handleDelete(collectionId: string) {
     const confirm = window.confirm(
-      "Are you sure you want to delete this collection and all words/data related to it?"
+      "Are you sure you want to delete this collection and all entries/data related to it?"
     );
     if (confirm) {
       deleteCollectionMutation.mutate({

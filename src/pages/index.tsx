@@ -1,49 +1,13 @@
 import { type NextPage } from "next";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { hatIcon, listIcon, sparklesIcon } from "../lib/ui/icons";
 import SiteWrapper from "../comp/SiteWrapper";
-import LogoutScreen from "../sites/LogoutScreen";
+import Collections from "../sites/Collections";
 
-const Home: NextPage = () => {
-  const { data } = useSession();
-  if (!data?.user) {
-    return <LogoutScreen />;
-  }
-
+const SiteCollections: NextPage = () => {
   return (
-    <SiteWrapper>
-      <ul className="flex flex-col space-y-6">
-        <li className="flex">
-          <Link
-            href="/learn"
-            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg"
-          >
-            <span>{hatIcon}</span>
-            <span>Learn Mode</span>
-          </Link>
-        </li>
-        <li className="flex">
-          <Link
-            href="/words"
-            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg "
-          >
-            <span>{listIcon}</span>
-            <span>All words</span>
-          </Link>
-        </li>
-        <li className="flex">
-          <Link
-            href="/generate"
-            className="btn-ghost btn flex h-full w-full items-center space-x-2 py-10 text-lg "
-          >
-            <span>{sparklesIcon}</span>
-            <span>Generate</span>
-          </Link>
-        </li>
-      </ul>
+    <SiteWrapper disableDrawer>
+      <Collections />
     </SiteWrapper>
   );
 };
 
-export default Home;
+export default SiteCollections;

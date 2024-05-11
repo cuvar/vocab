@@ -43,8 +43,8 @@ export const serverEnv = {
  * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
  */
 export const clientSchema = z.object({
-  NEXT_PUBLIC_NATIVE_ICON: z.string(),
-  NEXT_PUBLIC_TRANSLATION_ICON: z.string(),
+  NEXT_PUBLIC_FRONT_ICON: z.string(),
+  NEXT_PUBLIC_BACK_ICON: z.string(),
   NEXT_PUBLIC_DEBUG: z.boolean().optional(),
 });
 
@@ -55,7 +55,7 @@ export const clientSchema = z.object({
  * @type {{ [k in keyof z.infer<typeof clientSchema>]: z.infer<typeof clientSchema>[k] | undefined }}
  */
 export const clientEnv = {
-  NEXT_PUBLIC_NATIVE_ICON: process.env.NEXT_PUBLIC_NATIVE_ICON,
-  NEXT_PUBLIC_TRANSLATION_ICON: process.env.NEXT_PUBLIC_TRANSLATION_ICON,
+  NEXT_PUBLIC_FRONT_ICON: process.env.NEXT_PUBLIC_FRONT_ICON,
+  NEXT_PUBLIC_BACK_ICON: process.env.NEXT_PUBLIC_BACK_ICON,
   NEXT_PUBLIC_DEBUG: process.env.NEXT_PUBLIC_DEBUG === "true" ? true : false,
 };

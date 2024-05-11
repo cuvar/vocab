@@ -27,7 +27,7 @@ export default function Drawer(props: Props) {
   const router = useRouter();
   const drawerItems: DrawerItem[] = [
     {
-      href: "/collections",
+      href: "/",
       displayName: "Collections",
       icon: boxIcon,
     },
@@ -38,7 +38,7 @@ export default function Drawer(props: Props) {
     },
     {
       href: prependCorrectly("/words"),
-      displayName: "Words",
+      displayName: "Entries",
       icon: listIcon,
     },
     {
@@ -73,7 +73,7 @@ export default function Drawer(props: Props) {
 
   function isActive(item: DrawerItem) {
     const key = item.href.split("/").pop()!;
-    return router.pathname.endsWith(key);
+    return router.pathname.endsWith(key) && key.length > 0;
   }
 
   return (

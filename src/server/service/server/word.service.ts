@@ -24,8 +24,8 @@ export async function importWords(text: string, collectionId: string) {
 /**
  *
  * @param id
- * @param translation
- * @param native
+ * @param front
+ * @param back
  * @param front
  * @param back
  * @param notes
@@ -67,8 +67,8 @@ export async function deleteWord(id: string) {
 
 /**
  *
- * @param translation
- * @param native
+ * @param front
+ * @param back
  * @param front
  * @param back
  * @param notes

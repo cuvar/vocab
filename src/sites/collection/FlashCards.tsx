@@ -127,10 +127,12 @@ export default function FlashCards(props: Props) {
   }
 
   function handleReset() {
-    const confirmed = window.confirm(
-      "Are you sure you want to reset all learned words?"
-    );
-    if (!confirmed) return;
+    if (topCardWord) {
+      const confirmed = window.confirm(
+        "Are you sure you want to reset all learned words?"
+      );
+      if (!confirmed) return;
+    }
 
     clearCards(true, props.collectionId);
     words.forEach((e) => {
@@ -200,58 +202,60 @@ export default function FlashCards(props: Props) {
       <ProgressBar max={unlookedWords.length} current={topCardIndex + 1} />
       <div className="flex w-full max-w-[24rem] flex-col items-center space-y-12">
         {topCardWord ? (
-          <div
-            onClick={toggleshowBack}
-            className="flex h-60 w-full items-center justify-center"
-            ref={cardRef}
-          >
-            <Card word={topCardWord} showBack={showBack} />
-          </div>
-        ) : (
-          <p className="text-lg italic">No more words to learn</p>
-        )}
-        <div className="flex w-full flex-col space-y-10">
-          {topCardWord && (
+          <>
+            <div
+              onClick={toggleshowBack}
+              className="flex h-60 w-full items-center justify-center"
+              ref={cardRef}
+            >
+              <Card word={topCardWord} showBack={showBack} />
+            </div>
             <div className="flex w-full flex-col space-y-10">
-              <div className="flex h-14 w-full items-stretch justify-evenly space-x-4 text-black">
-                <button
-                  className="flex w-full items-center justify-center rounded-md bg-error py-2 active:opacity-80"
-                  onClick={handleBad}
-                >
-                  {thumbsDownIcon}
-                </button>
-                <button
-                  className="flex w-full items-center justify-center rounded-md bg-success py-4 active:opacity-80"
-                  onClick={handleGood}
-                >
-                  {thumbsUpIcon}
-                </button>
-              </div>
-              <div className="flex h-14 w-full items-stretch justify-evenly space-x-4 text-black">
-                <button
-                  className="flex w-full items-center justify-center rounded-md bg-accent py-2 active:opacity-80"
-                  onClick={handleArchive}
-                >
-                  {archiveIcon}
-                </button>
-                <button
-                  className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
-                  onClick={toggleshowBack}
-                >
-                  {arrowRoundIcon}
-                </button>
+              <div className="flex w-full flex-col space-y-10">
+                <div className="flex h-14 w-full items-stretch justify-evenly space-x-4 text-black">
+                  <button
+                    className="flex w-full items-center justify-center rounded-md bg-error py-2 active:opacity-80"
+                    onClick={handleBad}
+                  >
+                    {thumbsDownIcon}
+                  </button>
+                  <button
+                    className="flex w-full items-center justify-center rounded-md bg-success py-4 active:opacity-80"
+                    onClick={handleGood}
+                  >
+                    {thumbsUpIcon}
+                  </button>
+                </div>
+                <div className="flex h-14 w-full items-stretch justify-evenly space-x-4 text-black">
+                  <button
+                    className="flex w-full items-center justify-center rounded-md bg-accent py-2 active:opacity-80"
+                    onClick={handleArchive}
+                  >
+                    {archiveIcon}
+                  </button>
+                  <button
+                    className="flex w-full items-center justify-center rounded-md bg-secondary py-2 active:opacity-80"
+                    onClick={handleReset}
+                  >
+                    {arrowRoundIcon}
+                  </button>
+                </div>
               </div>
             </div>
-          )}
-          <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">
-            <button
-              className="flex w-full items-center justify-center rounded-md bg-primary py-2 active:opacity-80"
-              onClick={handleReset}
-            >
-              Reset
-            </button>
-          </div>
-        </div>
+          </>
+        ) : (
+          <>
+            <p className="text-lg italic">No more words to learn</p>
+            <div className="flex w-full items-stretch justify-evenly space-x-4 text-black">
+              <button
+                className="flex w-full items-center justify-center rounded-md bg-primary py-2 active:opacity-80"
+                onClick={handleReset}
+              >
+                Reset
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

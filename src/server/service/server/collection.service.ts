@@ -29,12 +29,6 @@ export async function deleteCollection(id: string) {
 
 /**
  *
- * @param translation
- * @param native
- * @param front
- * @param back
- * @param notes
- * @param tagIds
  * @param name
  * @param description
  */

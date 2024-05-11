@@ -48,14 +48,14 @@ export default function WordOfTheDay(props: Props) {
       <div className="flex-col items-center space-y-2 text-center">
         {wordToDisplay == null ? (
           wotdQuery.error ? (
-            <p className="text-3xl text-error">No word of the day available</p>
+            <p className="text-3xl text-error">No entry of the day available</p>
           ) : (
             <p className="text-3xl italic">Loading...</p>
           )
         ) : (
           <div className="flex h-60 w-full flex-col justify-center">
             <h1 className="mb-20 text-2xl tracking-tight">
-              Your Word of the Day
+              Your Entry of the Day
             </h1>
             <p className="text-3xl font-bold">{wordToDisplay.front}</p>
             <p className="text-xl">{wordToDisplay.back}</p>
