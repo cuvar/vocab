@@ -6,5 +6,13 @@
       "breadcrumb": false,
       "toc": false
     }
+  },
+  "getting-started": {
+    "title": "Getting started",
+    "theme": {
+      "typesetting": "article",
+      "breadcrumb": false,
+      "toc": false
+    }
   }
 }
