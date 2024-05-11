@@ -8,8 +8,6 @@ export type JsonImportWord = {
   back: string;
   notes: string;
   mode: PrismaLearnMode;
-  iconBack: string;
-  iconFront: string;
 };
 
 /**
@@ -38,12 +36,6 @@ export function isJsonImportWord(data: unknown): data is JsonImportWord {
     return false;
   }
   if (!LearnMode.validate(data.mode)) {
-    return false;
-  }
-  if (!isString(data.iconFront)) {
-    return false;
-  }
-  if (!isString(data.iconBack)) {
     return false;
   }
   return true;

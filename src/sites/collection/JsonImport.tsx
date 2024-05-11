@@ -40,10 +40,6 @@ export default function JsonImport(props: Props) {
               <br />
               &nbsp;&nbsp;&quot;back&quot;: &quot;reichlich&quot;,
               <br />
-              &nbsp;&nbsp;&quot;iconFront&quot;:&quot;🏴󠁧󠁢󠁥󠁮󠁧󠁿&quot;,
-              <br />
-              &nbsp;&nbsp;&quot;iconBack&quot;: &quot;🇩🇪&quot;,
-              <br />
               &nbsp;&nbsp;&quot;notes&quot;: &quot;any notes you want to have
               for your entry&quot;,
               <br />
