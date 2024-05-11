@@ -20,7 +20,8 @@ export default {
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <meta property="og:title" content="vocab" />
-      <meta property="og:description" content="A simple flash cards app for learning stuff" />
+      <meta property="og:description" content="A simple flash cards app for learning new stuff" />
+      <link rel="shortcut icon" href="/favicon.ico" />
     </>
   ),
   useNextSeoProps() {
