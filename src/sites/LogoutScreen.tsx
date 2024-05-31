@@ -1,5 +1,7 @@
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
+import { chevronDown } from "~/lib/ui/icons";
 
 export default function LogoutScreen() {
   function handleLogin() {
@@ -8,42 +10,129 @@ export default function LogoutScreen() {
     })();
   }
 
+  function handleScrollTo() {
+    const el = document.querySelector("#sec2");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }
   return (
-    <div className="flex h-full min-h-screen flex-col justify-between text-gray-100 ">
-      <div className="flex justify-end px-4 py-4">
-        <button className="btn-ghost btn" onClick={handleLogin}>
-          Sign in
-        </button>
-      </div>
-      <main className="bg-panal-500 flex h-full flex-col items-center px-5">
-        <div className="bg-panal-700 flex h-screen w-screen flex-col items-center justify-center sm:flex-row">
-          {/* left */}
-          <div className="flex h-full w-full flex-col justify-center space-y-10 px-10 ">
-            <h1 className="text-3xl font-semibold sm:text-4xl md:text-5xl">
-              vocab
-            </h1>
-            <h2 className="text-xl font-semibold sm:text-2xl md:text-3xl">
-              A self-hosted flash cards app for learning new stuff
-            </h2>
-            <div className="flex space-x-4">
-              <Link
-                href={"https://github.com/cuvar/vocab"}
-                className="underline hover:text-secondary"
-                target="_blank"
-              >
-                GitHub
-              </Link>
-              <Link
-                href={"https://vocab-docs.vercel.app"}
-                className="underline hover:text-secondary"
-                target="_blank"
-              >
-                Docs
-              </Link>
+    <div className="h-full text-gray-100">
+      <main className="flex h-full w-full flex-col items-center px-5">
+        <section className="mb-20 flex h-screen flex-col justify-around bg-[url('/res/landing-scene.svg')] bg-cover bg-center bg-no-repeat">
+          <div className="flex w-full justify-end px-4 py-4">
+            <button
+              className="btn-ghost btn text-base-300"
+              onClick={handleLogin}
+            >
+              Sign in
+            </button>
+          </div>
+          <div className="flex h-full w-screen flex-col items-center justify-center">
+            {/* left */}
+            <div className="flex h-full w-full flex-col justify-center space-y-10 px-10">
+              <h1 className="text-3xl font-semibold sm:text-4xl md:text-5xl">
+                vocab
+              </h1>
+              <h2 className="text-xl font-semibold sm:text-2xl md:text-3xl">
+                A self-hosted flash cards app for learning new stuff
+              </h2>
+              <div className="flex space-x-4">
+                <Link
+                  href={"https://github.com/cuvar/vocab"}
+                  className="underline hover:text-secondary"
+                  target="_blank"
+                >
+                  GitHub
+                </Link>
+                <Link
+                  href={"https://vocab-docs.vercel.app"}
+                  className="underline hover:text-secondary"
+                  target="_blank"
+                >
+                  Docs
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+          <div className="m-5 h-5 text-center active:text-secondary">
+            <button onClick={handleScrollTo}>{chevronDown}</button>
+          </div>
+        </section>
+        {/* images */}
+        <section className="my-10 w-full max-w-5xl py-10" id="sec2">
+          <div className="flex w-full flex-col space-y-20">
+            <div className="flex w-full items-center justify-between">
+              <div className="mx-20 flex w-full justify-center">
+                <p className="text-3xl font-bold text-primary">
+                  A simple flash cards mode...
+                </p>
+              </div>
+              <Image
+                src="/res/flash-cards.png"
+                width="500"
+                height="500"
+                alt=""
+                className="rounded-3xl border border-white p-2"
+              />
+            </div>
+            <div className="flex w-full items-center justify-between">
+              <Image
+                src="/res/list.png"
+                width="500"
+                height="500"
+                alt=""
+                className="rounded-3xl border border-white p-2"
+              />
+              <div className="mx-20 flex w-full justify-center">
+                <p className="text-3xl font-bold text-accent">
+                  lovely entry management...
+                </p>
+              </div>
+            </div>
+            <div className="flex w-full items-center justify-between">
+              <div className="mx-20 flex w-full justify-center">
+                <p className="text-3xl font-bold text-secondary">
+                  ...and lots of convenience features!
+                </p>
+              </div>
+              <Image
+                src="/res/generator.png"
+                width="500"
+                height="500"
+                alt=""
+                className="rounded-3xl border border-white p-2"
+              />
+            </div>
+            <div className="w-full py-20 text-center">
+              <p className="text-xl font-bold">
+                Check out the{" "}
+                <Link
+                  href={"https://vocab-docs.vercel.app"}
+                  className="underline hover:text-secondary"
+                  target="_blank"
+                >
+                  docs
+                </Link>
+                !
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
+      <footer className="w-full bg-base-200 py-10">
+        <div className="flex justify-center py-4">
+          <p className="text-sm">
+            Made with ❤️ by{" "}
+            <Link
+              href="https://github.com/cuvar"
+              className="underline hover:text-secondary"
+            >
+              cuvar
+            </Link>
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
