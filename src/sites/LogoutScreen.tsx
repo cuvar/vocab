@@ -18,8 +18,8 @@ export default function LogoutScreen() {
   }
   return (
     <div className="h-full text-gray-100">
-      <main className="flex h-full w-full flex-col items-center px-5">
-        <section className="mb-20 flex h-screen flex-col justify-around bg-[url('/res/landing-scene.svg')] bg-cover bg-center bg-no-repeat">
+      <main className="flex h-full w-full flex-col items-center">
+        <section className="mb-20 flex h-screen flex-col justify-around bg-[url('/res/landing-scene.svg')] bg-cover bg-center bg-no-repeat px-5">
           <div className="flex w-full justify-end px-4 py-4">
             <button
               className="btn-ghost btn text-base-300"
@@ -60,11 +60,11 @@ export default function LogoutScreen() {
           </div>
         </section>
         {/* images */}
-        <section className="my-10 w-full max-w-5xl py-10" id="sec2">
-          <div className="flex w-full flex-col space-y-20">
-            <div className="flex w-full items-center justify-between">
-              <div className="mx-20 flex w-full justify-center">
-                <p className="text-3xl font-bold text-primary">
+        <section className="my-5 w-full max-w-5xl py-10 px-5" id="sec2">
+          <div className="flex w-full flex-col space-y-20 px-6">
+            <div className="flex w-full flex-col items-center justify-between md:flex-row">
+              <div className="my-10 flex w-full justify-center md:mx-4 md:my-0 lg:mx-20">
+                <p className="text-center text-3xl font-bold text-primary">
                   A simple flash cards mode...
                 </p>
               </div>
@@ -76,7 +76,7 @@ export default function LogoutScreen() {
                 className="rounded-3xl border border-white p-2"
               />
             </div>
-            <div className="flex w-full items-center justify-between">
+            <div className="flex w-full flex-col-reverse items-center justify-between md:flex-row">
               <Image
                 src="/res/list.png"
                 width="500"
@@ -84,15 +84,15 @@ export default function LogoutScreen() {
                 alt=""
                 className="rounded-3xl border border-white p-2"
               />
-              <div className="mx-20 flex w-full justify-center">
-                <p className="text-3xl font-bold text-accent">
+              <div className="my-10 flex w-full justify-center md:mx-4 md:my-0 lg:mx-20">
+                <p className="text-center text-3xl font-bold text-accent">
                   lovely entry management...
                 </p>
               </div>
             </div>
-            <div className="flex w-full items-center justify-between">
-              <div className="mx-20 flex w-full justify-center">
-                <p className="text-3xl font-bold text-secondary">
+            <div className="flex w-full flex-col items-center justify-between md:flex-row">
+              <div className="my-10 flex w-full justify-center md:my-0 md:mx-4 lg:mx-20">
+                <p className="text-center text-3xl font-bold text-secondary">
                   ...and lots of convenience features!
                 </p>
               </div>
@@ -104,20 +104,20 @@ export default function LogoutScreen() {
                 className="rounded-3xl border border-white p-2"
               />
             </div>
-            <div className="w-full py-20 text-center">
-              <p className="text-xl font-bold">
-                Check out the{" "}
-                <Link
-                  href={"https://vocab-docs.vercel.app"}
-                  className="underline hover:text-secondary"
-                  target="_blank"
-                >
-                  docs
-                </Link>
-                !
-              </p>
-            </div>
           </div>
+        </section>
+        <section className="w-full py-20 text-center">
+          <p className="text-xl font-bold">
+            Check out the{" "}
+            <Link
+              href={"https://vocab-docs.vercel.app"}
+              className="underline hover:text-secondary"
+              target="_blank"
+            >
+              docs
+            </Link>
+            !
+          </p>
         </section>
       </main>
       <footer className="w-full bg-base-200 py-10">
